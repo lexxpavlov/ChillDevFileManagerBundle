@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# This file is part of the ChillDev FileManager bundle.
+#
+# @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
+# @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
+# @version 0.0.1
+# @since 0.0.1
+# @package ChillDev\Bundle\FileManagerBundle
+-->
+<phpunit
+    colors="true"
+    bootstrap="vendor/autoload.php"
+    strict="true"
+>
+    <!-- test suites definitions -->
+    <testsuites>
+        <testsuite name="ChillDev FileManager Bundle">
+            <directory>./Tests</directory>
+            <exclude>./vendor</exclude>
+        </testsuite>
+    </testsuites>
+
+    <!-- code coverage configuration -->
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./</directory>
+            <exclude>
+                <directory suffix=".php">./Resources</directory>
+                <directory suffix=".php">./Tests</directory>
+                <directory suffix=".php">./vendor</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
+    <!-- logging settings -->
+    <logging>
+        <log
+            type="coverage-html"
+            target="Resources/doc/coverage"
+            charset="utf-8"
+            highlight="true"
+        />
+    </logging>
+</phpunit>
