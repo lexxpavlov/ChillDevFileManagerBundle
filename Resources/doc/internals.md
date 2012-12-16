@@ -40,3 +40,13 @@ There is also meta-target `all` which executes `check`, `lint`, `tests` and `doc
 ## Continous integration
 
 This project uses [Travis-CI](https://travis-ci.org/) as it's [continous intergation](https://travis-ci.org/chilloutdevelopment/ChillDevFileManagerBundle) environment. It is configured to evaluate `check`, `lint` and `tests` targets to ensure code matches quality standards.
+
+# Why not…
+
+## …use mount-style flow
+
+Because it would be hard to apply. Mounts within web manager would not be applied to real filesystem so it could lead to conflicts. Imagine you use `/var/www/` as your root and define `/var/log/nginx/` to be mounted as `/logs/`. If you then create `/var/www/logs/` we could have a problem to solve - so at least for now it's better to avoid the problem as we have much more in ToDo list.
+
+## …use [Gaufrette](https://github.com/KnpLabs/Gaufrette)
+
+Because it works like a key-value store. It lacks tree traversing flow. It's nice if you need to support single directory abstraction, but not for file-managing purpose.
