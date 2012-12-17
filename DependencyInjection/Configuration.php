@@ -41,7 +41,6 @@ class Configuration implements ConfigurationInterface
             ->fixXmlConfig('disk')
             ->children()
                 ->arrayNode('disks')
-                    ->isRequired()
                     ->useAttributeAsKey('id')
                     ->prototype('array')
                         ->children()

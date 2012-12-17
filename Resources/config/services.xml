@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# This file is part of the ChillDev FileManager bundle.
+#
+# @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
+# @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
+# @version 0.0.1
+# @since 0.0.1
+# @package ChillDev\Bundle\FileManagerBundle
+-->
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <!-- classes definition -->
+        <parameter key="chilldev.filemanager.disks.manager.class">ChillDev\Bundle\FileManagerBundle\Filesystem\Manager</parameter>
+    </parameters>
+
+    <services>
+        <!-- disks manager -->
+        <service id="chilldev.filemanager.disks.manager" class="%chilldev.filemanager.disks.manager.class%"/>
+    </services>
+</container>

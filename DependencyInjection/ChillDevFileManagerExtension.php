@@ -12,7 +12,9 @@
 
 namespace ChillDev\Bundle\FileManagerBundle\DependencyInjection;
 
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
@@ -33,7 +35,19 @@ class ChillDevFileManagerExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        //TODO: handle configuration
+        $configuration = new Configuration();
+        $config = $this->processConfiguration($configuration, $configs);
+
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+
+        // disks services
+        $loader->load('services.xml');
+
+        // disks definitions
+        $manager = $container->getDefinition('chilldev.filemanager.disks.manager');
+        foreach ($config['disks'] as $id => $disk) {
+            $manager->addMethodCall('append', [$id, $disk['label'], $disk['source']]);
+        }
     }
 
     /**

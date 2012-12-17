@@ -57,4 +57,77 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($extension->getAlias(), $this->tree->getName(), 'Configuretion::getConfigTreeBuilder() should return node matching bundle\'s extension alias.');
     }
+
+    /**
+     * Check multiple disks handling.
+     *
+     * @test
+     * @version 0.0.1
+     * @since 0.0.1
+     */
+    public function multipleDisksDefinition()
+    {
+        $label1 = 'foo';
+        $source1 = 'bar';
+        $label2 = 'baz';
+        $source2 = 'qux';
+
+        $config = $this->tree->finalize($this->tree->normalize([
+                    'disks' => [
+                        'test1' => [
+                            'label' => $label1,
+                            'source' => $source1,
+                        ],
+                        'test2' => [
+                            'label' => $label2,
+                            'source' => $source2,
+                        ],
+                    ],
+        ]));
+
+        $this->assertEquals($label1, $config['disks']['test1']['label'], 'Configuration should handle key disks.$n.label for each link definition.');
+        $this->assertEquals($source1, $config['disks']['test1']['source'], 'Configuration should handle key disks.$n.source for each link definition.');
+        $this->assertEquals($label2, $config['disks']['test2']['label'], 'Configuration should handle key disks.$n.label for each link definition.');
+        $this->assertEquals($source2, $config['disks']['test2']['source'], 'Configuration should handle key disks.$n.source for each link definition.');
+    }
+
+    /**
+     * Check requirement constraint on "label" property of disk definition.
+     *
+     * @test
+     * @expectedException Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+     * @expectedExceptionMessage The child node "label" at path "chilldev_filemanager.disks.test" must be configured.
+     * @version 0.0.1
+     * @since 0.0.1
+     */
+    public function requiredDiskLabel()
+    {
+        $config = $this->tree->finalize($this->tree->normalize([
+                    'disks' => [
+                        'test' => [
+                            'source' => 'foo',
+                        ],
+                    ],
+        ]));
+    }
+
+    /**
+     * Check requirement constraint on "source" property of disk definition.
+     *
+     * @test
+     * @expectedException Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+     * @expectedExceptionMessage The child node "source" at path "chilldev_filemanager.disks.test" must be configured.
+     * @version 0.0.1
+     * @since 0.0.1
+     */
+    public function requiredDiskSource()
+    {
+        $config = $this->tree->finalize($this->tree->normalize([
+                    'disks' => [
+                        'test' => [
+                            'label' => 'foo',
+                        ],
+                    ],
+        ]));
+    }
 }
