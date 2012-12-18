@@ -14,10 +14,21 @@
     <parameters>
         <!-- classes definition -->
         <parameter key="chilldev.filemanager.disks.manager.class">ChillDev\Bundle\FileManagerBundle\Filesystem\Manager</parameter>
+        <parameter key="chilldev.filemanager.templating.engine.config.class">ChillDev\Bundle\FileManagerBundle\Templating\ConfigEngine</parameter>
+
+        <parameter key="chilldev.filemanager.templating.engine">php</parameter>
     </parameters>
 
     <services>
         <!-- disks manager -->
         <service id="chilldev.filemanager.disks.manager" class="%chilldev.filemanager.disks.manager.class%"/>
+
+        <!-- templating engine -->
+        <service id="templating.engine.config" class="%chilldev.filemanager.templating.engine.config.class%">
+            <!-- can't use templating service directly since it will cause circural dependency -->
+            <argument type="service" id="service_container"/>
+            <argument type="service" id="templating.name_parser"/>
+            <argument>%chilldev.filemanager.templating.engine%</argument>
+        </service>
     </services>
 </container>

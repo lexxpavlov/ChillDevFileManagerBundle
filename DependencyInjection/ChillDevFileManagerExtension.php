@@ -46,7 +46,12 @@ class ChillDevFileManagerExtension extends Extension
         // disks definitions
         $manager = $container->getDefinition('chilldev.filemanager.disks.manager');
         foreach ($config['disks'] as $id => $disk) {
-            $manager->addMethodCall('append', [$id, $disk['label'], $disk['source']]);
+            $manager->addMethodCall('createDisk', [$id, $disk['label'], $disk['source']]);
+        }
+
+        // set templating parameter
+        if (isset($config['templating'])) {
+            $container->setParameter('chilldev.filemanager.templating.engine', $config['templating']);
         }
     }
 

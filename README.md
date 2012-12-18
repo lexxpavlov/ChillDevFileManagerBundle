@@ -48,9 +48,29 @@ class Kernel extends BaseKernel
 }
 ```
 
+Include bundle routes:
+
+```yaml
+ChillDevFileManagerBundle:
+    resource: "@ChillDevFileManagerBundle/Controller/"
+    type: "annotation"
+    prefix: "/filemanager"
+```
+
+Enabe templating switching:
+
+```yaml
+framework:
+    templating:
+        engines:
+            - "twig"
+            - "php"
+            - "config" # you need to add this engine to your configuration
+```
+
 And then configure your disks:
 
-```
+```yaml
 chilldev_filemanager:
     disks:
         disk_id:
@@ -59,10 +79,6 @@ chilldev_filemanager:
 ```
 
 See [configuration options](https://github.com/chilloutdevelopment/ChillDevFileManagerBundle/tree/master/Resources/doc/configuration.md) for details.
-
-# Usage
-
-<!--- TODO -->
 
 # Resources
 

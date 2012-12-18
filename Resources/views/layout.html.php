@@ -10,4 +10,4 @@
  * @package ChillDev\Bundle\FileManagerBundle
  */
 
-echo $view['slots']->output('_content');
+$view['slots']->output('_content');

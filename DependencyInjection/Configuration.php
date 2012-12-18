@@ -53,6 +53,8 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
+                ->scalarNode('templating')
+                ->end()
             ->end();
 
         return $treeBuilder;

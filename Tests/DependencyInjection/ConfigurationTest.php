@@ -85,10 +85,10 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase
                     ],
         ]));
 
-        $this->assertEquals($label1, $config['disks']['test1']['label'], 'Configuration should handle key disks.$n.label for each link definition.');
-        $this->assertEquals($source1, $config['disks']['test1']['source'], 'Configuration should handle key disks.$n.source for each link definition.');
-        $this->assertEquals($label2, $config['disks']['test2']['label'], 'Configuration should handle key disks.$n.label for each link definition.');
-        $this->assertEquals($source2, $config['disks']['test2']['source'], 'Configuration should handle key disks.$n.source for each link definition.');
+        $this->assertEquals($label1, $config['disks']['test1']['label'], 'Configuration should handle key disks.$n.label for each disk definition.');
+        $this->assertEquals($source1, $config['disks']['test1']['source'], 'Configuration should handle key disks.$n.source for each disk definition.');
+        $this->assertEquals($label2, $config['disks']['test2']['label'], 'Configuration should handle key disks.$n.label for each disk definition.');
+        $this->assertEquals($source2, $config['disks']['test2']['source'], 'Configuration should handle key disks.$n.source for each disk definition.');
     }
 
     /**
@@ -129,5 +129,23 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase
                         ],
                     ],
         ]));
+    }
+
+    /**
+     * Check handling of templating engine switching.
+     *
+     * @test
+     * @version 0.0.1
+     * @since 0.0.1
+     */
+    public function templatingEngineDefinition()
+    {
+        $value = 'foo';
+
+        $config = $this->tree->finalize($this->tree->normalize([
+                    'templating' => $value,
+        ]));
+
+        $this->assertEquals($value, $config['templating'], 'Configuration should handle key templating.');
     }
 }

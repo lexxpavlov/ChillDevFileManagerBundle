@@ -30,15 +30,18 @@
         }
     ],
     "require": {
-        "php": ">=5.4"
+        "php": ">=5.4",
+        "symfony/config": "2.1.*",
+        "symfony/dependency-injection": "2.1.*",
+        "symfony/framework-bundle": "2.1.*",
+        "symfony/http-foundation": "2.1.*",
+        "symfony/http-kernel": "2.1.*",
+        "sensio/framework-extra-bundle": "2.1.*"
     },
     "require-dev": {
         "ext-xsl": "*",
         "phpunit/phpunit": "3.7.*",
-        "squizlabs/php_codesniffer": "dev-master",
-        "symfony/config": "2.1.*",
-        "symfony/dependency-injection": "2.1.*",
-        "symfony/http-kernel": "2.1.*"
+        "squizlabs/php_codesniffer": "dev-master"
     },
     "autoload": {
         "psr-0": {

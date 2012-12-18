@@ -14,6 +14,8 @@ namespace ChillDev\Bundle\FileManagerBundle\Filesystem;
 
 use ArrayObject;
 
+use ChillDev\Bundle\FileManagerBundle\Filesystem\Disk;
+
 /**
  * Disks manager.
  *
@@ -25,4 +27,20 @@ use ArrayObject;
  */
 class Manager extends ArrayObject
 {
+    /**
+     * Creates new disk reference.
+     *
+     * @param string $id Disk identifier.
+     * @param string $label Disk label.
+     * @param string $source Destination directory.
+     * @return self Self instance.
+     * @version 0.0.1
+     * @since 0.0.1
+     */
+    public function createDisk($id, $label, $source)
+    {
+        $this[$id] = new Disk($id, $label, $source);
+
+        return $this;
+    }
 }
