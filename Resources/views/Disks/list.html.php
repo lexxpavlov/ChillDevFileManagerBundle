@@ -12,11 +12,13 @@
 
 $view->extend('ChillDevFileManagerBundle::layout.html.php');
 
+$view['title']->append($view['translator']->trans('Disks list'));
+
 ?>
 <?php if (\count($disks) > 0): ?>
     <ul>
-        <?php foreach ($disks as $disk): ?>
-            <li><?php /*TODO: browse link*/?><?php echo $view->escape($disk); ?></li>
+        <?php foreach ($disks as $id => $disk): ?>
+            <li><a href="<?php echo $view['router']->generate('chilldev_filemanager_disks_browse', ['disk' => $id]); ?>"><?php echo $view->escape($disk); ?></a></li>
         <?php endforeach; ?>
     </ul>
 <?php else: ?>

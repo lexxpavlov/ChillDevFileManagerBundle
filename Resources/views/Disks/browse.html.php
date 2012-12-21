@@ -1,0 +1,59 @@
+<?php
+
+/**
+ * Directory listing.
+ *
+ * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
+ * @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.0.1
+ * @since 0.0.1
+ * @package ChillDev\Bundle\FileManagerBundle
+ */
+
+$view->extend('ChillDevFileManagerBundle::layout.html.php');
+
+$view['title']->append($view['translator']->trans('Browsing path %disk%/%path%', ['%disk%' => $disk, '%path%' => $path]));
+
+?>
+<h1><a href="<?php echo $view['router']->generate('chilldev_filemanager_disks_list'); ?>"><?php echo $view['translator']->trans('File manager'); ?></a> » <a href="<?php echo $view['router']->generate('chilldev_filemanager_disks_browse', ['disk' => $disk->getId(), 'path' => $path]); ?>"><?php echo $view->escape($disk . '/' . $path); ?></a></h1>
+
+<table>
+    <thead>
+        <tr>
+            <th><?php echo $view['translator']->trans('Filename'); ?></th>
+            <th><?php echo $view['translator']->trans('Size'); ?></th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <?php if (!empty($path)): ?>
+            <tr>
+                <td colspan="3"><a href="<?php echo $view['router']->generate('chilldev_filemanager_disks_browse', ['disk' => $disk->getId(), 'path' => \dirname($path)]); ?>">..</a></td>
+            </tr>
+        <?php endif; ?>
+        <?php if (\count($list) > 0): ?>
+            <?php foreach ($list as $file => $info): ?>
+                <tr>
+                    <td>
+                        <?php if ($info['isDirectory']): ?>
+                            <a href="<?php echo $view['router']->generate('chilldev_filemanager_disks_browse', ['disk' => $disk->getId(), 'path' => $info['path']]); ?>"><?php echo $view->escape($file); ?></a>
+                        <?php else: ?>
+                            <?php echo $view->escape($file); ?>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php if (isset($info['size'])): ?>
+                            <?php echo $info['size']; ?>
+                        <?php endif; ?>
+                    </td>
+                    <td><?php /*actions*/ ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr>
+                <td colspan="3"><?php echo $view['translator']->trans('This directory is empty.'); ?></td>
+            <tr>
+        <?php endif; ?>
+    </tbody>
+</table>

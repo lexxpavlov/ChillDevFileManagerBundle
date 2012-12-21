@@ -10,4 +10,6 @@
  * @package ChillDev\Bundle\FileManagerBundle
  */
 
+$view['title']->append($view['translator']->trans('File manager'));
+
 $view['slots']->output('_content');
