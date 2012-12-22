@@ -47,7 +47,13 @@ $view['title']->append($view['translator']->trans('Browsing path %disk%/%path%',
                             <?php echo $info['size']; ?>
                         <?php endif; ?>
                     </td>
-                    <td><?php /*actions*/ ?></td>
+                    <td>
+                        <?php if (!$info['isDirectory']): ?>
+                            <form action="<?php echo $view['router']->generate('chilldev_filemanager_files_delete', ['disk' => $disk->getId(), 'path' => $info['path']]); ?>" method="post">
+                                <input type="submit" value="<?php echo $view['translator']->trans('Delete'); ?>"/>
+                            </form>
+                        <?php endif; ?>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>

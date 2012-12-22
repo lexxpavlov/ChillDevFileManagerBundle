@@ -16,6 +16,7 @@ use DateTime;
 
 use ChillDev\Bundle\FileManagerBundle\Filesystem\Disk;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -40,7 +41,7 @@ class FilesController extends Controller
      * File download action.
      *
      * @Route(
-     *      "/{disk}/{path}",
+     *      "/download/{disk}/{path}",
      *      name="chilldev_filemanager_files_download",
      *      requirements={"path"=".*"}
      *  )
@@ -109,5 +110,73 @@ class FilesController extends Controller
             }
         );
         return $response;
+    }
+
+    /**
+     * File delete action.
+     *
+     * @Route(
+     *      "/delete/{disk}/{path}",
+     *      name="chilldev_filemanager_files_delete",
+     *      requirements={"path"=".*"}
+     *  )
+     * @Method("POST")
+     * @param Disk $disk Disk scope.
+     * @param string $path Destination directory.
+     * @return Symfony\Component\HttpFoundation\RedirectResponse Redirect to browse view.
+     * @version 0.0.1
+     * @since 0.0.1
+     */
+    public function deleteAction(Disk $disk, $path)
+    {
+        // make sure it's absolute path
+        $path = '/' . $path;
+
+        // resolve all symbolic references
+        $path = \preg_replace('#//+#', '/', $path);
+        while (\preg_match('#/([^/]+/\\.)?\\./#', $path, $match, \PREG_OFFSET_CAPTURE) > 0) {
+            $path = \substr_replace($path, '/', $match[0][1], \strlen($match[0][0]));
+        }
+
+        // reference outside disk scope
+        if (\strpos($path, '/../') !== false) {
+            throw new HttpException(400, 'File path contains invalid reference that exceeds disk scope.');
+        }
+
+        $path = \substr($path, 1);
+
+        // access file - very primitive way for now, needs abstraction in future
+        $realpath = \realpath($disk->getSource() . $path);
+
+        // non-existing path
+        if (!$realpath) {
+            throw new NotFoundHttpException(\sprintf('File "%s/%s" does not exist.', $disk, $path));
+        }
+
+        if (!\is_file($realpath)) {
+            throw new HttpException(
+                400,
+                \sprintf('"%s/%s" is not a regular file that can be deleted.', $disk, $path)
+            );
+        }
+
+        \unlink($realpath);
+
+        $this->get('logger')->info(
+            \sprintf('File "%s/%s" deleted by user "%s".', $disk, $path, $this->getUser()),
+            ['realpath' => $realpath, 'scope' => $disk->getSource()]
+        );
+        $this->get('session')->getFlashBag()->add(
+            'done',
+            $this->get('translator')->trans('"%file%" has been deleted.', ['%file%' => $path])
+        );
+
+        // move back to directory view
+        return $this->redirect(
+            $this->generateUrl(
+                'chilldev_filemanager_disks_browse',
+                ['disk' => $disk->getId(), 'path' => \dirname($path)]
+            )
+        );
     }
 }
