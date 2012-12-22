@@ -76,7 +76,7 @@ class DisksControllerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Check default path parameter.
+     * Check directory listing.
      *
      * @test
      * @version 0.0.1
@@ -115,6 +115,34 @@ class DisksControllerTest extends PHPUnit_Framework_TestCase
     public function browseInvalidPath()
     {
         (new DisksController())->browseAction(new Disk('', '', ''), '/foo/../../');
+    }
+
+    /**
+     * Check non-existing path.
+     *
+     * @test
+     * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @expectedExceptionMessage Directory "[Foo]/test/" does not exist.
+     * @version 0.0.1
+     * @since 0.0.1
+     */
+    public function browseNonexistingPath()
+    {
+        (new DisksController())->browseAction(new Disk('', 'Foo', ''), 'test');
+    }
+
+    /**
+     * Check non-directory path.
+     *
+     * @test
+     * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
+     * @expectedExceptionMessage "[Test]/foo/" is not a directory.
+     * @version 0.0.1
+     * @since 0.0.1
+     */
+    public function browseNondirectoryPath()
+    {
+        (new DisksController())->browseAction($this->manager['id'], 'foo');
     }
 
     /**

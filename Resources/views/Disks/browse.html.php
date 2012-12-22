@@ -39,7 +39,7 @@ $view['title']->append($view['translator']->trans('Browsing path %disk%/%path%',
                         <?php if ($info['isDirectory']): ?>
                             <a href="<?php echo $view['router']->generate('chilldev_filemanager_disks_browse', ['disk' => $disk->getId(), 'path' => $info['path']]); ?>"><?php echo $view->escape($file); ?></a>
                         <?php else: ?>
-                            <?php echo $view->escape($file); ?>
+                            <a href="<?php echo $view['router']->generate('chilldev_filemanager_files_download', ['disk' => $disk->getId(), 'path' => $info['path']]); ?>"><?php echo $view->escape($file); ?></a>
                         <?php endif; ?>
                     </td>
                     <td>

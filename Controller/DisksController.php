@@ -62,6 +62,8 @@ class DisksController extends Controller
      * @param Disk $disk Disk scope.
      * @param string $path Destination directory.
      * @return array Template data.
+     * @throws HttpException When requested path is invalid or is not a directory.
+     * @throws NotFoundHttpException When requested path does not exist.
      * @version 0.0.1
      * @since 0.0.1
      */
@@ -85,7 +87,17 @@ class DisksController extends Controller
         $list = [];
 
         // list directory content - very primitive way for now, needs abstraction in future
-        $realpath = \realpath($disk->getSource() . $path);
+        $realpath = \realpath($disk->getSource() . \rtrim($path, '/'));
+
+        // non-existing path
+        if (!$realpath) {
+            throw new NotFoundHttpException(\sprintf('Directory "%s/%s" does not exist.', $disk, $path));
+        }
+
+        if (!\is_dir($realpath)) {
+            throw new HttpException(400, \sprintf('"%s/%s" is not a directory.', $disk, $path));
+        }
+
         $directory = new FilesystemIterator(
             $realpath,
             FilesystemIterator::KEY_AS_FILENAME
