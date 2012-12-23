@@ -35,7 +35,10 @@ This project utilizes `make` as primary build automation tool. It's `Makefile` d
 -   `tests` - runs all unit tests and generate coverage report with [phpUnit](http://www.phpunit.de/manual/current/en/index.html);
 -   `documentation` - generates project API documentation with [phpDocumentor](http://www.phpdoc.org/).
 
-There is also meta-target `all` which executes `check`, `lint`, `tests` and `documentation` subsequently. It is run by default.
+There are also meta-targets:
+
+-   `all` which executes `check`, `lint`, `tests` and `documentation` subsequently (it is run by default);
+-   `ci` which executes `check`, `lint` and `tests` (set of QA targets).
 
 ## Continous integration
 

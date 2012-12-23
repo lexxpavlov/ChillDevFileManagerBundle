@@ -19,7 +19,9 @@ PHPUNIT = ./vendor/bin/phpunit
 
 default: all
 
-all: check lint tests documentation
+all: ci documentation
+
+ci: check lint tests
 
 # project initialization
 init:
