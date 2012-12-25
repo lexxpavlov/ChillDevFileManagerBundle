@@ -100,7 +100,7 @@ class DisksControllerTest extends PHPUnit_Framework_TestCase
 
         $file = $return['list']['quux'];
         $this->assertTrue($file['isDirectory'], 'DisksController::browseAction() should set "isDirectory" flag to true for directory entries.');
-        $this->assertFalse(isset($file['size']), 'DisksController::browseAction() should not set "size" field for directory entries.');
+        $this->assertArrayNotHasKey('size', $file, 'DisksController::browseAction() should not set "size" field for directory entries.');
     }
 
     /**
@@ -122,7 +122,7 @@ class DisksControllerTest extends PHPUnit_Framework_TestCase
      *
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @expectedExceptionMessage Directory "[Foo]/test/" does not exist.
+     * @expectedExceptionMessage Directory "[Foo]/test" does not exist.
      * @version 0.0.1
      * @since 0.0.1
      */
@@ -136,7 +136,7 @@ class DisksControllerTest extends PHPUnit_Framework_TestCase
      *
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
-     * @expectedExceptionMessage "[Test]/foo/" is not a directory.
+     * @expectedExceptionMessage "[Test]/foo" is not a directory.
      * @version 0.0.1
      * @since 0.0.1
      */

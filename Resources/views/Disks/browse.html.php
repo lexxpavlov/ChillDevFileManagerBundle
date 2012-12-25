@@ -17,6 +17,10 @@ $view['title']->append($view['translator']->trans('Browsing path %disk%/%path%',
 ?>
 <h1><a href="<?php echo $view['router']->generate('chilldev_filemanager_disks_list'); ?>"><?php echo $view['translator']->trans('File manager'); ?></a> » <a href="<?php echo $view['router']->generate('chilldev_filemanager_disks_browse', ['disk' => $disk->getId(), 'path' => $path]); ?>"><?php echo $view->escape($disk . '/' . $path); ?></a></h1>
 
+<menu>
+    <li><a href="<?php echo $view['router']->generate('chilldev_filemanager_files_mkdir', ['disk' => $disk->getId(), 'path' => $path]); ?>"><?php echo $view['translator']->trans('Create directory'); ?></a></li>
+</menu>
+
 <table>
     <thead>
         <tr>

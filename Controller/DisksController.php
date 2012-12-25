@@ -83,11 +83,11 @@ class DisksController extends Controller
             throw new HttpException(400, 'Directory path contains invalid reference that exceeds disk scope.');
         }
 
-        $path = \substr($path, 1);
+        $path = \substr($path, 1, -1);
         $list = [];
 
         // list directory content - very primitive way for now, needs abstraction in future
-        $realpath = \realpath($disk->getSource() . \rtrim($path, '/'));
+        $realpath = \realpath($disk->getSource() . $path);
 
         // non-existing path
         if (!$realpath) {
@@ -108,7 +108,7 @@ class DisksController extends Controller
         foreach ($directory as $file => $info) {
             $data = [
                 'isDirectory' => $info->isDir(),
-                'path' => $path . $file,
+                'path' => $path . '/' . $file,
             ];
 
             // directories doesn't have size
@@ -119,6 +119,6 @@ class DisksController extends Controller
             $list[$file] = $data;
         }
 
-        return ['disk' => $disk, 'path' => \substr($path, 0, -1), 'list' => $list];
+        return ['disk' => $disk, 'path' => $path, 'list' => $list];
     }
 }
