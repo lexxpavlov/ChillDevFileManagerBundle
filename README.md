@@ -3,7 +3,7 @@
 #
 # @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
 # @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
-# @version 0.0.1
+# @version 0.0.2
 # @since 0.0.1
 # @package ChillDev\Bundle\FileManagerBundle
 -->
@@ -89,6 +89,7 @@ See [configuration options](https://github.com/chilloutdevelopment/ChillDevFileM
 -   [Packagist package](https://packagist.org/packages/chilldev/file-manager-bundle)
 -   [Chillout Development @ GitHub](https://github.com/chilloutdevelopment)
 -   [Chillout Development @ Facebook](http://www.facebook.com/chilldev)
+-   [Post on Wrzasq.pl](http://wrzasq.pl/blog/chilldevfilemanagerbundle-filemanager-frontend-bundle-for-symfony-2.html)
 
 # Contributing
 
