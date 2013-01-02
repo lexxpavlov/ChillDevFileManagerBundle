@@ -4,18 +4,17 @@
  * This file is part of the ChillDev FileManager bundle.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.1
+ * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.0.2
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
 
 namespace ChillDev\Bundle\FileManagerBundle\Tests\Request\ParamConverter;
 
-use PHPUnit_Framework_TestCase;
-
 use ChillDev\Bundle\FileManagerBundle\Filesystem\Manager;
 use ChillDev\Bundle\FileManagerBundle\Request\ParamConverter\DiskParamConverter;
+use ChillDev\Bundle\FileManagerBundle\Tests\BaseManagerTest;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
@@ -23,20 +22,13 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.1
+ * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.0.2
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
-class DiskParamConverterTest extends PHPUnit_Framework_TestCase
+class DiskParamConverterTest extends BaseManagerTest
 {
-    /**
-     * @var Manager
-     * @version 0.0.1
-     * @since 0.0.1
-     */
-    protected $manager;
-
     /**
      * @var DiskParamConverter
      * @version 0.0.1
@@ -45,13 +37,12 @@ class DiskParamConverterTest extends PHPUnit_Framework_TestCase
     protected $converter;
 
     /**
-     * @version 0.0.1
+     * @version 0.0.2
      * @since 0.0.1
      */
     protected function setUp()
     {
-        $this->manager = new Manager();
-        $this->manager->createDisk('id', 'test', 'foo');
+        parent::setUp();
 
         $this->converter = new DiskParamConverter($this->manager);
     }

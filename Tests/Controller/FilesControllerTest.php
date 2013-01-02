@@ -4,8 +4,8 @@
  * This file is part of the ChillDev FileManager bundle.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.1
+ * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.0.2
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -15,127 +15,125 @@ namespace ChillDev\Bundle\FileManagerBundle\Tests\Controller;
 use DateTime;
 use DateTimeZone;
 
-use PHPUnit_Framework_TestCase;
-
 use ChillDev\Bundle\FileManagerBundle\Controller\FilesController;
 use ChillDev\Bundle\FileManagerBundle\Filesystem\Disk;
-use ChillDev\Bundle\FileManagerBundle\Filesystem\Manager;
+use ChillDev\Bundle\FileManagerBundle\Tests\BaseContainerTest;
 
-use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\Form\FormFactory;
-use Symfony\Component\Form\FormRegistry;
-use Symfony\Component\Form\ResolvedFormTypeFactory;
-use Symfony\Component\Form\Extension\Core\CoreExtension;
-use Symfony\Component\Form\Extension\HttpFoundation\HttpFoundationExtension;
-use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
-use Symfony\Component\Validator\ConstraintValidatorFactory;
-use Symfony\Component\Validator\Validator;
-use Symfony\Component\Validator\Mapping\ClassMetadataFactory;
 
 /**
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.1
+ * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.0.2
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
-class FilesControllerTest extends PHPUnit_Framework_TestCase
+class FilesControllerTest extends BaseContainerTest
 {
     /**
-     * DI container.
-     *
-     * @var Container
-     * @version 0.0.1
-     * @since 0.0.1
-     */
-    protected $container;
-
-    /**
-     * Disks manager.
-     *
-     * @var Manager
-     * @version 0.0.1
-     * @since 0.0.1
-     */
-    protected $manager;
-
-    /**
-     * @var MockRouter
-     * @version 0.0.1
+     * @var Symfony\Component\Routing\RouterInterface
+     * @version 0.0.2
      * @since 0.0.1
      */
     protected $router;
 
     /**
-     * @var MockLogger
-     * @version 0.0.1
+     * @var Symfony\Bridge\Monolog\Logger
+     * @version 0.0.2
      * @since 0.0.1
      */
     protected $logger;
 
     /**
-     * @var MockTemplating
-     * @version 0.0.1
+     * @var Symfony\Bundle\FrameworkBundle\Templating\EngineInterface
+     * @version 0.0.2
      * @since 0.0.1
      */
     protected $templating;
 
     /**
-     * @version 0.0.1
-     * @since 0.0.1
+     * @var Request
+     * @version 0.0.2
+     * @since 0.0.2
      */
-    protected function setUp()
+    protected $request;
+
+    /**
+     * @var Disk
+     * @version 0.0.2
+     * @since 0.0.2
+     */
+    protected $user;
+
+    /**
+     * @var Symfony\Component\HttpFoundation\Session\Session
+     * @version 0.0.2
+     * @since 0.0.2
+     */
+    protected $session;
+
+    /**
+     * @version 0.0.2
+     * @since 0.0.2
+     */
+    protected function setUpContainer()
     {
-        $this->container = new Container();
-        $this->manager = new Manager();
-        $this->manager->createDisk('id', 'Test', \realpath(__DIR__ . '/../fixtures/fs') . '/');
+        parent::setUpContainer();
 
-        $this->container->set('chilldev.filemanager.disks.manager', $this->manager);
-
-        $this->router = new MockRouter();
+        $this->router = $this->getMock('Symfony\\Component\\Routing\\RouterInterface');
         $this->container->set('router', $this->router);
 
-        $this->logger = new MockLogger();
+        $this->logger = $this->getMock('Symfony\\Bridge\\Monolog\\Logger', [], [], '', false);
         $this->container->set('logger', $this->logger);
 
-        $this->templating = new MockTemplating();
+        $this->templating = $this->getMock('Symfony\\Bundle\\FrameworkBundle\\Templating\\EngineInterface');
         $this->container->set('templating', $this->templating);
 
-        $this->container->set('translator', new MockTranslator());
+        $this->user = $user = new Disk('user', '', '');
+        $token = $this->getMock('Symfony\\Component\\Security\\Core\\Authentication\\Token\\TokenInterface');
+        $token->expects($this->any())
+            ->method('getUser')
+            ->will($this->returnCallback(function() use ($user) {
+                        return $user;
+            }));
 
-        $resolvedTypeFactory = new ResolvedFormTypeFactory();
+        $security = $this->getMock('Symfony\\Component\\Security\\Core\\SecurityContext', null, [], '', false);
+        $security->setToken($token);
+        $this->container->set('security.context', $security);
 
-        // create value validator
-        $validator = new Validator(
-            new ClassMetadataFactory(),
-            new ConstraintValidatorFactory()
-        );
+        $this->session = $this->getMock('Symfony\\Component\\HttpFoundation\\Session\\Session');
+        $this->container->set('session', $this->session);
 
-        $formFactory = new FormFactory(
-            new FormRegistry([
-                new CoreExtension(),
-                new HttpFoundationExtension(),
-                new ValidatorExtension($validator),
-            ], $resolvedTypeFactory), $resolvedTypeFactory
-        );
-        $this->container->set('form.factory', $formFactory);
+        $this->request = new Request();
+        $this->container->set('request', $this->request);
+    }
+
+    /**
+     * @param array $headers
+     * @param string $method
+     * @param array $request
+     * @version 0.0.2
+     * @since 0.0.2
+     */
+    protected function setRequest(array $headers = [], $method = 'GET', array $request = [])
+    {
+        $this->request->headers->replace($headers);
+        $this->request->setMethod($method);
+        $this->request->request->replace($request);
     }
 
     /**
      * Check default behavior.
      *
      * @test
-     * @version 0.0.1
+     * @version 0.0.2
      * @since 0.0.1
      */
     public function downloadAction()
     {
         // compose request
-        $request = new Request();
-        $this->container->set('request', $request);
+        $this->setRequest();
 
         $disk = $this->manager['id'];
         $controller = new FilesController();
@@ -209,7 +207,7 @@ class FilesControllerTest extends PHPUnit_Framework_TestCase
      * Check cache handling by last modification time.
      *
      * @test
-     * @version 0.0.1
+     * @version 0.0.2
      * @since 0.0.1
      */
     public function downloadCachedByIfModifiedSince()
@@ -221,9 +219,7 @@ class FilesControllerTest extends PHPUnit_Framework_TestCase
         $date->setTimezone(new DateTimeZone('UTC'));
 
         // compose request
-        $request = new Request();
-        $request->headers->set('If-Modified-Since', $date->format('D, d M Y H:i:s') . ' GMT');
-        $this->container->set('request', $request);
+        $this->setRequest(['If-Modified-Since' => $date->format('D, d M Y H:i:s') . ' GMT']);
 
         $controller = new FilesController();
         $controller->setContainer($this->container);
@@ -236,7 +232,7 @@ class FilesControllerTest extends PHPUnit_Framework_TestCase
      * Check cache handling by ETag.
      *
      * @test
-     * @version 0.0.1
+     * @version 0.0.2
      * @since 0.0.1
      */
     public function downloadCachedByETag()
@@ -246,9 +242,7 @@ class FilesControllerTest extends PHPUnit_Framework_TestCase
         $time = \filemtime($disk->getSource() . 'foo');
 
         // compose request
-        $request = new Request();
-        $request->headers->set('If-None-Match', '"' . \sha1($disk . 'foo/' . $time) . '"');
-        $this->container->set('request', $request);
+        $this->setRequest(['If-None-Match' => '"' . \sha1($disk . 'foo/' . $time) . '"']);
 
         $controller = new FilesController();
         $controller->setContainer($this->container);
@@ -261,24 +255,16 @@ class FilesControllerTest extends PHPUnit_Framework_TestCase
      * Check default behavior.
      *
      * @test
-     * @version 0.0.1
+     * @version 0.0.2
      * @since 0.0.1
      */
     public function deleteAction()
     {
-        $this->router->toReturn = 'testroute';
-
-        $user = 'user';
-        $security = new MockSecurity(new MockToken(new MockUser($user)));
-        $this->container->set('security.context', $security);
-
+        $toReturn = 'testroute';
         $flashBag = new FlashBag();
-        $session = new MockSession($flashBag);
-        $this->container->set('session', $session);
 
         // compose request
-        $request = new Request();
-        $this->container->set('request', $request);
+        $this->setRequest();
 
         $disk = $this->manager['id'];
         $realpath = $disk->getSource() . 'bar/test';
@@ -289,19 +275,31 @@ class FilesControllerTest extends PHPUnit_Framework_TestCase
             $this->markTestSkipped('Failed to create test file.');
         }
 
+        // mocks set-up
+        $this->router->expects($this->once())
+            ->method('generate')
+            ->with(
+                $this->equalTo('chilldev_filemanager_disks_browse'),
+                $this->equalTo(['disk' => $disk->getId(), 'path' => 'bar'])
+            )
+            ->will($this->returnValue($toReturn));
+        $this->logger->expects($this->once())
+            ->method('info')
+            ->with(
+                $this->equalTo('File "' . $disk . '/bar/test" deleted by user "' . $this->user->__toString() . '".'),
+                $this->equalTo(['realpath' => $realpath, 'scope' => $disk->getSource()])
+            );
+        $this->session->expects($this->once())
+            ->method('getFlashBag')
+            ->will($this->returnValue($flashBag));
+
         $controller = new FilesController();
         $controller->setContainer($this->container);
         $response = $controller->deleteAction($disk, '//./bar/.././//bar/test');
 
         // response properties
         $this->assertInstanceOf('Symfony\\Component\\HttpFoundation\\RedirectResponse', $response, 'FilesController::deleteAction() should return instance of type Symfony\\Component\\HttpFoundation\\RedirectResponse.');
-        $this->assertEquals($this->router->toReturn, $response->getTargetUrl(), 'FilesController::deleteAction() should set redirect URL to result of route generator output.');
-        $this->assertEquals('chilldev_filemanager_disks_browse', $this->router->route, 'FilesController::deleteAction() should set redirect URL by using "chilldev_filemanager_disks_browse" route.');
-        $this->assertEquals(['disk' => $disk->getId(), 'path' => 'bar'], $this->router->arguments, 'FilesController::deleteAction() should redirect to browse action of parent directory.');
-
-        // log properties
-        $this->assertEquals('File "' . $disk . '/bar/test" deleted by user "' . $user . '".', $this->logger->message, 'FilesController::deleteAction() should log about file deletion.');
-        $this->assertEquals(['realpath' => $realpath, 'scope' => $disk->getSource()], $this->logger->context, 'FilesController::deleteAction() should log file context.');
+        $this->assertEquals($toReturn, $response->getTargetUrl(), 'FilesController::deleteAction() should set redirect URL to result of route generator output.');
 
         // flash message properties
         $flashes = $flashBag->peekAll();
@@ -359,58 +357,59 @@ class FilesControllerTest extends PHPUnit_Framework_TestCase
      * Check GET method behavior.
      *
      * @test
-     * @version 0.0.1
+     * @version 0.0.2
      * @since 0.0.1
      */
     public function mkdirActionForm()
     {
-        $this->templating->toReturn = new \stdClass();
+        // needed for closure scope
+        $assert = $this;
+        $toReturn = new \stdClass();
 
         // compose request
-        $request = new Request();
-        $this->container->set('request', $request);
+        $this->setRequest();
 
         $disk = $this->manager['id'];
+
+        $this->templating->expects($this->once())
+            ->method('renderResponse')
+            ->with(
+                $this->equalTo('ChillDevFileManagerBundle:Files:mkdir.html.config'),
+                $this->anything(),
+                $this->isNull()
+            )
+            ->will($this->returnCallback(function($view, $parameters) use ($assert, $toReturn, $disk) {
+                        $assert->assertArrayHasKey('disk', $parameters, 'FilesController::mkdirAction() should return disk scope object under key "disk".');
+                        $assert->assertSame($disk, $parameters['disk'], 'FilesController::mkdirAction() should return disk scope object under key "disk".');
+                        $assert->assertArrayHasKey('path', $parameters, 'FilesController::mkdirAction() should return computed path under key "path".');
+                        $assert->assertSame('bar', $parameters['path'], 'FilesController::mkdirAction() should resolve all "./" and "../" references and replace multiple "/" with single one.');
+                        $assert->assertArrayHasKey('form', $parameters, 'FilesController::mkdirAction() should return form data under key "form".');
+                        $assert->assertInstanceOf('Symfony\\Component\\Form\\FormView', $parameters['form'], 'FilesController::mkdirAction() should return form data under key "form".');
+                        $assert->assertEquals('mkdir', $parameters['form']->vars['name'], 'FilesController::mkdirAction() should return form data of MkdirType form.');
+                        return $toReturn;
+            }));
 
         $controller = new FilesController();
         $controller->setContainer($this->container);
         $response = $controller->mkdirAction($disk, '//./bar/.././//bar');
 
-        $this->assertEquals('ChillDevFileManagerBundle:Files:mkdir.html.config', $this->templating->view, 'FilesController::mkdirAction() should use "ChillDevFileManagerBundle:Files:mkdir.html.config" template (note the "config" proxy engine).');
-        $this->assertSame($this->templating->toReturn, $response, 'FilesController::mkdirAction() should return response generated with templating service.');
-        $this->assertArrayHasKey('disk', $this->templating->parameters, 'FilesController::mkdirAction() should return disk scope object under key "disk".');
-        $this->assertSame($disk, $this->templating->parameters['disk'], 'FilesController::mkdirAction() should return disk scope object under key "disk".');
-        $this->assertArrayHasKey('path', $this->templating->parameters, 'FilesController::mkdirAction() should return computed path under key "path".');
-        $this->assertSame('bar', $this->templating->parameters['path'], 'FilesController::mkdirAction() should resolve all "./" and "../" references and replace multiple "/" with single one.');
-        $this->assertArrayHasKey('form', $this->templating->parameters, 'FilesController::mkdirAction() should return form data under key "form".');
-        $this->assertInstanceOf('Symfony\\Component\\Form\\FormView', $this->templating->parameters['form'], 'FilesController::mkdirAction() should return form data under key "form".');
-        $this->assertEquals('mkdir', $this->templating->parameters['form']->vars['name'], 'FilesController::mkdirAction() should return form data of MkdirType form.');
-        $this->assertNull($this->templating->response, 'FilesController::mkdirAction() should not pass any response and rely on generated one.');
+        $this->assertSame($toReturn, $response, 'FilesController::mkdirAction() should return response generated with templating service.');
     }
 
     /**
      * Check POST method behavior.
      *
      * @test
-     * @version 0.0.1
+     * @version 0.0.2
      * @since 0.0.1
      */
     public function mkdirActionSubmit()
     {
-        $this->router->toReturn = 'testroute2';
-
-        $user = 'user2';
-        $security = new MockSecurity(new MockToken(new MockUser($user)));
-        $this->container->set('security.context', $security);
-
+        $toReturn = 'testroute2';
         $flashBag = new FlashBag();
-        $session = new MockSession($flashBag);
-        $this->container->set('session', $session);
 
         // compose request
-        $request = new Request([], ['mkdir' => ['name' => 'mkdir']]);
-        $request->setMethod('POST');
-        $this->container->set('request', $request);
+        $this->setRequest([], 'POST', ['mkdir' => ['name' => 'mkdir']]);
 
         $disk = $this->manager['id'];
 
@@ -420,19 +419,31 @@ class FilesControllerTest extends PHPUnit_Framework_TestCase
             $this->markTestSkipped('Test directory already exists.');
         }
 
+        // mocks set-up
+        $this->router->expects($this->once())
+            ->method('generate')
+            ->with(
+                $this->equalTo('chilldev_filemanager_disks_browse'),
+                $this->equalTo(['disk' => $disk->getId(), 'path' => 'bar'])
+            )
+            ->will($this->returnValue($toReturn));
+        $this->logger->expects($this->once())
+            ->method('info')
+            ->with(
+                $this->equalTo('Directory "' . $disk . '/bar/mkdir" created by user "' . $this->user->__toString() . '".'),
+                $this->equalTo(['realpath' => $realpath, 'scope' => $disk->getSource()])
+            );
+        $this->session->expects($this->once())
+            ->method('getFlashBag')
+            ->will($this->returnValue($flashBag));
+
         $controller = new FilesController();
         $controller->setContainer($this->container);
         $response = $controller->mkdirAction($disk, '//./bar/.././//bar');
 
         // response properties
         $this->assertInstanceOf('Symfony\\Component\\HttpFoundation\\RedirectResponse', $response, 'FilesController::mkdirAction() should return instance of type Symfony\\Component\\HttpFoundation\\RedirectResponse.');
-        $this->assertEquals($this->router->toReturn, $response->getTargetUrl(), 'FilesController::mkdirAction() should set redirect URL to result of route generator output.');
-        $this->assertEquals('chilldev_filemanager_disks_browse', $this->router->route, 'FilesController::mkdirAction() should set redirect URL by using "chilldev_filemanager_disks_browse" route.');
-        $this->assertEquals(['disk' => $disk->getId(), 'path' => 'bar'], $this->router->arguments, 'FilesController::mkdirAction() should redirect to browse action of parent directory.');
-
-        // log properties
-        $this->assertEquals('Directory "' . $disk . '/bar/mkdir" created by user "' . $user . '".', $this->logger->message, 'FilesController::mkdirAction() should log about directory creation.');
-        $this->assertEquals(['realpath' => $realpath, 'scope' => $disk->getSource()], $this->logger->context, 'FilesController::mkdirAction() should log file context.');
+        $this->assertEquals($toReturn, $response->getTargetUrl(), 'FilesController::mkdirAction() should set redirect URL to result of route generator output.');
 
         // flash message properties
         $flashes = $flashBag->peekAll();
@@ -454,25 +465,27 @@ class FilesControllerTest extends PHPUnit_Framework_TestCase
      * Check POST method behavior on invalid data.
      *
      * @test
-     * @version 0.0.1
+     * @version 0.0.2
      * @since 0.0.1
      */
     public function mkdirActionInvalidSubmit()
     {
-        $this->templating->toReturn = new \stdClass();
+        $toReturn = new \stdClass();
 
         // compose request
-        $request = new Request([], ['mkdir' => ['name' => '']]);
-        $request->setMethod('POST');
-        $this->container->set('request', $request);
+        $this->setRequest([], 'POST', ['mkdir' => ['name' => '']]);
 
         $disk = $this->manager['id'];
+
+        $this->templating->expects($this->once())
+            ->method('renderResponse')
+            ->will($this->returnValue($toReturn));
 
         $controller = new FilesController();
         $controller->setContainer($this->container);
         $response = $controller->mkdirAction($disk, '//./bar/.././//bar');
 
-        $this->assertSame($this->templating->toReturn, $response, 'FilesController::mkdirAction() should render form view when invalid data is submitted.');
+        $this->assertSame($toReturn, $response, 'FilesController::mkdirAction() should render form view when invalid data is submitted.');
     }
 
     /**
@@ -515,120 +528,5 @@ class FilesControllerTest extends PHPUnit_Framework_TestCase
     public function mkdirNondirectoryPath()
     {
         (new FilesController())->mkdirAction($this->manager['id'], 'foo');
-    }
-}
-
-class MockRouter
-{
-    public $route;
-    public $arguments;
-    public $toReturn;
-
-    public function generate($route, $arguments)
-    {
-        $this->route = $route;
-        $this->arguments = $arguments;
-        return $this->toReturn;
-    }
-}
-
-class MockLogger
-{
-    public $message;
-    public $context;
-
-    public function info($message, $context)
-    {
-        $this->message = $message;
-        $this->context = $context;
-    }
-}
-
-class MockUser
-{
-    public $name;
-
-    public function __construct($name)
-    {
-        $this->name = $name;
-    }
-
-    public function __toString()
-    {
-        return $this->name;
-    }
-}
-
-class MockToken
-{
-    public $user;
-
-    public function __construct($user)
-    {
-        $this->user = $user;
-    }
-
-    public function getUser()
-    {
-        return $this->user;
-    }
-}
-
-class MockSecurity
-{
-    public $token;
-
-    public function __construct($token)
-    {
-        $this->token = $token;
-    }
-
-    public function getToken()
-    {
-        return $this->token;
-    }
-}
-
-class MockSession
-{
-    public $flashBag;
-
-    public function __construct($flashBag)
-    {
-        $this->flashBag = $flashBag;
-    }
-
-    public function getFlashBag()
-    {
-        return $this->flashBag;
-    }
-}
-
-class MockTranslator
-{
-    public function trans($message, $params = [])
-    {
-        foreach ($params as $key => $value) {
-            $message = \str_replace($key, $value, $message);
-        }
-
-        return $message;
-    }
-}
-
-class MockTemplating
-{
-    public $view;
-    public $parameters;
-    public $response;
-    public $toReturn;
-
-    public function renderResponse($view, $parameters, $response)
-    {
-        $this->view = $view;
-        $this->parameters = $parameters;
-        $this->response = $response;
-
-        return $this->toReturn;
     }
 }

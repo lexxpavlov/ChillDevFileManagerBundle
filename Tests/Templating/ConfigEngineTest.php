@@ -4,8 +4,8 @@
  * This file is part of the ChillDev FileManager bundle.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.1
+ * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.0.2
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -16,24 +16,22 @@ use PHPUnit_Framework_TestCase;
 
 use ChillDev\Bundle\FileManagerBundle\Templating\ConfigEngine;
 
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Templating\StreamingEngineInterface;
 use Symfony\Component\Templating\TemplateNameParser;
 
 /**
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.1
+ * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.0.2
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
 class ConfigEngineTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var ContainerBuilder
-     * @version 0.0.1
+     * @var Container
+     * @version 0.0.2
      * @since 0.0.1
      */
     protected $container;
@@ -58,63 +56,80 @@ class ConfigEngineTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->container = new ContainerBuilder();
+        $this->container = new Container();
         $this->templating = new ConfigEngine($this->container, new TemplateNameParser(), $this->engine);
     }
 
     /**
      * @test
-     * @version 0.0.1
+     * @version 0.0.2
      * @since 0.0.1
      */
     public function renderSubsequentEngine()
     {
-        $parameters = ['bar' => 'baz'];
+        // needed for closure scope
+        $assert = $this;
+        $engine = $this->engine;
         $toReturn = new \stdClass();
 
-        $templating = new MockTemplatingEngine();
-        $templating->toReturn = $toReturn;
-        $this->container->set('templating', $templating);
+        $parameters = ['bar' => 'baz'];
 
+        $templating = $this->createTemplatingMock();
+        $templating->expects($this->once())
+            ->method('render')
+            ->with($this->anything(), $this->equalTo($parameters))
+            ->will($this->returnCallback(function($view) use ($assert, $engine, $toReturn) {
+                    $assert->assertEquals($engine, $view->get('engine'), 'ConfigEngine::render() should call sub-sequent engine render() method on template with same name but engine replaced to configured one.');
+                    return $toReturn;
+            }));
         $return = $this->templating->render('qux.config', $parameters);
-        $this->assertEquals('render', $templating->lastCall, 'ConfigEngine::render() should call sub-sequent engine render() method.');
-        $this->assertEquals($this->engine, $templating->lastName->get('engine'), 'ConfigEngine::render() should call sub-sequent engine render() method on template with same name but engine replaced to configured one.');
-        $this->assertEquals($parameters, $templating->lastParameters, 'ConfigEngine::render() should pass all parameters to sub-sequent engine render() method.');
+
         $this->assertSame($toReturn, $return, 'ConfigEngine::render() should return result of sub-sequent engine render() method.');
     }
 
     /**
      * @test
-     * @version 0.0.1
+     * @version 0.0.2
      * @since 0.0.1
      */
     public function renderDefaultParameters()
     {
-        $templating = new MockTemplatingEngine();
-        $this->container->set('templating', $templating);
+        // needed for closure scope
+        $assert = $this;
+        $engine = $this->engine;
 
+        $templating = $this->createTemplatingMock();
+        $templating->expects($this->once())
+            ->method('render')
+            ->with($this->anything(), $this->isEmpty())
+            ->will($this->returnCallback(function($view) use ($assert, $engine) {
+                    $assert->assertEquals($engine, $view->get('engine'), 'ConfigEngine::render() should call sub-sequent engine render() method on template with same name but engine replaced to configured one.');
+            }));
         $this->templating->render('qux.config');
-        $this->assertEquals('render', $templating->lastCall, 'ConfigEngine::render() should call sub-sequent engine render() method.');
-        $this->assertEquals($this->engine, $templating->lastName->get('engine'), 'ConfigEngine::render() should call sub-sequent engine render() method on template with same name but engine replaced to configured one.');
-        $this->assertEquals([], $templating->lastParameters, 'ConfigEngine::render() should pass empty array as parameters by default to sub-sequent engine render() method.');
     }
 
     /**
      * @test
-     * @version 0.0.1
+     * @version 0.0.2
      * @since 0.0.1
      */
     public function existsSubsequentEngine()
     {
+        // needed for closure scope
+        $assert = $this;
+        $engine = $this->engine;
         $toReturn = new \stdClass();
 
-        $templating = new MockTemplatingEngine();
-        $templating->toReturn = $toReturn;
-        $this->container->set('templating', $templating);
-
+        $templating = $this->createTemplatingMock();
+        $templating->expects($this->once())
+            ->method('exists')
+            ->with($this->anything())
+            ->will($this->returnCallback(function($view) use ($assert, $engine, $toReturn) {
+                    $assert->assertEquals($engine, $view->get('engine'), 'ConfigEngine::exists() should call sub-sequent engine exists() method on template with same name but engine replaced to configured one.');
+                    return $toReturn;
+            }));
         $return = $this->templating->exists('qux.config');
-        $this->assertEquals('exists', $templating->lastCall, 'ConfigEngine::exists() should call sub-sequent engine exists() method.');
-        $this->assertEquals($this->engine, $templating->lastName->get('engine'), 'ConfigEngine::exists() should call sub-sequent engine exists() method on template with same name but engine replaced to configured one.');
+
         $this->assertSame($toReturn, $return, 'ConfigEngine::exists() should return result of sub-sequent engine exists() method.');
     }
 
@@ -131,53 +146,78 @@ class ConfigEngineTest extends PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @version 0.0.1
+     * @version 0.0.2
      * @since 0.0.1
      */
     public function renderResponseSubsequentEngine()
     {
+        // needed for closure scope
+        $assert = $this;
+        $engine = $this->engine;
+
         $parameters = ['bar' => 'baz'];
         $response = new Response();
+        $templating = $this->createTemplatingMock();
 
-        $templating = new MockTemplatingEngine();
-        $this->container->set('templating', $templating);
-
+        $templating->expects($this->once())
+            ->method('renderResponse')
+            ->with($this->anything(), $this->equalTo($parameters), $this->identicalTo($response))
+            ->will($this->returnCallback(function($view, $parameters, $response) use ($assert, $engine) {
+                    $assert->assertEquals($engine, $view->get('engine'), 'ConfigEngine::renderResponse() should call sub-sequent engine renderResponse() method on template with same name but engine replaced to configured one.');
+                    return $response;
+            }));
         $return = $this->templating->renderResponse('qux.config', $parameters, $response);
-        $this->assertEquals('renderResponse', $templating->lastCall, 'ConfigEngine::renderResponse() should call sub-sequent engine renderResponse() method.');
-        $this->assertEquals($this->engine, $templating->lastName->get('engine'), 'ConfigEngine::renderResponse() should call sub-sequent engine renderResponse() method on template with same name but engine replaced to configured one.');
-        $this->assertEquals($parameters, $templating->lastParameters, 'ConfigEngine::renderResponse() should pass all parameters to sub-sequent engine renderResponse() method.');
-        $this->assertSame($response, $templating->lastResponse, 'ConfigEngine::renderResponse() should pass response object to sub-sequent engine renderResponse() method.');
+
         $this->assertSame($response, $return, 'ConfigEngine::renderResponse() should return response object of sub-sequent engine renderResponse() method.');
     }
 
     /**
      * @test
-     * @version 0.0.1
+     * @version 0.0.2
      * @since 0.0.1
      */
     public function renderResponseDefaultParameters()
     {
-        $templating = new MockTemplatingEngine();
-        $this->container->set('templating', $templating);
+        // needed for closure scope
+        $assert = $this;
+        $engine = $this->engine;
 
+        $templating = $this->createTemplatingMock();
+
+        $templating->expects($this->once())
+            ->method('renderResponse')
+            ->with($this->anything(), $this->isEmpty(), $this->isNull())
+            ->will($this->returnCallback(function($view) use ($assert, $engine) {
+                    $assert->assertEquals($engine, $view->get('engine'), 'ConfigEngine::renderResponse() should call sub-sequent engine renderResponse() method on template with same name but engine replaced to configured one.');
+                    return new Response();
+            }));
         $return = $this->templating->renderResponse('qux.config');
-        $this->assertEquals('renderResponse', $templating->lastCall, 'ConfigEngine::renderResponse() should call sub-sequent engine renderResponse() method.');
-        $this->assertEquals($this->engine, $templating->lastName->get('engine'), 'ConfigEngine::renderResponse() should call sub-sequent engine renderResponse() method on template with same name but engine replaced to configured one.');
-        $this->assertEquals([], $templating->lastParameters, 'ConfigEngine::renderResponse() should pass empty array as parameters by default to sub-sequent engine renderResponse() method.');
-        $this->assertNull($templating->lastResponse, 'ConfigEngine::renderResponse() should pass null as default response object to sub-sequent engine renderResponse() method.');
+
         $this->assertInstanceOf('Symfony\\Component\\HttpFoundation\\Response', $return, 'ConfigEngine::renderResponse() should always return instance of type Symfony\\Component\\HttpFoundation\\Response.');
+    }
+
+    /**
+     * @return Symfony\Bundle\FrameworkBundle\Templating\EngineInterface
+     * @version 0.0.2
+     * @since 0.0.2
+     */
+    protected function createTemplatingMock()
+    {
+        $templating = $this->getMock('Symfony\\Bundle\\FrameworkBundle\\Templating\\EngineInterface');
+        $this->container->set('templating', $templating);
+        return $templating;
     }
 
     /**
      * @test
      * @expectedException LogicException
-     * @expectedExceptionMessage Template "qux.config" cannot be streamed as the sub-sequent target engine "ChillDev\Bundle\FileManagerBundle\Tests\Templating\MockTemplatingEngine" configured to handle it does not implement StreamingEngineInterface.
-     * @version 0.0.1
+     * @expectedExceptionMessage Template "qux.config" cannot be streamed as the sub-sequent target engine "MockTemplating_StreamWithoutSupport" configured to handle it does not implement StreamingEngineInterface.
+     * @version 0.0.2
      * @since 0.0.1
      */
     public function streamWithoutSupport()
     {
-        $templating = new MockTemplatingEngine();
+        $templating = $this->getMock('Symfony\\Bundle\\FrameworkBundle\\Templating\\EngineInterface', [], [], 'MockTemplating_StreamWithoutSupport');
         $this->container->set('templating', $templating);
 
         $this->templating->stream('qux.config');
@@ -185,84 +225,49 @@ class ConfigEngineTest extends PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @version 0.0.1
+     * @version 0.0.2
      * @since 0.0.1
      */
     public function streamSubsequentEngine()
     {
+        // needed for closure scope
+        $assert = $this;
+        $engine = $this->engine;
+
         $parameters = ['bar' => 'baz'];
 
-        $templating = new MockStreamingTemplatingEngine();
+        $templating = $this->getMock('Symfony\\Component\\Templating\\StreamingEngineInterface');
         $this->container->set('templating', $templating);
 
-        $return = $this->templating->stream('qux.config', $parameters);
-        $this->assertEquals('stream', $templating->lastCall, 'ConfigEngine::stream() should call sub-sequent engine stream() method.');
-        $this->assertEquals($this->engine, $templating->lastName->get('engine'), 'ConfigEngine::stream() should call sub-sequent engine stream() method on template with same name but engine replaced to configured one.');
-        $this->assertEquals($parameters, $templating->lastParameters, 'ConfigEngine::stream() should pass all parameters to sub-sequent engine stream() method.');
+        $templating->expects($this->once())
+            ->method('stream')
+            ->with($this->anything(), $this->equalTo($parameters))
+            ->will($this->returnCallback(function($view) use ($assert, $engine) {
+                    $assert->assertEquals($engine, $view->get('engine'), 'ConfigEngine::stream() should call sub-sequent engine stream() method on template with same name but engine replaced to configured one.');
+            }));
+        $this->templating->stream('qux.config', $parameters);
     }
 
     /**
      * @test
-     * @version 0.0.1
+     * @version 0.0.2
      * @since 0.0.1
      */
     public function streamDefaultParameters()
     {
-        $templating = new MockStreamingTemplatingEngine();
+        // needed for closure scope
+        $assert = $this;
+        $engine = $this->engine;
+
+        $templating = $this->getMock('Symfony\\Component\\Templating\\StreamingEngineInterface');
         $this->container->set('templating', $templating);
 
+        $templating->expects($this->once())
+            ->method('stream')
+            ->with($this->anything(), $this->isEmpty())
+            ->will($this->returnCallback(function($view) use ($assert, $engine) {
+                    $assert->assertEquals($engine, $view->get('engine'), 'ConfigEngine::stream() should call sub-sequent engine stream() method on template with same name but engine replaced to configured one.');
+            }));
         $this->templating->stream('qux.config');
-        $this->assertEquals('stream', $templating->lastCall, 'ConfigEngine::stream() should call sub-sequent engine stream() method.');
-        $this->assertEquals($this->engine, $templating->lastName->get('engine'), 'ConfigEngine::stream() should call sub-sequent engine stream() method on template with same name but engine replaced to configured one.');
-        $this->assertEquals([], $templating->lastParameters, 'ConfigEngine::stream() should pass empty array as parameters by default to sub-sequent engine stream() method.');
-    }
-}
-
-class MockTemplatingEngine implements EngineInterface
-{
-    public $lastCall;
-    public $lastName;
-    public $lastParameters;
-    public $lastResponse;
-    public $toReturn;
-
-    public function render($name, array $parameters = [])
-    {
-        $this->lastCall = 'render';
-        $this->lastName = $name;
-        $this->lastParameters = $parameters;
-        return $this->toReturn;
-    }
-
-    public function exists($name)
-    {
-        $this->lastCall = 'exists';
-        $this->lastName = $name;
-        $this->lastParameters = null;
-        return $this->toReturn;
-    }
-
-    public function supports($name)
-    {
-        // not needed
-    }
-
-    public function renderResponse($view, array $parameters = [], Response $response = null)
-    {
-        $this->lastCall = 'renderResponse';
-        $this->lastName = $view;
-        $this->lastParameters = $parameters;
-        $this->lastResponse = $response;
-        return $response ?: new Response();
-    }
-}
-
-class MockStreamingTemplatingEngine extends MockTemplatingEngine implements StreamingEngineInterface
-{
-    public function stream($name, array $parameters = [])
-    {
-        $this->lastCall = 'stream';
-        $this->lastName = $name;
-        $this->lastParameters = $parameters;
     }
 }

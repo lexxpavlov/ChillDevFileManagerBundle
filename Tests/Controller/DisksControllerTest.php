@@ -4,59 +4,33 @@
  * This file is part of the ChillDev FileManager bundle.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.1
+ * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.0.2
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
 
 namespace ChillDev\Bundle\FileManagerBundle\Tests\Controller;
 
-use PHPUnit_Framework_TestCase;
-
 use ChillDev\Bundle\FileManagerBundle\Controller\DisksController;
 use ChillDev\Bundle\FileManagerBundle\Filesystem\Disk;
-use ChillDev\Bundle\FileManagerBundle\Filesystem\Manager;
-
-use Symfony\Component\DependencyInjection\Container;
+use ChillDev\Bundle\FileManagerBundle\Tests\BaseContainerTest;
 
 /**
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.1
+ * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.0.2
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
-class DisksControllerTest extends PHPUnit_Framework_TestCase
+class DisksControllerTest extends BaseContainerTest
 {
     /**
-     * DI container.
-     *
-     * @var Container
-     * @version 0.0.1
-     * @since 0.0.1
+     * @version 0.0.2
+     * @since 0.0.2
      */
-    protected $container;
-
-    /**
-     * Disks manager.
-     *
-     * @var Manager
-     * @version 0.0.1
-     * @since 0.0.1
-     */
-    protected $manager;
-
-    /**
-     * @version 0.0.1
-     * @since 0.0.1
-     */
-    protected function setUp()
+    protected function setUpContainer()
     {
-        $this->container = new Container();
-        $this->manager = new Manager();
-        $this->manager->createDisk('id', 'Test', \realpath(__DIR__ . '/../fixtures/fs') . '/');
-
         $this->container->set('chilldev.filemanager.disks.manager', $this->manager);
     }
 
