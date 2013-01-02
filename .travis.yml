@@ -2,8 +2,8 @@
 # This file is part of the ChillDev FileManager bundle.
 #
 # @author Rafal Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
-# @copyright 2012 © by Rafal Wrzeszcz - Wrzasq.pl.
-# @version 0.0.1
+# @copyright 2012 - 2013 © by Rafal Wrzeszcz - Wrzasq.pl.
+# @version 0.0.2
 # @since 0.0.1
 # @package ChillDev\Bundle\FileManagerBundle
 ##
@@ -14,6 +14,7 @@ language: "php"
 
 php:
     - "5.4"
+    - "5.5"
 
 before_script: "composer --dev install"
 script: "make ci"
