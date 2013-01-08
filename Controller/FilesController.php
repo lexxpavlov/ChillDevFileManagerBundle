@@ -4,18 +4,20 @@
  * This file is part of the ChillDev FileManager bundle.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.1
- * @since 0.0.1
+ * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.0.2
+ * @since 0.0.2
  * @package ChillDev\Bundle\FileManagerBundle
  */
 
 namespace ChillDev\Bundle\FileManagerBundle\Controller;
 
 use DateTime;
+use UnexpectedValueException;
 
 use ChillDev\Bundle\FileManagerBundle\Filesystem\Disk;
 use ChillDev\Bundle\FileManagerBundle\Form\Type\MkdirType;
+use ChillDev\Bundle\FileManagerBundle\Utils\Path;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -50,26 +52,20 @@ class FilesController extends Controller
      * @param Disk $disk Disk scope.
      * @param string $path Destination directory.
      * @return StreamedResponse File download disposition.
-     * @version 0.0.1
+     * @throws HttpException When requested path is invalid or is not a file.
+     * @throws NotFoundHttpException When requested path does not exist.
+     * @version 0.0.2
      * @since 0.0.1
      */
     public function downloadAction(Disk $disk, $path)
     {
-        // make sure it's absolute path
-        $path = '/' . $path . '/';
-
-        // resolve all symbolic references
-        $path = \preg_replace('#//+#', '/', $path);
-        while (\preg_match('#/([^/]+/\\.)?\\./#', $path, $match, \PREG_OFFSET_CAPTURE) > 0) {
-            $path = \substr_replace($path, '/', $match[0][1], \strlen($match[0][0]));
+        try {
+            // resolve all symbolic references
+            $path = Path::resolve($path);
+        } catch (UnexpectedValueException $error) {
+            // reference outside disk scope
+            throw new HttpException(400, 'File path contains invalid reference that exceeds disk scope.', $error);
         }
-
-        // reference outside disk scope
-        if (\strpos($path, '/../') !== false) {
-            throw new HttpException(400, 'File path contains invalid reference that exceeds disk scope.');
-        }
-
-        $path = \substr($path, 1, -1);
 
         // access file - very primitive way for now, needs abstraction in future
         $realpath = \realpath($disk->getSource() . $path);
@@ -126,26 +122,20 @@ class FilesController extends Controller
      * @param Disk $disk Disk scope.
      * @param string $path Subject file.
      * @return Symfony\Component\HttpFoundation\RedirectResponse Redirect to browse view.
-     * @version 0.0.1
+     * @throws HttpException When requested path is invalid or is not a file.
+     * @throws NotFoundHttpException When requested path does not exist.
+     * @version 0.0.2
      * @since 0.0.1
      */
     public function deleteAction(Disk $disk, $path)
     {
-        // make sure it's absolute path
-        $path = '/' . $path . '/';
-
-        // resolve all symbolic references
-        $path = \preg_replace('#//+#', '/', $path);
-        while (\preg_match('#/([^/]+/\\.)?\\./#', $path, $match, \PREG_OFFSET_CAPTURE) > 0) {
-            $path = \substr_replace($path, '/', $match[0][1], \strlen($match[0][0]));
+        try {
+            // resolve all symbolic references
+            $path = Path::resolve($path);
+        } catch (UnexpectedValueException $error) {
+            // reference outside disk scope
+            throw new HttpException(400, 'File path contains invalid reference that exceeds disk scope.', $error);
         }
-
-        // reference outside disk scope
-        if (\strpos($path, '/../') !== false) {
-            throw new HttpException(400, 'File path contains invalid reference that exceeds disk scope.');
-        }
-
-        $path = \substr($path, 1, -1);
 
         // access file - very primitive way for now, needs abstraction in future
         $realpath = \realpath($disk->getSource() . $path);
@@ -192,26 +182,20 @@ class FilesController extends Controller
      * @param Disk $disk Disk scope.
      * @param string $path Destination location.
      * @return Response Result response.
-     * @version 0.0.1
+     * @throws HttpException When requested path is invalid or is not a directory.
+     * @throws NotFoundHttpException When requested path does not exist.
+     * @version 0.0.2
      * @since 0.0.1
      */
     public function mkdirAction(Disk $disk, $path = '')
     {
-        // make sure it's absolute path
-        $path = '/' . $path . '/';
-
-        // resolve all symbolic references
-        $path = \preg_replace('#//+#', '/', $path);
-        while (\preg_match('#/([^/]+/\\.)?\\./#', $path, $match, \PREG_OFFSET_CAPTURE) > 0) {
-            $path = \substr_replace($path, '/', $match[0][1], \strlen($match[0][0]));
+        try {
+            // resolve all symbolic references
+            $path = Path::resolve($path);
+        } catch (UnexpectedValueException $error) {
+            // reference outside disk scope
+            throw new HttpException(400, 'Directory path contains invalid reference that exceeds disk scope.', $error);
         }
-
-        // reference outside disk scope
-        if (\strpos($path, '/../') !== false) {
-            throw new HttpException(400, 'Directory path contains invalid reference that exceeds disk scope.');
-        }
-
-        $path = \substr($path, 1, -1);
 
         // access file - very primitive way for now, needs abstraction in future
         $realpath = \realpath($disk->getSource() . $path);
