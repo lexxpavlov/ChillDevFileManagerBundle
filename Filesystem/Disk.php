@@ -4,20 +4,22 @@
  * This file is part of the ChillDev FileManager bundle.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.1
+ * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.0.2
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
 
 namespace ChillDev\Bundle\FileManagerBundle\Filesystem;
 
+use ChillDev\Bundle\FileManagerBundle\Filesystem\Adapter\Local;
+
 /**
  * Disk reference.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.1
+ * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.0.2
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -112,5 +114,17 @@ class Disk
     public function __toString()
     {
         return '[' . $this->getLabel() . ']';
+    }
+
+    /**
+     * Returns filesystem for given disk.
+     *
+     * @return Filesystem Filesystem configured for current disk.
+     * @version 0.0.2
+     * @since 0.0.2
+     */
+    public function getFilesystem()
+    {
+        return new Filesystem(new Local($this->source));
     }
 }

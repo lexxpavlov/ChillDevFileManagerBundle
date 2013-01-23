@@ -4,14 +4,15 @@
  * This file is part of the ChillDev FileManager bundle.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.1
+ * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.0.2
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
 
 namespace ChillDev\Bundle\FileManagerBundle\Form\Type;
 
+use ChillDev\Bundle\FileManagerBundle\Filesystem\Filesystem;
 use ChillDev\Bundle\FileManagerBundle\Validator\Constraints\FileNotExists;
 
 use Symfony\Component\Form\AbstractType;
@@ -25,32 +26,43 @@ use Symfony\Component\Validator\Constraints\Collection;
  * Simply filename field form.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.1
+ * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.0.2
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
 class MkdirType extends AbstractType
 {
     /**
+     * Filesystem.
+     *
+     * @var Filesystem
+     * @version 0.0.2
+     * @since 0.0.2
+     */
+    protected $filesystem;
+
+    /**
      * Destination location path.
      *
      * @var string
-     * @version 0.0.1
-     * @since 0.0.1
+     * @version 0.0.2
+     * @since 0.0.2
      */
-    protected $realpath;
+    protected $path;
 
     /**
      * Initializes form type.
      *
-     * @param string $realpath Destination location path.
-     * @version 0.0.1
+     * @param Filesystem $filesystem Filesystem manager.
+     * @param string $path Destination location path.
+     * @version 0.0.2 $filesystem parameter added.
      * @since 0.0.1
      */
-    public function __construct($realpath)
+    public function __construct(Filesystem $filesystem, $path)
     {
-        $this->realpath = $realpath;
+        $this->filesystem = $filesystem;
+        $this->path = $path;
     }
 
     /**
@@ -65,7 +77,7 @@ class MkdirType extends AbstractType
 
     /**
      * {@inheritDoc}
-     * @version 0.0.1
+     * @version 0.0.2
      * @since 0.0.1
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -78,10 +90,15 @@ class MkdirType extends AbstractType
                         [
                             'pattern' => '#^(\\.{1,2}|.*[\\x00/?*:;{}\\\\].*)$#',
                             'match' => false,
-                            'message' => 'Invalid filename.'
+                            'message' => 'Invalid filename.',
                         ]
                     ),
-                    new FileNotExists($this->realpath),
+                    new FileNotExists(
+                        [
+                            'filesystem' => $this->filesystem,
+                            'path' => $this->path,
+                        ]
+                    ),
                 ],
             ]
         );

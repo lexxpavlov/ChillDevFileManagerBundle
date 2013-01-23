@@ -81,26 +81,19 @@ class DisksController extends Controller
 
         $list = [];
 
-        // list directory content - very primitive way for now, needs abstraction in future
-        $realpath = \realpath($disk->getSource() . $path);
+        // get filesystem from given disk
+        $filesystem = $disk->getFilesystem();
 
         // non-existing path
-        if (!$realpath) {
+        if (!$filesystem->exists($path)) {
             throw new NotFoundHttpException(\sprintf('Directory "%s/%s" does not exist.', $disk, $path));
         }
 
-        if (!\is_dir($realpath)) {
+        if (!$filesystem->isDirectory($path)) {
             throw new HttpException(400, \sprintf('"%s/%s" is not a directory.', $disk, $path));
         }
 
-        $directory = new FilesystemIterator(
-            $realpath,
-            FilesystemIterator::KEY_AS_FILENAME
-            | FilesystemIterator::CURRENT_AS_FILEINFO
-            | FilesystemIterator::SKIP_DOTS
-            | FilesystemIterator::UNIX_PATHS
-        );
-        foreach ($directory as $file => $info) {
+        foreach ($filesystem->createDirectoryIterator($path) as $file => $info) {
             $data = [
                 'isDirectory' => $info->isDir(),
                 'path' => $path . '/' . $file,

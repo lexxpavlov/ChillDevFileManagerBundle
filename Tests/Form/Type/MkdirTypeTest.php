@@ -37,7 +37,7 @@ class MkdirTypeTest extends BaseContainerTest
      */
     public function mkdirFormType()
     {
-        $type = new MkdirType('');
+        $type = new MkdirType($this->getMock('ChillDev\\Bundle\\FileManagerBundle\\Filesystem\\Filesystem', [], [], '', false), '');
 
         $this->assertEquals('mkdir', $type->getName(), 'MkdirType::getName() should return "mkdir" as form scope.');
 
@@ -58,7 +58,27 @@ class MkdirTypeTest extends BaseContainerTest
      */
     public function mkdirNameValidator()
     {
-        $type = new MkdirType(\realpath(__DIR__ . '/../../fixtures/fs') . '/');
+        $filesystem = $this->getMock('ChillDev\\Bundle\\FileManagerBundle\\Filesystem\\Filesystem', [], [], '', false);
+        $filesystem->expects($this->at(0))
+            ->method('exists')
+            ->will($this->returnValue(false));
+        $filesystem->expects($this->at(1))
+            ->method('exists')
+            ->will($this->returnValue(false));
+        $filesystem->expects($this->at(2))
+            ->method('exists')
+            ->will($this->returnValue(false));
+        $filesystem->expects($this->at(3))
+            ->method('exists')
+            ->will($this->returnValue(false));
+        $filesystem->expects($this->at(4))
+            ->method('exists')
+            ->will($this->returnValue(false));
+        $filesystem->expects($this->at(5))
+            ->method('exists')
+            ->will($this->returnValue(true));
+
+        $type = new MkdirType($filesystem, '');
 
         $options = new OptionsResolver();
         $type->setDefaultOptions($options);

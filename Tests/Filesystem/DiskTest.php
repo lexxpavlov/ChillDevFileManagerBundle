@@ -4,8 +4,8 @@
  * This file is part of the ChillDev FileManager bundle.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.1
+ * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.0.2
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -15,15 +15,16 @@ namespace ChillDev\Bundle\FileManagerBundle\Tests\Filesystem;
 use PHPUnit_Framework_TestCase;
 
 use ChillDev\Bundle\FileManagerBundle\Filesystem\Disk;
+use ChillDev\Bundle\FileManagerBundle\Tests\BaseManagerTest;
 
 /**
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.1
+ * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.0.2
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
-class DiskTest extends PHPUnit_Framework_TestCase
+class DiskTest extends BaseManagerTest
 {
     /**
      * Check if constructor arguments are remembered.
@@ -73,5 +74,15 @@ class DiskTest extends PHPUnit_Framework_TestCase
 
         $disk = new Disk('', $label, '');
         $this->assertEquals('[' . $label . ']', (string) $disk->__toString(), 'Disk::__toString() should handle conversion to string.');
+    }
+
+    /**
+     * @test
+     * @version 0.0.2
+     * @since 0.0.2
+     */
+    public function filesystemCreation()
+    {
+        $this->assertInstanceOf('ChillDev\\Bundle\\FileManagerBundle\\Filesystem\\Filesystem', $this->manager['id']->getFilesystem(), 'Disk::getFilesystem() should return filesystem instance.');
     }
 }

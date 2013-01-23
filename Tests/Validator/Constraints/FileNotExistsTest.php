@@ -4,8 +4,8 @@
  * This file is part of the ChillDev FileManager bundle.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.1
+ * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.0.2
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -18,8 +18,8 @@ use ChillDev\Bundle\FileManagerBundle\Validator\Constraints\FileNotExists;
 
 /**
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.1
+ * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.0.2
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -27,15 +27,29 @@ class FileNotExistsTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @test
-     * @version 0.0.1
-     * @since 0.0.1
+     * @expectedException Symfony\Component\Validator\Exception\MissingOptionsException
+     * @expectedExceptionMessage The options "filesystem" must be set for constraint ChillDev\Bundle\FileManagerBundle\Validator\Constraints\FileNotExists
+     * @version 0.0.2
+     * @since 0.0.2
      */
-    public function constraintDefaultOption()
+    public function constraintRequiredFilesystem()
     {
-        $path = 'foo';
+        new FileNotExists([
+            'path' => '',
+        ]);
+    }
 
-        $constraint = new FileNotExists($path);
-
-        $this->assertEquals($path, $constraint->path, 'FileNotExists should use "path" as default option.');
+    /**
+     * @test
+     * @expectedException Symfony\Component\Validator\Exception\MissingOptionsException
+     * @expectedExceptionMessage The options "path" must be set for constraint ChillDev\Bundle\FileManagerBundle\Validator\Constraints\FileNotExists
+     * @version 0.0.2
+     * @since 0.0.2
+     */
+    public function constraintRequiredPath()
+    {
+        new FileNotExists([
+            'filesystem' => '',
+        ]);
     }
 }

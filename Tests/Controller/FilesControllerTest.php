@@ -180,13 +180,21 @@ class FilesControllerTest extends BaseContainerTest
      *
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @expectedExceptionMessage File "[Foo]/test" does not exist.
-     * @version 0.0.1
+     * @expectedExceptionMessage File "[Test]/test" does not exist.
+     * @version 0.0.2
      * @since 0.0.1
      */
     public function downloadNonexistingPath()
     {
-        (new FilesController())->downloadAction(new Disk('', 'Foo', ''), 'test');
+        $disk = $this->manager['id'];
+        $realpath = $disk->getSource() . 'test';
+        $realpath = \realpath($realpath);
+
+        if (\file_exists($realpath)) {
+            $this->markTestSkipped('Test file exists.');
+        }
+
+        (new FilesController())->downloadAction($disk, 'test');
     }
 
     /**
@@ -286,8 +294,8 @@ class FilesControllerTest extends BaseContainerTest
         $this->logger->expects($this->once())
             ->method('info')
             ->with(
-                $this->equalTo('File "' . $disk . '/bar/test" deleted by user "' . $this->user->__toString() . '".'),
-                $this->equalTo(['realpath' => $realpath, 'scope' => $disk->getSource()])
+                $this->equalTo('File "bar/test" deleted by user "' . $this->user->__toString() . '".'),
+                $this->equalTo(['scope' => $disk->getSource()])
             );
         $this->session->expects($this->once())
             ->method('getFlashBag')
@@ -330,13 +338,21 @@ class FilesControllerTest extends BaseContainerTest
      *
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @expectedExceptionMessage File "[Foo]/test" does not exist.
-     * @version 0.0.1
+     * @expectedExceptionMessage File "[Test]/test" does not exist.
+     * @version 0.0.2
      * @since 0.0.1
      */
     public function deleteNonexistingPath()
     {
-        (new FilesController())->deleteAction(new Disk('', 'Foo', ''), 'test');
+        $disk = $this->manager['id'];
+        $realpath = $disk->getSource() . 'test';
+        $realpath = \realpath($realpath);
+
+        if (\file_exists($realpath)) {
+            $this->markTestSkipped('Test file exists.');
+        }
+
+        (new FilesController())->deleteAction($disk, 'test');
     }
 
     /**
@@ -430,8 +446,8 @@ class FilesControllerTest extends BaseContainerTest
         $this->logger->expects($this->once())
             ->method('info')
             ->with(
-                $this->equalTo('Directory "' . $disk . '/bar/mkdir" created by user "' . $this->user->__toString() . '".'),
-                $this->equalTo(['realpath' => $realpath, 'scope' => $disk->getSource()])
+                $this->equalTo('Directory "bar/mkdir" created by user "' . $this->user->__toString() . '".'),
+                $this->equalTo(['scope' => $disk->getSource()])
             );
         $this->session->expects($this->once())
             ->method('getFlashBag')
@@ -507,13 +523,21 @@ class FilesControllerTest extends BaseContainerTest
      *
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @expectedExceptionMessage Directory "[Foo]/test" does not exist.
-     * @version 0.0.1
+     * @expectedExceptionMessage Directory "[Test]/test" does not exist.
+     * @version 0.0.2
      * @since 0.0.1
      */
     public function mkdirNonexistingPath()
     {
-        (new FilesController())->mkdirAction(new Disk('', 'Foo', ''), 'test');
+        $disk = $this->manager['id'];
+        $realpath = $disk->getSource() . 'test';
+        $realpath = \realpath($realpath);
+
+        if (\file_exists($realpath)) {
+            $this->markTestSkipped('Test directory exists.');
+        }
+
+        (new FilesController())->mkdirAction($disk, 'test');
     }
 
     /**

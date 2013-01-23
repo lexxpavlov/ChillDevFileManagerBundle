@@ -96,13 +96,21 @@ class DisksControllerTest extends BaseContainerTest
      *
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @expectedExceptionMessage Directory "[Foo]/test" does not exist.
-     * @version 0.0.1
+     * @expectedExceptionMessage Directory "[Test]/test" does not exist.
+     * @version 0.0.2
      * @since 0.0.1
      */
     public function browseNonexistingPath()
     {
-        (new DisksController())->browseAction(new Disk('', 'Foo', ''), 'test');
+        $disk = $this->manager['id'];
+        $realpath = $disk->getSource() . 'test';
+        $realpath = \realpath($realpath);
+
+        if (\file_exists($realpath)) {
+            $this->markTestSkipped('Test directory does exists.');
+        }
+
+        (new DisksController())->browseAction($disk, 'test');
     }
 
     /**

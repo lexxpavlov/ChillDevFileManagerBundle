@@ -67,15 +67,15 @@ class FilesController extends Controller
             throw new HttpException(400, 'File path contains invalid reference that exceeds disk scope.', $error);
         }
 
-        // access file - very primitive way for now, needs abstraction in future
-        $realpath = \realpath($disk->getSource() . $path);
+        // get filesystem from given disk
+        $filesystem = $disk->getFilesystem();
 
         // non-existing path
-        if (!$realpath) {
+        if (!$filesystem->exists($path)) {
             throw new NotFoundHttpException(\sprintf('File "%s/%s" does not exist.', $disk, $path));
         }
 
-        if (!\is_file($realpath)) {
+        if (!$filesystem->isFile($path)) {
             throw new HttpException(
                 400,
                 \sprintf('"%s/%s" is not a regular file that can be downloaded.', $disk, $path)
@@ -83,7 +83,7 @@ class FilesController extends Controller
         }
 
         // set up cache information
-        $time = \filemtime($realpath);
+        $time = $filesystem->getFileMTime($path);
         $request = $this->getRequest();
         $response = new StreamedResponse();
         $response->setLastModified(DateTime::createFromFormat('U', $time))
@@ -95,7 +95,7 @@ class FilesController extends Controller
         );
         $response->headers->set('Content-Type', 'application/octet-stream');
         $response->headers->set('Content-Transfer-Encoding', 'binary');
-        $response->headers->set('Content-Length', \filesize($realpath));
+        $response->headers->set('Content-Length', $filesystem->getFilesize($path));
 
         // return cached response
         if ($response->isNotModified($request)) {
@@ -103,8 +103,8 @@ class FilesController extends Controller
         }
 
         $response->setCallback(
-            function () use ($realpath) {
-                \readfile($realpath);
+            function () use ($path, $filesystem) {
+                $filesystem->readFile($path);
             }
         );
         return $response;
@@ -137,24 +137,24 @@ class FilesController extends Controller
             throw new HttpException(400, 'File path contains invalid reference that exceeds disk scope.', $error);
         }
 
-        // access file - very primitive way for now, needs abstraction in future
-        $realpath = \realpath($disk->getSource() . $path);
+        // get filesystem from given disk
+        $filesystem = $disk->getFilesystem();
         $diskpath = $disk . '/' . $path;
 
         // non-existing path
-        if (!$realpath) {
+        if (!$filesystem->exists($path)) {
             throw new NotFoundHttpException(\sprintf('File "%s" does not exist.', $diskpath));
         }
 
-        if (!\is_file($realpath)) {
+        if (!$filesystem->isFile($path)) {
             throw new HttpException(400, \sprintf('"%s" is not a regular file that can be deleted.', $diskpath));
         }
 
-        \unlink($realpath);
+        $filesystem->unlink($path);
 
         $this->get('logger')->info(
-            \sprintf('File "%s" deleted by user "%s".', $diskpath, $this->getUser()),
-            ['realpath' => $realpath, 'scope' => $disk->getSource()]
+            \sprintf('File "%s" deleted by user "%s".', $path, $this->getUser()),
+            ['scope' => $disk->getSource()]
         );
         $this->get('session')->getFlashBag()->add(
             'done',
@@ -197,16 +197,16 @@ class FilesController extends Controller
             throw new HttpException(400, 'Directory path contains invalid reference that exceeds disk scope.', $error);
         }
 
-        // access file - very primitive way for now, needs abstraction in future
-        $realpath = \realpath($disk->getSource() . $path);
+        // get filesystem from given disk
+        $filesystem = $disk->getFilesystem();
         $diskpath = $disk . '/' . $path;
 
         // non-existing path
-        if (!$realpath) {
+        if (!$filesystem->exists($path)) {
             throw new NotFoundHttpException(\sprintf('Directory "%s" does not exist.', $diskpath));
         }
 
-        if (!\is_dir($realpath)) {
+        if (!$filesystem->isDirectory($path)) {
             throw new HttpException(
                 400,
                 \sprintf('"%s" is not a directory, so a sub-directory can\'t be created within it.', $diskpath)
@@ -216,7 +216,7 @@ class FilesController extends Controller
         $request = $this->getRequest();
 
         // initialize form
-        $form = $this->createForm(new MkdirType($realpath), ['name' => null]);
+        $form = $this->createForm(new MkdirType($filesystem, $path), ['name' => null]);
 
         // only handle POST form submits
         if ($request->isMethod('POST')) {
@@ -225,17 +225,20 @@ class FilesController extends Controller
             // validate form
             if ($form->isValid()) {
                 $data = $form->getData();
+                $fullpath = $path . '/' . $data['name'];
 
-                \mkdir($realpath . '/' . $data['name']);
+                $filesystem->mkdir($fullpath);
 
-                $fullpath = $diskpath . '/' . $data['name'];
                 $this->get('logger')->info(
                     \sprintf('Directory "%s" created by user "%s".', $fullpath, $this->getUser()),
-                    ['realpath' => $realpath, 'scope' => $disk->getSource()]
+                    ['scope' => $disk->getSource()]
                 );
                 $this->get('session')->getFlashBag()->add(
                     'done',
-                    $this->get('translator')->trans('"%directory%" has been created.', ['%directory%' => $fullpath])
+                    $this->get('translator')->trans(
+                        '"%directory%" has been created.',
+                        ['%directory%' => $disk . '/' . $fullpath]
+                    )
                 );
 
                 // move back to directory view
