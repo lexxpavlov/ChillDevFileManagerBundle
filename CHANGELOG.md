@@ -12,13 +12,13 @@
 
 ## **0.0.2** (01.02.2013)
 
-- Refactored tests to use PHPUnit mocks <Rafał Wrzeszcz>.
-- Minimized Composer output in Travis <Rafał Wrzeszcz>.
-- [#1] Filesize helper <Rafał Wrzeszcz>.
-- Path resolving method utility <Rafał Wrzeszcz>.
-- [#3] File storage abstraction <Rafał Wrzeszcz>.
-- [#23] Used vfsStream for tests <Rafał Wrzeszcz>.
+- Refactored tests to use PHPUnit mocks &lt;Rafał Wrzeszcz&gt;.
+- Minimized Composer output in Travis &lt;Rafał Wrzeszcz&gt;.
+- [#1] Filesize helper &lt;Rafał Wrzeszcz&gt;.
+- Path resolving method utility &lt;Rafał Wrzeszcz&gt;.
+- [#3] File storage abstraction &lt;Rafał Wrzeszcz&gt;.
+- [#23] Used vfsStream for tests &lt;Rafał Wrzeszcz&gt;.
 
 ## **0.0.1** (25.12.2012)
 
-- Initial release <Rafał Wrzeszcz>.
+- Initial release &lt;Rafał Wrzeszcz&gt;.
