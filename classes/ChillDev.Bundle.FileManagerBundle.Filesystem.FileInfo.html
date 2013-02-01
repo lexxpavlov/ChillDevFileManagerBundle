@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 <meta charset="utf-8">
-<title>ChillDev FileManager Bundle - by Chillout Development » \ChillDev\Bundle\FileManagerBundle\Request\ParamConverter\DiskParamConverter</title>
+<title>ChillDev FileManager Bundle - by Chillout Development » \ChillDev\Bundle\FileManagerBundle\Filesystem\FileInfo</title>
 <meta name="author" content="Mike van Riel">
 <meta name="description" content="">
 <link href="../css/template.css" rel="stylesheet" media="all">
@@ -59,9 +59,11 @@
 <li class="nav-header">
 <i class="icon-custom icon-method"></i> Methods
                     <ul>
-<li class="method public "><a href="#method___construct" title="__construct :: Initializes param converter."><span class="description">Initializes param converter.</span><pre>__construct()</pre></a></li>
-<li class="method public "><a href="#method_apply" title="apply :: Performs disk lookup."><span class="description">Performs disk lookup.</span><pre>apply()</pre></a></li>
-<li class="method public "><a href="#method_supports" title="supports :: Checks if this converter can handle given conversion."><span class="description">Checks if this converter can handle given conversion.</span><pre>supports()</pre></a></li>
+<li class="method public "><a href="#method___construct" title="__construct :: Initializes file info object."><span class="description">Initializes file info object.</span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#method_getMTime" title="getMTime :: Returns file last modification time."><span class="description">Returns file last modification time.</span><pre>getMTime()</pre></a></li>
+<li class="method public "><a href="#method_getSize" title="getSize :: Returns filesize."><span class="description">Returns filesize.</span><pre>getSize()</pre></a></li>
+<li class="method public "><a href="#method_isDir" title="isDir :: Checks if file is a directory."><span class="description">Checks if file is a directory.</span><pre>isDir()</pre></a></li>
+<li class="method public "><a href="#method_isFile" title="isFile :: Checks if file is a regular file."><span class="description">Checks if file is a regular file.</span><pre>isFile()</pre></a></li>
 </ul>
 </li>
 <li class="nav-header">
@@ -69,12 +71,16 @@
                     <ul></ul>
 </li>
 <li class="nav-header protected">» Protected
-                    <ul><li class="property protected "><a href="#property_manager" title="$manager :: Disks manager."><span class="description">Disks manager.</span><pre>$manager</pre></a></li></ul>
+                    <ul>
+<li class="property protected "><a href="#property_adapter" title="$adapter :: Filesystem adapter."><span class="description">Filesystem adapter.</span><pre>$adapter</pre></a></li>
+<li class="property protected "><a href="#property_handle" title="$handle :: Pre-defined data."><span class="description">Pre-defined data.</span><pre>$handle</pre></a></li>
+<li class="property protected "><a href="#property_path" title="$path :: File path."><span class="description">File path.</span><pre>$path</pre></a></li>
+</ul>
 </li>
 </ul>
 </div>
 <div class="span8">
-<a id="\ChillDev\Bundle\FileManagerBundle\Request\ParamConverter\DiskParamConverter"></a><ul class="breadcrumb">
+<a id="\ChillDev\Bundle\FileManagerBundle\Filesystem\FileInfo"></a><ul class="breadcrumb">
 <li>
 <a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
 </li>
@@ -86,17 +92,14 @@
 <span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.html">FileManagerBundle</a>
 </li>
 <li>
-<span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.Request.html">Request</a>
-</li>
-<li>
-<span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.Request.ParamConverter.html">ParamConverter</a>
+<span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.Filesystem.html">Filesystem</a>
 </li>
 <li class="active">
-<span class="divider">\</span><a href="../classes/ChillDev.Bundle.FileManagerBundle.Request.ParamConverter.DiskParamConverter.html">DiskParamConverter</a>
+<span class="divider">\</span><a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.FileInfo.html">FileInfo</a>
 </li>
 </ul>
 <div class="element class">
-<p class="short_description">Disk parameter converter.</p>
+<p class="short_description">Single path information representation.</p>
 <div class="details">
 <div class="long_description"></div>
 <table class="table table-bordered">
@@ -106,15 +109,15 @@
 </tr>
 <tr>
 <th>copyright</th>
-<td>2012 © by Rafał Wrzeszcz - Wrzasq.pl.</td>
+<td>2013 © by Rafał Wrzeszcz - Wrzasq.pl.</td>
 </tr>
 <tr>
 <th>version</th>
-<td>0.0.1</td>
+<td>0.0.2</td>
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.1</td>
+<td>0.0.2</td>
 </tr>
 <tr>
 <th>package</th>
@@ -124,96 +127,171 @@
 <h3>
 <i class="icon-custom icon-method"></i> Methods</h3>
 <a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
-<h2>Initializes param converter.</h2>
-<pre>__construct(\ChillDev\Bundle\FileManagerBundle\Filesystem\Manager $manager) </pre>
+<h2>Initializes file info object.</h2>
+<pre>__construct(\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface $adapter, string $path, array $data) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>version</th>
-<td>0.0.1</td>
+<td>0.0.2</td>
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.1</td>
+<td>0.0.2</td>
 </tr>
 </table>
 <h3>Parameters</h3>
 <div class="subelement argument">
-<h4>$manager</h4>
-<code><a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.Manager.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\Manager</a></code><p>Disks manager.</p></div>
+<h4>$adapter</h4>
+<code><a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.AdapterInterface.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface</a></code><p>Filesystem I/O.</p>
+</div>
+<div class="subelement argument">
+<h4>$path</h4>
+<code>string</code><p>File path.</p></div>
+<div class="subelement argument">
+<h4>$data</h4>
+<code>array</code><p>Pre-defined data.</p>
+</div>
 </div></div>
 </div>
-<a id="method_apply"></a><div class="element clickable method public method_apply" data-toggle="collapse" data-target=".method_apply .collapse">
-<h2>Performs disk lookup.</h2>
-<pre>apply(\Symfony\Component\HttpFoundation\Request $request, \Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationInterface $configuration) : bool</pre>
+<a id="method_getMTime"></a><div class="element clickable method public method_getMTime" data-toggle="collapse" data-target=".method_getMTime .collapse">
+<h2>Returns file last modification time.</h2>
+<pre>getMTime() : int</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>version</th>
-<td>0.0.1</td>
+<td>0.0.2</td>
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.1</td>
+<td>0.0.2</td>
 </tr>
 </table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$request</h4>
-<code>\Symfony\Component\HttpFoundation\Request</code><p>Current request.</p></div>
-<div class="subelement argument">
-<h4>$configuration</h4>
-<code>\Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationInterface</code><p>Conversion configuration.</p></div>
 <h3>Returns</h3>
 <div class="subelement response">
-<code>bool</code>Whether conversion took place.</div>
+<code>int</code>Last modification time of file.</div>
 </div></div>
 </div>
-<a id="method_supports"></a><div class="element clickable method public method_supports" data-toggle="collapse" data-target=".method_supports .collapse">
-<h2>Checks if this converter can handle given conversion.</h2>
-<pre>supports(\Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationInterface $configuration) : bool</pre>
+<a id="method_getSize"></a><div class="element clickable method public method_getSize" data-toggle="collapse" data-target=".method_getSize .collapse">
+<h2>Returns filesize.</h2>
+<pre>getSize() : int</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>version</th>
-<td>0.0.1</td>
+<td>0.0.2</td>
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.1</td>
+<td>0.0.2</td>
 </tr>
 </table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$configuration</h4>
-<code>\Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationInterface</code><p>Conversion configuration.</p></div>
 <h3>Returns</h3>
 <div class="subelement response">
-<code>bool</code>Whether given conversion can be handled or not.</div>
+<code>int</code>Filesize.</div>
+</div></div>
+</div>
+<a id="method_isDir"></a><div class="element clickable method public method_isDir" data-toggle="collapse" data-target=".method_isDir .collapse">
+<h2>Checks if file is a directory.</h2>
+<pre>isDir() : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>Test result.</div>
+</div></div>
+</div>
+<a id="method_isFile"></a><div class="element clickable method public method_isFile" data-toggle="collapse" data-target=".method_isFile .collapse">
+<h2>Checks if file is a regular file.</h2>
+<pre>isFile() : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>Test result.</div>
 </div></div>
 </div>
 <h3>
 <i class="icon-custom icon-property"></i> Properties</h3>
-<a id="property_manager"> </a><div class="element clickable property protected property_manager" data-toggle="collapse" data-target=".property_manager .collapse">
-<h2>Disks manager.</h2>
-<pre>$manager : <a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.Manager.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\Manager</a></pre>
+<a id="property_adapter"> </a><div class="element clickable property protected property_adapter" data-toggle="collapse" data-target=".property_adapter .collapse">
+<h2>Filesystem adapter.</h2>
+<pre>$adapter : <a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.AdapterInterface.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface</a></pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>version</th>
-<td>0.0.1</td>
+<td>0.0.2</td>
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.1</td>
+<td>0.0.2</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="property_handle"> </a><div class="element clickable property protected property_handle" data-toggle="collapse" data-target=".property_handle .collapse">
+<h2>Pre-defined data.</h2>
+<pre>$handle : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="property_path"> </a><div class="element clickable property protected property_path" data-toggle="collapse" data-target=".property_path .collapse">
+<h2>File path.</h2>
+<pre>$path : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
 </tr>
 </table>
 </div></div>

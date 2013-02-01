@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 <meta charset="utf-8">
-<title>ChillDev FileManager Bundle - by Chillout Development » ChillDev\Bundle\FileManagerBundle\Form</title>
+<title>ChillDev FileManager Bundle - by Chillout Development » \ChillDev\Bundle\FileManagerBundle\Utils\Path</title>
 <meta name="author" content="Mike van Riel">
 <meta name="description" content="">
 <link href="../css/template.css" rel="stylesheet" media="all">
@@ -52,40 +52,18 @@
                         </div></noscript>
 <div class="row">
 <div class="span4">
-<div class="btn-group view pull-right" data-toggle="buttons-radio">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
 <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
 </div>
-<ul class="side-nav nav nav-list">
-<li class="nav-header">
-<i class="icon-map-marker"></i> Namespaces</li>
-<li>
-<span class="empty-namespace"><i class="icon-stop"></i>Form</span><ul class="nav nav-list nav-namespaces"><li>
-<a href="../namespaces/ChillDev.Bundle.FileManagerBundle.Form.Type.html" title="Type"><i class="icon-th"></i>Type</a><ul class="nav nav-list nav-namespaces"></ul>
+<ul class="side-nav nav nav-list"><li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods
+                    <ul><li class="method public "><a href="#method_resolve" title="resolve :: Resolves symbolic elements in path."><span class="description">Resolves symbolic elements in path.</span><pre>resolve()</pre></a></li></ul>
 </li></ul>
-</li>
-</ul>
 </div>
-<div class="span8 namespace-contents">
-<ul class="breadcrumb">
+<div class="span8">
+<a id="\ChillDev\Bundle\FileManagerBundle\Utils\Path"></a><ul class="breadcrumb">
 <li>
-<a href="../index.html"><i class="icon-th"></i></a><span class="divider">\</span>
-</li>
-<li><a href="../namespaces/ChillDev.html">ChillDev</a></li>
-<li>
-<span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.html">Bundle</a>
-</li>
-<li>
-<span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.html">FileManagerBundle</a>
-</li>
-<li class="active">
-<span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.Form.html">Form</a>
-</li>
-</ul>
-<div class="namespace-indent">
-<div class="alert alert-info">This namespace does not contain any documentable elements</div>
-<ul class="breadcrumb">
-<li>
-<a href="../index.html"><i class="icon-th"></i></a><span class="divider">\</span>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
 </li>
 <li><a href="../namespaces/ChillDev.html">ChillDev</a></li>
 <li>
@@ -95,21 +73,70 @@
 <span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.html">FileManagerBundle</a>
 </li>
 <li>
-<span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.Form.html">Form</a>
+<span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.Utils.html">Utils</a>
 </li>
 <li class="active">
-<span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.Form.Type.html">Type</a>
+<span class="divider">\</span><a href="../classes/ChillDev.Bundle.FileManagerBundle.Utils.Path.html">Path</a>
 </li>
 </ul>
-<div class="namespace-indent">
+<div class="element class">
+<p class="short_description">Path-related utilities.</p>
+<div class="details">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>author</th>
+<td><a href="mailto:rafal.wrzeszcz@wrzasq.pl">Rafał Wrzeszcz</a></td>
+</tr>
+<tr>
+<th>copyright</th>
+<td>2013 © by Rafał Wrzeszcz - Wrzasq.pl.</td>
+</tr>
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>package</th>
+<td><a href="../packages/ChillDev.Bundle.FileManagerBundle.html">ChillDev\Bundle\FileManagerBundle</a></td>
+</tr>
+</table>
 <h3>
-<i class="icon-custom icon-class"></i> Classes and interfaces</h3>
-<div id="MkdirType" class="element ajax clickable class">
-<h1>MkdirType<a href="../classes/ChillDev.Bundle.FileManagerBundle.Form.Type.MkdirType.html">¶</a>
-</h1>
-<p class="short_description">Simply filename field form.</p>
-<div class="details collapse"></div>
-<a href="../classes/ChillDev.Bundle.FileManagerBundle.Form.Type.MkdirType.html" class="more">« More »</a>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a id="method_resolve"></a><div class="element clickable method public method_resolve" data-toggle="collapse" data-target=".method_resolve .collapse">
+<h2>Resolves symbolic elements in path.</h2>
+<pre>resolve(string $path) : string</pre>
+<div class="labels"><span class="label">Static</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$path</h4>
+<code>string</code><p>User-specified path.</p>
+</div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code><a href="http://php.net/manual/en/class.unexpectedvalueexception.php">\UnexpectedValueException</a></code></th>
+<td>When a path is invalid.</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>Normalized path.</div>
+</div></div>
 </div>
 </div>
 </div>

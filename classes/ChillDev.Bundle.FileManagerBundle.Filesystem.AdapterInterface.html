@@ -1,0 +1,493 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>ChillDev FileManager Bundle - by Chillout Development » \ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div id="ribbon"><a href="https://github.com/chilloutdevelopment/ChillDevFileManagerBundle" rel="me">Fork me on GitHub</a></div>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">ChillDev FileManager Bundle - by Chillout Development</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Namespaces</a></li>
+<li><a href="../namespaces/ChillDev.html"><i class="icon-th"></i> ChillDev</a></li>
+<li><a>Packages</a></li>
+<li><a href="../packages/ChillDev.html"><i class="icon-folder-open"></i> ChillDev</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">32</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list"><li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public "><a href="#method_closeDir" title="closeDir :: Closes directory iterator."><span class="description">Closes directory iterator.</span><pre>closeDir()</pre></a></li>
+<li class="method public "><a href="#method_currentDir" title="currentDir :: Returns current element."><span class="description">Returns current element.</span><pre>currentDir()</pre></a></li>
+<li class="method public "><a href="#method_exists" title="exists :: Checks if file exists."><span class="description">Checks if file exists.</span><pre>exists()</pre></a></li>
+<li class="method public "><a href="#method_getFileMTime" title="getFileMTime :: Returns last modification file."><span class="description">Returns last modification file.</span><pre>getFileMTime()</pre></a></li>
+<li class="method public "><a href="#method_getFilesize" title="getFilesize :: Returns file size."><span class="description">Returns file size.</span><pre>getFilesize()</pre></a></li>
+<li class="method public "><a href="#method_isDirectory" title="isDirectory :: Checks if given path is a directory."><span class="description">Checks if given path is a directory.</span><pre>isDirectory()</pre></a></li>
+<li class="method public "><a href="#method_isFile" title="isFile :: Checks if given path is a regular file."><span class="description">Checks if given path is a regular file.</span><pre>isFile()</pre></a></li>
+<li class="method public "><a href="#method_keyDir" title="keyDir :: Returns current iterator index."><span class="description">Returns current iterator index.</span><pre>keyDir()</pre></a></li>
+<li class="method public "><a href="#method_mkdir" title="mkdir :: Creates new directory."><span class="description">Creates new directory.</span><pre>mkdir()</pre></a></li>
+<li class="method public "><a href="#method_nextDir" title="nextDir :: Advances iterator."><span class="description">Advances iterator.</span><pre>nextDir()</pre></a></li>
+<li class="method public "><a href="#method_openDir" title="openDir :: Creates directory iterator."><span class="description">Creates directory iterator.</span><pre>openDir()</pre></a></li>
+<li class="method public "><a href="#method_readFile" title="readFile :: Prints file directly to output stream."><span class="description">Prints file directly to output stream.</span><pre>readFile()</pre></a></li>
+<li class="method public "><a href="#method_rewindDir" title="rewindDir :: Rewinds directory iterator."><span class="description">Rewinds directory iterator.</span><pre>rewindDir()</pre></a></li>
+<li class="method public "><a href="#method_unlink" title="unlink :: Removes regular file."><span class="description">Removes regular file.</span><pre>unlink()</pre></a></li>
+<li class="method public "><a href="#method_validDir" title="validDir :: Checks if directory iterator has more items."><span class="description">Checks if directory iterator has more items.</span><pre>validDir()</pre></a></li>
+</ul>
+</li></ul>
+</div>
+<div class="span8">
+<a id="\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/ChillDev.html">ChillDev</a></li>
+<li>
+<span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.html">Bundle</a>
+</li>
+<li>
+<span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.html">FileManagerBundle</a>
+</li>
+<li>
+<span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.Filesystem.html">Filesystem</a>
+</li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.AdapterInterface.html">AdapterInterface</a>
+</li>
+</ul>
+<div class="element interface">
+<p class="short_description">Filesystem I/O interface.</p>
+<div class="details">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>author</th>
+<td><a href="mailto:rafal.wrzeszcz@wrzasq.pl">Rafał Wrzeszcz</a></td>
+</tr>
+<tr>
+<th>copyright</th>
+<td>2013 © by Rafał Wrzeszcz - Wrzasq.pl.</td>
+</tr>
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>package</th>
+<td><a href="../packages/ChillDev.Bundle.FileManagerBundle.html">ChillDev\Bundle\FileManagerBundle</a></td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a id="method_closeDir"></a><div class="element clickable method public method_closeDir" data-toggle="collapse" data-target=".method_closeDir .collapse">
+<h2>Closes directory iterator.</h2>
+<pre>closeDir(mixed $handle) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$handle</h4>
+<code>mixed</code><p>Iterator handle.</p></div>
+</div></div>
+</div>
+<a id="method_currentDir"></a><div class="element clickable method public method_currentDir" data-toggle="collapse" data-target=".method_currentDir .collapse">
+<h2>Returns current element.</h2>
+<pre>currentDir(mixed $handle) : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$handle</h4>
+<code>mixed</code><p>Iterator handle.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>File data.</div>
+</div></div>
+</div>
+<a id="method_exists"></a><div class="element clickable method public method_exists" data-toggle="collapse" data-target=".method_exists .collapse">
+<h2>Checks if file exists.</h2>
+<pre>exists(string $path) : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$path</h4>
+<code>string</code><p>File path.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>File state.</div>
+</div></div>
+</div>
+<a id="method_getFileMTime"></a><div class="element clickable method public method_getFileMTime" data-toggle="collapse" data-target=".method_getFileMTime .collapse">
+<h2>Returns last modification file.</h2>
+<pre>getFileMTime(string $path) : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$path</h4>
+<code>string</code><p>File path.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>int</code>Last modification time of file.</div>
+</div></div>
+</div>
+<a id="method_getFilesize"></a><div class="element clickable method public method_getFilesize" data-toggle="collapse" data-target=".method_getFilesize .collapse">
+<h2>Returns file size.</h2>
+<pre>getFilesize(string $path) : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$path</h4>
+<code>string</code><p>File path.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>int</code>Filesize.</div>
+</div></div>
+</div>
+<a id="method_isDirectory"></a><div class="element clickable method public method_isDirectory" data-toggle="collapse" data-target=".method_isDirectory .collapse">
+<h2>Checks if given path is a directory.</h2>
+<pre>isDirectory(string $path) : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$path</h4>
+<code>string</code><p>File path.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>If it's directory.</div>
+</div></div>
+</div>
+<a id="method_isFile"></a><div class="element clickable method public method_isFile" data-toggle="collapse" data-target=".method_isFile .collapse">
+<h2>Checks if given path is a regular file.</h2>
+<pre>isFile(string $path) : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$path</h4>
+<code>string</code><p>File path.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>If it's file.</div>
+</div></div>
+</div>
+<a id="method_keyDir"></a><div class="element clickable method public method_keyDir" data-toggle="collapse" data-target=".method_keyDir .collapse">
+<h2>Returns current iterator index.</h2>
+<pre>keyDir(mixed $handle) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$handle</h4>
+<code>mixed</code><p>Iterator handle.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>Filename.</div>
+</div></div>
+</div>
+<a id="method_mkdir"></a><div class="element clickable method public method_mkdir" data-toggle="collapse" data-target=".method_mkdir .collapse">
+<h2>Creates new directory.</h2>
+<pre>mkdir(string $path) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$path</h4>
+<code>string</code><p>New directory path.</p></div>
+</div></div>
+</div>
+<a id="method_nextDir"></a><div class="element clickable method public method_nextDir" data-toggle="collapse" data-target=".method_nextDir .collapse">
+<h2>Advances iterator.</h2>
+<pre>nextDir(mixed $handle) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$handle</h4>
+<code>mixed</code><p>Iterator handle.</p></div>
+</div></div>
+</div>
+<a id="method_openDir"></a><div class="element clickable method public method_openDir" data-toggle="collapse" data-target=".method_openDir .collapse">
+<h2>Creates directory iterator.</h2>
+<pre>openDir(string $path) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$path</h4>
+<code>string</code><p>Directory path.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>mixed</code>Iterator handle.</div>
+</div></div>
+</div>
+<a id="method_readFile"></a><div class="element clickable method public method_readFile" data-toggle="collapse" data-target=".method_readFile .collapse">
+<h2>Prints file directly to output stream.</h2>
+<pre>readFile(string $path) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$path</h4>
+<code>string</code><p>File path.</p></div>
+</div></div>
+</div>
+<a id="method_rewindDir"></a><div class="element clickable method public method_rewindDir" data-toggle="collapse" data-target=".method_rewindDir .collapse">
+<h2>Rewinds directory iterator.</h2>
+<pre>rewindDir(mixed $handle) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$handle</h4>
+<code>mixed</code><p>Iterator handle.</p></div>
+</div></div>
+</div>
+<a id="method_unlink"></a><div class="element clickable method public method_unlink" data-toggle="collapse" data-target=".method_unlink .collapse">
+<h2>Removes regular file.</h2>
+<pre>unlink(string $path) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$path</h4>
+<code>string</code><p>File path.</p></div>
+</div></div>
+</div>
+<a id="method_validDir"></a><div class="element clickable method public method_validDir" data-toggle="collapse" data-target=".method_validDir .collapse">
+<h2>Checks if directory iterator has more items.</h2>
+<pre>validDir(mixed $handle) : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$handle</h4>
+<code>mixed</code><p>Iterator handle.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>Iterator status.</div>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a10</a> and<br>
+            generated on 2013-02-01T02:11:08+01:00.<br></footer></div>
+</div>
+</body>
+</html>

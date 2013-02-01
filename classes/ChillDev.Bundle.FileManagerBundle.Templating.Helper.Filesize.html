@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 <meta charset="utf-8">
-<title>ChillDev FileManager Bundle - by Chillout Development » \ChillDev\Bundle\FileManagerBundle\DependencyInjection\Configuration</title>
+<title>ChillDev FileManager Bundle - by Chillout Development » \ChillDev\Bundle\FileManagerBundle\Templating\Helper\Filesize</title>
 <meta name="author" content="Mike van Riel">
 <meta name="description" content="">
 <link href="../css/template.css" rel="stylesheet" media="all">
@@ -55,13 +55,26 @@
 <span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
 <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
 </div>
-<ul class="side-nav nav nav-list"><li class="nav-header">
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
 <i class="icon-custom icon-method"></i> Methods
-                    <ul><li class="method public "><a href="#method_getConfigTreeBuilder" title="getConfigTreeBuilder :: {@inheritDoc}"><span class="description">{@inheritDoc}</span><pre>getConfigTreeBuilder()</pre></a></li></ul>
-</li></ul>
+                    <ul>
+<li class="method public "><a href="#method___invoke" title="__invoke :: Shorter way for invoking helper method."><span class="description">Shorter way for invoking helper method.</span><pre>__invoke()</pre></a></li>
+<li class="method public "><a href="#method_filesize" title="filesize :: Formats filesize."><span class="description">Formats filesize.</span><pre>filesize()</pre></a></li>
+<li class="method public "><a href="#method_getName" title="getName :: Returns helpers alias."><span class="description">Returns helpers alias.</span><pre>getName()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header">
+<i class="icon-custom icon-property"></i> Properties
+                    <ul></ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul><li class="property protected "><a href="#property_units" title="$units :: Size prefixes."><span class="description">Size prefixes.</span><pre>$units</pre></a></li></ul>
+</li>
+</ul>
 </div>
 <div class="span8">
-<a id="\ChillDev\Bundle\FileManagerBundle\DependencyInjection\Configuration"></a><ul class="breadcrumb">
+<a id="\ChillDev\Bundle\FileManagerBundle\Templating\Helper\Filesize"></a><ul class="breadcrumb">
 <li>
 <a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
 </li>
@@ -73,14 +86,17 @@
 <span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.html">FileManagerBundle</a>
 </li>
 <li>
-<span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.DependencyInjection.html">DependencyInjection</a>
+<span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.Templating.html">Templating</a>
+</li>
+<li>
+<span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.Templating.Helper.html">Helper</a>
 </li>
 <li class="active">
-<span class="divider">\</span><a href="../classes/ChillDev.Bundle.FileManagerBundle.DependencyInjection.Configuration.html">Configuration</a>
+<span class="divider">\</span><a href="../classes/ChillDev.Bundle.FileManagerBundle.Templating.Helper.Filesize.html">Filesize</a>
 </li>
 </ul>
 <div class="element class">
-<p class="short_description">ChillDev.FileManager configuration handler.</p>
+<p class="short_description">Filesize formatting helper.</p>
 <div class="details">
 <div class="long_description"></div>
 <table class="table table-bordered">
@@ -90,15 +106,15 @@
 </tr>
 <tr>
 <th>copyright</th>
-<td>2012 © by Rafał Wrzeszcz - Wrzasq.pl.</td>
+<td>2013 © by Rafał Wrzeszcz - Wrzasq.pl.</td>
 </tr>
 <tr>
 <th>version</th>
-<td>0.0.1</td>
+<td>0.0.2</td>
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.1</td>
+<td>0.0.2</td>
 </tr>
 <tr>
 <th>package</th>
@@ -107,20 +123,97 @@
 </table>
 <h3>
 <i class="icon-custom icon-method"></i> Methods</h3>
-<a id="method_getConfigTreeBuilder"></a><div class="element clickable method public method_getConfigTreeBuilder" data-toggle="collapse" data-target=".method_getConfigTreeBuilder .collapse">
-<h2>{@inheritDoc}</h2>
-<pre>getConfigTreeBuilder() </pre>
+<a id="method___invoke"></a><div class="element clickable method public method___invoke" data-toggle="collapse" data-target=".method___invoke .collapse">
+<h2>Shorter way for invoking helper method.</h2>
+<pre>__invoke(int $size, $divisor) : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>version</th>
-<td>0.0.1</td>
+<td>0.0.2</td>
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.1</td>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$size</h4>
+<code>int</code><p>Filesize.</p></div>
+<div class="subelement argument"><h4>$divisor</h4></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>Human-readable size.</div>
+</div></div>
+</div>
+<a id="method_filesize"></a><div class="element clickable method public method_filesize" data-toggle="collapse" data-target=".method_filesize .collapse">
+<h2>Formats filesize.</h2>
+<pre>filesize(int $size, int $divisor) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$size</h4>
+<code>int</code><p>Filesize.</p></div>
+<div class="subelement argument">
+<h4>$divisor</h4>
+<code>int</code><p>Unit step divisor.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>Human-readable size.</div>
+</div></div>
+</div>
+<a id="method_getName"></a><div class="element clickable method public method_getName" data-toggle="collapse" data-target=".method_getName .collapse">
+<h2>Returns helpers alias.</h2>
+<pre>getName() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>Helper name.</div>
+</div></div>
+</div>
+<h3>
+<i class="icon-custom icon-property"></i> Properties</h3>
+<a id="property_units"> </a><div class="element clickable property protected property_units" data-toggle="collapse" data-target=".property_units .collapse">
+<h2>Size prefixes.</h2>
+<pre>$units : string[]</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
 </tr>
 </table>
 </div></div>

@@ -1,5 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project version="2.0.0a10" title="ChillDev FileManager Bundle - by Chillout Development">
+  <file path="Utils/Path.php" hash="a4b1dc365623d7ba2168e3352ec87ccf" package="ChillDev\Bundle\FileManagerBundle">
+    <docblock line="3">
+      <description><![CDATA[This file is part of the ChillDev FileManager bundle.]]></description>
+      <long-description><![CDATA[]]></long-description>
+      <tag line="3" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
+      <tag line="3" name="copyright" description="2013 © by Rafał Wrzeszcz - Wrzasq.pl."/>
+      <tag line="3" name="version" description="0.0.2"/>
+      <tag line="3" name="since" description="0.0.2"/>
+      <tag line="3" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
+    </docblock>
+    <namespace-alias name="UnexpectedValueException">UnexpectedValueException</namespace-alias>
+    <class final="false" abstract="false" namespace="ChillDev\Bundle\FileManagerBundle\Utils" line="26" package="ChillDev\Bundle\FileManagerBundle">
+      <extends/>
+      <name>Path</name>
+      <full_name>\ChillDev\Bundle\FileManagerBundle\Utils\Path</full_name>
+      <docblock line="17">
+        <description><![CDATA[Path-related utilities.]]></description>
+        <long-description><![CDATA[]]></long-description>
+        <tag line="17" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
+        <tag line="17" name="copyright" description="2013 © by Rafał Wrzeszcz - Wrzasq.pl."/>
+        <tag line="17" name="version" description="0.0.2"/>
+        <tag line="17" name="since" description="0.0.2"/>
+        <tag line="17" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
+      </docblock>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Utils" line="37" package="ChillDev\Bundle\FileManagerBundle">
+        <name>resolve</name>
+        <full_name>resolve</full_name>
+        <docblock line="28">
+          <description><![CDATA[Resolves symbolic elements in path.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="28" name="param" description="User-specified path." type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="28" name="return" description="Normalized path." type="string">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="28" name="throws" description="When a path is invalid." type="\UnexpectedValueException">
+            <type by_reference="false">\UnexpectedValueException</type>
+          </tag>
+          <tag line="28" name="version" description="0.0.2"/>
+          <tag line="28" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="37">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+    <source>eJzdVE1v2kAQvftXTJVKBgI2pMd89oP01DYioTkEGi32gFdZ1u7OGhKqXPpv+jcq9X91vDZgEkXquT6w3uG92TdvZ3x0miWZ54WtlgctuEokwVQqBF4zYSykU7AJwvtEKvUBF3DOf34SWszQwCTXscKAiQX3TOQ2SQ0MxFT8+QnXZoW0ilZwZDiggmW1P+MXQd+DTJ04VpRmD0bOEgsH3d4b+P0LJg/PcnSK15IVONYCDclUQzfoBgcuQlJHWNtnIrpjlRvlo3dO7ahWQBlhdOh5WsyRmPMPhNHQSkWHnpcTwlDjfYaRxfirUDn27yPMLCs73Hh6IWzSMagEYyBnqrQS6b9wLVKCyBXo/fCAH1dy8bRggJSqBRLQw3ySKhkBKpyjtgRSc2/ZJKigawYfbsQcyBqpZ/C6gMCQ0HSIDZZTyfbVaXBm0OZGrwmfUzMXSq6ewWxi0iW9eFNwnaAG4UhF20u94DTxlv/EtSq645yLhW7N8klRLFlheZnmOnKHmNKOhiur6ZClZc62EObiDoFyw5NnfQIxYXhu0ana4EpPjsEPfQiqXVDsuNtquaqzQCi1dd/gFA2yZnqWbpQZnN0azBT3f8PfC8P9Pb9d5G2XmObhhrNMiq9Do6TMhY2SgtC4+RaO98PRKGie8k+4t2by4kBtGF0M+h9vv5yfX/avbt+/vbgaDvpNOIFus2bEjirKJ3y1G11VvlKVS3rTHd/0xpyaYQp1Yxvtjps1zY9P3KmMgDS3JGMEk6Z212g55RI5a5bS9twgCP0mvDo+Bp5Mwqe6XZuBxuWLndbwL3c6GaJUWyH1pudq2mwiLCAzMSaIJd0B8cxj4L9YVzEGGYg45uzEg5nUbrqalMrSdUm9NnR6Vb5H79H7C8KB2TE=</source>
+  </file>
   <file path="DependencyInjection/ChillDevFileManagerExtension.php" hash="b6b3a521e96adf440c5c338c1947602d" package="ChillDev\Bundle\FileManagerBundle">
     <docblock line="3">
       <description><![CDATA[This file is part of the ChillDev FileManager bundle.]]></description>
@@ -103,13 +154,13 @@
     </class>
     <source>eJzdVMFu2zAMvfsreBjgNECctNd0WboGA4phO3QFtkOAQZHpWKssqZSczil62d/sNwbsvybZaeIkTdtddpgulsj3yCeK9Okbk5so6ne7EXThKhcWMiER/NcwcqAzcDnCeS6knOAC3nnnB6bYHAlmpUolJp4YuGNWulwTXLKM/f4Bn2mJdsmXcEreIJPb1XnsN8zeJEaOahbXpiIxzx2cDI5P4NdPmFV7MXph27CSmrVAskIrGCSD5Li2WKE4ts6G8Wuvcq18+rZWO21doLF4dD+KFCvQes4LCNMJGlQpKl5dqG/InRcyjKLSInyqikyranquC6MVKud3KhNzT8mEEgHpwwqZIk2vCHG1H76Y3FhKYuF0oRxS5jUP1w/4ID5pvxNvkyBn4RL0Xzwbl8xa2CoKiMJILHz5dhzrakV3EfhVVyysLtyNhcqRhJtofv9g3BW7sm4Jrm39+mvKmRQcslLVDQFzdE361jt3jmpokz+sV27jhNeg8Ba24MMNkrR2H3WKHtZm9UbB0Yl5qFeKi69heoumULHnrwP0+5CGPsIw177ZfTHsfvS1JazeKBPfvxSyuUcnToW9jo92ICFxSqg6247GyYhYFeI2ZBvvgxqg7/8z50jMSodn9j1WnVikB9GGtNOuMj5sneEA8FmB20DLmWTUqJVshvKJsBuWsJd4UwrC9NkE/qfxVyKsLonjv1XxlP+Q77C9fRuHfjD9JKr5Izd6LMTK1uphQleS2ur/ZkLuo/voD2UY5yI=</source>
   </file>
-  <file path="Validator/Constraints/FileNotExists.php" hash="03c3950273fe72875c98a1b5ac0aeea7" package="ChillDev\Bundle\FileManagerBundle">
+  <file path="Validator/Constraints/FileNotExists.php" hash="d09b9b258aa67e230fadda712ba916f3" package="ChillDev\Bundle\FileManagerBundle">
     <docblock line="3">
       <description><![CDATA[This file is part of the ChillDev FileManager bundle.]]></description>
       <long-description><![CDATA[]]></long-description>
       <tag line="3" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
-      <tag line="3" name="copyright" description="2012 © by Rafał Wrzeszcz - Wrzasq.pl."/>
-      <tag line="3" name="version" description="0.0.1"/>
+      <tag line="3" name="copyright" description="2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl."/>
+      <tag line="3" name="version" description="0.0.2"/>
       <tag line="3" name="since" description="0.0.1"/>
       <tag line="3" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
     </docblock>
@@ -123,8 +174,8 @@
         <long-description><![CDATA[]]></long-description>
         <tag line="17" name="Annotation" description=""/>
         <tag line="17" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
-        <tag line="17" name="copyright" description="2012 © by Rafał Wrzeszcz - Wrzasq.pl."/>
-        <tag line="17" name="version" description="0.0.1"/>
+        <tag line="17" name="copyright" description="2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl."/>
+        <tag line="17" name="version" description="0.0.2"/>
         <tag line="17" name="since" description="0.0.1"/>
         <tag line="17" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
       </docblock>
@@ -142,38 +193,51 @@
         </docblock>
       </property>
       <property final="false" static="false" visibility="public" line="45" namespace="ChillDev\Bundle\FileManagerBundle\Validator\Constraints" package="Default">
-        <name>$path</name>
+        <name>$filesystem</name>
         <default><![CDATA[]]></default>
         <docblock line="38">
-          <description><![CDATA[Directory scope.]]></description>
+          <description><![CDATA[Filesystem.]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="38" name="var" description="" type="string">
-            <type by_reference="false">string</type>
+          <tag line="38" name="var" description="" type="\ChillDev\Bundle\FileManagerBundle\Validator\Constraints\ChillDev\Bundle\FileManagerBundle\Filesystem\Filesystem">
+            <type by_reference="false">\ChillDev\Bundle\FileManagerBundle\Validator\Constraints\ChillDev\Bundle\FileManagerBundle\Filesystem\Filesystem</type>
           </tag>
-          <tag line="38" name="version" description="0.0.1"/>
-          <tag line="38" name="since" description="0.0.1"/>
+          <tag line="38" name="version" description="0.0.2"/>
+          <tag line="38" name="since" description="0.0.2"/>
         </docblock>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Validator\Constraints" line="52" package="ChillDev\Bundle\FileManagerBundle">
-        <name>getDefaultOption</name>
-        <full_name>getDefaultOption</full_name>
+      <property final="false" static="false" visibility="public" line="54" namespace="ChillDev\Bundle\FileManagerBundle\Validator\Constraints" package="Default">
+        <name>$path</name>
+        <default><![CDATA[]]></default>
         <docblock line="47">
-          <description><![CDATA[{@inheritDoc}]]></description>
+          <description><![CDATA[Directory scope.]]></description>
           <long-description><![CDATA[]]></long-description>
+          <tag line="47" name="var" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
           <tag line="47" name="version" description="0.0.1"/>
           <tag line="47" name="since" description="0.0.1"/>
         </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Validator\Constraints" line="61" package="ChillDev\Bundle\FileManagerBundle">
+        <name>getRequiredOptions</name>
+        <full_name>getRequiredOptions</full_name>
+        <docblock line="56">
+          <description><![CDATA[{@inheritDoc}]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="56" name="version" description="0.0.2"/>
+          <tag line="56" name="since" description="0.0.2"/>
+        </docblock>
       </method>
     </class>
-    <source>eJzVUsFuEzEQvfsrRhVVIBKbtNcWSGngBkiA4JLLZHd218Kxjccb2FS58Df8BhL/xdi7pC3lgIQ44Ivt53n2e298/sS3XqnZdKpgCm9bzVBrQyCzxxDB1RBbgstWG7OkLTyXwxdosaEA685WhgohJu4Cu9i6AK+xxu9f4H3YEe/KHZwHAUzxadwvZIH8sfDmcWaVzvdBN22E0/nJKXz7Cuv+zh0P03JgFZm1pcDaWZgX8+IkI6xtSTf2HssPovKgfPU0q13dMDAgUj1TyuKGWDh/QFi9Q6MrjC6sLp3lGFDbyGdKdUzwpt/UzvZysvHOko2/rT47JH7BTCGyhIwRGr0lO+RfOWKwLgJ91hwPGV9YwTCK9f8+8tIgc/5PL118llyymI1kK4brpNSVAhk5rTSmsKQaOyPBhCDWpWssFxfj6c+ixRYDyBXaNtfQbQMjestExmZ59t3a6BLujQ/AI5gkrXB0nPpzfARoAmHVDw3iYiI9/VWpDlRK43tgifwfavQY27vPXy20bSnouHTl/u9eqDtbpk8HDcUx/1c+Afcf5LKhSWkEil2wMEmSJJIE7dVe/QABzlb8</source>
+    <source>eJzdU02P0zAQvftXjFasAhWbfnDsAl22cAOkBcGBcnCTSWLh2lmPU0hXvfBv+Bsr7f9i7Ja00EogIS74Yvt53mTem8n507qqhej3egJ68LZSBIXSCLzX0nmwBfgK4bJSWk9xCS/48aU0skQH88bkGlMmBu5ENr6yDq5kIe++wnu3QlplKzh3DOj08/Y+4YOk67TWTyIrs3XrVFl5GA2GIzgL2yO4/Qbz9iDVWThuyGkkL9GRsgYG6SAdRYSUyTDeh/Fey+wTF9sJmD2LRc/2dGwQju4LYeQCiTl/QJi9k1rl0ls3u7SGvJPKeBoL0RDCm3ZRWNPyy6K2Bo0/Gj3ujL8gQueJvZYeSrVEs2lDbpHAWA/4RZHvrL4wjEnP0v8X5zMtieJ0vbL+eRBLrNmjyQl2hokbAbyiaWH1YIqFbDT74xw7wM0jTpxuX38ETZbSAadQptxBewKGHfqTiIj14143c60yuLf9ADyGJNQKJ6ehTacnILVDmbebPlGacGt/qTTEU0seF0fL+/287RLsHY/qGR3RMzqqp+gSHRY8VQ4zHtgWiEflH5paS18dfv5mokyFTvmpzdZ/J7NoTBZ+FijRX+F1w8Ly13VA6P6DGLiZq7Ac+sYZ+JDsrEkeQhJqTD6OY9harMV3jCyR2w==</source>
   </file>
-  <file path="Validator/Constraints/FileNotExistsValidator.php" hash="094c9431cf06ef7a7453dc63a47f11ea" package="ChillDev\Bundle\FileManagerBundle">
+  <file path="Validator/Constraints/FileNotExistsValidator.php" hash="384d7942fe7885019f8c5cb7c6d8a89a" package="ChillDev\Bundle\FileManagerBundle">
     <docblock line="3">
       <description><![CDATA[This file is part of the ChillDev FileManager bundle.]]></description>
       <long-description><![CDATA[]]></long-description>
       <tag line="3" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
-      <tag line="3" name="copyright" description="2012 © by Rafał Wrzeszcz - Wrzasq.pl."/>
-      <tag line="3" name="version" description="0.0.1"/>
+      <tag line="3" name="copyright" description="2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl."/>
+      <tag line="3" name="version" description="0.0.2"/>
       <tag line="3" name="since" description="0.0.1"/>
       <tag line="3" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
     </docblock>
@@ -187,8 +251,8 @@
         <description><![CDATA[Constraint validator.]]></description>
         <long-description><![CDATA[]]></long-description>
         <tag line="18" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
-        <tag line="18" name="copyright" description="2012 © by Rafał Wrzeszcz - Wrzasq.pl."/>
-        <tag line="18" name="version" description="0.0.1"/>
+        <tag line="18" name="copyright" description="2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl."/>
+        <tag line="18" name="version" description="0.0.2"/>
         <tag line="18" name="since" description="0.0.1"/>
         <tag line="18" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
       </docblock>
@@ -198,7 +262,7 @@
         <docblock line="29">
           <description><![CDATA[{@inheritDoc}]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="29" name="version" description="0.0.1"/>
+          <tag line="29" name="version" description="0.0.2"/>
           <tag line="29" name="since" description="0.0.1"/>
         </docblock>
         <argument line="34">
@@ -217,158 +281,1337 @@
       <error line="29" code="50015">Argument $value is missing from the Docblock of validate()</error>
       <error line="29" code="50015">Argument $constraint is missing from the Docblock of validate()</error>
     </parse_markers>
-    <source>eJzdU8Fy2yAQvfMVe3Bi2WPLTq6OVE+S9tYe2k560UwHIxSYYKCA3MgZX/o3/Y3O9L+6Qo7stDkk13KAZfe95bELF2+ssITMxmMCY/gspIdKKg64WuoCmAqC4HAlpFLXfAPvMPieanrLHaxqXSqeIrHlLmkdhHHwkVb09w/44rbcb9kWLhw6VPp9v1+iQf231Ko8spixjZO3IsD5/Owcfv2EVfNPjmlrdqw0sjbceWk0zNN5ehY9XmrGj/aWsjtU2SsvLqPa4ugCnQfRM0I0XXOPnBcQihuqZEmDccWV0T44KnXwC0Jqz+FTs66MbjCytkZzHZ5FL16B7X2Lvk2HIGweo/9FG5ii3sc39sGEt/fSB99fH/h94Lr08ExpyAMBHLE87RjDw1JqwZ0M14btHp1/6917n2iOvllcbb1SkkFVaxZa1r7WPBmgVfPJcR8GrLdHkdwpascgfqjsGDLNLQ0CUhjOhjh3+RY9Q1aQFAi1xieRPYGCCZfMRyPIsgywkfh8Tk+haINfeSxUh0TE4eR4esA/Pc3x7IAFnOa0LG+kUbS9UfJEEn4Aj/2YAHWONsnwpM13MoQsh33qg8KupDuyI38ACatgTA==</source>
+    <source>eJzdU8Fy0zAQvesr9pA2TiZ20nBM7WZo4QYHYMrFF0WWa00VSUhyqNPJhb/hN5jhv1jLqZNAD/RaHazV2307T2+tyytTGUKm4zGBMXyphINSSA64G2o96BJ8xeG6ElLe8A28x+QHqugdt7CqVSF5gsSWu6S1r7SFT7Skv3/AV7vlbsu2cGkRkMn3/XmJAXXfEiOzwGLaNFbcVR7ms4s5xO32Bn79hFXzT6u4DTtyEsgbbp3QCmbJLJkHxAnFeDhfhLOh7B7F9hfI3wbR+dE9OgSrp4QouuYOOf9ByG+pFAX12ubXWjlvqVDeLQipHYfPzbrUqsHM2mjFlX+2evGC2h5b9NM6JGHzlH1N02CSOhf+uI/av3sQzrveBeAPnqvCwTMOkUcCuIJL7RrD41KoilvhbzTbPYF/692jJ5oDNg27qVdSMChrxXzL2lvOowFGNZ8cj2PA+ngUyJ2idg3C80qPS+LMUF9BAsPpEL9dv0XPECVEOZYa7aLAnkDOKhvNRiNI0xRwnvgXnZ+ftmwLXeM8X8cZD951ZCQdxARBHh99nCHXo6dxRoviVmhJ20tGJy3xaTgc0QSotbSJhmdtv7MhpBnsWx9Edy7vyI78AewCad4=</source>
   </file>
-  <file path="Filesystem/Disk.php" hash="5ee50ff001ded36440665a48bd5ae44d" package="ChillDev\Bundle\FileManagerBundle">
+  <file path="Filesystem/Disk.php" hash="733b4fd9bd4a9fcb5e0e3141224b2527" package="ChillDev\Bundle\FileManagerBundle">
     <docblock line="3">
       <description><![CDATA[This file is part of the ChillDev FileManager bundle.]]></description>
       <long-description><![CDATA[]]></long-description>
       <tag line="3" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
-      <tag line="3" name="copyright" description="2012 © by Rafał Wrzeszcz - Wrzasq.pl."/>
-      <tag line="3" name="version" description="0.0.1"/>
+      <tag line="3" name="copyright" description="2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl."/>
+      <tag line="3" name="version" description="0.0.2"/>
       <tag line="3" name="since" description="0.0.1"/>
+      <tag line="3" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
+    </docblock>
+    <namespace-alias name="Local">ChillDev\Bundle\FileManagerBundle\Filesystem\Adapter\Local</namespace-alias>
+    <class final="false" abstract="false" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="26" package="ChillDev\Bundle\FileManagerBundle">
+      <extends/>
+      <name>Disk</name>
+      <full_name>\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk</full_name>
+      <docblock line="17">
+        <description><![CDATA[Disk reference.]]></description>
+        <long-description><![CDATA[]]></long-description>
+        <tag line="17" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
+        <tag line="17" name="copyright" description="2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl."/>
+        <tag line="17" name="version" description="0.0.2"/>
+        <tag line="17" name="since" description="0.0.1"/>
+        <tag line="17" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
+      </docblock>
+      <property final="false" static="false" visibility="protected" line="35" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" package="Default">
+        <name>$id</name>
+        <default><![CDATA[]]></default>
+        <docblock line="28">
+          <description><![CDATA[Disk ID.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="28" name="var" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="28" name="version" description="0.0.1"/>
+          <tag line="28" name="since" description="0.0.1"/>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="protected" line="44" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" package="Default">
+        <name>$label</name>
+        <default><![CDATA[]]></default>
+        <docblock line="37">
+          <description><![CDATA[Disk label.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="37" name="var" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="37" name="version" description="0.0.1"/>
+          <tag line="37" name="since" description="0.0.1"/>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="protected" line="53" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" package="Default">
+        <name>$source</name>
+        <default><![CDATA[]]></default>
+        <docblock line="46">
+          <description><![CDATA[Wrapped directory.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="46" name="var" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="46" name="version" description="0.0.1"/>
+          <tag line="46" name="since" description="0.0.1"/>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="64" package="ChillDev\Bundle\FileManagerBundle">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <docblock line="55">
+          <description><![CDATA[Initializes disk definition.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="55" name="param" description="Disk ID." type="string" variable="$id">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="55" name="param" description="Disk label." type="string" variable="$label">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="55" name="param" description="Enclosing directory." type="string" variable="$source">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="55" name="version" description="0.0.1"/>
+          <tag line="55" name="since" description="0.0.1"/>
+        </docblock>
+        <argument line="64">
+          <name>$id</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="64">
+          <name>$label</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="64">
+          <name>$source</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="78" package="ChillDev\Bundle\FileManagerBundle">
+        <name>getId</name>
+        <full_name>getId</full_name>
+        <docblock line="71">
+          <description><![CDATA[Returns disk ID.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="71" name="return" description="ID." type="string">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="71" name="version" description="0.0.1"/>
+          <tag line="71" name="since" description="0.0.1"/>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="90" package="ChillDev\Bundle\FileManagerBundle">
+        <name>getLabel</name>
+        <full_name>getLabel</full_name>
+        <docblock line="83">
+          <description><![CDATA[Returns disk label.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="83" name="return" description="Label." type="string">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="83" name="version" description="0.0.1"/>
+          <tag line="83" name="since" description="0.0.1"/>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="102" package="ChillDev\Bundle\FileManagerBundle">
+        <name>getSource</name>
+        <full_name>getSource</full_name>
+        <docblock line="95">
+          <description><![CDATA[Returns disk source.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="95" name="return" description="Directory path." type="string">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="95" name="version" description="0.0.1"/>
+          <tag line="95" name="since" description="0.0.1"/>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="114" package="ChillDev\Bundle\FileManagerBundle">
+        <name>__toString</name>
+        <full_name>__toString</full_name>
+        <docblock line="107">
+          <description><![CDATA[Returns string representation.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="107" name="return" description="Printable string." type="string">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="107" name="version" description="0.0.1"/>
+          <tag line="107" name="since" description="0.0.1"/>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="126" package="ChillDev\Bundle\FileManagerBundle">
+        <name>getFilesystem</name>
+        <full_name>getFilesystem</full_name>
+        <docblock line="119">
+          <description><![CDATA[Returns filesystem for given disk.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="119" name="return" description="Filesystem configured for current disk." type="\ChillDev\Bundle\FileManagerBundle\Filesystem\Filesystem">
+            <type by_reference="false">\ChillDev\Bundle\FileManagerBundle\Filesystem\Filesystem</type>
+          </tag>
+          <tag line="119" name="version" description="0.0.2"/>
+          <tag line="119" name="since" description="0.0.2"/>
+        </docblock>
+      </method>
+    </class>
+    <source>eJzdVktu2zAQ3esUswhgO4jlT5eJU7d1CxhIgSIpkEVdBDQ1sojQlEpSDuwim96m1yjQe3VEyV/ZkIMkm3JhkUMO5703JMcXb5Mo8bzW6akHp/A1EgZCIRHomzBtIQ7BRggfIiHlAGfwiSY/M8UmqGGcqkCiT46Zb5+lNoo1XLOQ/f0Ft3qBZsEXcKHJIP2HYtynDjM//EReOi8eJ3MtJpGFbrvThWb2eQN/fsN4XtqqmXVzZ985z1AbESto+22/6yxGKI5u3HHjhPF7ArsiMHrvQI82eOQWWt3yPMWmaMjnCAdnMXNjcXrueal5msvoXcASi3p0FXMmz1cZGAhzDxpD1EhE/idtuWTGOH7eTw+oOcZZK1gPB34xXpr7M6bBWC3UZG3agNVZWbegOVvLfRMdW+QWAzgRAam8L65kY5SvGtpFKEe/1SxJaD4QmhbGev6qIEycao5lFEMlrGBS0DkgJKRHgKHIbLEq4aEngU0LRJmiu4nbXeGI71F5d12ODT4qLmOTWUqSPJl4OpaCQ5gqnjGBuzseKwqXclsn4GcFtrNl7Ibzyg9m1k4sPYXNS6LYy4/OzkTOrLfK7c50Qai3lj2bfCyJf4021aoQfs8F0G5+qdOm0M+TY4J2GNR3SRfRVtyPQr3/+mwDv9pO/rOxu/0q4G8kpoJBnqIKCoPliaS6aKMX5HLjoleQOe4UFVA1JhoNKsv2XuJtXl/o17Ixlfzc8HIXzsY3bsdD1GrfauAvCa6TSrba91oV1XBVSSGkwjgRM1Qum4forkvvZpcehVBMUk0PZLYNTzXVXbu1UakSloToVqV4HfCQFgofNmDVs6H7Y1Dfyn+jsZTl0fsHl8G8mg==</source>
+  </file>
+  <file path="Filesystem/DirectoryIterator.php" hash="589fbee5890aafccbfac282da121b639" package="ChillDev\Bundle\FileManagerBundle">
+    <docblock line="3">
+      <description><![CDATA[This file is part of the ChillDev FileManager bundle.]]></description>
+      <long-description><![CDATA[]]></long-description>
+      <tag line="3" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
+      <tag line="3" name="copyright" description="2013 © by Rafał Wrzeszcz - Wrzasq.pl."/>
+      <tag line="3" name="version" description="0.0.2"/>
+      <tag line="3" name="since" description="0.0.2"/>
+      <tag line="3" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
+    </docblock>
+    <namespace-alias name="Iterator">Iterator</namespace-alias>
+    <class final="false" abstract="false" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="26" package="ChillDev\Bundle\FileManagerBundle">
+      <extends/>
+      <implements>\Iterator</implements>
+      <name>DirectoryIterator</name>
+      <full_name>\ChillDev\Bundle\FileManagerBundle\Filesystem\DirectoryIterator</full_name>
+      <docblock line="17">
+        <description><![CDATA[Directory listing iterator.]]></description>
+        <long-description><![CDATA[]]></long-description>
+        <tag line="17" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
+        <tag line="17" name="copyright" description="2013 © by Rafał Wrzeszcz - Wrzasq.pl."/>
+        <tag line="17" name="version" description="0.0.2"/>
+        <tag line="17" name="since" description="0.0.2"/>
+        <tag line="17" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
+      </docblock>
+      <property final="false" static="false" visibility="protected" line="35" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" package="Default">
+        <name>$adapter</name>
+        <default><![CDATA[]]></default>
+        <docblock line="28">
+          <description><![CDATA[Filesystem adapter.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="28" name="var" description="" type="\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface">
+            <type by_reference="false">\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface</type>
+          </tag>
+          <tag line="28" name="version" description="0.0.2"/>
+          <tag line="28" name="since" description="0.0.2"/>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="protected" line="44" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" package="Default">
+        <name>$handle</name>
+        <default><![CDATA[]]></default>
+        <docblock line="37">
+          <description><![CDATA[I/O iterator handle.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="37" name="var" description="" type="mixed">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="37" name="version" description="0.0.2"/>
+          <tag line="37" name="since" description="0.0.2"/>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="54" package="ChillDev\Bundle\FileManagerBundle">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <docblock line="46">
+          <description><![CDATA[Initializes iterator.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="46" name="param" description="Filesystem I/O." type="\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface" variable="$adapter">
+            <type by_reference="false">\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface</type>
+          </tag>
+          <tag line="46" name="param" description="Subject directory path." type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="46" name="version" description="0.0.2"/>
+          <tag line="46" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="54">
+          <name>$adapter</name>
+          <default><![CDATA[]]></default>
+          <type>\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface</type>
+        </argument>
+        <argument line="54">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="66" package="ChillDev\Bundle\FileManagerBundle">
+        <name>__destruct</name>
+        <full_name>__destruct</full_name>
+        <docblock line="60">
+          <description><![CDATA[Closes iterator handle.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="60" name="version" description="0.0.2"/>
+          <tag line="60" name="since" description="0.0.2"/>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="78" package="ChillDev\Bundle\FileManagerBundle">
+        <name>current</name>
+        <full_name>current</full_name>
+        <docblock line="71">
+          <description><![CDATA[Returns current element.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="71" name="return" description="File information." type="\ChillDev\Bundle\FileManagerBundle\Filesystem\FileInfo">
+            <type by_reference="false">\ChillDev\Bundle\FileManagerBundle\Filesystem\FileInfo</type>
+          </tag>
+          <tag line="71" name="version" description="0.0.2"/>
+          <tag line="71" name="since" description="0.0.2"/>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="92" package="ChillDev\Bundle\FileManagerBundle">
+        <name>next</name>
+        <full_name>next</full_name>
+        <docblock line="86">
+          <description><![CDATA[Advances iterator.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="86" name="version" description="0.0.2"/>
+          <tag line="86" name="since" description="0.0.2"/>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="104" package="ChillDev\Bundle\FileManagerBundle">
+        <name>key</name>
+        <full_name>key</full_name>
+        <docblock line="97">
+          <description><![CDATA[Returns current iterator index.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="97" name="return" description="Filename." type="string">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="97" name="version" description="0.0.2"/>
+          <tag line="97" name="since" description="0.0.2"/>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="116" package="ChillDev\Bundle\FileManagerBundle">
+        <name>valid</name>
+        <full_name>valid</full_name>
+        <docblock line="109">
+          <description><![CDATA[Checks if directory iterator has more items.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="109" name="return" description="Iterator status." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+          <tag line="109" name="version" description="0.0.2"/>
+          <tag line="109" name="since" description="0.0.2"/>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="127" package="ChillDev\Bundle\FileManagerBundle">
+        <name>rewind</name>
+        <full_name>rewind</full_name>
+        <docblock line="121">
+          <description><![CDATA[Rewinds directory iterator.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="121" name="version" description="0.0.2"/>
+          <tag line="121" name="since" description="0.0.2"/>
+        </docblock>
+      </method>
+    </class>
+    <source>eJzdVdFO2zAUfc9X3AckWEVTxh5hHQw0qQ/TJDZpD2NCrnNDPBI7s51CmXjZ3+w3Ju2/du2kado00NE+zQ+tc3Ovfc65x87xmzzJg2DQ6wXQg0+JMBCLFIH+c6YtqBhsgnCWiDQ9xwm8o5fvmWTXqGFcyCjFkApd7QkrbKI0XLCY/fkJn/U9mnt+D8eaAml4Wz2f0ISZ72GeDn0VV/lUi+vEwuHBy1fw+xeMp601+m5aVoW+aoLaCCXhIDwID33ECMmx8ZwzfkMoa+SXbz3aywaBMkLZgyCQLENDNWsU+IiZGovZURAUBmFkUTOr9FEt5LnQyCkyhVQYK+Q1iCrnv5CLp8yYOckZfxBZnmKG0ppak+BHADS8Lm70YC4fsIjllBdWr2YZJxOm4bR8N5L0E1Nj5i8XyVTRBUI+NvD/uVaWUGIEO9Vu1KUlRKPBh7o/kLDK1W1ImbjDaHMc5Q4rYEhhBUsFdbFpl0UcdCpZ1hKnJtdUl2iFS3XGamfGnZzZBD4W428ECaLarC4cPpdgMU4Fh7iQ3LqqqyuuJO1XcLvXCXe/hPLCr1A6xY0dSxdRfzjj9LrRu6WUUkuXsVDSH6ocJRl0r1y/rHtoSX6WKtNQu7P5GyoRYSXE40T7Q+7weNhNep3wL9AWWhrghdZ06gDL09fCr32e98ZIxspPQNBMZ8xB3FbPKxxtmhGzbEWTqvxVhOvawQBqI5XfJr+YoBCTs2uBRsVR4m3Nc29xv/0Sx5ddZ4ndr9Vjp7in0cRt8MhZ3EwsiXdPG8IlPd8Pta+FjPCuyxbVpeBUc5/BbZnhBqctetWOyywpdX2SZwnyG+pK3Li4GgfYQKY0ukhmuhiPlUrrLxTxZ7Yw26I9oRs8Wpe4T/6X/t5SJ80K4lv2pvYbPenOMq0b/0PwF2w4/jk=</source>
+  </file>
+  <file path="Filesystem/AdapterInterface.php" hash="01ad9ded0b2dc72180e0e36693f7d80c" package="ChillDev\Bundle\FileManagerBundle">
+    <docblock line="3">
+      <description><![CDATA[This file is part of the ChillDev FileManager bundle.]]></description>
+      <long-description><![CDATA[]]></long-description>
+      <tag line="3" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
+      <tag line="3" name="copyright" description="2013 © by Rafał Wrzeszcz - Wrzasq.pl."/>
+      <tag line="3" name="version" description="0.0.2"/>
+      <tag line="3" name="since" description="0.0.2"/>
+      <tag line="3" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
+    </docblock>
+    <interface namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="24" package="ChillDev\Bundle\FileManagerBundle">
+      <name>AdapterInterface</name>
+      <full_name>\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface</full_name>
+      <docblock line="15">
+        <description><![CDATA[Filesystem I/O interface.]]></description>
+        <long-description><![CDATA[]]></long-description>
+        <tag line="15" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
+        <tag line="15" name="copyright" description="2013 © by Rafał Wrzeszcz - Wrzasq.pl."/>
+        <tag line="15" name="version" description="0.0.2"/>
+        <tag line="15" name="since" description="0.0.2"/>
+        <tag line="15" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="34" package="ChillDev\Bundle\FileManagerBundle">
+        <name>exists</name>
+        <full_name>exists</full_name>
+        <docblock line="26">
+          <description><![CDATA[Checks if file exists.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="26" name="param" description="File path." type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="26" name="return" description="File state." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+          <tag line="26" name="version" description="0.0.2"/>
+          <tag line="26" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="34">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="44" package="ChillDev\Bundle\FileManagerBundle">
+        <name>isFile</name>
+        <full_name>isFile</full_name>
+        <docblock line="36">
+          <description><![CDATA[Checks if given path is a regular file.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="36" name="param" description="File path." type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="36" name="return" description="If it's file." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+          <tag line="36" name="version" description="0.0.2"/>
+          <tag line="36" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="44">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="54" package="ChillDev\Bundle\FileManagerBundle">
+        <name>isDirectory</name>
+        <full_name>isDirectory</full_name>
+        <docblock line="46">
+          <description><![CDATA[Checks if given path is a directory.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="46" name="param" description="File path." type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="46" name="return" description="If it's directory." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+          <tag line="46" name="version" description="0.0.2"/>
+          <tag line="46" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="54">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="64" package="ChillDev\Bundle\FileManagerBundle">
+        <name>getFileMTime</name>
+        <full_name>getFileMTime</full_name>
+        <docblock line="56">
+          <description><![CDATA[Returns last modification file.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="56" name="param" description="File path." type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="56" name="return" description="Last modification time of file." type="int">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="56" name="version" description="0.0.2"/>
+          <tag line="56" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="64">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="74" package="ChillDev\Bundle\FileManagerBundle">
+        <name>getFilesize</name>
+        <full_name>getFilesize</full_name>
+        <docblock line="66">
+          <description><![CDATA[Returns file size.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="66" name="param" description="File path." type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="66" name="return" description="Filesize." type="int">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="66" name="version" description="0.0.2"/>
+          <tag line="66" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="74">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="83" package="ChillDev\Bundle\FileManagerBundle">
+        <name>unlink</name>
+        <full_name>unlink</full_name>
+        <docblock line="76">
+          <description><![CDATA[Removes regular file.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="76" name="param" description="File path." type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="76" name="version" description="0.0.2"/>
+          <tag line="76" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="83">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="92" package="ChillDev\Bundle\FileManagerBundle">
+        <name>readFile</name>
+        <full_name>readFile</full_name>
+        <docblock line="85">
+          <description><![CDATA[Prints file directly to output stream.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="85" name="param" description="File path." type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="85" name="version" description="0.0.2"/>
+          <tag line="85" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="92">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="101" package="ChillDev\Bundle\FileManagerBundle">
+        <name>mkdir</name>
+        <full_name>mkdir</full_name>
+        <docblock line="94">
+          <description><![CDATA[Creates new directory.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="94" name="param" description="New directory path." type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="94" name="version" description="0.0.2"/>
+          <tag line="94" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="101">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="111" package="ChillDev\Bundle\FileManagerBundle">
+        <name>openDir</name>
+        <full_name>openDir</full_name>
+        <docblock line="103">
+          <description><![CDATA[Creates directory iterator.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="103" name="param" description="Directory path." type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="103" name="return" description="Iterator handle." type="mixed">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="103" name="version" description="0.0.2"/>
+          <tag line="103" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="111">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="120" package="ChillDev\Bundle\FileManagerBundle">
+        <name>closeDir</name>
+        <full_name>closeDir</full_name>
+        <docblock line="113">
+          <description><![CDATA[Closes directory iterator.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="113" name="param" description="Iterator handle." type="mixed" variable="$handle">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="113" name="version" description="0.0.2"/>
+          <tag line="113" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="120">
+          <name>$handle</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="130" package="ChillDev\Bundle\FileManagerBundle">
+        <name>currentDir</name>
+        <full_name>currentDir</full_name>
+        <docblock line="122">
+          <description><![CDATA[Returns current element.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="122" name="param" description="Iterator handle." type="mixed" variable="$handle">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="122" name="return" description="File data." type="array">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="122" name="version" description="0.0.2"/>
+          <tag line="122" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="130">
+          <name>$handle</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="139" package="ChillDev\Bundle\FileManagerBundle">
+        <name>nextDir</name>
+        <full_name>nextDir</full_name>
+        <docblock line="132">
+          <description><![CDATA[Advances iterator.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="132" name="param" description="Iterator handle." type="mixed" variable="$handle">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="132" name="version" description="0.0.2"/>
+          <tag line="132" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="139">
+          <name>$handle</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="149" package="ChillDev\Bundle\FileManagerBundle">
+        <name>keyDir</name>
+        <full_name>keyDir</full_name>
+        <docblock line="141">
+          <description><![CDATA[Returns current iterator index.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="141" name="param" description="Iterator handle." type="mixed" variable="$handle">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="141" name="return" description="Filename." type="string">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="141" name="version" description="0.0.2"/>
+          <tag line="141" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="149">
+          <name>$handle</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="159" package="ChillDev\Bundle\FileManagerBundle">
+        <name>validDir</name>
+        <full_name>validDir</full_name>
+        <docblock line="151">
+          <description><![CDATA[Checks if directory iterator has more items.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="151" name="param" description="Iterator handle." type="mixed" variable="$handle">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="151" name="return" description="Iterator status." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+          <tag line="151" name="version" description="0.0.2"/>
+          <tag line="151" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="159">
+          <name>$handle</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="168" package="ChillDev\Bundle\FileManagerBundle">
+        <name>rewindDir</name>
+        <full_name>rewindDir</full_name>
+        <docblock line="161">
+          <description><![CDATA[Rewinds directory iterator.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="161" name="param" description="Iterator handle." type="mixed" variable="$handle">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="161" name="version" description="0.0.2"/>
+          <tag line="161" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="168">
+          <name>$handle</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+    </interface>
+    <source>eJzdVs2O0zAQvucp5rASUIl0WY6sYBcqpEr8abUSl71Mk0lj1bGD7XSbIi68Da+BxHsxdtKf3artLg1iRS52xp5vvm8m4/j0VZmXUdTv9SLowWUuLGRCEvBYonGgM3A5wZtcSDmgKbzlxfeocEwGRpVKJcXs6H3PsHK5NnCBGf76Dp/NnOw8mcOpYYOMr9v3M56g/RKX8mXwSnRZGzHOHZwcP3sOP3/AqN7AeOqnjVccvKZkrNAKjuPj+CRYrFAJrb2XmEyY5ZL51evA9mpNQGPh3f0oUliQZZ87OASLra2j4sUycysbDPsfQShHJmO4/yI7SzVwnmLJ8+HCEH2NgJ+QBP/0GJGSiQWRNd8RzYR1Nm5XF5s4vsECrDNCjeGoRJeHDIKfxctdhlxlFIy0ls2ydehotX5LZ2u9oTXY+mEsq5EUCWSVSpz3aqg9DtGfcCW3ChmLKalAzbcFgqFxJdEEgR0oG2Yg3CN7A+5QbcL6oH+gLRWGEqdN3aGwDczD1Q0WkFslXgQiFiRaB4VORSYSDN6Hl437Ad5t4DpRkD8vu6zjmFxoyUvG3is1NJwV8w7UheNsDakjHR5yh4xCT8l20V6Hka2UFGqylecnju3abDeftqzBadCVKyvnuREW/4Q4B0539z3vcJxiRdf36/QP6w6dci4mjLuX8Cq24D8P8uwurAdbGLcfeiFmlMKwBYQc2+tMJ7p0SWqwS5nU9j7CGrJHDcm/RTrxpALrBnfHYZNUxhCfFCSp4PEw1m1B0Bism7ZI0WFnqhqqu3Wdp1NkOPsg6qBotofu7TIsWPPpndKsk2q0reTL4W/HXWmbUL1b2upystkczNXyX9eQtxTb7pX309ncVRab/BWzsl2JnaIU6b5KXnPNHtpJYAKrm8y/Rb8BW7oQdw==</source>
+  </file>
+  <file path="Filesystem/FileInfo.php" hash="3e5197973500c4f3870df91c7a98d0bd" package="ChillDev\Bundle\FileManagerBundle">
+    <docblock line="3">
+      <description><![CDATA[This file is part of the ChillDev FileManager bundle.]]></description>
+      <long-description><![CDATA[]]></long-description>
+      <tag line="3" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
+      <tag line="3" name="copyright" description="2013 © by Rafał Wrzeszcz - Wrzasq.pl."/>
+      <tag line="3" name="version" description="0.0.2"/>
+      <tag line="3" name="since" description="0.0.2"/>
       <tag line="3" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
     </docblock>
     <class final="false" abstract="false" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="24" package="ChillDev\Bundle\FileManagerBundle">
       <extends/>
-      <name>Disk</name>
-      <full_name>\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk</full_name>
+      <name>FileInfo</name>
+      <full_name>\ChillDev\Bundle\FileManagerBundle\Filesystem\FileInfo</full_name>
       <docblock line="15">
-        <description><![CDATA[Disk reference.]]></description>
+        <description><![CDATA[Single path information representation.]]></description>
         <long-description><![CDATA[]]></long-description>
         <tag line="15" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
-        <tag line="15" name="copyright" description="2012 © by Rafał Wrzeszcz - Wrzasq.pl."/>
-        <tag line="15" name="version" description="0.0.1"/>
-        <tag line="15" name="since" description="0.0.1"/>
+        <tag line="15" name="copyright" description="2013 © by Rafał Wrzeszcz - Wrzasq.pl."/>
+        <tag line="15" name="version" description="0.0.2"/>
+        <tag line="15" name="since" description="0.0.2"/>
         <tag line="15" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
       </docblock>
       <property final="false" static="false" visibility="protected" line="33" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" package="Default">
-        <name>$id</name>
+        <name>$adapter</name>
         <default><![CDATA[]]></default>
         <docblock line="26">
-          <description><![CDATA[Disk ID.]]></description>
+          <description><![CDATA[Filesystem adapter.]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="26" name="var" description="" type="string">
-            <type by_reference="false">string</type>
+          <tag line="26" name="var" description="" type="\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface">
+            <type by_reference="false">\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface</type>
           </tag>
-          <tag line="26" name="version" description="0.0.1"/>
-          <tag line="26" name="since" description="0.0.1"/>
+          <tag line="26" name="version" description="0.0.2"/>
+          <tag line="26" name="since" description="0.0.2"/>
         </docblock>
       </property>
       <property final="false" static="false" visibility="protected" line="42" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" package="Default">
-        <name>$label</name>
+        <name>$path</name>
         <default><![CDATA[]]></default>
         <docblock line="35">
-          <description><![CDATA[Disk label.]]></description>
+          <description><![CDATA[File path.]]></description>
           <long-description><![CDATA[]]></long-description>
           <tag line="35" name="var" description="" type="string">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="35" name="version" description="0.0.1"/>
-          <tag line="35" name="since" description="0.0.1"/>
+          <tag line="35" name="version" description="0.0.2"/>
+          <tag line="35" name="since" description="0.0.2"/>
         </docblock>
       </property>
       <property final="false" static="false" visibility="protected" line="51" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" package="Default">
-        <name>$source</name>
+        <name>$handle</name>
         <default><![CDATA[]]></default>
         <docblock line="44">
-          <description><![CDATA[Wrapped directory.]]></description>
+          <description><![CDATA[Pre-defined data.]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="44" name="var" description="" type="string">
-            <type by_reference="false">string</type>
+          <tag line="44" name="var" description="" type="array">
+            <type by_reference="false">array</type>
           </tag>
-          <tag line="44" name="version" description="0.0.1"/>
-          <tag line="44" name="since" description="0.0.1"/>
+          <tag line="44" name="version" description="0.0.2"/>
+          <tag line="44" name="since" description="0.0.2"/>
         </docblock>
       </property>
       <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="62" package="ChillDev\Bundle\FileManagerBundle">
         <name>__construct</name>
         <full_name>__construct</full_name>
         <docblock line="53">
-          <description><![CDATA[Initializes disk definition.]]></description>
+          <description><![CDATA[Initializes file info object.]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="53" name="param" description="Disk ID." type="string" variable="$id">
+          <tag line="53" name="param" description="Filesystem I/O." type="\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface" variable="$adapter">
+            <type by_reference="false">\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface</type>
+          </tag>
+          <tag line="53" name="param" description="File path." type="string" variable="$path">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="53" name="param" description="Disk label." type="string" variable="$label">
-            <type by_reference="false">string</type>
+          <tag line="53" name="param" description="Pre-defined data." type="array" variable="$data">
+            <type by_reference="false">array</type>
           </tag>
-          <tag line="53" name="param" description="Enclosing directory." type="string" variable="$source">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag line="53" name="version" description="0.0.1"/>
-          <tag line="53" name="since" description="0.0.1"/>
+          <tag line="53" name="version" description="0.0.2"/>
+          <tag line="53" name="since" description="0.0.2"/>
         </docblock>
         <argument line="62">
-          <name>$id</name>
+          <name>$adapter</name>
+          <default><![CDATA[]]></default>
+          <type>\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface</type>
+        </argument>
+        <argument line="62">
+          <name>$path</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
         <argument line="62">
-          <name>$label</name>
-          <default><![CDATA[]]></default>
-          <type/>
-        </argument>
-        <argument line="62">
-          <name>$source</name>
-          <default><![CDATA[]]></default>
-          <type/>
+          <name>$data</name>
+          <default><![CDATA[array()]]></default>
+          <type>array</type>
         </argument>
       </method>
       <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="76" package="ChillDev\Bundle\FileManagerBundle">
-        <name>getId</name>
-        <full_name>getId</full_name>
+        <name>isDir</name>
+        <full_name>isDir</full_name>
         <docblock line="69">
-          <description><![CDATA[Returns disk ID.]]></description>
+          <description><![CDATA[Checks if file is a directory.]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="69" name="return" description="ID." type="string">
-            <type by_reference="false">string</type>
+          <tag line="69" name="return" description="Test result." type="bool">
+            <type by_reference="false">bool</type>
           </tag>
-          <tag line="69" name="version" description="0.0.1"/>
-          <tag line="69" name="since" description="0.0.1"/>
+          <tag line="69" name="version" description="0.0.2"/>
+          <tag line="69" name="since" description="0.0.2"/>
         </docblock>
       </method>
       <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="88" package="ChillDev\Bundle\FileManagerBundle">
-        <name>getLabel</name>
-        <full_name>getLabel</full_name>
+        <name>isFile</name>
+        <full_name>isFile</full_name>
         <docblock line="81">
-          <description><![CDATA[Returns disk label.]]></description>
+          <description><![CDATA[Checks if file is a regular file.]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="81" name="return" description="Label." type="string">
-            <type by_reference="false">string</type>
+          <tag line="81" name="return" description="Test result." type="bool">
+            <type by_reference="false">bool</type>
           </tag>
-          <tag line="81" name="version" description="0.0.1"/>
-          <tag line="81" name="since" description="0.0.1"/>
+          <tag line="81" name="version" description="0.0.2"/>
+          <tag line="81" name="since" description="0.0.2"/>
         </docblock>
       </method>
       <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="100" package="ChillDev\Bundle\FileManagerBundle">
-        <name>getSource</name>
-        <full_name>getSource</full_name>
+        <name>getSize</name>
+        <full_name>getSize</full_name>
         <docblock line="93">
-          <description><![CDATA[Returns disk source.]]></description>
+          <description><![CDATA[Returns filesize.]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="93" name="return" description="Directory path." type="string">
-            <type by_reference="false">string</type>
+          <tag line="93" name="return" description="Filesize." type="int">
+            <type by_reference="false">int</type>
           </tag>
-          <tag line="93" name="version" description="0.0.1"/>
-          <tag line="93" name="since" description="0.0.1"/>
+          <tag line="93" name="version" description="0.0.2"/>
+          <tag line="93" name="since" description="0.0.2"/>
         </docblock>
       </method>
       <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="112" package="ChillDev\Bundle\FileManagerBundle">
-        <name>__toString</name>
-        <full_name>__toString</full_name>
+        <name>getMTime</name>
+        <full_name>getMTime</full_name>
         <docblock line="105">
-          <description><![CDATA[Returns string representation.]]></description>
+          <description><![CDATA[Returns file last modification time.]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="105" name="return" description="Printable string." type="string">
-            <type by_reference="false">string</type>
+          <tag line="105" name="return" description="Last modification time of file." type="int">
+            <type by_reference="false">int</type>
           </tag>
-          <tag line="105" name="version" description="0.0.1"/>
-          <tag line="105" name="since" description="0.0.1"/>
+          <tag line="105" name="version" description="0.0.2"/>
+          <tag line="105" name="since" description="0.0.2"/>
         </docblock>
       </method>
     </class>
-    <source>eJzdVV1v0zAUfc+vuA+TOqot7fbKOiooSJVAQhvSHhiaHOemsebawXaKWrQX/g1/A4n/xY2T9CMJatG2F/zQxOf6+p5zrt1cvMrSLAgG/X4AffiUCguJkAj0zJhxoBNwKcKbVEg5wQW8o+AHptgMDUS5iiWGlFjkjlnuUm3giiXs9w+4MSu0K76CC0OADL9V8zG9MPs1zOSlz+I6WxoxSx2cD8/O4ddPiJatPU6L1zIr9FkLNFZoBcNwGJ55xArFcWueMX5PLNfMb197trdbAkqEVg+CQLE5Wso5IMEjdmkdzl+unZsIew8GEzRIPP4LT7hk1nphwfcAaHipxajkTidhNa/h8YIZsM4INdtAu7QqdIeaxwb+mRntkDuM4UjEZG9XXckilM9a2ldoV78xLMsoHgtDC7VZPisJq3PDsc1iqoQTTAo6B8SE/IgxEQWmVYsP3WE2rxgVjjYb11zhhXe43FxXcoO3ikttC6RlyT8LzyMpOCS54oUSuLvjWlG5nLtjIn5ScTupa7/wWeXBLMaRo/+u00uSOCqPTiNQKhute9sIV4JGG9uL4EPL/Ct0uVGV8R0XwPh47dO20Y+zY4ZuGh83RVfV1toPYt19fXaJv99t/qO5+/320N9qzB4FZYv2SJjUJ5I+ZC59Qi3XvvoeMYedooqqwcygReVY5yXe1fWRfh2L6BtdAk934Zy+9jv+TVrvcw/CWuCmqYT1vvRqqQ/BHwO3T3U=</source>
+    <source>eJzdlt1u2jAUx+/zFOeiUgGVwLq7rVC2VpOQVq1qkXbRVpVJHOLVcTLbYYKpN3ubvcakvdeO7UADCVMjql0sFyQ5Hz5//47tcHKaxZnn9TodDzowiZmCiHEKeM+I1JBGoGMKZzHj/JzO4QM6L4ggMyphmouQUx8TTe6I5DpOJVyRiPz+AZ/lkqplsIQTiQbufyveR/hA1Fc/40ObFaTZQrJZrOG4/+o1/PoJ00VljK55dFm+zZpTqVgqoO/3/WNrUUwEtPSekeABVa6V3763am9LE3AWjO55niAJVZjzjARrUQulafJ2Te6aiRliy4iOgYkolQnRRqCkmaSKCm1f/wtWASdK2YUwxol63z3Ay2IwVwee8AAJSaap9AvXKmI0JxLeOd9Y4E+E4J+cm3oL64Zma+vZeyZTTQNNQzgoqmFTahTZ1tQKUVpi8/YvbwpUa19K2g1pxASGhESTWglESrLYX0FMTJOqGsaCaUY4wxVS7G5sHKTTL5hX0YPbniSV7qzplts77n3yt/IcTAejyn0VZecLB4bHTkCNOeRTzgKIchHYnXd/H6QC5eSBbu2czZFTerShaAA3d207plvb5jrQeDR2hysIg9Jq2wqxMx+slsOWsxjf1nHOx0q3zmIaPChg0fokJhAyib1K5aLSLkl1LgVM05TDhCqNJ47KuX4pikydM9naplEUZUpR3SpN7ebQxh/eteEU6uzwZotkd2g9bnKtEsJ2EzySznKO+8hY/j0hs8wbITIJtYycoxaSLfIcPle2sNvoCrf8Lh5MaLeXSzH7sphRfY3DNYBhqtegcOYaEFhhJboxDcAPl4YkDVnEAvd51iz5K6CPtRnmX1F5qb0AtosJjtuAW2J01IAr7LvJuUJ16B69P7av6Q8=</source>
+  </file>
+  <file path="Filesystem/Filesystem.php" hash="b1d3a1a2241de889d1371ed3209ad497" package="ChillDev\Bundle\FileManagerBundle">
+    <docblock line="3">
+      <description><![CDATA[This file is part of the ChillDev FileManager bundle.]]></description>
+      <long-description><![CDATA[]]></long-description>
+      <tag line="3" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
+      <tag line="3" name="copyright" description="2013 © by Rafał Wrzeszcz - Wrzasq.pl."/>
+      <tag line="3" name="version" description="0.0.2"/>
+      <tag line="3" name="since" description="0.0.2"/>
+      <tag line="3" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
+    </docblock>
+    <class final="false" abstract="false" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="24" package="ChillDev\Bundle\FileManagerBundle">
+      <extends/>
+      <name>Filesystem</name>
+      <full_name>\ChillDev\Bundle\FileManagerBundle\Filesystem\Filesystem</full_name>
+      <docblock line="15">
+        <description><![CDATA[Abstract filesystem management.]]></description>
+        <long-description><![CDATA[]]></long-description>
+        <tag line="15" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
+        <tag line="15" name="copyright" description="2013 © by Rafał Wrzeszcz - Wrzasq.pl."/>
+        <tag line="15" name="version" description="0.0.2"/>
+        <tag line="15" name="since" description="0.0.2"/>
+        <tag line="15" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
+      </docblock>
+      <property final="false" static="false" visibility="protected" line="33" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" package="Default">
+        <name>$adapter</name>
+        <default><![CDATA[]]></default>
+        <docblock line="26">
+          <description><![CDATA[I/O adapter.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="26" name="var" description="" type="\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface">
+            <type by_reference="false">\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface</type>
+          </tag>
+          <tag line="26" name="version" description="0.0.2"/>
+          <tag line="26" name="since" description="0.0.2"/>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="42" package="ChillDev\Bundle\FileManagerBundle">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <docblock line="35">
+          <description><![CDATA[Initializes filesystem.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="35" name="param" description="I/O adapter." type="\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface" variable="$adapter">
+            <type by_reference="false">\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface</type>
+          </tag>
+          <tag line="35" name="version" description="0.0.2"/>
+          <tag line="35" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="42">
+          <name>$adapter</name>
+          <default><![CDATA[]]></default>
+          <type>\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="55" package="ChillDev\Bundle\FileManagerBundle">
+        <name>exists</name>
+        <full_name>exists</full_name>
+        <docblock line="47">
+          <description><![CDATA[Checks if file exists.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="47" name="param" description="File path." type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="47" name="return" description="File state." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+          <tag line="47" name="version" description="0.0.2"/>
+          <tag line="47" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="55">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="68" package="ChillDev\Bundle\FileManagerBundle">
+        <name>isFile</name>
+        <full_name>isFile</full_name>
+        <docblock line="60">
+          <description><![CDATA[Checks if given path is a regular file.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="60" name="param" description="File path." type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="60" name="return" description="If it's file." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+          <tag line="60" name="version" description="0.0.2"/>
+          <tag line="60" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="68">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="81" package="ChillDev\Bundle\FileManagerBundle">
+        <name>isDirectory</name>
+        <full_name>isDirectory</full_name>
+        <docblock line="73">
+          <description><![CDATA[Checks if given path is a directory.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="73" name="param" description="File path." type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="73" name="return" description="If it's directory." type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+          <tag line="73" name="version" description="0.0.2"/>
+          <tag line="73" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="81">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="94" package="ChillDev\Bundle\FileManagerBundle">
+        <name>getFileMTime</name>
+        <full_name>getFileMTime</full_name>
+        <docblock line="86">
+          <description><![CDATA[Returns last modification file.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="86" name="param" description="File path." type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="86" name="return" description="Last modification time of file." type="int">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="86" name="version" description="0.0.2"/>
+          <tag line="86" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="94">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="107" package="ChillDev\Bundle\FileManagerBundle">
+        <name>getFilesize</name>
+        <full_name>getFilesize</full_name>
+        <docblock line="99">
+          <description><![CDATA[Returns file size.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="99" name="param" description="File path." type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="99" name="return" description="Filesize." type="int">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="99" name="version" description="0.0.2"/>
+          <tag line="99" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="107">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="119" package="ChillDev\Bundle\FileManagerBundle">
+        <name>unlink</name>
+        <full_name>unlink</full_name>
+        <docblock line="112">
+          <description><![CDATA[Removes regular file.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="112" name="param" description="File path." type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="112" name="version" description="0.0.2"/>
+          <tag line="112" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="119">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="131" package="ChillDev\Bundle\FileManagerBundle">
+        <name>readFile</name>
+        <full_name>readFile</full_name>
+        <docblock line="124">
+          <description><![CDATA[Prints file directly to output stream.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="124" name="param" description="File path." type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="124" name="version" description="0.0.2"/>
+          <tag line="124" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="131">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="143" package="ChillDev\Bundle\FileManagerBundle">
+        <name>mkdir</name>
+        <full_name>mkdir</full_name>
+        <docblock line="136">
+          <description><![CDATA[Creates new directory.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="136" name="param" description="New directory path." type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="136" name="version" description="0.0.2"/>
+          <tag line="136" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="143">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem" line="156" package="ChillDev\Bundle\FileManagerBundle">
+        <name>createDirectoryIterator</name>
+        <full_name>createDirectoryIterator</full_name>
+        <docblock line="148">
+          <description><![CDATA[Initializes directory iterator.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="148" name="param" description="Subject directory path." type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="148" name="return" description="Directory listing iterator." type="\ChillDev\Bundle\FileManagerBundle\Filesystem\DirectoryIterator">
+            <type by_reference="false">\ChillDev\Bundle\FileManagerBundle\Filesystem\DirectoryIterator</type>
+          </tag>
+          <tag line="148" name="version" description="0.0.2"/>
+          <tag line="148" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="156">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+    <source>eJzdVs1u1DAQvucp5lCJsqLZUo6U0tIKaSX+1FbiUqnyep2NWccJ9mRhi3rhbXgNJN6LsZPu5mdDu2y4kMPGGfubme8be7yHL7M4C4LhYBDAAC5jaSGSSgC9M2YQ0ggwFnAaS6XOxBxe0+RbptlUGBjneqJESECHPWY5xqmBcxaxX9/ho7kR9obfwKEhgwq/lN/HNGD2c5ipI4/iabYwchojHOw/fQY/f8B40fKx54YFKvSouTBWphr2w/3wwFus1FxUvjPGZ5TlMvOrVz7bqwqBwkKrh0GgWSIsYR4A8Ba7sCiS50vlTsYWDePo1SsmIfGoRGj8LzTiilkLK/LBtwDo8QK4ZwCj4XtgE5ahMGFpu5s6njMDJ8XcSNNPRFqvJuupltZaut429O/MpCg4ignslNGoDs1UtETJlCRxKiVpZUV7nCWtvJZ+1zHaONt8rCSHKNccHer6mqeaNkvOcbcz8GMPLQR2zw7Sydw7ukvrRYW5m75t8T+NBZ9ZkFFxnMVXadF20KdkpJ7CTsYw9vUFN1rxNQJzo2GcpqqYtshQ9KVHkdquj96kXUaus987qkHuV2Aq50J7Tq6tMfI6zRVtR6dMD5KMIpD4yNbcbSuKtC7oRqLUIJuLMpGGzlRqFj0q0vK5vSxndy431KaJ6xLo3DuwQL0OIUknMpKc+djb7xapEd60/KJMhLtm+9w+U4G+h1+S742EWgO8TynfXyw12u3F8XdLxVNPMjiXf6PCxQrXLUKSzumK6aGlbEc110rq2XqWTXq1tV3MPlC2WFa3OMdqAZhCmmOWo2MjWNd9+m+pUuBJd3dskm2s7myMtA6pkFp82awVvqsCeuWZzMjvw0hWl3YxrP4jWiUsCc9o9BCqF/n4E8E66ZanadlqR6XvlQUUXdzOYTPstlpxX75W5D+eelfqNYiatE+gLupt8BtrK82U</source>
+  </file>
+  <file path="Filesystem/Adapter/Local.php" hash="68cdd981ef7e2bb34ee6f4e292cad60d" package="ChillDev\Bundle\FileManagerBundle">
+    <docblock line="3">
+      <description><![CDATA[This file is part of the ChillDev FileManager bundle.]]></description>
+      <long-description><![CDATA[]]></long-description>
+      <tag line="3" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
+      <tag line="3" name="copyright" description="2013 © by Rafał Wrzeszcz - Wrzasq.pl."/>
+      <tag line="3" name="version" description="0.0.2"/>
+      <tag line="3" name="since" description="0.0.2"/>
+      <tag line="3" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
+    </docblock>
+    <namespace-alias name="FilesystemIterator">FilesystemIterator</namespace-alias>
+    <namespace-alias name="AdapterInterface">ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface</namespace-alias>
+    <namespace-alias name="IOException">Symfony\Component\Filesystem\Exception\IOException</namespace-alias>
+    <class final="false" abstract="false" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem\Adapter" line="30" package="ChillDev\Bundle\FileManagerBundle">
+      <extends/>
+      <implements>\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface</implements>
+      <name>Local</name>
+      <full_name>\ChillDev\Bundle\FileManagerBundle\Filesystem\Adapter\Local</full_name>
+      <docblock line="21">
+        <description><![CDATA[Local filesystem implementation.]]></description>
+        <long-description><![CDATA[]]></long-description>
+        <tag line="21" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
+        <tag line="21" name="copyright" description="2013 © by Rafał Wrzeszcz - Wrzasq.pl."/>
+        <tag line="21" name="version" description="0.0.2"/>
+        <tag line="21" name="since" description="0.0.2"/>
+        <tag line="21" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
+      </docblock>
+      <property final="false" static="false" visibility="protected" line="39" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem\Adapter" package="Default">
+        <name>$root</name>
+        <default><![CDATA[]]></default>
+        <docblock line="32">
+          <description><![CDATA[Root path for disk scope.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="32" name="var" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="32" name="version" description="0.0.2"/>
+          <tag line="32" name="since" description="0.0.2"/>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem\Adapter" line="49" package="ChillDev\Bundle\FileManagerBundle">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <docblock line="41">
+          <description><![CDATA[Initializes adapter.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="41" name="param" description="Root path for this disk." type="string" variable="$root">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="41" name="throws" description="When given path does not exist." type="\Symfony\Component\Filesystem\Exception\IOException">
+            <type by_reference="false">\Symfony\Component\Filesystem\Exception\IOException</type>
+          </tag>
+          <tag line="41" name="version" description="0.0.2"/>
+          <tag line="41" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="49">
+          <name>$root</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem\Adapter" line="63" package="ChillDev\Bundle\FileManagerBundle">
+        <name>exists</name>
+        <full_name>exists</full_name>
+        <docblock line="58">
+          <description><![CDATA[{@inheritDoc}]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="58" name="version" description="0.0.2"/>
+          <tag line="58" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="63">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem\Adapter" line="73" package="ChillDev\Bundle\FileManagerBundle">
+        <name>isFile</name>
+        <full_name>isFile</full_name>
+        <docblock line="68">
+          <description><![CDATA[{@inheritDoc}]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="68" name="version" description="0.0.2"/>
+          <tag line="68" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="73">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem\Adapter" line="83" package="ChillDev\Bundle\FileManagerBundle">
+        <name>isDirectory</name>
+        <full_name>isDirectory</full_name>
+        <docblock line="78">
+          <description><![CDATA[{@inheritDoc}]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="78" name="version" description="0.0.2"/>
+          <tag line="78" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="83">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem\Adapter" line="93" package="ChillDev\Bundle\FileManagerBundle">
+        <name>getFileMTime</name>
+        <full_name>getFileMTime</full_name>
+        <docblock line="88">
+          <description><![CDATA[{@inheritDoc}]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="88" name="version" description="0.0.2"/>
+          <tag line="88" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="93">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem\Adapter" line="103" package="ChillDev\Bundle\FileManagerBundle">
+        <name>getFilesize</name>
+        <full_name>getFilesize</full_name>
+        <docblock line="98">
+          <description><![CDATA[{@inheritDoc}]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="98" name="version" description="0.0.2"/>
+          <tag line="98" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="103">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem\Adapter" line="113" package="ChillDev\Bundle\FileManagerBundle">
+        <name>unlink</name>
+        <full_name>unlink</full_name>
+        <docblock line="108">
+          <description><![CDATA[{@inheritDoc}]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="108" name="version" description="0.0.2"/>
+          <tag line="108" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="113">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem\Adapter" line="123" package="ChillDev\Bundle\FileManagerBundle">
+        <name>readFile</name>
+        <full_name>readFile</full_name>
+        <docblock line="118">
+          <description><![CDATA[{@inheritDoc}]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="118" name="version" description="0.0.2"/>
+          <tag line="118" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="123">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem\Adapter" line="133" package="ChillDev\Bundle\FileManagerBundle">
+        <name>mkdir</name>
+        <full_name>mkdir</full_name>
+        <docblock line="128">
+          <description><![CDATA[{@inheritDoc}]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="128" name="version" description="0.0.2"/>
+          <tag line="128" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="133">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem\Adapter" line="143" package="ChillDev\Bundle\FileManagerBundle">
+        <name>openDir</name>
+        <full_name>openDir</full_name>
+        <docblock line="138">
+          <description><![CDATA[{@inheritDoc}]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="138" name="version" description="0.0.2"/>
+          <tag line="138" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="143">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem\Adapter" line="159" package="ChillDev\Bundle\FileManagerBundle">
+        <name>closeDir</name>
+        <full_name>closeDir</full_name>
+        <docblock line="154">
+          <description><![CDATA[{@inheritDoc}]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="154" name="version" description="0.0.2"/>
+          <tag line="154" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="159">
+          <name>$handle</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem\Adapter" line="169" package="ChillDev\Bundle\FileManagerBundle">
+        <name>currentDir</name>
+        <full_name>currentDir</full_name>
+        <docblock line="164">
+          <description><![CDATA[{@inheritDoc}]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="164" name="version" description="0.0.2"/>
+          <tag line="164" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="169">
+          <name>$handle</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem\Adapter" line="185" package="ChillDev\Bundle\FileManagerBundle">
+        <name>nextDir</name>
+        <full_name>nextDir</full_name>
+        <docblock line="180">
+          <description><![CDATA[{@inheritDoc}]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="180" name="version" description="0.0.2"/>
+          <tag line="180" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="185">
+          <name>$handle</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem\Adapter" line="195" package="ChillDev\Bundle\FileManagerBundle">
+        <name>keyDir</name>
+        <full_name>keyDir</full_name>
+        <docblock line="190">
+          <description><![CDATA[{@inheritDoc}]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="190" name="version" description="0.0.2"/>
+          <tag line="190" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="195">
+          <name>$handle</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem\Adapter" line="205" package="ChillDev\Bundle\FileManagerBundle">
+        <name>validDir</name>
+        <full_name>validDir</full_name>
+        <docblock line="200">
+          <description><![CDATA[{@inheritDoc}]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="200" name="version" description="0.0.2"/>
+          <tag line="200" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="205">
+          <name>$handle</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Filesystem\Adapter" line="215" package="ChillDev\Bundle\FileManagerBundle">
+        <name>rewindDir</name>
+        <full_name>rewindDir</full_name>
+        <docblock line="210">
+          <description><![CDATA[{@inheritDoc}]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="210" name="version" description="0.0.2"/>
+          <tag line="210" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="215">
+          <name>$handle</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="58" code="50015">Argument $path is missing from the Docblock of exists()</error>
+      <error line="68" code="50015">Argument $path is missing from the Docblock of isFile()</error>
+      <error line="78" code="50015">Argument $path is missing from the Docblock of isDirectory()</error>
+      <error line="88" code="50015">Argument $path is missing from the Docblock of getFileMTime()</error>
+      <error line="98" code="50015">Argument $path is missing from the Docblock of getFilesize()</error>
+      <error line="108" code="50015">Argument $path is missing from the Docblock of unlink()</error>
+      <error line="118" code="50015">Argument $path is missing from the Docblock of readFile()</error>
+      <error line="128" code="50015">Argument $path is missing from the Docblock of mkdir()</error>
+      <error line="138" code="50015">Argument $path is missing from the Docblock of openDir()</error>
+      <error line="154" code="50015">Argument $handle is missing from the Docblock of closeDir()</error>
+      <error line="164" code="50015">Argument $handle is missing from the Docblock of currentDir()</error>
+      <error line="180" code="50015">Argument $handle is missing from the Docblock of nextDir()</error>
+      <error line="190" code="50015">Argument $handle is missing from the Docblock of keyDir()</error>
+      <error line="200" code="50015">Argument $handle is missing from the Docblock of validDir()</error>
+      <error line="210" code="50015">Argument $handle is missing from the Docblock of rewindDir()</error>
+    </parse_markers>
+    <source>eJzdV91u2zYUvtdTnLUZJAeJnLV3Teslix3UaJsEsYtuqDqBkSiLsESpJOXE6XLTt9lrDOh79ZCSZdlJnawY7GK8kKjD7xx+54c/ev5rHueW1d7etmAbhjGTELGEAr5zIhRkEaiYwlHMkqRLJ3CMg28IJyMq4KLgYUJdVNS6B6RQcSbgnETky2d4J66pvA6u4blAQeJeVt8H2CHyo5snHaMVZPlUsFGs4MneL0/hn7/hYnrLxq7ullqu0ZpQIVnGYc/dc58YiWQ8oI3vnARjZFkz934zbL2GA6UE0W3L4iSlEnUeoGAkcioVTb3DkOSKin3LKiSF+UAfhURls4Hvsdnn+IiQUWVjME2jjE+9oyzNM065aur0rgKaK4yI1z+t+/t1Xl9nAUlMYks8sDRPaIpGiAb+L1IYJETKytPaPQnL0bQ+WYDNBEa3bTjPMoXFrmKI0PeQyTFIdEkXtgHMcAcTIkAqwfhoLlp0opIuOGJkbfPORaZooGgIWwInxfwsUelzphhJGMYMSEn8FgtcliSteJR2ljxQehFrN9xaR8Uiu5TQqA14F1MOIzbBp9EMM5yTox16xaRyv9fD4iJhAUQFD8wsvh9kHLkWgXIM15aBlTnQjUXg/OTpyvTNxLKCtRoY3YwHwOll0wnHkzmGQUWOPchpwCKGoW1Uuajj8uhn+WjZRXsHqrn266lurLq7peO42zE2XswS1sA00vbpgPGYCqa6WXDzH0VuFg1NfzlogqpCcFgMW4OuC6XaOvkyqZflar5M+pEBbZxrlwlciJmY3ks4ZGLjfEdUmT1vyNJ7IqzDmyoD+zE4S9zL7qdcojbMuOAJ4+O7yXqzwQ1zFJSE315nnh7+IVZYOjbr5k6S1diGGeIBz7vf4ljVpj5ubt/pnIWD6Q4/dhYAtw08e/aq94d/OPCP+697J4dvegv4v+7UOHp7ft47Gc60+ifHpw/QGrzqn/nd0+HgAdi3J/3f/bPD4cs5eK0JCZJMUpORmOhL3XJO2u2wSNPpOhkVQuAdcgWnrZAoom8H5fBup1JxWvvWcjG9X8iBrQvFhhcd8HJBR76geYK3U8d+/KeNdVQKPxZ4X2yulB2wH9stHMcX9vUNRjPY7eBue4YG9V+M02otFqCtd1cz1Rw80BvuMs4ci02gETRhH9ZZEJxerYz9LOYa56y1VMd0uoJYle+aH6LXS2+CfxDhvyBo8OulKOgl46s41uRK5JzdjfUV1r2luQ==</source>
   </file>
   <file path="Filesystem/Manager.php" hash="3f2e5888d910cfd045d7cc550a35ffe7" package="ChillDev\Bundle\FileManagerBundle">
     <docblock line="3">
@@ -435,19 +1678,21 @@
     </class>
     <source>eJzdU8Fu1DAQvfsr5tADrEp22+u2pdAVt6oSrcSB5eA4k42p1wkzTksW9cLf8BtI/BeTSbYsKpXotT7E45f3nDcv9tHrpmqMmU4mBiZwVXmG0gcEmRtLCeoSUoVwVvkQFngD7+TluY12hQR5G4uAmQh77altU1UTvLel/fUdPtAGeeM2cEQChOx2XJ9KYflL1oQTVbm66civqgSHs4ND+PkD8u7BHq/6clBlqrpBYl9HmGWz7EAR9tHhzrqx7lpc3jtfvlW3y50GBkTYU2OiXSOL5j8EinDHCddzY1pGeENku4v8M7o0Ik/ZZLnwfD2//wf9imE9kJ9FuC5YZtieGvyaMBa8G5r5ZkCGBtCPCZwR2oQMEW+hkECAsERCcZGNlC1TvJBdAyfycQV7vtAAwRcYky+9RvhPZrA5hoGs5WM8rluS5hfIyUeb+mAKT+K6pu6PhjC1FIExlHDZP3zkZHf8Poh1RP+KVrGpzk2bB++gbKPTbzpNpLf7QprcH/3vb/29VNGQYz/2klzlj8L8BMea4uNKOXpb1diFiueK3pk78xuYgFAb</source>
   </file>
-  <file path="Controller/FilesController.php" hash="680d8e9bff68c10f6b7a7d82c50c95f9" package="ChillDev\Bundle\FileManagerBundle">
+  <file path="Controller/FilesController.php" hash="ab75a37e876af6eb847d32d6fd9f7414" package="ChillDev\Bundle\FileManagerBundle">
     <docblock line="3">
       <description><![CDATA[This file is part of the ChillDev FileManager bundle.]]></description>
       <long-description><![CDATA[]]></long-description>
       <tag line="3" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
-      <tag line="3" name="copyright" description="2012 © by Rafał Wrzeszcz - Wrzasq.pl."/>
-      <tag line="3" name="version" description="0.0.1"/>
-      <tag line="3" name="since" description="0.0.1"/>
+      <tag line="3" name="copyright" description="2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl."/>
+      <tag line="3" name="version" description="0.0.2"/>
+      <tag line="3" name="since" description="0.0.2"/>
       <tag line="3" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
     </docblock>
     <namespace-alias name="DateTime">DateTime</namespace-alias>
+    <namespace-alias name="UnexpectedValueException">UnexpectedValueException</namespace-alias>
     <namespace-alias name="Disk">ChillDev\Bundle\FileManagerBundle\Filesystem\Disk</namespace-alias>
     <namespace-alias name="MkdirType">ChillDev\Bundle\FileManagerBundle\Form\Type\MkdirType</namespace-alias>
+    <namespace-alias name="Path">ChillDev\Bundle\FileManagerBundle\Utils\Path</namespace-alias>
     <namespace-alias name="Method">Sensio\Bundle\FrameworkExtraBundle\Configuration\Method</namespace-alias>
     <namespace-alias name="Route">Sensio\Bundle\FrameworkExtraBundle\Configuration\Route</namespace-alias>
     <namespace-alias name="Controller">Symfony\Bundle\FrameworkBundle\Controller\Controller</namespace-alias>
@@ -456,199 +1701,330 @@
     <namespace-alias name="StreamedResponse">Symfony\Component\HttpFoundation\StreamedResponse</namespace-alias>
     <namespace-alias name="HttpException">Symfony\Component\HttpKernel\Exception\HttpException</namespace-alias>
     <namespace-alias name="NotFoundHttpException">Symfony\Component\HttpKernel\Exception\NotFoundHttpException</namespace-alias>
-    <class final="false" abstract="false" namespace="ChillDev\Bundle\FileManagerBundle\Controller" line="40" package="ChillDev\Bundle\FileManagerBundle">
+    <class final="false" abstract="false" namespace="ChillDev\Bundle\FileManagerBundle\Controller" line="42" package="ChillDev\Bundle\FileManagerBundle">
       <extends>\Symfony\Bundle\FrameworkBundle\Controller\Controller</extends>
       <name>FilesController</name>
       <full_name>\ChillDev\Bundle\FileManagerBundle\Controller\FilesController</full_name>
-      <docblock line="30">
+      <docblock line="32">
         <description><![CDATA[Files controller.]]></description>
         <long-description><![CDATA[]]></long-description>
-        <tag line="30" name="Route" description="(&quot;/files&quot;)"/>
-        <tag line="30" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
-        <tag line="30" name="copyright" description="2012 © by Rafał Wrzeszcz - Wrzasq.pl."/>
-        <tag line="30" name="version" description="0.0.1"/>
-        <tag line="30" name="since" description="0.0.1"/>
-        <tag line="30" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
+        <tag line="32" name="Route" description="(&quot;/files&quot;)"/>
+        <tag line="32" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
+        <tag line="32" name="copyright" description="2012 © by Rafał Wrzeszcz - Wrzasq.pl."/>
+        <tag line="32" name="version" description="0.0.1"/>
+        <tag line="32" name="since" description="0.0.1"/>
+        <tag line="32" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
       </docblock>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Controller" line="56" package="ChillDev\Bundle\FileManagerBundle">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Controller" line="60" package="ChillDev\Bundle\FileManagerBundle">
         <name>downloadAction</name>
         <full_name>downloadAction</full_name>
-        <docblock line="42">
+        <docblock line="44">
           <description><![CDATA[File download action.]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="42" name="Route" description="(&#10;     &quot;/download/{disk}/{path}&quot;,&#10;     name=&quot;chilldev_filemanager_files_download&quot;,&#10;     requirements={&quot;path&quot;=&quot;.*&quot;}&#10; )"/>
-          <tag line="42" name="param" description="Disk scope." type="\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk" variable="$disk">
+          <tag line="44" name="Route" description="(&#10;     &quot;/download/{disk}/{path}&quot;,&#10;     name=&quot;chilldev_filemanager_files_download&quot;,&#10;     requirements={&quot;path&quot;=&quot;.*&quot;}&#10; )"/>
+          <tag line="44" name="param" description="Disk scope." type="\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk" variable="$disk">
             <type by_reference="false">\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk</type>
           </tag>
-          <tag line="42" name="param" description="Destination directory." type="string" variable="$path">
+          <tag line="44" name="param" description="Destination directory." type="string" variable="$path">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="42" name="return" description="File download disposition." type="\Symfony\Component\HttpFoundation\StreamedResponse">
+          <tag line="44" name="return" description="File download disposition." type="\Symfony\Component\HttpFoundation\StreamedResponse">
             <type by_reference="false">\Symfony\Component\HttpFoundation\StreamedResponse</type>
           </tag>
-          <tag line="42" name="version" description="0.0.1"/>
-          <tag line="42" name="since" description="0.0.1"/>
+          <tag line="44" name="throws" description="When requested path is invalid or is not a file." type="\Symfony\Component\HttpKernel\Exception\HttpException">
+            <type by_reference="false">\Symfony\Component\HttpKernel\Exception\HttpException</type>
+          </tag>
+          <tag line="44" name="throws" description="When requested path does not exist." type="\Symfony\Component\HttpKernel\Exception\NotFoundHttpException">
+            <type by_reference="false">\Symfony\Component\HttpKernel\Exception\NotFoundHttpException</type>
+          </tag>
+          <tag line="44" name="version" description="0.0.2"/>
+          <tag line="44" name="since" description="0.0.1"/>
         </docblock>
-        <argument line="56">
+        <argument line="60">
           <name>$disk</name>
           <default><![CDATA[]]></default>
           <type>\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk</type>
         </argument>
-        <argument line="56">
+        <argument line="60">
           <name>$path</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Controller" line="132" package="ChillDev\Bundle\FileManagerBundle">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Controller" line="130" package="ChillDev\Bundle\FileManagerBundle">
         <name>deleteAction</name>
         <full_name>deleteAction</full_name>
-        <docblock line="117">
+        <docblock line="113">
           <description><![CDATA[File delete action.]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="117" name="Route" description="(&#10;     &quot;/delete/{disk}/{path}&quot;,&#10;     name=&quot;chilldev_filemanager_files_delete&quot;,&#10;     requirements={&quot;path&quot;=&quot;.*&quot;}&#10; )"/>
-          <tag line="117" name="Method" description="" type=""/>
-          <tag line="117" name="param" description="Disk scope." type="\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk" variable="$disk">
+          <tag line="113" name="Route" description="(&#10;     &quot;/delete/{disk}/{path}&quot;,&#10;     name=&quot;chilldev_filemanager_files_delete&quot;,&#10;     requirements={&quot;path&quot;=&quot;.*&quot;}&#10; )"/>
+          <tag line="113" name="Method" description="" type=""/>
+          <tag line="113" name="param" description="Disk scope." type="\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk" variable="$disk">
             <type by_reference="false">\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk</type>
           </tag>
-          <tag line="117" name="param" description="Subject file." type="string" variable="$path">
+          <tag line="113" name="param" description="Subject file." type="string" variable="$path">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="117" name="return" description="Redirect to browse view." type="\ChillDev\Bundle\FileManagerBundle\Controller\Symfony\Component\HttpFoundation\RedirectResponse">
+          <tag line="113" name="return" description="Redirect to browse view." type="\ChillDev\Bundle\FileManagerBundle\Controller\Symfony\Component\HttpFoundation\RedirectResponse">
             <type by_reference="false">\ChillDev\Bundle\FileManagerBundle\Controller\Symfony\Component\HttpFoundation\RedirectResponse</type>
           </tag>
-          <tag line="117" name="version" description="0.0.1"/>
-          <tag line="117" name="since" description="0.0.1"/>
+          <tag line="113" name="throws" description="When requested path is invalid or is not a file." type="\Symfony\Component\HttpKernel\Exception\HttpException">
+            <type by_reference="false">\Symfony\Component\HttpKernel\Exception\HttpException</type>
+          </tag>
+          <tag line="113" name="throws" description="When requested path does not exist." type="\Symfony\Component\HttpKernel\Exception\NotFoundHttpException">
+            <type by_reference="false">\Symfony\Component\HttpKernel\Exception\NotFoundHttpException</type>
+          </tag>
+          <tag line="113" name="version" description="0.0.2"/>
+          <tag line="113" name="since" description="0.0.1"/>
         </docblock>
-        <argument line="132">
+        <argument line="130">
           <name>$disk</name>
           <default><![CDATA[]]></default>
           <type>\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk</type>
         </argument>
-        <argument line="132">
+        <argument line="130">
           <name>$path</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Controller" line="198" package="ChillDev\Bundle\FileManagerBundle">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Controller" line="190" package="ChillDev\Bundle\FileManagerBundle">
         <name>mkdirAction</name>
         <full_name>mkdirAction</full_name>
-        <docblock line="183">
+        <docblock line="173">
           <description><![CDATA[Directory creation action.]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="183" name="Route" description="(&#10;     &quot;/mkdir/{disk}/{path}&quot;,&#10;     name=&quot;chilldev_filemanager_files_mkdir&quot;,&#10;     requirements={&quot;path&quot;=&quot;.*&quot;},&#10;     defaults={&quot;path&quot;=&quot;&quot;}&#10; )"/>
-          <tag line="183" name="param" description="Disk scope." type="\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk" variable="$disk">
+          <tag line="173" name="Route" description="(&#10;     &quot;/mkdir/{disk}/{path}&quot;,&#10;     name=&quot;chilldev_filemanager_files_mkdir&quot;,&#10;     requirements={&quot;path&quot;=&quot;.*&quot;},&#10;     defaults={&quot;path&quot;=&quot;&quot;}&#10; )"/>
+          <tag line="173" name="param" description="Disk scope." type="\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk" variable="$disk">
             <type by_reference="false">\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk</type>
           </tag>
-          <tag line="183" name="param" description="Destination location." type="string" variable="$path">
+          <tag line="173" name="param" description="Destination location." type="string" variable="$path">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="183" name="return" description="Result response." type="\Symfony\Component\HttpFoundation\Response">
+          <tag line="173" name="return" description="Result response." type="\Symfony\Component\HttpFoundation\Response">
             <type by_reference="false">\Symfony\Component\HttpFoundation\Response</type>
           </tag>
-          <tag line="183" name="version" description="0.0.1"/>
-          <tag line="183" name="since" description="0.0.1"/>
+          <tag line="173" name="throws" description="When requested path is invalid or is not a directory." type="\Symfony\Component\HttpKernel\Exception\HttpException">
+            <type by_reference="false">\Symfony\Component\HttpKernel\Exception\HttpException</type>
+          </tag>
+          <tag line="173" name="throws" description="When requested path does not exist." type="\Symfony\Component\HttpKernel\Exception\NotFoundHttpException">
+            <type by_reference="false">\Symfony\Component\HttpKernel\Exception\NotFoundHttpException</type>
+          </tag>
+          <tag line="173" name="version" description="0.0.2"/>
+          <tag line="173" name="since" description="0.0.1"/>
         </docblock>
-        <argument line="198">
+        <argument line="190">
           <name>$disk</name>
           <default><![CDATA[]]></default>
           <type>\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk</type>
         </argument>
-        <argument line="198">
+        <argument line="190">
           <name>$path</name>
           <default><![CDATA['']]></default>
           <type/>
         </argument>
       </method>
     </class>
-    <source>eJztWttyG7kRfedXYGm5ZugVh9JWnqSVdh1dYldWtkuiNw8iowJnQBLRDDAGMKIpl172b/Y3UpX/SjfmfqFNRbu5VDwPJgF1N/reZ0B//0O8jHu90YsXPfKCjJdckzkPGYHPmCpD5JyYJSMnSx6Gp+yOnMMfL6igC6bILBFByDxgRN4faWKWUpFLOqf/+IX8Rd0zfe/fk+8VbITeKlv/CF+o/uDF4bHl8mW8VnyxNOS7vf3vyN9/JbN1S8YQv6ZcnuW6Y0pzKciet+ft2x3Nhc8q65j6t6Blofnkj1bbScWAdAeoR72eoBHTwLMFw+RECqNkGDJ12OslmpFTatiYRyxbflkC7ui1NiyanHJ9e7gtm1TRZLyO2eTiNuAKv2VHXjEB/ig4FVizkur27KNRtNR6zheJogYcN7lgEKzg8F9jvpSJKU5eR3Mp1i3ulq9qbqtynsgoloIJM3llTHwugTE7BiIihWaPJH/FaAAuo4st+a6MYqB0sM1xf2ZKsHBy9tFnsWXGzWL1KM430lglGhLyUrQpQvzCZ0WZWee7/RGWqe4P/udLzw+p1qm5ZYYQ9tEwEWhSbvU+9Qg81j34pC4igVyJUNKAUB8d6GV/zGkyd+VL+/RHOdPoUwDl9zD6FFOzfOjv1siwJRz1fTQiYHc36O8o1d5+1ze5lAafYh8SrlgEkddHn/ooun/U9170HwqyQaEeNFkaEWwCZAd1Sb9qCA3zGkTaKC4WZAcFklOmDRc2gQm0AuYbqdYlh2ImUYI0U7vhMjgwlppX/daKb7Zbi7HdG9nPOJmF3CfzRPipLpnsl3bplobtpoqnlqehtOEckYjeMqITBUPHOJrQmZYhxIwgeUGXWn1EnJFDvGzl4QoqpiJLMWC+Y4SGIdHraCZROcXmTDHQX7fETWLFFjeKxSG0ftd5Nhp9+8zZRbm5vocFz2qJznNTlogaf4kM7vVfR9NvR5OJN/gB/hk9yznhwxLtksm7y7M/3bw9P786G9+cvHw3fn95NiDHZG9QcURNK53MINqFXpm8VCsr9Hpver0/BdFAFjLhlrt700FF54eGdzJHECgKzQNGgiLbCjo+BxtBLGRGebDnjZwB+eboiEBD0aypuFkquSKCrUitm7l/2NsDbpt01jRsZ5QLTbi4oyEPKhqZJTVQ9T5jUPWlWp7TbU3DVbmm+7tkuD+o5wT1IfIZrBkSSO81iRWPIO0hUVZ0TebQOoVc7YIBeDhFgWk3AT0htaGUSvfsQEWF+eH5d9em+PB4wcyVTBSEbJBnaUMZIcWQfeRYvIt6hqPfvymkb/Zw59yAiIFNwszd1Nv953r0XPehHGGICImehTM9zJ9qMXb71moy4dq2ObdUaduo14jwwTRobZYa58ryVFUKWbFIQqrSkNnE8Kkgs7JzsaBlSk3+xgrQzJAkBnE+gFouIPKR7aFleA3gOAytbfe4qDjgsJoFHxJowUC5YwA029BfpntunS7rvEfWUc2G3Ek7PAY1f6LaXMiAzzkL3BxgHhz4wG/YuZLRudXddd6jJ1DRQd0HVsrZmC4gN5Z0P03Reu/EVcpZSdKKGkuLpLSVVI+qg3MZBtzwtBwhTj3GXXKw1Vc43BZkOzg4fX317u3V6/Hrt29uXo7HL09eXZy9GUOnm1HNcCS7WeoWh3W7sKZ7oS5CZuzvNI5hMtjQj6RvmBlqGxnnUcIUFRr61/BM+BApsUDJM5jKav0oOT8xsTBLYLZJp/l9reiaA84OdpvA2D5TybXSrZzHNXSLIovypG0Vcia0YOzuuLX0PIEJOwOcV0+LAgZA/0Mo7G7sZ/hg+wwaPeawRvXQFeRubTNNW/CQhQywxKPAoWV5IjS0Mp4CDNMXNLcPxTDuPx0vXiWzvwFItC21DRO//GqVYswCR+YbxEgygykAW3ecrX4zFGnd9xVDfsWQXzFkA3ggUcaaT/RKPv+nwOZGpPk7wkybGDUUuRWEtK0l2EbBSSJCLm5r06kCFHPY5zqhXEDrdwYwcAFS1kdip69SHfC6Baaksps1hXYr4t8DhTsY1MHVtZPr5JCj4zKhoFJsyqe7rYSadoKmiiUashyh3MCuz0Oql4DKXFjSIGhAwABGRRPzVUQZREchNdI6xq4wSBiQ532ypBqiwUQ1HtdO+tdSeTRpWkN6taYvofgQhOAUKi5B7CBqgYVUMZWNLbdba8EUgOv3Kmy/wjidwx511DfpAHTarzjXDhI0YvE6cAcQpiJ2E1CpgmunNSktlNuGOaeF4fbdADvOY9BOhDfJTwM7VsTWWKdOF7A5TcIqze92TRbKFPC34E8F1WjQpUDVvxWasf7ZBGYQjzhfEc3/H6Ip6/YrrPlvgzVlbJ6KbaDy/z03aBXsU4zCXaIlrCEPhuV4BBw0cQxCofQuKSArDgMQAtqwrD6INt0JfPYarBo1LiCtILPvGWZVVMrAVSkgu+CCPRf9UvzQWfEiIgUcSnZ8iiQMp42jpAjXgDDwJyaC78/2QHQDZLauxSg3AK9KsjduBzmcVqismsPjGReVi5TKsdnRtnbBgLqNxXGpEK5/RjK3dYg9CNgp+iOlBYeewobbPMsmgJ0spWfKokEZmZOmXZw7c3Bbtd42sx+2mbeEvoWam+oqT8AWDs61+yIOzp8n4+H8GXze3Efg4/zpwsldojfg5aJwq6A5c1wGmkuS1Mzce9NBl3mtvS2RdP5sg6hb9pXIehsgvR1w3tlsY3X50NW47NgXAeScbQ2ffWVAsubtd/bLdusX7QP7O/aBrUtvaaLQ8+3/nHCar291+1pmwQYqlsXTNoI05j+Dph3vcQ+9h94/ASYhab4=</source>
+    <source>eJztWdtyGzcSfedXYFlyzdAlkrKzT1Kk2JHksiuRk7Io58FUucAZkMRqCIwBjCTKpZf9m/2Nrcp/pRuYC+aiiPKldnOZFxJgd6PvfQb89rt0mfZ648ePe+QxmSy5JnOeMAKfKVWGyDkxS0YOlzxJjtgleQE/nlBBF0yRWSbihI2AEXmf0cwspSJv6Jz++m/yi7ph+ia6Id8q2EhGV/n6GXyh+sMoTQ4sVyTTteKLpSFPd548JUP8+Ib89z9ktm6JGuJXxzyyzJdMaS4F2RntjJ7aHc1FxLx1SqMLULY0YPq9VXrq2eF2gHrc6wm6Yhp4NmCYHkphlEwSpvZ6vUwzckQNm/AV27OrM8GuUxYZFr+lScaOryOWGlA2J75fPu7otTZsNT3i+mJvUzapVtPJOmXTk4uYK/y2KeuZ4Yme/kzNMlfylAnwb8mgwDtXUl0cXxtFKy/M+SJTFG2bnjDIgXjv05jfyMyw4uT1ai7FusXd8n0tDD7noVylUjBhpi+NSV9IYMyPgQhLodkDyV8yGoOn6GJDvlOjGCgdb3LcD0wJlkzLHLGbXsY8gPO1NFaJhoSiwm1Skaj0WVm91vlhf4zVr/uDL1fRn1DKTxql/OQTSjlKqNbO3CpDCLs2TMSaVFu9jz0Cj3UPPs5FJJZXIpE0JjRCB47yHwua3F3F0j79ccE0/hhDwd6OP6ZQSrf97RoZtpj9foRGxOzyPfp75bS33/X7QkqDT7EPGVdsBZHX+x/7KLq/3x897t+WZINSPejddEWwbZAt1MV91RAaNmoQaaO4WJAtFEiOmDZc2AQm0DygfUm1rjgUM5kSpJnaDZfBganU3PcbeWaWSl5pUktL8suSCWsYHMtiYlWAycPFJU14TCD3YCWkIdROpZa0zmTvlBpL5iSxa65NJagxQfLdWurZvbH9TLNZwiMyz0TkXJSb/Nwuw8rf286fLiAuw/Axau2tbN6NQVMtk0tGaJIQvV7NJB6h2JwpBlroGrmL0j7BHr27m3OG7qy9kvKWRNRESxLeNYPIFlNKqkGXMvm5BBJc85iRuMycGq2NABHsqh7S8J87O9sksAlhdcVWQ7moglqdYJYU4xExBhVZHTMKtgv9PJN6PU/LBTM2Idx4JHMlV2TBL5mwYkrKLY9m3wVmeAC81WQN4QhfsJBiaDMESwL1L3/kcxL+wxM4PLB0Ond+05WVezpzNJzqFMrOzEPnqv4jPX6k+800RU/46dTtkLZqXKPUe1Wrq1QjwgdD2dqsFC90LktUsUWWUOUApA1uRAWZVZ2BxS2LavLvjLeGeGcpiIsAi3IxB4hje1QVaQO4C2PseyGP9AlislaNbOUNApkMwF5L/sbthXW6vMntW581e18n7fAANP6RanMiYz7nLA4LbLi7GwG/YS8gZV9YM8LgDJ2CBgzq7rBSjid0AdmypE9C18lHeRMYkWAc4MpxennsqbG0oEVbSfUABzgCYZYMj6puHdTD3SVnRS+YxxG20NHu7tGr059/On01efXT6/fPJ5Pnhy9Pjl9Ptsl0RjXD6VfkZXlYtwtrupfqIp4FfwU0TaFP2iwYS+hwZqhtZIIHCVNUaGhHw2MRQaTEAiXPYACq9YPk/MjEwiwxjB35p/lNaXK92+Tj1KY1NkZ3SK2uvaO5hlZSJlSRv63yzoWWjJ01Vc/UQxg9M0BX9Qwpp1w4IAhAnQ01G5tnW9G+CyAisdeK9mrUt10J0K1+rnoLpbGEGfYwjGZZPhOhWRmfg8/ce1LYh0KZ9D8ftp1ms3/BmG+ApAKt3f+G46BeCeeKDWIkmSHQYuSSs6s/O5izUf0byv2BoVxJjb/n/i2mZj4tU3e74WnwP8R8dwK+r4/2bHBrYG4jJGdrJN5Ez5qKmUi4uCiz28NtBfQKg0QuoMUGAzAIEF59FnW6zumCtwswnpTdtIrlY6oUfQa/hoNBHdy8C2yGBmT/wEunU5mpCDDdeSc28ZTVTGOrQW0xCxOqlwB+QljSOG4grRi6bhNaeaIMgpCEwps2SrMrjAe671GfLKkGxzPhu/5d4H6tlEeTz2uAys/wlYSehAMeG3r5Wm97emvuOsVUPgHCbq0FU4Bhz1TSfmkIOucm6qjfu1kStF8q3gVI0IjFqzgcQP9B0+wvU1DJg4/nNSktMNlGDEel4RaCY+98CHBY4W3q5+EGK2Jj2FCni9mcZolP89UufhLpcHULSXgAQYMuJWL9csCg487p/wQd2NjdBQ5gzATBXxYhVIX1N0z4ojChcuwXxAql0K9/PdTvKOxtoiWsdTYbVpMI0MU0MAgw3O1ITK44zBpBeMPMDa6L7rvY8WPKBTcccvSGEbxT8tIIVpWA/MoG9kL0S/m/Wui5tnhNwOmMg8COLJElyXnjTCmSNUx1/KOC4OufPRn9seJG1yJXWIJRy18YA+QIWjGz+g4PZlx4FwPesfnRthzBkrqx5XFOCNdvkSxsHWIPAnZq79ksLXj2CDbCxou9UwlsL2qrfmGFMnInnTeUdJxevtq2G5bCmkZZ+g0xZPHcWV9F7rUAZXH6vaCyeDYFl8XT5b9PA5vF0wU6u0R3gc9OJiu0/6isWR+a5o4b3XGe84jHWvmlSorCx23nWAd1uay1tyHULZ5NIG/LZxX03QTpboZstxrw3bPRX952tTs7xkUM6Wr7yO9ieiRr3gLnf6a2/kTdtSNz19bfaGlWySiyf9YHzdeoun0ts2ADFXMbrmu4dHkLmna8aN32bnu/AbheQWs=</source>
   </file>
-  <file path="Controller/DisksController.php" hash="9026877aa5ad7960978e51f0402cc0ac" package="ChillDev\Bundle\FileManagerBundle">
+  <file path="Controller/DisksController.php" hash="034efc46aa58c824a461d1ab4ae2ab55" package="ChillDev\Bundle\FileManagerBundle">
     <docblock line="3">
       <description><![CDATA[This file is part of the ChillDev FileManager bundle.]]></description>
       <long-description><![CDATA[]]></long-description>
       <tag line="3" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
-      <tag line="3" name="copyright" description="2012 © by Rafał Wrzeszcz - Wrzasq.pl."/>
-      <tag line="3" name="version" description="0.0.1"/>
-      <tag line="3" name="since" description="0.0.1"/>
+      <tag line="3" name="copyright" description="2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl."/>
+      <tag line="3" name="version" description="0.0.2"/>
+      <tag line="3" name="since" description="0.0.2"/>
       <tag line="3" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
     </docblock>
     <namespace-alias name="FilesystemIterator">FilesystemIterator</namespace-alias>
+    <namespace-alias name="UnexpectedValueException">UnexpectedValueException</namespace-alias>
     <namespace-alias name="Disk">ChillDev\Bundle\FileManagerBundle\Filesystem\Disk</namespace-alias>
+    <namespace-alias name="Path">ChillDev\Bundle\FileManagerBundle\Utils\Path</namespace-alias>
     <namespace-alias name="Route">Sensio\Bundle\FrameworkExtraBundle\Configuration\Route</namespace-alias>
     <namespace-alias name="Template">Sensio\Bundle\FrameworkExtraBundle\Configuration\Template</namespace-alias>
     <namespace-alias name="Controller">Symfony\Bundle\FrameworkBundle\Controller\Controller</namespace-alias>
     <namespace-alias name="HttpException">Symfony\Component\HttpKernel\Exception\HttpException</namespace-alias>
     <namespace-alias name="NotFoundHttpException">Symfony\Component\HttpKernel\Exception\NotFoundHttpException</namespace-alias>
-    <class final="false" abstract="false" namespace="ChillDev\Bundle\FileManagerBundle\Controller" line="36" package="ChillDev\Bundle\FileManagerBundle">
+    <class final="false" abstract="false" namespace="ChillDev\Bundle\FileManagerBundle\Controller" line="38" package="ChillDev\Bundle\FileManagerBundle">
       <extends>\Symfony\Bundle\FrameworkBundle\Controller\Controller</extends>
       <name>DisksController</name>
       <full_name>\ChillDev\Bundle\FileManagerBundle\Controller\DisksController</full_name>
-      <docblock line="26">
+      <docblock line="28">
         <description><![CDATA[Disks controller.]]></description>
         <long-description><![CDATA[]]></long-description>
-        <tag line="26" name="Route" description="(&quot;/disks&quot;)"/>
-        <tag line="26" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
-        <tag line="26" name="copyright" description="2012 © by Rafał Wrzeszcz - Wrzasq.pl."/>
-        <tag line="26" name="version" description="0.0.1"/>
-        <tag line="26" name="since" description="0.0.1"/>
-        <tag line="26" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
+        <tag line="28" name="Route" description="(&quot;/disks&quot;)"/>
+        <tag line="28" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
+        <tag line="28" name="copyright" description="2012 © by Rafał Wrzeszcz - Wrzasq.pl."/>
+        <tag line="28" name="version" description="0.0.1"/>
+        <tag line="28" name="since" description="0.0.1"/>
+        <tag line="28" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
       </docblock>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Controller" line="47" package="ChillDev\Bundle\FileManagerBundle">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Controller" line="49" package="ChillDev\Bundle\FileManagerBundle">
         <name>listAction</name>
         <full_name>listAction</full_name>
-        <docblock line="38">
+        <docblock line="40">
           <description><![CDATA[Disks listing page.]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="38" name="Route" description="(&quot;/&quot;, name=&quot;chilldev_filemanager_disks_list&quot;)"/>
-          <tag line="38" name="Template" description="(engine=&quot;config&quot;)"/>
-          <tag line="38" name="return" description="Template data." type="array">
+          <tag line="40" name="Route" description="(&quot;/&quot;, name=&quot;chilldev_filemanager_disks_list&quot;)"/>
+          <tag line="40" name="Template" description="(engine=&quot;config&quot;)"/>
+          <tag line="40" name="return" description="Template data." type="array">
             <type by_reference="false">array</type>
           </tag>
-          <tag line="38" name="version" description="0.0.1"/>
-          <tag line="38" name="since" description="0.0.1"/>
+          <tag line="40" name="version" description="0.0.1"/>
+          <tag line="40" name="since" description="0.0.1"/>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Controller" line="70" package="ChillDev\Bundle\FileManagerBundle">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Controller" line="72" package="ChillDev\Bundle\FileManagerBundle">
         <name>browseAction</name>
         <full_name>browseAction</full_name>
-        <docblock line="52">
+        <docblock line="54">
           <description><![CDATA[Directory listing action.]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="52" name="Route" description="(&#10;     &quot;/{disk}/{path}&quot;,&#10;     name=&quot;chilldev_filemanager_disks_browse&quot;,&#10;     requirements={&quot;path&quot;=&quot;.*&quot;},&#10;     defaults={&quot;path&quot;=&quot;&quot;}&#10; )"/>
-          <tag line="52" name="Template" description="(engine=&quot;config&quot;)"/>
-          <tag line="52" name="param" description="Disk scope." type="\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk" variable="$disk">
+          <tag line="54" name="Route" description="(&#10;     &quot;/{disk}/{path}&quot;,&#10;     name=&quot;chilldev_filemanager_disks_browse&quot;,&#10;     requirements={&quot;path&quot;=&quot;.*&quot;},&#10;     defaults={&quot;path&quot;=&quot;&quot;}&#10; )"/>
+          <tag line="54" name="Template" description="(engine=&quot;config&quot;)"/>
+          <tag line="54" name="param" description="Disk scope." type="\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk" variable="$disk">
             <type by_reference="false">\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk</type>
           </tag>
-          <tag line="52" name="param" description="Destination directory." type="string" variable="$path">
+          <tag line="54" name="param" description="Destination directory." type="string" variable="$path">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="52" name="return" description="Template data." type="array">
+          <tag line="54" name="return" description="Template data." type="array">
             <type by_reference="false">array</type>
           </tag>
-          <tag line="52" name="throws" description="When requested path is invalid or is not a directory." type="\Symfony\Component\HttpKernel\Exception\HttpException">
+          <tag line="54" name="throws" description="When requested path is invalid or is not a directory." type="\Symfony\Component\HttpKernel\Exception\HttpException">
             <type by_reference="false">\Symfony\Component\HttpKernel\Exception\HttpException</type>
           </tag>
-          <tag line="52" name="throws" description="When requested path does not exist." type="\Symfony\Component\HttpKernel\Exception\NotFoundHttpException">
+          <tag line="54" name="throws" description="When requested path does not exist." type="\Symfony\Component\HttpKernel\Exception\NotFoundHttpException">
             <type by_reference="false">\Symfony\Component\HttpKernel\Exception\NotFoundHttpException</type>
           </tag>
-          <tag line="52" name="version" description="0.0.1"/>
-          <tag line="52" name="since" description="0.0.1"/>
+          <tag line="54" name="version" description="0.0.2"/>
+          <tag line="54" name="since" description="0.0.1"/>
         </docblock>
-        <argument line="70">
+        <argument line="72">
           <name>$disk</name>
           <default><![CDATA[]]></default>
           <type>\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk</type>
         </argument>
-        <argument line="70">
+        <argument line="72">
           <name>$path</name>
           <default><![CDATA['']]></default>
           <type/>
         </argument>
       </method>
     </class>
-    <source>eJzVV81y2zYQvuspNooypByZlDM9xZET15YbTxrHYyuTdiRVA1ErkWMKZADIsuzq0rfpa3Sm79UF+C8pE7vTS3GwCHC/xbcfdhf0m7exH9dq7t5eDfag5wcSpkGIQL8xEwqiKSgf4cQPwvAUb+GMXn5knM1QwHjBJyE6BNTYd2yh/EjAFZuyv/+AL+Ie5b13D28ELYTOMp2/owcmvzpxeGRQXhSvRDDzFbxqH7yCv/6E8WrLx75+TFCOQd2ikEHEoe20nQOzIgPuYWkeM++GWObMBz8atoNSAMkKWbu1GmdzlIR5BGBwEnElojBEcVirLSQaUeRKKpyfKxRMRdmL7/sqoIPTQN6kuGvkFF6OEkRuGYmb7p0SrCAxDWYL2o10GFxFC4WH/w7bw3kcMg1P8Kv5NOKrLQdbwVd0KCNPonkcceRq8F6p+AMKjuGge+dhbPbTi/nsSciLSJ1FRGPDQ5a9WkAJXs4qz0yjjl13J9qg3vzfZ6sXMimTcIszALxTyCcSiqXaQw1oGHn0yCQKA6kCPqMKn+nyNa8yi1ysegt0UXTqnuY0wduRbgzzhMzISDnSjrSeKTTLJBv5LOAaahKtZCFQLQQHJgRbQWYOE6aYk9tsqJWuVhQza675jRfjMPBguuCezgYT27F5tJNtEw30SDfvW4a8BZ0jaCjqePtHM1S2lcXplOJ0jKmTzqzm8NB4W9e2hRXoUeGvcnGZIfENebOpGXX3QW+zdh9ipvx1vVV5+91DGItoKXEDJfDrgijNqZZk56GuHdc7dWevvq7aTXDKFmHZpr7ODZ5ysnRbsLnJL2hoXsmjpIJBZ8NIKqEFaugN4RS1XKYTwSQT0XlSwihfKwCVrgBffORGBfKPEzB70aUW8FsWBhOg0qcZjxSwXdumLnc2nJ2uJxEm7vCOzv+/SubkaNN0LrRtpdp1wLI2k9x1Yc5uEORC0C2uLAlsLKOQks4Qze1yD64FTjpz9OywVvYlkMC3CCwMQa7m40jzEzhFgRSC3HI3iAXORgLpnDy0reeu+/K51dJ+U9LNwxyz9PWXhp1A5kx5vgbY/d/c4Ut3MHCab+mP+zxD0o8xasHg8qr70+jT2dl1tzc6Ob7sfb7qNuEI2s2SEBVWcjGmrMt5pf4SVsZpvz3sHwzJNZmFyO1itT1sljivN9RJhQCqahlMKDPzrM/tginFSG7jSBYbO45rNeFZpwN03UjcJG7yDzguq1lt/9BuE7poNiY+feOxgBfJXdBSPtMp6SHSxVBwc6zdIW3oldE9aMH+QQnR0D2OzPrDarKY5byaDC/qP3QfUhUQVxHMAxVQMi2plqdUgTxa0iVjuDG9X9IyKQyqACr7QsKGQBZm3LJn29SCad7X0ULQsTazTG5WefGI75u6TC69UhXos3mWe//2KexsBHSqFBNXU7t0IvUX0n0h65sNQSdaqXS/kVKGziCQ1NlJ/JzWk7KjIJVR2dHoHkenUZxlx2y3/aFrV+sto9yqLG/DXr/+0P11dHw9Ojv/uXtx/LFbsf99J+Lk89VV96KXoc4vzj49AnX94fxydPqpd/0I288X57+MLo977wvjkjCUscg8H+ySLExCw/y/pL8lAj6NtjqQvqp0qVRW9bACmWeNleP3j8yy3WxtA7SwiWXRrXXGawJV83Jd6kE1kHEOKC11bnJLgc+oGGVwjxXjpCYqZDajyiPrWxpuDSnCFKGrkZbsknB6rKuETAfpG+YGq33tTMHKN1sSfJK3G2rQgnaZLOin/EttXfsHwGt7MA==</source>
+    <source>eJytVttu20YQfedXTAkFpAyZst0+xbGb1k6QomhR5NI8WIGxJofiwtQus7uSLRt66d/0Nwr0vzq7vFMKfEH5IJHDmdmzZ87M8tWPRVZ43nRvz4M9+JhxDSnPEei/YMqATMFkCGcZz/NzXMFbevkbE2yOCq6WIskxokAb+5otTSYVvGcp+/cv+KzuUN/Fd/BKkSGPbqrn13TD9NeoyE9dVCyLteLzzMDRweER7Nu/7+Gfv+FqvZVq396WwZELXqHSXAo4iA6iI2fRXMTYeS5YfE1gmw3MfnagZ519lBbynnqeYAvUFPOIgNmZFEbJPEd17HlLjY4bvdYGF78YVMxIemHtnwTeFhgbTP5k+RLf3MZYGIJdhT28Upt4ds719fEjwz4ZnuvZH8xk1UofUBBdTYCizd5Idf3m1ijWbirl8yWhJ4Cz93Jp8Ph5sR9xUeTMhpfx60UqxXorwRaZPV67kWdyUUiBwszeGVP8ikpgPmvIdMYOtU+I/F2at5JgDDLUTWEp1xA3qBrBO3ZCf5pYB3/8/zXBM9R/OFD/4TPUH+dM63K7bQ0Abw2KRENr8u49oMvRY6+aopxrw8WcBsfcTgX3qvZoyPInYJvsxI8tpgRXl3beLEowl47KS5vI8lmF1koKUcy5sKFOaB0PhWapBDCl2Bpqd0iYYVHjM2CrsvYYc7ap+y+WVzmPIV2K2KrB7e0ndxuWy5Yc2Kta/CJw4AM4OYWRoUG6fzpHEwb1PqPOPiPnGlVPwfjLscu28baJVTQ4pFo35DIH4hv01o/u8qf3dpnN9L6gEbDxJ723DxbhSskbjYMohV+XBGlBvaRP7n2b2D/xoz1/0/dLMGXLvOvjbxqHp1SWDiG2cPqCkcVV3mpqGIwGTtooS9DILgjnaOlykwiSmsToSYIxmWUAelMBPmcoHAuUHxNwa9FZycWK5TwBan16EtIA27VslXLnwNmZOpFYpsNbqv9uMR89WcxlaSs5t9xOKu5OIAiGIjckwfbJqXRKYLXMVwgsz0GvF1fSrqIwRYUERPfc69T2OHr5sooMnXV83HhuIGYmziD81pkJI1RKqvEuMNW6QK2geULlbKTS83VFAIE3/dKGPxwcTCBoO84BtmOfcdFWuF3GZMzWJUak6diuFQWTGmRnX15zO7KdTERcUNN7Hfw0LNynV3nQQ6rkAuZ8hcLlbsM7Pidl3dygab8RwnE/sZBi38mnnM0ma17yFMLvOgn3T52frsoyJLklbqeAw5kuqANNGnZI9F/o6QvtD4VsOepIbrybqm18XDepHwS5o7otwhrXjm59HLZUKmRWqT18MRkNNhjr78AKKzBd1s+dEVykcoh+ZEeQFUfPaq+gs/Wgia8YCceT7QC7ZOnplBxBMA3o1wHou3eVWImmpoNT2WztRGAgY9Trmt/126ksUg/McFfNzi4CGx58scotI0i5H8gUdkgeEO2Cbc9cOOQu1ubaWZXeWVxuvizlgA0y2JSlwd41J/DG+w9aVwcV</source>
+  </file>
+  <file path="Templating/Helper/Filesize.php" hash="924b3b505786cea6f62dee8fd551e13c" package="ChillDev\Bundle\FileManagerBundle">
+    <docblock line="3">
+      <description><![CDATA[This file is part of the ChillDev FileManager bundle.]]></description>
+      <long-description><![CDATA[]]></long-description>
+      <tag line="3" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
+      <tag line="3" name="copyright" description="2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl."/>
+      <tag line="3" name="version" description="0.0.2"/>
+      <tag line="3" name="since" description="0.0.1"/>
+      <tag line="3" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
+    </docblock>
+    <namespace-alias name="Helper">Symfony\Component\Templating\Helper\Helper</namespace-alias>
+    <class final="false" abstract="false" namespace="ChillDev\Bundle\FileManagerBundle\Templating\Helper" line="26" package="ChillDev\Bundle\FileManagerBundle">
+      <extends>\Symfony\Component\Templating\Helper\Helper</extends>
+      <name>Filesize</name>
+      <full_name>\ChillDev\Bundle\FileManagerBundle\Templating\Helper\Filesize</full_name>
+      <docblock line="17">
+        <description><![CDATA[Filesize formatting helper.]]></description>
+        <long-description><![CDATA[]]></long-description>
+        <tag line="17" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
+        <tag line="17" name="copyright" description="2013 © by Rafał Wrzeszcz - Wrzasq.pl."/>
+        <tag line="17" name="version" description="0.0.2"/>
+        <tag line="17" name="since" description="0.0.2"/>
+        <tag line="17" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
+      </docblock>
+      <property final="false" static="true" visibility="protected" line="35" namespace="ChillDev\Bundle\FileManagerBundle\Templating\Helper" package="Default">
+        <name>$units</name>
+        <default><![CDATA[array('', 'k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y')]]></default>
+        <docblock line="28">
+          <description><![CDATA[Size prefixes.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="28" name="var" description="" type="string[]">
+            <type by_reference="false">string[]</type>
+          </tag>
+          <tag line="28" name="version" description="0.0.2"/>
+          <tag line="28" name="since" description="0.0.2"/>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Templating\Helper" line="44" package="ChillDev\Bundle\FileManagerBundle">
+        <name>getName</name>
+        <full_name>getName</full_name>
+        <docblock line="37">
+          <description><![CDATA[Returns helpers alias.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="37" name="return" description="Helper name." type="string">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="37" name="version" description="0.0.2"/>
+          <tag line="37" name="since" description="0.0.2"/>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Templating\Helper" line="58" package="ChillDev\Bundle\FileManagerBundle">
+        <name>filesize</name>
+        <full_name>filesize</full_name>
+        <docblock line="49">
+          <description><![CDATA[Formats filesize.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="49" name="param" description="Filesize." type="int" variable="$size">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="49" name="param" description="Unit step divisor." type="int" variable="$divisor">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="49" name="return" description="Human-readable size." type="string">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="49" name="version" description="0.0.2"/>
+          <tag line="49" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="58">
+          <name>$size</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="58">
+          <name>$divisor</name>
+          <default><![CDATA[1024]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Templating\Helper" line="80" package="ChillDev\Bundle\FileManagerBundle">
+        <name>__invoke</name>
+        <full_name>__invoke</full_name>
+        <docblock line="72">
+          <description><![CDATA[Shorter way for invoking helper method.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="72" name="param" description="Filesize." type="int" variable="$size">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="72" name="return" description="Human-readable size." type="string">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="72" name="version" description="0.0.2"/>
+          <tag line="72" name="since" description="0.0.2"/>
+        </docblock>
+        <argument line="80">
+          <name>$size</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="80">
+          <name>$divisor</name>
+          <default><![CDATA[1024]]></default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="72" code="50015">Argument $divisor is missing from the Docblock of __invoke()</error>
+    </parse_markers>
+    <source>eJy9Vc1O3DAQvucp5oDYH9jsT3tiWUDQ0l6oKqCqWoKQN5lsLBIntZ1ddisufZu+RqW+V8eOt2F3hYQoqg/jZDzjfPP582T/sEgKz+u22x604TLhCmKeItBcMKkhj0EnCCcJT9M3OIVTWjxjgk1QwrgUUYo+JZrcI1bqJJdwzmL2+wd8lgtUi3AB+5IcqT9z70f0wNQ3v0gPbFaYF3PJJ4mGQa8/gI6ZXsGvnzCeb2zVMY9Vsm+TpygVzwX0/J4/sB7FRYj2vW/fCxbeEti/BQTHFnTwoI7KQ9FdzxMsQ0U5T0gILjErUqa5mATvMS1QDj2vVAgX8yzOxTw4ybMiFyj0ZmSd4Ig3uyu+QIhzmTFtQiGxMS9J74vwOngGr2HKlKqLxDuNIlJQseB994CGZcKMNlyYoEJizO9Q+c67XDyaMglKS6Lo6rp2riJ23hXU1te1cyFzjaHGiDaicwlhqxRcKxjBVaOxC41bY86MeWfMpTEfjXlrzFdjvjSu6fjWgJ+jLqVQ7ugUsJSzzQKkjXI1OBLAKM9/bjnlOKUi4lKE2mRNUH+g7Zotu1rRa4b7cCN2B9EY2qX7jTpOrQqrVmACN0qg3sAy4ELDlj3R07XAlYiIT7ki6X4ijqlqLMB5/McoKTMmOhJZxMbUi1Y3/jdqlhU1Le7dGtwI+r3B63XGrC5orTdcdRmpBGFeCt1UmMZ7e5W3RVep72RhKe1Clk8RqA1UhSd0FemweQwCMSL9MRFBkSvFx+aquDFLTAuuIMLBqAa5ve0Q7cPygzVWC86mdOuU4cryzo5Nq5333ro4moGksqLq4y0Yjdyeh27eg0CU2RjlTdWqlkQO6E745mJAo9UC38xkH5JzZadrs3b8qPIuqMdpYmjG5qYXkoCm+W3dDSFD6oLRM/T43xR2c2MxP1VhDteWpl9v5+AxebaWfN17fwCQrz2f</source>
   </file>
   <file path="Templating/ConfigEngine.php" hash="db75f7130076fd373b4d61722ae4ca6f" package="ChillDev\Bundle\FileManagerBundle">
     <docblock line="3">
@@ -1027,16 +2403,17 @@
     </class>
     <source>eJzdVs1u1DAQvucpBlS02arNFo4sWyoWEAgBVUHiQBDyZicbq4ltbKdli3rhbXgNJN6LsfOzyTZFBcGFXBLPeGa+bzwzzoOHKlNBMNndDWAX3mbcQMpzBHorpi3IFGyGMM94nj/GM3hKypdMsBVqWJRimWNEhs72iJU2kxpOWMp+fIV3+gLNRXIBDzQJ8ui8Xh/RBzOfIpUfeqtEqrXmq8zCvYO79+D7N1isr/jYd5+VVeStzlAbLgUcRAfRXS8xXCTYWSuWnBLKFnn8yKONOwQqCe2eBIFgBRqyuYFBfIKfSjQ2PmaaFXMpCIxFPQ2C0tzE3EnM2lgs4lpRm75BQaRaQ3KO51KfPvlsNauFFC3lq1IzS+z7q+eCQKTEYHpTZ8M8tpYdt5XfdZFKsabYhZIChY2fWateoBaYx08+J6g8tFfSPpUUxilb6fQXHvzuilaNa9qW5WNuTl05EgcCA0mD7b8ovSRnxniK/cQDL1SOBeXHwDVHEnwJgB6fJfdUmTJQVEGiWtooj86YhhrARtanU0t7lLxs4t9KS4uJxSXsFG3tbmF4LrjlLOeUwOrQegfWR1Tpm4HS+Bym8dtYy0XOE0hLkbiygo8fCYexukxsuB1x7C2qdLpnx9Ik3D9s8Mw6dJ368grpYzoRqQsDS1eruZSnpbqGbV3esKPrj3mpNR0z1Otoa/9wl8NO0pVDVR0+PT3FxptGW2oBCylzeJchjfWmlbyVJcygcnL9txLOlMrX4TbdvZsRunIibkK7g+jt2j9coX1FmnA83WyVftqY4d2vK6UzaC0mE1hiysrcArOaL0qL4OPRNeiuP+O+mQFWEduMIrdpE7c6rxlZGbRhA+P9yMtHH8bwEK4I4X5FrQPfl9CsTdj+IbM1KOMZhFWgLgGeQnirDtsr3ffe24fxuJNK99hMy3MQeA6DkzqMjdJc2DQc+eFrFCY85dT3NCKbuqWE3L5jbrskCWnbssNlNNqrWIw7p3K5QTvMzIN3qdiDYQ4dvnUtUzPjdR05zzChIcLdDwwhbGcQJExAxtz8hRU/Q9Fpgms69l924DYED2+BNcIl0LVGyf1bLWlKpaS2JvyjHqzxj9qLrbnZBv5yur85sauhEcxmgw05dxdg07+XwWXwE2hfaKE=</source>
   </file>
-  <file path="Form/Type/MkdirType.php" hash="9afd16a59306fb191c0afa49c19a46f0" package="ChillDev\Bundle\FileManagerBundle">
+  <file path="Form/Type/MkdirType.php" hash="6352e97ad494b53feef8f2ec14b7ac0e" package="ChillDev\Bundle\FileManagerBundle">
     <docblock line="3">
       <description><![CDATA[This file is part of the ChillDev FileManager bundle.]]></description>
       <long-description><![CDATA[]]></long-description>
       <tag line="3" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
-      <tag line="3" name="copyright" description="2012 © by Rafał Wrzeszcz - Wrzasq.pl."/>
-      <tag line="3" name="version" description="0.0.1"/>
+      <tag line="3" name="copyright" description="2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl."/>
+      <tag line="3" name="version" description="0.0.2"/>
       <tag line="3" name="since" description="0.0.1"/>
       <tag line="3" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
     </docblock>
+    <namespace-alias name="Filesystem">ChillDev\Bundle\FileManagerBundle\Filesystem\Filesystem</namespace-alias>
     <namespace-alias name="FileNotExists">ChillDev\Bundle\FileManagerBundle\Validator\Constraints\FileNotExists</namespace-alias>
     <namespace-alias name="AbstractType">Symfony\Component\Form\AbstractType</namespace-alias>
     <namespace-alias name="FormBuilderInterface">Symfony\Component\Form\FormBuilderInterface</namespace-alias>
@@ -1044,102 +2421,123 @@
     <namespace-alias name="NotBlank">Symfony\Component\Validator\Constraints\NotBlank</namespace-alias>
     <namespace-alias name="Regex">Symfony\Component\Validator\Constraints\Regex</namespace-alias>
     <namespace-alias name="Collection">Symfony\Component\Validator\Constraints\Collection</namespace-alias>
-    <class final="false" abstract="false" namespace="ChillDev\Bundle\FileManagerBundle\Form\Type" line="33" package="ChillDev\Bundle\FileManagerBundle">
+    <class final="false" abstract="false" namespace="ChillDev\Bundle\FileManagerBundle\Form\Type" line="34" package="ChillDev\Bundle\FileManagerBundle">
       <extends>\Symfony\Component\Form\AbstractType</extends>
       <name>MkdirType</name>
       <full_name>\ChillDev\Bundle\FileManagerBundle\Form\Type\MkdirType</full_name>
-      <docblock line="24">
+      <docblock line="25">
         <description><![CDATA[Simply filename field form.]]></description>
         <long-description><![CDATA[]]></long-description>
-        <tag line="24" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
-        <tag line="24" name="copyright" description="2012 © by Rafał Wrzeszcz - Wrzasq.pl."/>
-        <tag line="24" name="version" description="0.0.1"/>
-        <tag line="24" name="since" description="0.0.1"/>
-        <tag line="24" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
+        <tag line="25" name="author" description="Rafał Wrzeszcz &lt;rafal.wrzeszcz@wrzasq.pl&gt;"/>
+        <tag line="25" name="copyright" description="2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl."/>
+        <tag line="25" name="version" description="0.0.2"/>
+        <tag line="25" name="since" description="0.0.1"/>
+        <tag line="25" name="package" description="ChillDev\Bundle\FileManagerBundle"/>
       </docblock>
-      <property final="false" static="false" visibility="protected" line="42" namespace="ChillDev\Bundle\FileManagerBundle\Form\Type" package="Default">
-        <name>$realpath</name>
+      <property final="false" static="false" visibility="protected" line="43" namespace="ChillDev\Bundle\FileManagerBundle\Form\Type" package="Default">
+        <name>$filesystem</name>
         <default><![CDATA[]]></default>
-        <docblock line="35">
-          <description><![CDATA[Destination location path.]]></description>
+        <docblock line="36">
+          <description><![CDATA[Filesystem.]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="35" name="var" description="" type="string">
-            <type by_reference="false">string</type>
+          <tag line="36" name="var" description="" type="\ChillDev\Bundle\FileManagerBundle\Filesystem\Filesystem">
+            <type by_reference="false">\ChillDev\Bundle\FileManagerBundle\Filesystem\Filesystem</type>
           </tag>
-          <tag line="35" name="version" description="0.0.1"/>
-          <tag line="35" name="since" description="0.0.1"/>
+          <tag line="36" name="version" description="0.0.2"/>
+          <tag line="36" name="since" description="0.0.2"/>
         </docblock>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Form\Type" line="51" package="ChillDev\Bundle\FileManagerBundle">
-        <name>__construct</name>
-        <full_name>__construct</full_name>
-        <docblock line="44">
-          <description><![CDATA[Initializes form type.]]></description>
+      <property final="false" static="false" visibility="protected" line="52" namespace="ChillDev\Bundle\FileManagerBundle\Form\Type" package="Default">
+        <name>$path</name>
+        <default><![CDATA[]]></default>
+        <docblock line="45">
+          <description><![CDATA[Destination location path.]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="44" name="param" description="Destination location path." type="string" variable="$realpath">
+          <tag line="45" name="var" description="" type="string">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="44" name="version" description="0.0.1"/>
-          <tag line="44" name="since" description="0.0.1"/>
+          <tag line="45" name="version" description="0.0.2"/>
+          <tag line="45" name="since" description="0.0.2"/>
         </docblock>
-        <argument line="51">
-          <name>$realpath</name>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Form\Type" line="62" package="ChillDev\Bundle\FileManagerBundle">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <docblock line="54">
+          <description><![CDATA[Initializes form type.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="54" name="param" description="Filesystem manager." type="\ChillDev\Bundle\FileManagerBundle\Filesystem\Filesystem" variable="$filesystem">
+            <type by_reference="false">\ChillDev\Bundle\FileManagerBundle\Filesystem\Filesystem</type>
+          </tag>
+          <tag line="54" name="param" description="Destination location path." type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="54" name="version" description="0.0.2 $filesystem parameter added."/>
+          <tag line="54" name="since" description="0.0.1"/>
+        </docblock>
+        <argument line="62">
+          <name>$filesystem</name>
+          <default><![CDATA[]]></default>
+          <type>\ChillDev\Bundle\FileManagerBundle\Filesystem\Filesystem</type>
+        </argument>
+        <argument line="62">
+          <name>$path</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Form\Type" line="61" package="ChillDev\Bundle\FileManagerBundle">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Form\Type" line="73" package="ChillDev\Bundle\FileManagerBundle">
         <name>buildForm</name>
         <full_name>buildForm</full_name>
-        <docblock line="56">
+        <docblock line="68">
           <description><![CDATA[{@inheritDoc}]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="56" name="version" description="0.0.1"/>
-          <tag line="56" name="since" description="0.0.1"/>
+          <tag line="68" name="version" description="0.0.1"/>
+          <tag line="68" name="since" description="0.0.1"/>
         </docblock>
-        <argument line="61">
+        <argument line="73">
           <name>$builder</name>
           <default><![CDATA[]]></default>
           <type>\Symfony\Component\Form\FormBuilderInterface</type>
         </argument>
-        <argument line="61">
+        <argument line="73">
           <name>$options</name>
           <default><![CDATA[]]></default>
           <type>array</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Form\Type" line="71" package="ChillDev\Bundle\FileManagerBundle">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Form\Type" line="83" package="ChillDev\Bundle\FileManagerBundle">
         <name>setDefaultOptions</name>
         <full_name>setDefaultOptions</full_name>
-        <docblock line="66">
+        <docblock line="78">
           <description><![CDATA[{@inheritDoc}]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="66" name="version" description="0.0.1"/>
-          <tag line="66" name="since" description="0.0.1"/>
+          <tag line="78" name="version" description="0.0.2"/>
+          <tag line="78" name="since" description="0.0.1"/>
         </docblock>
-        <argument line="71">
+        <argument line="83">
           <name>$resolver</name>
           <default><![CDATA[]]></default>
           <type>\Symfony\Component\OptionsResolver\OptionsResolverInterface</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Form\Type" line="97" package="ChillDev\Bundle\FileManagerBundle">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChillDev\Bundle\FileManagerBundle\Form\Type" line="114" package="ChillDev\Bundle\FileManagerBundle">
         <name>getName</name>
         <full_name>getName</full_name>
-        <docblock line="92">
+        <docblock line="109">
           <description><![CDATA[{@inheritDoc}]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="92" name="version" description="0.0.1"/>
-          <tag line="92" name="since" description="0.0.1"/>
+          <tag line="109" name="version" description="0.0.1"/>
+          <tag line="109" name="since" description="0.0.1"/>
         </docblock>
       </method>
     </class>
     <parse_markers>
-      <error line="56" code="50015">Argument $builder is missing from the Docblock of buildForm()</error>
-      <error line="56" code="50015">Argument $options is missing from the Docblock of buildForm()</error>
-      <error line="66" code="50015">Argument $resolver is missing from the Docblock of setDefaultOptions()</error>
+      <error line="68" code="50015">Argument $builder is missing from the Docblock of buildForm()</error>
+      <error line="68" code="50015">Argument $options is missing from the Docblock of buildForm()</error>
+      <error line="78" code="50015">Argument $resolver is missing from the Docblock of setDefaultOptions()</error>
     </parse_markers>
-    <source>eJzdVUtvGjEQvu+vGKlIuyBYSI55EJrQSDkklZKoPbA0MruGtWLsre0lEMql/6Z/o1L/V8e7G97kIVU5dA6sPZ5vPI/Pw9FJEieOU69UHKjAbcw09BmngN+EKAOyDyamcBYzztt0BOd4eEkEGVAFvVREnPoItNgWSU0sFVyTPvnzE76qR6ofw0c4Uqjg/kOxb+GC6O9+wpsZKpTJRLFBbGC/sbcPv39Bb7Lho2aXOcrPUCOqNJMCGn7D38s0momQLu0TEt5jlPPIg9Ms2mApgVyD1nXHEWRINWJeAQjOpRoGt5OEHjpOql+D+EI4i4iRKjiTQhtFmDA6s7uS5tOYaaMLXzeTYV+KCdoNEymoMPltH3sWFZr81mcM7c9pynhE1YUwVPUxpV2Az4nBGuprqiXHgq7vX8RvzwozOuVE3L8NdU0HdPw2yJnknIY25MM5gW/YMOGTjMK2o7igPII+FuW/oGnIidZweR8xZZkAdGyoiDQs08OZOoCSFcRKBdpUGyaIrRRwGeaLhJjYLyyeDFsjogA9MTFYqFZTKLQraWS6evZNlDTYExpBSVHC7SXYnLV4LgQzDFuKVctaAwbD3ogFxw8ZFtEsvL2czJtDTnuchdBPRcYluLsLM5KlofHm15Yz07yyVkoGJ2WtOY/qeDlfazDbyHraYiKmipm2DGf/KNaefen2yXvb3j2UermmCkQpMoGSzF/4RjaFXa1Joshz7ctxq+AapBd+Oy4nPcpdOG6Ce0UfANmHPZZqAtbywO2W3zNnTU2b9knKTTGvvF1zy/YkV20kHC7mCPZOYFKLaeLNzax0VnZW8vrYamyeWbHenoagV67utMlGnrf1ePvFK0Eg1TBNkXflwzcvCPzpXnV/9sOvdIJg3GjUTyoHh9NZgNL1K+XSB3d7KHOPQ2LCOPOHg1DTl6yp1jid8vsvxMiO6Pnc9d2d4O7Wk2fKtPIv6a09vC247qpqcV+5mERW5syoNRd80l7HXSJGltoyU96X5wNqrrCU3jp3FTWpEtgA+y/gPkU0c/4C2dffTQ==</source>
+    <source>eJzdVstu2zoQ3esrBqgByYat2Lm7pnFzk7RAFs0F0qJdRGlBS5RFhCJVkkqjpN70b/obBfpfHVJ+yLbyaru6XFjkcIY8Z170i5dFVnjeTq/nQQ/eZUxDyjgF/BZEGZApmIzCUcY4P6ZX8Bo33xBBplTBpBQJpyEaWtsDUppMKjgjKfn5DT6oG6pv4ht4oVDAwy/z9QFOiP4cFnzsrGJZVIpNMwO7w9EuDOznH/jxHSbV1lEDO62NQ2d8RZVmUsAwHIa7TqKZiKlbj9y6IPElgl0SiA4d6KjBo5ag9o7nCZJTjTaPMIheS5VH76qC7nleqR9lgRJdaUPzxnTvkcbvCWcJMVJFR1JoowgTRju9U2leXTNt9BzI2ypPpahQLy+koMLUUP+dWKvY1JDvUbQ/hyXjCVUnwlCVoj/uMvivMBgAfUa15BiNzfWD9u2skNEhJ+LyaVZndEqvn2ZyJDmnsYW8tyyCtywveOXKwKYDTihPIEWn/J9SPeZEa3hzmTBlEwLotaEi0dDMEu/WAxzOL3b0YJW24Vy02Dm4IqqxvRKv455LV9gXsh33LZQ0GA+aQCdtVMgmjGOqDRPExg24jOtJQUzWigoJMTH9c0T2gm0sJ4IZhsmFgXNJAgY9t4UDmynJG/5p8muK8zpQ4YZhTaGG8DD7DY5rd7nzKFYlkCShSdjigNG6A8oJZzGkpXB1Ap8+xa6AytgE7Xz6Nc6uM69TyI6OwddlMG5g2V+P8oai47q/cLvdmG05//aAiYwqZo5lPGtlP3oywYltfbYHBm2NEDqTWtIHohSpoCPrlrdFd643GKOjA9+2Er8PvsFCw++5z8mEch/2x+Cf0i+AdYhpJlUFVvO5f9H9fc5tWX0/Z03NMU1Jyc28gQd3NXLoqLloi3C8aqwYN4GkVu01WKrZcb62sqP2j/XG9p4d9rTFqxB0+3fquDcgaN1uv3gNBKYa0hR1VJ59DKIovB31d2dfw955FF0Phzsve8/3bmcRjouw1+0889uhLE/MiYkzdx6+DJo+pE21xvKv7z8RV/bNWj5E4T13XbTu3OOntf8Nv+2vVfU6yFsV/gBdW9lNQ7v+Cxwv1kUru+68e9uxTOPBeJX8Ojj3G1lcY2sI/qQon96IptScYtyDzUJT1JRKYLbYx9tfIJp5vwDw1GRb</source>
   </file>
   <package name="ChillDev" full_name="ChillDev">
     <package name="Bundle" full_name="ChillDev\Bundle">
@@ -1152,14 +2550,19 @@
       <namespace name="FileManagerBundle" full_name="ChillDev\Bundle\FileManagerBundle">
         <namespace name="Controller" full_name="ChillDev\Bundle\FileManagerBundle\Controller"/>
         <namespace name="DependencyInjection" full_name="ChillDev\Bundle\FileManagerBundle\DependencyInjection"/>
-        <namespace name="Filesystem" full_name="ChillDev\Bundle\FileManagerBundle\Filesystem"/>
+        <namespace name="Filesystem" full_name="ChillDev\Bundle\FileManagerBundle\Filesystem">
+          <namespace name="Adapter" full_name="ChillDev\Bundle\FileManagerBundle\Filesystem\Adapter"/>
+        </namespace>
         <namespace name="Form" full_name="ChillDev\Bundle\FileManagerBundle\Form">
           <namespace name="Type" full_name="ChillDev\Bundle\FileManagerBundle\Form\Type"/>
         </namespace>
         <namespace name="Request" full_name="ChillDev\Bundle\FileManagerBundle\Request">
           <namespace name="ParamConverter" full_name="ChillDev\Bundle\FileManagerBundle\Request\ParamConverter"/>
         </namespace>
-        <namespace name="Templating" full_name="ChillDev\Bundle\FileManagerBundle\Templating"/>
+        <namespace name="Templating" full_name="ChillDev\Bundle\FileManagerBundle\Templating">
+          <namespace name="Helper" full_name="ChillDev\Bundle\FileManagerBundle\Templating\Helper"/>
+        </namespace>
+        <namespace name="Utils" full_name="ChillDev\Bundle\FileManagerBundle\Utils"/>
         <namespace name="Validator" full_name="ChillDev\Bundle\FileManagerBundle\Validator">
           <namespace name="Constraints" full_name="ChillDev\Bundle\FileManagerBundle\Validator\Constraints"/>
         </namespace>

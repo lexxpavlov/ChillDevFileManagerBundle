@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 <meta charset="utf-8">
-<title>ChillDev FileManager Bundle - by Chillout Development » \ChillDev\Bundle\FileManagerBundle\Templating\ConfigEngine</title>
+<title>ChillDev FileManager Bundle - by Chillout Development » \ChillDev\Bundle\FileManagerBundle\Filesystem\Filesystem</title>
 <meta name="author" content="Mike van Riel">
 <meta name="description" content="">
 <link href="../css/template.css" rel="stylesheet" media="all">
@@ -59,32 +59,29 @@
 <li class="nav-header">
 <i class="icon-custom icon-method"></i> Methods
                     <ul>
-<li class="method public "><a href="#method___construct" title="__construct :: Initializes templating engine."><span class="description">Initializes templating engine.</span><pre>__construct()</pre></a></li>
-<li class="method public "><a href="#method_exists" title="exists :: {@inheritDoc}"><span class="description">{@inheritDoc}</span><pre>exists()</pre></a></li>
-<li class="method public "><a href="#method_render" title="render :: {@inheritDoc}"><span class="description">{@inheritDoc}</span><pre>render()</pre></a></li>
-<li class="method public "><a href="#method_renderResponse" title="renderResponse :: {@inheritDoc}"><span class="description">{@inheritDoc}</span><pre>renderResponse()</pre></a></li>
-<li class="method public "><a href="#method_stream" title="stream :: {@inheritDoc}"><span class="description">{@inheritDoc}</span><pre>stream()</pre></a></li>
-<li class="method public "><a href="#method_supports" title="supports :: {@inheritDoc}"><span class="description">{@inheritDoc}</span><pre>supports()</pre></a></li>
+<li class="method public "><a href="#method___construct" title="__construct :: Initializes filesystem."><span class="description">Initializes filesystem.</span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#method_createDirectoryIterator" title="createDirectoryIterator :: Initializes directory iterator."><span class="description">Initializes directory iterator.</span><pre>createDirectoryIterator()</pre></a></li>
+<li class="method public "><a href="#method_exists" title="exists :: Checks if file exists."><span class="description">Checks if file exists.</span><pre>exists()</pre></a></li>
+<li class="method public "><a href="#method_getFileMTime" title="getFileMTime :: Returns last modification file."><span class="description">Returns last modification file.</span><pre>getFileMTime()</pre></a></li>
+<li class="method public "><a href="#method_getFilesize" title="getFilesize :: Returns file size."><span class="description">Returns file size.</span><pre>getFilesize()</pre></a></li>
+<li class="method public "><a href="#method_isDirectory" title="isDirectory :: Checks if given path is a directory."><span class="description">Checks if given path is a directory.</span><pre>isDirectory()</pre></a></li>
+<li class="method public "><a href="#method_isFile" title="isFile :: Checks if given path is a regular file."><span class="description">Checks if given path is a regular file.</span><pre>isFile()</pre></a></li>
+<li class="method public "><a href="#method_mkdir" title="mkdir :: Creates new directory."><span class="description">Creates new directory.</span><pre>mkdir()</pre></a></li>
+<li class="method public "><a href="#method_readFile" title="readFile :: Prints file directly to output stream."><span class="description">Prints file directly to output stream.</span><pre>readFile()</pre></a></li>
+<li class="method public "><a href="#method_unlink" title="unlink :: Removes regular file."><span class="description">Removes regular file.</span><pre>unlink()</pre></a></li>
 </ul>
-</li>
-<li class="nav-header protected">» Protected
-                    <ul><li class="method protected "><a href="#method_getTemplating" title="getTemplating :: Returns templating engine."><span class="description">Returns templating engine.</span><pre>getTemplating()</pre></a></li></ul>
 </li>
 <li class="nav-header">
 <i class="icon-custom icon-property"></i> Properties
                     <ul></ul>
 </li>
 <li class="nav-header protected">» Protected
-                    <ul>
-<li class="property protected "><a href="#property_container" title="$container :: DI container."><span class="description">DI container.</span><pre>$container</pre></a></li>
-<li class="property protected "><a href="#property_engine" title="$engine :: Target templating engine."><span class="description">Target templating engine.</span><pre>$engine</pre></a></li>
-<li class="property protected "><a href="#property_parser" title="$parser :: Template name parser."><span class="description">Template name parser.</span><pre>$parser</pre></a></li>
-</ul>
+                    <ul><li class="property protected "><a href="#property_adapter" title="$adapter :: I/O adapter."><span class="description">I/O adapter.</span><pre>$adapter</pre></a></li></ul>
 </li>
 </ul>
 </div>
 <div class="span8">
-<a id="\ChillDev\Bundle\FileManagerBundle\Templating\ConfigEngine"></a><ul class="breadcrumb">
+<a id="\ChillDev\Bundle\FileManagerBundle\Filesystem\Filesystem"></a><ul class="breadcrumb">
 <li>
 <a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
 </li>
@@ -96,14 +93,14 @@
 <span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.html">FileManagerBundle</a>
 </li>
 <li>
-<span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.Templating.html">Templating</a>
+<span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.Filesystem.html">Filesystem</a>
 </li>
 <li class="active">
-<span class="divider">\</span><a href="../classes/ChillDev.Bundle.FileManagerBundle.Templating.ConfigEngine.html">ConfigEngine</a>
+<span class="divider">\</span><a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.Filesystem.html">Filesystem</a>
 </li>
 </ul>
 <div class="element class">
-<p class="short_description">Delegated templating engine based on system configuration.</p>
+<p class="short_description">Abstract filesystem management.</p>
 <div class="details">
 <div class="long_description"></div>
 <table class="table table-bordered">
@@ -113,15 +110,15 @@
 </tr>
 <tr>
 <th>copyright</th>
-<td>2012 © by Rafał Wrzeszcz - Wrzasq.pl.</td>
+<td>2013 © by Rafał Wrzeszcz - Wrzasq.pl.</td>
 </tr>
 <tr>
 <th>version</th>
-<td>0.0.1</td>
+<td>0.0.2</td>
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.1</td>
+<td>0.0.2</td>
 </tr>
 <tr>
 <th>package</th>
@@ -131,210 +128,260 @@
 <h3>
 <i class="icon-custom icon-method"></i> Methods</h3>
 <a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
-<h2>Initializes templating engine.</h2>
-<pre>__construct(\Symfony\Component\DependencyInjection\ContainerInterface $container, \Symfony\Component\Templating\TemplateNameParserInterface $parser, string $engine) </pre>
+<h2>Initializes filesystem.</h2>
+<pre>__construct(\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface $adapter) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>version</th>
-<td>0.0.1</td>
+<td>0.0.2</td>
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.1</td>
+<td>0.0.2</td>
 </tr>
 </table>
 <h3>Parameters</h3>
 <div class="subelement argument">
-<h4>$container</h4>
-<code>\Symfony\Component\DependencyInjection\ContainerInterface</code><p>Services container.</p></div>
+<h4>$adapter</h4>
+<code><a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.AdapterInterface.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface</a></code><p>I/O adapter.</p>
+</div>
+</div></div>
+</div>
+<a id="method_createDirectoryIterator"></a><div class="element clickable method public method_createDirectoryIterator" data-toggle="collapse" data-target=".method_createDirectoryIterator .collapse">
+<h2>Initializes directory iterator.</h2>
+<pre>createDirectoryIterator(string $path) : <a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.DirectoryIterator.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\DirectoryIterator</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Parameters</h3>
 <div class="subelement argument">
-<h4>$parser</h4>
-<code>\Symfony\Component\Templating\TemplateNameParserInterface</code><p>Template name parser.</p></div>
-<div class="subelement argument">
-<h4>$engine</h4>
-<code>string</code><p>Destination templating engine.</p></div>
+<h4>$path</h4>
+<code>string</code><p>Subject directory path.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code><a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.DirectoryIterator.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\DirectoryIterator</a></code>Directory listing iterator.</div>
 </div></div>
 </div>
 <a id="method_exists"></a><div class="element clickable method public method_exists" data-toggle="collapse" data-target=".method_exists .collapse">
-<h2>{@inheritDoc}</h2>
-<pre>exists($name) </pre>
+<h2>Checks if file exists.</h2>
+<pre>exists(string $path) : bool</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>version</th>
-<td>0.0.1</td>
+<td>0.0.2</td>
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.1</td>
+<td>0.0.2</td>
 </tr>
 </table>
 <h3>Parameters</h3>
-<div class="subelement argument"><h4>$name</h4></div>
-</div></div>
-</div>
-<a id="method_render"></a><div class="element clickable method public method_render" data-toggle="collapse" data-target=".method_render .collapse">
-<h2>{@inheritDoc}</h2>
-<pre>render($name, array $parameters) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>version</th>
-<td>0.0.1</td>
-</tr>
-<tr>
-<th>since</th>
-<td>0.0.1</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$name</h4></div>
-<div class="subelement argument"><h4>$parameters</h4></div>
-</div></div>
-</div>
-<a id="method_renderResponse"></a><div class="element clickable method public method_renderResponse" data-toggle="collapse" data-target=".method_renderResponse .collapse">
-<h2>{@inheritDoc}</h2>
-<pre>renderResponse($view, array $parameters, \Symfony\Component\HttpFoundation\Response $response) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>version</th>
-<td>0.0.1</td>
-</tr>
-<tr>
-<th>since</th>
-<td>0.0.1</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$view</h4></div>
-<div class="subelement argument"><h4>$parameters</h4></div>
-<div class="subelement argument"><h4>$response</h4></div>
-</div></div>
-</div>
-<a id="method_stream"></a><div class="element clickable method public method_stream" data-toggle="collapse" data-target=".method_stream .collapse">
-<h2>{@inheritDoc}</h2>
-<pre>stream($name, array $parameters) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>version</th>
-<td>0.0.1</td>
-</tr>
-<tr>
-<th>since</th>
-<td>0.0.1</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$name</h4></div>
-<div class="subelement argument"><h4>$parameters</h4></div>
-</div></div>
-</div>
-<a id="method_supports"></a><div class="element clickable method public method_supports" data-toggle="collapse" data-target=".method_supports .collapse">
-<h2>{@inheritDoc}</h2>
-<pre>supports($name) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>version</th>
-<td>0.0.1</td>
-</tr>
-<tr>
-<th>since</th>
-<td>0.0.1</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$name</h4></div>
-</div></div>
-</div>
-<a id="method_getTemplating"></a><div class="element clickable method protected method_getTemplating" data-toggle="collapse" data-target=".method_getTemplating .collapse">
-<h2>Returns templating engine.</h2>
-<pre>getTemplating() : \Symfony\Bundle\FrameworkBundle\Templating\EngineInterface</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>version</th>
-<td>0.0.1</td>
-</tr>
-<tr>
-<th>since</th>
-<td>0.0.1</td>
-</tr>
-</table>
+<div class="subelement argument">
+<h4>$path</h4>
+<code>string</code><p>File path.</p></div>
 <h3>Returns</h3>
 <div class="subelement response">
-<code>\Symfony\Bundle\FrameworkBundle\Templating\EngineInterface</code>Internal templating engine.</div>
+<code>bool</code>File state.</div>
+</div></div>
+</div>
+<a id="method_getFileMTime"></a><div class="element clickable method public method_getFileMTime" data-toggle="collapse" data-target=".method_getFileMTime .collapse">
+<h2>Returns last modification file.</h2>
+<pre>getFileMTime(string $path) : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$path</h4>
+<code>string</code><p>File path.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>int</code>Last modification time of file.</div>
+</div></div>
+</div>
+<a id="method_getFilesize"></a><div class="element clickable method public method_getFilesize" data-toggle="collapse" data-target=".method_getFilesize .collapse">
+<h2>Returns file size.</h2>
+<pre>getFilesize(string $path) : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$path</h4>
+<code>string</code><p>File path.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>int</code>Filesize.</div>
+</div></div>
+</div>
+<a id="method_isDirectory"></a><div class="element clickable method public method_isDirectory" data-toggle="collapse" data-target=".method_isDirectory .collapse">
+<h2>Checks if given path is a directory.</h2>
+<pre>isDirectory(string $path) : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$path</h4>
+<code>string</code><p>File path.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>If it's directory.</div>
+</div></div>
+</div>
+<a id="method_isFile"></a><div class="element clickable method public method_isFile" data-toggle="collapse" data-target=".method_isFile .collapse">
+<h2>Checks if given path is a regular file.</h2>
+<pre>isFile(string $path) : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$path</h4>
+<code>string</code><p>File path.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>If it's file.</div>
+</div></div>
+</div>
+<a id="method_mkdir"></a><div class="element clickable method public method_mkdir" data-toggle="collapse" data-target=".method_mkdir .collapse">
+<h2>Creates new directory.</h2>
+<pre>mkdir(string $path) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$path</h4>
+<code>string</code><p>New directory path.</p></div>
+</div></div>
+</div>
+<a id="method_readFile"></a><div class="element clickable method public method_readFile" data-toggle="collapse" data-target=".method_readFile .collapse">
+<h2>Prints file directly to output stream.</h2>
+<pre>readFile(string $path) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$path</h4>
+<code>string</code><p>File path.</p></div>
+</div></div>
+</div>
+<a id="method_unlink"></a><div class="element clickable method public method_unlink" data-toggle="collapse" data-target=".method_unlink .collapse">
+<h2>Removes regular file.</h2>
+<pre>unlink(string $path) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.2</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.2</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$path</h4>
+<code>string</code><p>File path.</p></div>
 </div></div>
 </div>
 <h3>
 <i class="icon-custom icon-property"></i> Properties</h3>
-<a id="property_container"> </a><div class="element clickable property protected property_container" data-toggle="collapse" data-target=".property_container .collapse">
-<h2>DI container.</h2>
-<pre>$container : \Symfony\Component\DependencyInjection\ContainerInterface</pre>
+<a id="property_adapter"> </a><div class="element clickable property protected property_adapter" data-toggle="collapse" data-target=".property_adapter .collapse">
+<h2>I/O adapter.</h2>
+<pre>$adapter : <a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.AdapterInterface.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface</a></pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>version</th>
-<td>0.0.1</td>
+<td>0.0.2</td>
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.1</td>
-</tr>
-</table>
-</div></div>
-</div>
-<a id="property_engine"> </a><div class="element clickable property protected property_engine" data-toggle="collapse" data-target=".property_engine .collapse">
-<h2>Target templating engine.</h2>
-<pre>$engine : string</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>version</th>
-<td>0.0.1</td>
-</tr>
-<tr>
-<th>since</th>
-<td>0.0.1</td>
-</tr>
-</table>
-</div></div>
-</div>
-<a id="property_parser"> </a><div class="element clickable property protected property_parser" data-toggle="collapse" data-target=".property_parser .collapse">
-<h2>Template name parser.</h2>
-<pre>$parser : \Symfony\Component\Templating\TemplateNameParserInterface</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>version</th>
-<td>0.0.1</td>
-</tr>
-<tr>
-<th>since</th>
-<td>0.0.1</td>
+<td>0.0.2</td>
 </tr>
 </table>
 </div></div>
