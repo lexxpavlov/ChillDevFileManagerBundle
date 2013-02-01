@@ -48,7 +48,8 @@
     "require-dev": {
         "ext-xsl": "*",
         "phpunit/phpunit": "3.7.*",
-        "squizlabs/php_codesniffer": "dev-master"
+        "squizlabs/php_codesniffer": "dev-master",
+        "mikey179/vfsStream": "1.1.*"
     },
     "autoload": {
         "psr-0": {

@@ -22,6 +22,8 @@ use ChillDev\Bundle\FileManagerBundle\Tests\BaseContainerTest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 
+use org\bovigo\vfs\vfsStream;
+
 /**
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
@@ -132,6 +134,10 @@ class FilesControllerTest extends BaseContainerTest
      */
     public function downloadAction()
     {
+        $content = 'bar';
+
+        vfsStream::create(['foo' => $content]);
+
         // compose request
         $this->setRequest();
 
@@ -149,15 +155,15 @@ class FilesControllerTest extends BaseContainerTest
         foreach ([
             'Content-Type' => 'application/octet-stream',
             'Content-Transfer-Encoding' => 'binary',
-            'Content-Length' => '4',
+            'Content-Length' => \strlen($content),
             'Content-Disposition' => 'attachment; filename="foo"',
             'Last-Modified' => $date->format('D, d M Y H:i:s') . ' GMT',
             'Etag' => '"' . \sha1($disk . 'foo/' . $time) . '"',
-        ] as $header => $content) {
-            $this->assertEquals($content, $response->headers->get($header), 'FilesController::downloadAction() should return response with ' . $header . ' header set to "' . $content . '".');
+        ] as $header => $value) {
+            $this->assertEquals($value, $response->headers->get($header), 'FilesController::downloadAction() should return response with ' . $header . ' header set to "' . $value . '".');
         }
 
-        $this->expectOutputString('foo' . "\n");
+        $this->expectOutputString($content);
         $response->sendContent();
     }
 
@@ -186,15 +192,7 @@ class FilesControllerTest extends BaseContainerTest
      */
     public function downloadNonexistingPath()
     {
-        $disk = $this->manager['id'];
-        $realpath = $disk->getSource() . 'test';
-        $realpath = \realpath($realpath);
-
-        if (\file_exists($realpath)) {
-            $this->markTestSkipped('Test file exists.');
-        }
-
-        (new FilesController())->downloadAction($disk, 'test');
+        (new FilesController())->downloadAction($this->manager['id'], 'test');
     }
 
     /**
@@ -203,11 +201,13 @@ class FilesControllerTest extends BaseContainerTest
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
      * @expectedExceptionMessage "[Test]/bar" is not a regular file that can be downloaded.
-     * @version 0.0.1
+     * @version 0.0.2
      * @since 0.0.1
      */
     public function downloadNonfilePath()
     {
+        vfsStream::create(['bar' => []]);
+
         (new FilesController())->downloadAction($this->manager['id'], 'bar');
     }
 
@@ -220,6 +220,8 @@ class FilesControllerTest extends BaseContainerTest
      */
     public function downloadCachedByIfModifiedSince()
     {
+        vfsStream::create(['foo' => '']);
+
         // calculate file cache info
         $disk = $this->manager['id'];
         $time = \filemtime($disk->getSource() . 'foo');
@@ -245,6 +247,8 @@ class FilesControllerTest extends BaseContainerTest
      */
     public function downloadCachedByETag()
     {
+        vfsStream::create(['foo' => '']);
+
         // calculate file cache info
         $disk = $this->manager['id'];
         $time = \filemtime($disk->getSource() . 'foo');
@@ -268,6 +272,8 @@ class FilesControllerTest extends BaseContainerTest
      */
     public function deleteAction()
     {
+        vfsStream::create(['bar' => ['test' => '']]);
+
         $toReturn = 'testroute';
         $flashBag = new FlashBag();
 
@@ -276,12 +282,6 @@ class FilesControllerTest extends BaseContainerTest
 
         $disk = $this->manager['id'];
         $realpath = $disk->getSource() . 'bar/test';
-        \touch($realpath);
-        $realpath = \realpath($realpath);
-
-        if (!\file_exists($realpath)) {
-            $this->markTestSkipped('Failed to create test file.');
-        }
 
         // mocks set-up
         $this->router->expects($this->once())
@@ -344,15 +344,7 @@ class FilesControllerTest extends BaseContainerTest
      */
     public function deleteNonexistingPath()
     {
-        $disk = $this->manager['id'];
-        $realpath = $disk->getSource() . 'test';
-        $realpath = \realpath($realpath);
-
-        if (\file_exists($realpath)) {
-            $this->markTestSkipped('Test file exists.');
-        }
-
-        (new FilesController())->deleteAction($disk, 'test');
+        (new FilesController())->deleteAction($this->manager['id'], 'test');
     }
 
     /**
@@ -361,11 +353,13 @@ class FilesControllerTest extends BaseContainerTest
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
      * @expectedExceptionMessage "[Test]/bar" is not a regular file that can be deleted.
-     * @version 0.0.1
+     * @version 0.0.2
      * @since 0.0.1
      */
     public function deleteNonfilePath()
     {
+        vfsStream::create(['bar' => []]);
+
         (new FilesController())->deleteAction($this->manager['id'], 'bar');
     }
 
@@ -378,6 +372,8 @@ class FilesControllerTest extends BaseContainerTest
      */
     public function mkdirActionForm()
     {
+        vfsStream::create(['bar' => []]);
+
         // needed for closure scope
         $assert = $this;
         $toReturn = new \stdClass();
@@ -421,6 +417,8 @@ class FilesControllerTest extends BaseContainerTest
      */
     public function mkdirActionSubmit()
     {
+        vfsStream::create(['bar' => []]);
+
         $toReturn = 'testroute2';
         $flashBag = new FlashBag();
 
@@ -430,10 +428,6 @@ class FilesControllerTest extends BaseContainerTest
         $disk = $this->manager['id'];
 
         $realpath = $disk->getSource() . 'bar';
-
-        if (file_exists($realpath . '/mkdir')) {
-            $this->markTestSkipped('Test directory already exists.');
-        }
 
         // mocks set-up
         $this->router->expects($this->once())
@@ -470,11 +464,7 @@ class FilesControllerTest extends BaseContainerTest
         // result assertions
         $realpath .= '/mkdir';
         $this->assertFileExists($realpath, 'FilesController::mkdirAction() should create new directory.');
-
-        $realpath = \realpath($realpath);
         $this->assertTrue(\is_dir($realpath), 'FilesController::mkdirAction() should create new directory.');
-
-        \rmdir($realpath);
     }
 
     /**
@@ -486,6 +476,8 @@ class FilesControllerTest extends BaseContainerTest
      */
     public function mkdirActionInvalidSubmit()
     {
+        vfsStream::create(['bar' => []]);
+
         $toReturn = new \stdClass();
 
         // compose request
@@ -529,15 +521,7 @@ class FilesControllerTest extends BaseContainerTest
      */
     public function mkdirNonexistingPath()
     {
-        $disk = $this->manager['id'];
-        $realpath = $disk->getSource() . 'test';
-        $realpath = \realpath($realpath);
-
-        if (\file_exists($realpath)) {
-            $this->markTestSkipped('Test directory exists.');
-        }
-
-        (new FilesController())->mkdirAction($disk, 'test');
+        (new FilesController())->mkdirAction($this->manager['id'], 'test');
     }
 
     /**
@@ -546,11 +530,13 @@ class FilesControllerTest extends BaseContainerTest
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
      * @expectedExceptionMessage "[Test]/foo" is not a directory, so a sub-directory can't be created within it.
-     * @version 0.0.1
+     * @version 0.0.2
      * @since 0.0.1
      */
     public function mkdirNondirectoryPath()
     {
+        vfsStream::create(['foo' => '']);
+
         (new FilesController())->mkdirAction($this->manager['id'], 'foo');
     }
 }

@@ -16,6 +16,8 @@ use PHPUnit_Framework_TestCase;
 
 use ChillDev\Bundle\FileManagerBundle\Filesystem\Adapter\Local;
 
+use org\bovigo\vfs\vfsStream;
+
 /**
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
@@ -25,6 +27,13 @@ use ChillDev\Bundle\FileManagerBundle\Filesystem\Adapter\Local;
  */
 class LocalTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var string
+     * @version 0.0.2
+     * @since 0.0.2
+     */
+    const ROOT_DIR = 'root';
+
     /**
      * @test
      * @expectedException Symfony\Component\Filesystem\Exception\IOException
@@ -44,6 +53,8 @@ class LocalTest extends PHPUnit_Framework_TestCase
      */
     public function exists()
     {
+        self::setupVfs(['foo' => '']);
+
         $adapter = $this->getAdapter();
 
         $this->assertTrue($adapter->exists('foo'), 'Local::exists() should return TRUE for files that exist.');
@@ -57,6 +68,8 @@ class LocalTest extends PHPUnit_Framework_TestCase
      */
     public function isFile()
     {
+        self::setupVfs(['foo' => '', 'bar' => []]);
+
         $adapter = $this->getAdapter();
 
         $this->assertTrue($adapter->isFile('foo'), 'Local::isFile() should return TRUE for regular files.');
@@ -70,6 +83,8 @@ class LocalTest extends PHPUnit_Framework_TestCase
      */
     public function isDirectory()
     {
+        self::setupVfs(['foo' => '', 'bar' => []]);
+
         $adapter = $this->getAdapter();
 
         $this->assertTrue($adapter->isDirectory('bar'), 'Local::isDirectory() should return TRUE for directories.');
@@ -83,7 +98,11 @@ class LocalTest extends PHPUnit_Framework_TestCase
      */
     public function getFileMTime()
     {
-        $this->assertEquals(\filemtime($this->getRootPath() . 'foo'), $this->getAdapter()->getFileMTime('foo'), 'Local::getFileMTime() should return last modification time of file.');
+        $filename = 'foo';
+
+        self::setupVfs([$filename => 'foo']);
+
+        $this->assertEquals(\filemtime($this->getRootPath() . $filename), $this->getAdapter()->getFileMTime($filename), 'Local::getFileMTime() should return last modification time of file.');
     }
 
     /**
@@ -93,7 +112,11 @@ class LocalTest extends PHPUnit_Framework_TestCase
      */
     public function getFilesize()
     {
-        $this->assertEquals(\filesize($this->getRootPath() . 'foo'), $this->getAdapter()->getFilesize('foo'), 'Local::getFilesize() should return filesize of file.');
+        $filename = 'foo';
+
+        self::setupVfs([$filename => 'foo']);
+
+        $this->assertEquals(\filesize($this->getRootPath() . $filename), $this->getAdapter()->getFilesize($filename), 'Local::getFilesize() should return filesize of file.');
     }
 
     /**
@@ -103,14 +126,13 @@ class LocalTest extends PHPUnit_Framework_TestCase
      */
     public function unlink()
     {
-        $realpath = $this->getRootPath() . 'test';
-        \touch($realpath);
+        $filename = 'foo';
 
-        if (!\file_exists($realpath)) {
-            $this->markTestSkipped('Failed to create test file.');
-        }
+        self::setupVfs([$filename => '']);
 
-        $this->getAdapter()->unlink('test');
+        $realpath = $this->getRootPath() . $filename;
+
+        $this->getAdapter()->unlink($filename);
         $this->assertFileNotExists($realpath, 'Local::unlink() should delete the file.');
     }
 
@@ -121,8 +143,13 @@ class LocalTest extends PHPUnit_Framework_TestCase
      */
     public function readFile()
     {
-        $this->expectOutputString('foo' . "\n");
-        $this->getAdapter()->readFile('foo');
+        $filename = 'foo';
+        $content = 'bar';
+
+        self::setupVfs([$filename => $content]);
+
+        $this->expectOutputString($content);
+        $this->getAdapter()->readFile($filename);
     }
 
     /**
@@ -132,13 +159,13 @@ class LocalTest extends PHPUnit_Framework_TestCase
      */
     public function mkdir()
     {
-        $realpath = $this->getRootPath() . 'test';
+        $filename = 'foo';
 
-        if (\file_exists($realpath)) {
-            $this->markTestSkipped('Test directory already exists.');
-        }
+        vfsStream::setup(self::ROOT_DIR);
 
-        $this->getAdapter()->mkdir('test');
+        $this->getAdapter()->mkdir($filename);
+
+        $realpath = $this->getRootPath() . $filename;
 
         $this->assertFileExists($realpath, 'Local::mkdir() should create new directory.');
         $this->assertTrue(\is_dir($realpath), 'Local::mkdir() should create new directory.');
@@ -153,9 +180,13 @@ class LocalTest extends PHPUnit_Framework_TestCase
      */
     public function openDir()
     {
+        $filename = 'foo';
+
+        self::setupVfs([$filename => []]);
+
         $adapter = $this->getAdapter();
 
-        $handle = $adapter->openDir('bar/quux');
+        $handle = $adapter->openDir($filename);
 
         $this->assertInstanceOf('DirectoryIterator', $handle, 'Local::openDir() should create directory iterator for given path.');
 
@@ -278,6 +309,16 @@ class LocalTest extends PHPUnit_Framework_TestCase
      */
     protected function getRootPath()
     {
-        return \realpath(__DIR__ . '/../../fixtures/fs') . '/';
+        return vfsStream::url(self::ROOT_DIR) . '/';
+    }
+
+    /**
+     * @param array $structure
+     * @version 0.0.2
+     * @since 0.0.2
+     */
+    protected static function setupVfs(array $structure)
+    {
+        vfsStream::setup(self::ROOT_DIR, null, $structure);
     }
 }

@@ -16,6 +16,8 @@ use ChillDev\Bundle\FileManagerBundle\Controller\DisksController;
 use ChillDev\Bundle\FileManagerBundle\Filesystem\Disk;
 use ChillDev\Bundle\FileManagerBundle\Tests\BaseContainerTest;
 
+use org\bovigo\vfs\vfsStream;
+
 /**
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
@@ -53,12 +55,21 @@ class DisksControllerTest extends BaseContainerTest
      * Check directory listing.
      *
      * @test
-     * @version 0.0.1
+     * @version 0.0.2
      * @since 0.0.1
      */
     public function browseAction()
     {
         $disk = $this->manager['id'];
+
+        vfsStream::create(
+            ['bar' =>
+                [
+                    'baz' => '0123',
+                    'quux' => [],
+                ],
+            ]
+        );
 
         $return = (new DisksController())->browseAction($disk, '//./bar/../bar/.///');
 
@@ -102,15 +113,7 @@ class DisksControllerTest extends BaseContainerTest
      */
     public function browseNonexistingPath()
     {
-        $disk = $this->manager['id'];
-        $realpath = $disk->getSource() . 'test';
-        $realpath = \realpath($realpath);
-
-        if (\file_exists($realpath)) {
-            $this->markTestSkipped('Test directory does exists.');
-        }
-
-        (new DisksController())->browseAction($disk, 'test');
+        (new DisksController())->browseAction($this->manager['id'], 'test');
     }
 
     /**
@@ -119,11 +122,13 @@ class DisksControllerTest extends BaseContainerTest
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
      * @expectedExceptionMessage "[Test]/foo" is not a directory.
-     * @version 0.0.1
+     * @version 0.0.2
      * @since 0.0.1
      */
     public function browseNondirectoryPath()
     {
+        vfsStream::create(['foo' => '']);
+
         (new DisksController())->browseAction($this->manager['id'], 'foo');
     }
 

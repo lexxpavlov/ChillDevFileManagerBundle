@@ -16,6 +16,8 @@ use PHPUnit_Framework_TestCase;
 
 use ChillDev\Bundle\FileManagerBundle\Filesystem\Manager;
 
+use org\bovigo\vfs\vfsStream;
+
 /**
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
@@ -25,6 +27,13 @@ use ChillDev\Bundle\FileManagerBundle\Filesystem\Manager;
  */
 abstract class BaseManagerTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var string
+     * @version 0.0.2
+     * @since 0.0.2
+     */
+    const ROOT_DIR = 'root';
+
     /**
      * Disks manager.
      *
@@ -40,7 +49,9 @@ abstract class BaseManagerTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
+        vfsStream::setup(self::ROOT_DIR);
+
         $this->manager = new Manager();
-        $this->manager->createDisk('id', 'Test', \realpath(__DIR__ . '/fixtures/fs') . '/');
+        $this->manager->createDisk('id', 'Test', vfsStream::url(self::ROOT_DIR) . '/');
     }
 }
