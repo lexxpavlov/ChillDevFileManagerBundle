@@ -5,14 +5,13 @@
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.2
+ * @version 0.0.3
  * @since 0.0.2
  * @package ChillDev\Bundle\FileManagerBundle
  */
 
 namespace ChillDev\Bundle\FileManagerBundle\Controller;
 
-use FilesystemIterator;
 use UnexpectedValueException;
 
 use ChillDev\Bundle\FileManagerBundle\Filesystem\Disk;
@@ -66,7 +65,7 @@ class DisksController extends Controller
      * @return array Template data.
      * @throws HttpException When requested path is invalid or is not a directory.
      * @throws NotFoundHttpException When requested path does not exist.
-     * @version 0.0.2
+     * @version 0.0.3
      * @since 0.0.1
      */
     public function browseAction(Disk $disk, $path = '')
@@ -89,7 +88,10 @@ class DisksController extends Controller
             throw new NotFoundHttpException(\sprintf('Directory "%s/%s" does not exist.', $disk, $path));
         }
 
-        if (!$filesystem->isDirectory($path)) {
+        // file information object
+        $info = $filesystem->getFileInfo($path);
+
+        if (!$info->isDir()) {
             throw new HttpException(400, \sprintf('"%s/%s" is not a directory.', $disk, $path));
         }
 

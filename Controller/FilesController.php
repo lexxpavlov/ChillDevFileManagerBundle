@@ -5,7 +5,7 @@
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.2
+ * @version 0.0.3
  * @since 0.0.2
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -34,8 +34,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *
  * @Route("/files")
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.1
+ * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.0.3
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -54,7 +54,7 @@ class FilesController extends Controller
      * @return StreamedResponse File download disposition.
      * @throws HttpException When requested path is invalid or is not a file.
      * @throws NotFoundHttpException When requested path does not exist.
-     * @version 0.0.2
+     * @version 0.0.3
      * @since 0.0.1
      */
     public function downloadAction(Disk $disk, $path)
@@ -75,7 +75,10 @@ class FilesController extends Controller
             throw new NotFoundHttpException(\sprintf('File "%s/%s" does not exist.', $disk, $path));
         }
 
-        if (!$filesystem->isFile($path)) {
+        // file information object
+        $info = $filesystem->getFileInfo($path);
+
+        if (!$info->isFile()) {
             throw new HttpException(
                 400,
                 \sprintf('"%s/%s" is not a regular file that can be downloaded.', $disk, $path)
@@ -83,7 +86,7 @@ class FilesController extends Controller
         }
 
         // set up cache information
-        $time = $filesystem->getFileMTime($path);
+        $time = $info->getMTime();
         $request = $this->getRequest();
         $response = new StreamedResponse();
         $response->setLastModified(DateTime::createFromFormat('U', $time))
@@ -95,7 +98,7 @@ class FilesController extends Controller
         );
         $response->headers->set('Content-Type', 'application/octet-stream');
         $response->headers->set('Content-Transfer-Encoding', 'binary');
-        $response->headers->set('Content-Length', $filesystem->getFilesize($path));
+        $response->headers->set('Content-Length', $info->getSize());
 
         // return cached response
         if ($response->isNotModified($request)) {
@@ -103,8 +106,8 @@ class FilesController extends Controller
         }
 
         $response->setCallback(
-            function () use ($path, $filesystem) {
-                $filesystem->readFile($path);
+            function () use ($info) {
+                $info->openFile()->fpassthru();
             }
         );
         return $response;
@@ -124,7 +127,7 @@ class FilesController extends Controller
      * @return Symfony\Component\HttpFoundation\RedirectResponse Redirect to browse view.
      * @throws HttpException When requested path is invalid or is not a file.
      * @throws NotFoundHttpException When requested path does not exist.
-     * @version 0.0.2
+     * @version 0.0.3
      * @since 0.0.1
      */
     public function deleteAction(Disk $disk, $path)
@@ -146,7 +149,10 @@ class FilesController extends Controller
             throw new NotFoundHttpException(\sprintf('File "%s" does not exist.', $diskpath));
         }
 
-        if (!$filesystem->isFile($path)) {
+        // file information object
+        $info = $filesystem->getFileInfo($path);
+
+        if (!$info->isFile()) {
             throw new HttpException(400, \sprintf('"%s" is not a regular file that can be deleted.', $diskpath));
         }
 
@@ -184,7 +190,7 @@ class FilesController extends Controller
      * @return Response Result response.
      * @throws HttpException When requested path is invalid or is not a directory.
      * @throws NotFoundHttpException When requested path does not exist.
-     * @version 0.0.2
+     * @version 0.0.3
      * @since 0.0.1
      */
     public function mkdirAction(Disk $disk, $path = '')
@@ -206,7 +212,10 @@ class FilesController extends Controller
             throw new NotFoundHttpException(\sprintf('Directory "%s" does not exist.', $diskpath));
         }
 
-        if (!$filesystem->isDirectory($path)) {
+        // file information object
+        $info = $filesystem->getFileInfo($path);
+
+        if (!$info->isDir()) {
             throw new HttpException(
                 400,
                 \sprintf('"%s" is not a directory, so a sub-directory can\'t be created within it.', $diskpath)
