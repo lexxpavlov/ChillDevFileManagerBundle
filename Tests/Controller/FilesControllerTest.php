@@ -5,7 +5,7 @@
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.2
+ * @version 0.0.3
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -27,7 +27,7 @@ use org\bovigo\vfs\vfsStream;
 /**
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.2
+ * @version 0.0.3
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -345,22 +345,6 @@ class FilesControllerTest extends BaseContainerTest
     public function deleteNonexistingPath()
     {
         (new FilesController())->deleteAction($this->manager['id'], 'test');
-    }
-
-    /**
-     * Check non-file path.
-     *
-     * @test
-     * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
-     * @expectedExceptionMessage "[Test]/bar" is not a regular file that can be deleted.
-     * @version 0.0.2
-     * @since 0.0.1
-     */
-    public function deleteNonfilePath()
-    {
-        vfsStream::create(['bar' => []]);
-
-        (new FilesController())->deleteAction($this->manager['id'], 'bar');
     }
 
     /**

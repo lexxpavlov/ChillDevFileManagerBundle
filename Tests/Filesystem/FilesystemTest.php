@@ -68,7 +68,7 @@ class FilesystemTest extends PHPUnit_Framework_TestCase
      * @version 0.0.3
      * @since 0.0.3
      */
-    public function unlink()
+    public function remove()
     {
         $filename = 'foo';
 
@@ -76,8 +76,8 @@ class FilesystemTest extends PHPUnit_Framework_TestCase
 
         $realpath = $this->getRootPath() . $filename;
 
-        $this->getFilesystem()->unlink($filename);
-        $this->assertFileNotExists($realpath, 'Filesystem::unlink() should delete the file.');
+        $this->getFilesystem()->remove($filename);
+        $this->assertFileNotExists($realpath, 'Filesystem::remove() should delete the file.');
     }
 
     /**

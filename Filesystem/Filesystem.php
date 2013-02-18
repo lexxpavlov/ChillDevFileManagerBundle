@@ -16,6 +16,7 @@ use FilesystemIterator;
 use SplFileInfo;
 
 use Symfony\Component\Filesystem\Exception\IOException;
+use Symfony\Component\Filesystem\Filesystem as FsUtils;
 
 /**
  * Abstract filesystem management.
@@ -38,6 +39,15 @@ class Filesystem
     protected $root;
 
     /**
+     * Symfony's filesystem helper utility.
+     *
+     * @var FsUtils
+     * @version 0.0.3
+     * @since 0.0.3
+     */
+    protected $filesystem;
+
+    /**
      * Initializes filesystem wrapper.
      *
      * @param string $root Root path for this disk.
@@ -52,6 +62,7 @@ class Filesystem
         }
 
         $this->root = $root;
+        $this->filesystem = new FsUtils();
     }
 
     /**
@@ -68,15 +79,15 @@ class Filesystem
     }
 
     /**
-     * Removes regular file.
+     * Removes file or directory.
      *
      * @param string $path File path.
      * @version 0.0.3
-     * @since 0.0.2
+     * @since 0.0.3
      */
-    public function unlink($path)
+    public function remove($path)
     {
-        \unlink($this->root . $path);
+        $this->filesystem->remove($this->root . $path);
     }
 
     /**

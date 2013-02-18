@@ -149,14 +149,7 @@ class FilesController extends Controller
             throw new NotFoundHttpException(\sprintf('File "%s" does not exist.', $diskpath));
         }
 
-        // file information object
-        $info = $filesystem->getFileInfo($path);
-
-        if (!$info->isFile()) {
-            throw new HttpException(400, \sprintf('"%s" is not a regular file that can be deleted.', $diskpath));
-        }
-
-        $filesystem->unlink($path);
+        $filesystem->remove($path);
 
         $this->get('logger')->info(
             \sprintf('File "%s" deleted by user "%s".', $path, $this->getUser()),
