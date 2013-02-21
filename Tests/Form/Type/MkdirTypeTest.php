@@ -5,20 +5,16 @@
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.2
+ * @version 0.0.3
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
 
 namespace ChillDev\Bundle\FileManagerBundle\Tests\Form\Type;
 
-use Countable;
-use IteratorAggregate;
-
 use ChillDev\Bundle\FileManagerBundle\Form\Type\MkdirType;
 use ChillDev\Bundle\FileManagerBundle\Tests\BaseContainerTest;
 
-use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**

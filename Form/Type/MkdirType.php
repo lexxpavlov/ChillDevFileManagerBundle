@@ -5,7 +5,7 @@
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.2
+ * @version 0.0.3
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -14,13 +14,13 @@ namespace ChillDev\Bundle\FileManagerBundle\Form\Type;
 
 use ChillDev\Bundle\FileManagerBundle\Filesystem\Filesystem;
 use ChillDev\Bundle\FileManagerBundle\Validator\Constraints\FileNotExists;
+use ChillDev\Bundle\FileManagerBundle\Validator\Constraints\Filename;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Collection;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * Simply filename field form.
@@ -86,13 +86,7 @@ class MkdirType extends AbstractType
             [
                 'name' => [
                     new NotBlank(),
-                    new Regex(
-                        [
-                            'pattern' => '#^(\\.{1,2}|.*[\\x00/?*:;{}\\\\].*)$#',
-                            'match' => false,
-                            'message' => 'Invalid filename.',
-                        ]
-                    ),
+                    new Filename(),
                     new FileNotExists(
                         [
                             'filesystem' => $this->filesystem,

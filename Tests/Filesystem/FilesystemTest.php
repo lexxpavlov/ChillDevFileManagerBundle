@@ -104,6 +104,26 @@ class FilesystemTest extends PHPUnit_Framework_TestCase
      * @version 0.0.3
      * @since 0.0.3
      */
+    public function upload()
+    {
+        $path = 'foo';
+        $filename = 'bar';
+
+        vfsStream::setup(self::ROOT_DIR);
+
+        $file = $this->getMock('Symfony\\Component\\HttpFoundation\\File\\UploadedFile', [], [], '', false);
+        $file->expects($this->once())
+            ->method('move')
+            ->with($this->equalTo($this->getRootPath() . $path), $this->equalTo($filename));
+
+        $this->getFilesystem()->upload($path, $file, $filename);
+    }
+
+    /**
+     * @test
+     * @version 0.0.3
+     * @since 0.0.3
+     */
     public function createDirectoryIterator()
     {
         $filename = 'foo';

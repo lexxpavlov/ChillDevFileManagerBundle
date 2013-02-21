@@ -115,7 +115,7 @@ class FilesControllerTest extends BaseContainerTest
      * @param array $headers
      * @param string $method
      * @param array $request
-     * @version 0.0.2
+     * @version 0.0.3
      * @since 0.0.2
      */
     protected function setRequest(array $headers = [], $method = 'GET', array $request = [])
@@ -123,6 +123,7 @@ class FilesControllerTest extends BaseContainerTest
         $this->request->headers->replace($headers);
         $this->request->setMethod($method);
         $this->request->request->replace($request);
+        $this->request->files->replace();
     }
 
     /**
@@ -522,5 +523,186 @@ class FilesControllerTest extends BaseContainerTest
         vfsStream::create(['foo' => '']);
 
         (new FilesController())->mkdirAction($this->manager['id'], 'foo');
+    }
+
+    /**
+     * Check GET method behavior.
+     *
+     * @test
+     * @version 0.0.3
+     * @since 0.0.3
+     */
+    public function uploadActionForm()
+    {
+        vfsStream::create(['bar' => []]);
+
+        // needed for closure scope
+        $assert = $this;
+        $toReturn = new \stdClass();
+
+        // compose request
+        $this->setRequest();
+
+        $disk = $this->manager['id'];
+
+        $this->templating->expects($this->once())
+            ->method('renderResponse')
+            ->with(
+                $this->equalTo('ChillDevFileManagerBundle:Files:upload.html.config'),
+                $this->anything(),
+                $this->isNull()
+            )
+            ->will($this->returnCallback(function($view, $parameters) use ($assert, $toReturn, $disk) {
+                        $assert->assertArrayHasKey('disk', $parameters, 'FilesController::uploadAction() should return disk scope object under key "disk".');
+                        $assert->assertSame($disk, $parameters['disk'], 'FilesController::uploadAction() should return disk scope object under key "disk".');
+                        $assert->assertArrayHasKey('path', $parameters, 'FilesController::uploadAction() should return computed path under key "path".');
+                        $assert->assertSame('bar', $parameters['path'], 'FilesController::uploadAction() should resolve all "./" and "../" references and replace multiple "/" with single one.');
+                        $assert->assertArrayHasKey('form', $parameters, 'FilesController::uploadAction() should return form data under key "form".');
+                        $assert->assertInstanceOf('Symfony\\Component\\Form\\FormView', $parameters['form'], 'FilesController::uploadAction() should return form data under key "form".');
+                        $assert->assertEquals('upload', $parameters['form']->vars['name'], 'FilesController::uploadAction() should return form data of UploadType form.');
+                        return $toReturn;
+            }));
+
+        $controller = new FilesController();
+        $controller->setContainer($this->container);
+        $response = $controller->uploadAction($disk, '//./bar/.././//bar');
+
+        $this->assertSame($toReturn, $response, 'FilesController::uploadAction() should return response generated with templating service.');
+    }
+
+    /**
+     * Check POST method behavior.
+     *
+     * @test
+     * @version 0.0.3
+     * @since 0.0.3
+     */
+    public function uploadActionSubmit()
+    {
+        vfsStream::create(['bar' => []]);
+
+        $toReturn = 'testroute3';
+        $flashBag = new FlashBag();
+
+        $file = $this->getMock('Symfony\\Component\\HttpFoundation\\File\\UploadedFile', [], [], '', false);
+        $file->expects($this->once())
+            ->method('move');
+
+        // compose request
+        $this->setRequest([], 'POST', ['upload' => ['name' => 'upload']]);
+        $this->request->files->replace([
+            'upload' => [
+                'file' => $file,
+            ],
+        ]);
+
+        $disk = $this->manager['id'];
+
+        $realpath = $disk->getSource() . 'bar';
+
+        // mocks set-up
+        $this->router->expects($this->once())
+            ->method('generate')
+            ->with(
+                $this->equalTo('chilldev_filemanager_disks_browse'),
+                $this->equalTo(['disk' => $disk->getId(), 'path' => 'bar'])
+            )
+            ->will($this->returnValue($toReturn));
+        $this->logger->expects($this->once())
+            ->method('info')
+            ->with(
+                $this->equalTo('File "bar/upload" uploaded by user "' . $this->user->__toString() . '".'),
+                $this->equalTo(['scope' => $disk->getSource()])
+            );
+        $this->session->expects($this->once())
+            ->method('getFlashBag')
+            ->will($this->returnValue($flashBag));
+
+        $controller = new FilesController();
+        $controller->setContainer($this->container);
+        $response = $controller->uploadAction($disk, '//./bar/.././//bar');
+
+        // response properties
+        $this->assertInstanceOf('Symfony\\Component\\HttpFoundation\\RedirectResponse', $response, 'FilesController::uploadAction() should return instance of type Symfony\\Component\\HttpFoundation\\RedirectResponse.');
+        $this->assertEquals($toReturn, $response->getTargetUrl(), 'FilesController::uploadAction() should set redirect URL to result of route generator output.');
+
+        // flash message properties
+        $flashes = $flashBag->peekAll();
+        $this->assertArrayHasKey('done', $flashes, 'FilesController::uploadAction() should set flash message of type "done".');
+        $this->assertCount(1, $flashes['done'], 'FilesController::uploadAction() should set flash message of type "done".');
+        $this->assertEquals('"' . $disk . '/bar/upload" has been uploaded.', $flashes['done'][0], 'FilesController::uploadAction() should set flash message that notifies about directory creation.');
+    }
+
+    /**
+     * Check POST method behavior on invalid data.
+     *
+     * @test
+     * @version 0.0.3
+     * @since 0.0.3
+     */
+    public function uploadActionInvalidSubmit()
+    {
+        vfsStream::create(['bar' => []]);
+
+        $toReturn = new \stdClass();
+
+        // compose request
+        $this->setRequest([], 'POST', ['upload' => ['name' => '']]);
+
+        $disk = $this->manager['id'];
+
+        $this->templating->expects($this->once())
+            ->method('renderResponse')
+            ->will($this->returnValue($toReturn));
+
+        $controller = new FilesController();
+        $controller->setContainer($this->container);
+        $response = $controller->uploadAction($disk, '//./bar/.././//bar');
+
+        $this->assertSame($toReturn, $response, 'FilesController::uploadAction() should render form view when invalid data is submitted.');
+    }
+
+    /**
+     * Check scope-escaping path.
+     *
+     * @test
+     * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
+     * @expectedExceptionMessage Directory path contains invalid reference that exceeds disk scope.
+     * @version 0.0.3
+     * @since 0.0.3
+     */
+    public function uploadInvalidPath()
+    {
+        (new FilesController())->uploadAction(new Disk('', '', ''), '/foo/../../');
+    }
+
+    /**
+     * Check non-existing path.
+     *
+     * @test
+     * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @expectedExceptionMessage Directory "[Test]/test" does not exist.
+     * @version 0.0.3
+     * @since 0.0.3
+     */
+    public function uploadNonexistingPath()
+    {
+        (new FilesController())->uploadAction($this->manager['id'], 'test');
+    }
+
+    /**
+     * Check non-directory path.
+     *
+     * @test
+     * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
+     * @expectedExceptionMessage "[Test]/foo" is not a directory, so a file can't be uploaded into it.
+     * @version 0.0.3
+     * @since 0.0.3
+     */
+    public function uploadNondirectoryPath()
+    {
+        vfsStream::create(['foo' => '']);
+
+        (new FilesController())->uploadAction($this->manager['id'], 'foo');
     }
 }

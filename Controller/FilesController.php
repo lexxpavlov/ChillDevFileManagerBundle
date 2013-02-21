@@ -17,6 +17,7 @@ use UnexpectedValueException;
 
 use ChillDev\Bundle\FileManagerBundle\Filesystem\Disk;
 use ChillDev\Bundle\FileManagerBundle\Form\Type\MkdirType;
+use ChillDev\Bundle\FileManagerBundle\Form\Type\UploadType;
 use ChillDev\Bundle\FileManagerBundle\Utils\Path;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -253,6 +254,97 @@ class FilesController extends Controller
         // render form view
         return $this->render(
             'ChillDevFileManagerBundle:Files:mkdir.html.config',
+            ['disk' => $disk, 'path' => $path, 'form' => $form->createView()]
+        );
+    }
+
+    /**
+     * Handles file upload.
+     *
+     * @Route(
+     *      "/upload/{disk}/{path}",
+     *      name="chilldev_filemanager_files_upload",
+     *      requirements={"path"=".*"},
+     *      defaults={"path"=""}
+     *  )
+     * @param Disk $disk Disk scope.
+     * @param string $path Destination location.
+     * @return Response Result response.
+     * @throws HttpException When requested path is invalid or is not a directory.
+     * @throws NotFoundHttpException When requested path does not exist.
+     * @version 0.0.3
+     * @since 0.0.3
+     */
+    public function uploadAction(Disk $disk, $path = '')
+    {
+        try {
+            // resolve all symbolic references
+            $path = Path::resolve($path);
+        } catch (UnexpectedValueException $error) {
+            // reference outside disk scope
+            throw new HttpException(400, 'Directory path contains invalid reference that exceeds disk scope.', $error);
+        }
+
+        // get filesystem from given disk
+        $filesystem = $disk->getFilesystem();
+        $diskpath = $disk . '/' . $path;
+
+        // non-existing path
+        if (!$filesystem->exists($path)) {
+            throw new NotFoundHttpException(\sprintf('Directory "%s" does not exist.', $diskpath));
+        }
+
+        // file information object
+        $info = $filesystem->getFileInfo($path);
+
+        if (!$info->isDir()) {
+            throw new HttpException(
+                400,
+                \sprintf('"%s" is not a directory, so a file can\'t be uploaded into it.', $diskpath)
+            );
+        }
+
+        $request = $this->getRequest();
+
+        // initialize form
+        $form = $this->createForm(
+            new UploadType($filesystem, $path),
+            ['name' => null, 'file' => null, 'force' => null]
+        );
+
+        // only handle POST form submits
+        if ($request->isMethod('POST')) {
+            $form->bind($request);
+
+            // validate form
+            if ($form->isValid()) {
+                $data = $form->getData();
+                $fullpath = $path . '/' . $data['name'];
+
+                $filesystem->upload($path, $data['file'], $data['name']);
+
+                $this->get('logger')->info(
+                    \sprintf('File "%s" uploaded by user "%s".', $fullpath, $this->getUser()),
+                    ['scope' => $disk->getSource()]
+                );
+                $this->get('session')->getFlashBag()->add(
+                    'done',
+                    $this->get('translator')->trans(
+                        '"%file%" has been uploaded.',
+                        ['%file%' => $disk . '/' . $fullpath]
+                    )
+                );
+
+                // move back to directory view
+                return $this->redirect(
+                    $this->generateUrl('chilldev_filemanager_disks_browse', ['disk' => $disk->getId(), 'path' => $path])
+                );
+            }
+        }
+
+        // render form view
+        return $this->render(
+            'ChillDevFileManagerBundle:Files:upload.html.config',
             ['disk' => $disk, 'path' => $path, 'form' => $form->createView()]
         );
     }

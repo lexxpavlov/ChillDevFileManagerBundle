@@ -17,6 +17,7 @@ use SplFileInfo;
 
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem as FsUtils;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Abstract filesystem management.
@@ -100,6 +101,20 @@ class Filesystem
     public function mkdir($path)
     {
         \mkdir($this->root . $path);
+    }
+
+    /**
+     * Uploads file.
+     *
+     * @param string $path Destination directory.
+     * @param UploadedFile $file Uploaded file.
+     * @param string $name Destination filename.
+     * @version 0.0.3
+     * @since 0.0.3
+     */
+    public function upload($path, UploadedFile $file, $name)
+    {
+        $file->move($this->root . $path, $name);
     }
 
     /**
