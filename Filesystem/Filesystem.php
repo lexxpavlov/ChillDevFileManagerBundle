@@ -104,6 +104,19 @@ class Filesystem
     }
 
     /**
+     * Moves/renames file.
+     *
+     * @param string $source Old location.
+     * @param string $destination New location.
+     * @version 0.0.3
+     * @since 0.0.3
+     */
+    public function move($source, $destination)
+    {
+        \rename($this->root . $source, $this->root . $destination);
+    }
+
+    /**
      * Uploads file.
      *
      * @param string $path Destination directory.

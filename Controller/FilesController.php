@@ -17,6 +17,7 @@ use UnexpectedValueException;
 
 use ChillDev\Bundle\FileManagerBundle\Filesystem\Disk;
 use ChillDev\Bundle\FileManagerBundle\Form\Type\MkdirType;
+use ChillDev\Bundle\FileManagerBundle\Form\Type\RenameType;
 use ChillDev\Bundle\FileManagerBundle\Form\Type\UploadType;
 use ChillDev\Bundle\FileManagerBundle\Utils\Path;
 
@@ -345,6 +346,89 @@ class FilesController extends Controller
         // render form view
         return $this->render(
             'ChillDevFileManagerBundle:Files:upload.html.config',
+            ['disk' => $disk, 'path' => $path, 'form' => $form->createView()]
+        );
+    }
+
+    /**
+     * File renaming action.
+     *
+     * @Route(
+     *      "/rename/{disk}/{path}",
+     *      name="chilldev_filemanager_files_rename",
+     *      requirements={"path"=".*"},
+     *      defaults={"path"=""}
+     *  )
+     * @param Disk $disk Disk scope.
+     * @param string $path File being renamed.
+     * @return Response Result response.
+     * @throws HttpException When requested path is invalid.
+     * @throws NotFoundHttpException When requested path does not exist.
+     * @version 0.0.3
+     * @since 0.0.3
+     */
+    public function renameAction(Disk $disk, $path = '')
+    {
+        try {
+            // resolve all symbolic references
+            $path = Path::resolve($path);
+        } catch (UnexpectedValueException $error) {
+            // reference outside disk scope
+            throw new HttpException(400, 'File path contains invalid reference that exceeds disk scope.', $error);
+        }
+
+        // get filesystem from given disk
+        $filesystem = $disk->getFilesystem();
+        $diskpath = $disk . '/' . $path;
+
+        // non-existing path
+        if (!$filesystem->exists($path)) {
+            throw new NotFoundHttpException(\sprintf('File "%s" does not exist.', $diskpath));
+        }
+
+        $request = $this->getRequest();
+
+        // initialize form
+        $form = $this->createForm(new RenameType($filesystem, $path), ['name' => null]);
+
+        // only handle POST form submits
+        if ($request->isMethod('POST')) {
+            $form->bind($request);
+
+            // validate form
+            if ($form->isValid()) {
+                $data = $form->getData();
+                $basename = \basename($path);
+                $dirpath = \dirname($path);
+                $fullpath = $dirpath . '/' . $data['name'];
+
+                $filesystem->move($path, $fullpath);
+
+                $this->get('logger')->info(
+                    \sprintf('File "%s" renamed to "%s" by user "%s".', $path, $data['name'], $this->getUser()),
+                    ['scope' => $disk->getSource()]
+                );
+                $this->get('session')->getFlashBag()->add(
+                    'done',
+                    $this->get('translator')->trans(
+                        '"%file%" has been renamed to "%name%".',
+                        ['%file%' => $disk . '/' . $path, '%name%' => $data['name']]
+                    )
+                );
+
+                // move back to directory view
+                return $this->redirect(
+                    $this->generateUrl(
+                        'chilldev_filemanager_disks_browse',
+                        ['disk' => $disk->getId(), 'path' => $dirpath]
+                    )
+                );
+            }
+        }
+
+        // render form view
+        return $this->render(
+            'ChillDevFileManagerBundle:Files:rename.html.config',
             ['disk' => $disk, 'path' => $path, 'form' => $form->createView()]
         );
     }

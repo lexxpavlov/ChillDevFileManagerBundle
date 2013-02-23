@@ -85,6 +85,27 @@ class FilesystemTest extends PHPUnit_Framework_TestCase
      * @version 0.0.3
      * @since 0.0.3
      */
+    public function move()
+    {
+        $filename1 = 'foo';
+        $filename2 = 'bar';
+        $directory = 'baz';
+
+        self::setupVfs([$filename1 => '', $directory => []]);
+
+        $realpath1 = $this->getRootPath() . $filename1;
+        $realpath2 = $this->getRootPath() . $directory . '/' . $filename2;
+
+        $this->getFilesystem()->move($filename1, $directory . '/' . $filename2);
+        $this->assertFileNotExists($realpath1, 'Filesystem::move() should move file from old location.');
+        $this->assertFileExists($realpath2, 'Filesystem::move() should move file to new location.');
+    }
+
+    /**
+     * @test
+     * @version 0.0.3
+     * @since 0.0.3
+     */
     public function mkdir()
     {
         $filename = 'foo';

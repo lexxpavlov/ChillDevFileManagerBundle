@@ -56,6 +56,7 @@ $view['title']->append($view['translator']->trans('Browsing path %disk%/%path%',
                         <form action="<?php echo $view['router']->generate('chilldev_filemanager_files_delete', ['disk' => $disk->getId(), 'path' => $info['path']]); ?>" method="post">
                             <input type="submit" value="<?php echo $view['translator']->trans('Delete'); ?>"/>
                         </form>
+                        <a href="<?php echo $view['router']->generate('chilldev_filemanager_files_rename', ['disk' => $disk->getId(), 'path' => $info['path']]); ?>"><?php echo $view['translator']->trans('Rename'); ?></a>
                     </td>
                 </tr>
             <?php endforeach; ?>

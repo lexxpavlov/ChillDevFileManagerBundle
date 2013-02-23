@@ -630,7 +630,7 @@ class FilesControllerTest extends BaseContainerTest
         $flashes = $flashBag->peekAll();
         $this->assertArrayHasKey('done', $flashes, 'FilesController::uploadAction() should set flash message of type "done".');
         $this->assertCount(1, $flashes['done'], 'FilesController::uploadAction() should set flash message of type "done".');
-        $this->assertEquals('"' . $disk . '/bar/upload" has been uploaded.', $flashes['done'][0], 'FilesController::uploadAction() should set flash message that notifies about directory creation.');
+        $this->assertEquals('"' . $disk . '/bar/upload" has been uploaded.', $flashes['done'][0], 'FilesController::uploadAction() should set flash message that notifies about file upload.');
     }
 
     /**
@@ -704,5 +704,166 @@ class FilesControllerTest extends BaseContainerTest
         vfsStream::create(['foo' => '']);
 
         (new FilesController())->uploadAction($this->manager['id'], 'foo');
+    }
+
+    /**
+     * Check GET method behavior.
+     *
+     * @test
+     * @version 0.0.3
+     * @since 0.0.3
+     */
+    public function renameActionForm()
+    {
+        vfsStream::create(['bar' => []]);
+
+        // needed for closure scope
+        $assert = $this;
+        $toReturn = new \stdClass();
+
+        // compose request
+        $this->setRequest();
+
+        $disk = $this->manager['id'];
+
+        $this->templating->expects($this->once())
+            ->method('renderResponse')
+            ->with(
+                $this->equalTo('ChillDevFileManagerBundle:Files:rename.html.config'),
+                $this->anything(),
+                $this->isNull()
+            )
+            ->will($this->returnCallback(function($view, $parameters) use ($assert, $toReturn, $disk) {
+                        $assert->assertArrayHasKey('disk', $parameters, 'FilesController::renameAction() should return disk scope object under key "disk".');
+                        $assert->assertSame($disk, $parameters['disk'], 'FilesController::renameAction() should return disk scope object under key "disk".');
+                        $assert->assertArrayHasKey('path', $parameters, 'FilesController::renameAction() should return computed path under key "path".');
+                        $assert->assertSame('bar', $parameters['path'], 'FilesController::renameAction() should resolve all "./" and "../" references and replace multiple "/" with single one.');
+                        $assert->assertArrayHasKey('form', $parameters, 'FilesController::renameAction() should return form data under key "form".');
+                        $assert->assertInstanceOf('Symfony\\Component\\Form\\FormView', $parameters['form'], 'FilesController::renameAction() should return form data under key "form".');
+                        $assert->assertEquals('rename', $parameters['form']->vars['name'], 'FilesController::renameAction() should return form data of RenameType form.');
+                        return $toReturn;
+            }));
+
+        $controller = new FilesController();
+        $controller->setContainer($this->container);
+        $response = $controller->renameAction($disk, '//./bar/.././//bar');
+
+        $this->assertSame($toReturn, $response, 'FilesController::renameAction() should return response generated with templating service.');
+    }
+
+    /**
+     * Check POST method behavior.
+     *
+     * @test
+     * @version 0.0.3
+     * @since 0.0.3
+     */
+    public function renameActionSubmit()
+    {
+        vfsStream::create(['bar' => []]);
+
+        $toReturn = 'testroute4';
+        $flashBag = new FlashBag();
+
+        // compose request
+        $this->setRequest([], 'POST', ['rename' => ['name' => 'foo']]);
+
+        $disk = $this->manager['id'];
+
+        $realpath1 = $disk->getSource() . 'bar';
+        $realpath2 = $disk->getSource() . 'foo';
+
+        // mocks set-up
+        $this->router->expects($this->once())
+            ->method('generate')
+            ->with(
+                $this->equalTo('chilldev_filemanager_disks_browse'),
+                $this->equalTo(['disk' => $disk->getId(), 'path' => '.'])
+            )
+            ->will($this->returnValue($toReturn));
+        $this->logger->expects($this->once())
+            ->method('info')
+            ->with(
+                $this->equalTo('File "bar" renamed to "foo" by user "' . $this->user->__toString() . '".'),
+                $this->equalTo(['scope' => $disk->getSource()])
+            );
+        $this->session->expects($this->once())
+            ->method('getFlashBag')
+            ->will($this->returnValue($flashBag));
+
+        $controller = new FilesController();
+        $controller->setContainer($this->container);
+        $response = $controller->renameAction($disk, '//./bar/.././//bar');
+
+        // response properties
+        $this->assertInstanceOf('Symfony\\Component\\HttpFoundation\\RedirectResponse', $response, 'FilesController::renameAction() should return instance of type Symfony\\Component\\HttpFoundation\\RedirectResponse.');
+        $this->assertEquals($toReturn, $response->getTargetUrl(), 'FilesController::renameAction() should set redirect URL to result of route generator output.');
+
+        // flash message properties
+        $flashes = $flashBag->peekAll();
+        $this->assertArrayHasKey('done', $flashes, 'FilesController::renameAction() should set flash message of type "done".');
+        $this->assertCount(1, $flashes['done'], 'FilesController::renameAction() should set flash message of type "done".');
+        $this->assertEquals('"' . $disk . '/bar" has been renamed to "foo".', $flashes['done'][0], 'FilesController::renameAction() should set flash message that notifies about file rename.');
+
+        // result assertions
+        $this->assertFileNotExists($realpath1, 'FilesController::renameAction() should rename file from old name to new one.');
+        $this->assertFileExists($realpath2, 'FilesController::renameAction() should rename file from old name to new one.');
+    }
+
+    /**
+     * Check POST method behavior on invalid data.
+     *
+     * @test
+     * @version 0.0.3
+     * @since 0.0.3
+     */
+    public function renameActionInvalidSubmit()
+    {
+        vfsStream::create(['bar' => []]);
+
+        $toReturn = new \stdClass();
+
+        // compose request
+        $this->setRequest([], 'POST', ['rename' => ['name' => '']]);
+
+        $disk = $this->manager['id'];
+
+        $this->templating->expects($this->once())
+            ->method('renderResponse')
+            ->will($this->returnValue($toReturn));
+
+        $controller = new FilesController();
+        $controller->setContainer($this->container);
+        $response = $controller->renameAction($disk, '//./bar/.././//bar');
+
+        $this->assertSame($toReturn, $response, 'FilesController::renameAction() should render form view when invalid data is submitted.');
+    }
+
+    /**
+     * Check scope-escaping path.
+     *
+     * @test
+     * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
+     * @expectedExceptionMessage File path contains invalid reference that exceeds disk scope.
+     * @version 0.0.3
+     * @since 0.0.3
+     */
+    public function renameInvalidPath()
+    {
+        (new FilesController())->renameAction(new Disk('', '', ''), '/foo/../../');
+    }
+
+    /**
+     * Check non-existing path.
+     *
+     * @test
+     * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @expectedExceptionMessage File "[Test]/test" does not exist.
+     * @version 0.0.3
+     * @since 0.0.3
+     */
+    public function renameNonexistingPath()
+    {
+        (new FilesController())->renameAction($this->manager['id'], 'test');
     }
 }
