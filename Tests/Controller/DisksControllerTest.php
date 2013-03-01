@@ -16,6 +16,8 @@ use ChillDev\Bundle\FileManagerBundle\Controller\DisksController;
 use ChillDev\Bundle\FileManagerBundle\Filesystem\Disk;
 use ChillDev\Bundle\FileManagerBundle\Tests\BaseContainerTest;
 
+use Symfony\Component\HttpFoundation\Request;
+
 use org\bovigo\vfs\vfsStream;
 
 /**
@@ -28,12 +30,22 @@ use org\bovigo\vfs\vfsStream;
 class DisksControllerTest extends BaseContainerTest
 {
     /**
-     * @version 0.0.2
+     * @var Request
+     * @version 0.0.3
+     * @since 0.0.3
+     */
+    protected $request;
+
+    /**
+     * @version 0.0.3
      * @since 0.0.2
      */
     protected function setUpContainer()
     {
         $this->container->set('chilldev.filemanager.disks.manager', $this->manager);
+
+        $this->request = new Request();
+        $this->container->set('request', $this->request);
     }
 
     /**
@@ -55,7 +67,7 @@ class DisksControllerTest extends BaseContainerTest
      * Check directory listing.
      *
      * @test
-     * @version 0.0.2
+     * @version 0.0.3
      * @since 0.0.1
      */
     public function browseAction()
@@ -71,7 +83,10 @@ class DisksControllerTest extends BaseContainerTest
             ]
         );
 
-        $return = (new DisksController())->browseAction($disk, '//./bar/../bar/.///');
+        $controller = new DisksController();
+        $controller->setContainer($this->container);
+        $this->request->query->replace(['by' => 'foo']);
+        $return = $controller->browseAction($disk, '//./bar/../bar/.///');
 
         $this->assertSame($disk, $return['disk'], 'DisksController::browseAction() should return disk scope object under key "disk".');
         $this->assertEquals('bar', $return['path'], 'DisksController::browseAction() should resolve all "./" and "../" references, replace multiple "/" with single one and return computed path under key "path".');
@@ -86,6 +101,38 @@ class DisksControllerTest extends BaseContainerTest
         $file = $return['list']['quux'];
         $this->assertTrue($file['isDirectory'], 'DisksController::browseAction() should set "isDirectory" flag to true for directory entries.');
         $this->assertArrayNotHasKey('size', $file, 'DisksController::browseAction() should not set "size" field for directory entries.');
+    }
+
+    /**
+     * @test
+     * @version 0.0.3
+     * @since 0.0.3
+     */
+    public function browseActionBySizeDesc()
+    {
+        $disk = $this->manager['id'];
+
+        vfsStream::create(
+            ['bar' =>
+                [
+                    'baz' => '0123',
+                    'quux' => [],
+                    'corge' => '012',
+                ],
+            ]
+        );
+
+        $controller = new DisksController();
+        $controller->setContainer($this->container);
+        $this->request->query->replace(['by' => 'size', 'order' => -1]);
+        $return = $controller->browseAction($disk, '//./bar/../bar/.///');
+
+        $this->assertSame($disk, $return['disk'], 'DisksController::browseAction() should return disk scope object under key "disk".');
+        $this->assertEquals('bar', $return['path'], 'DisksController::browseAction() should resolve all "./" and "../" references, replace multiple "/" with single one and return computed path under key "path".');
+
+        $this->assertCount(3, $return['list'], 'DisksController::browseAction() should return list of all files in given directory under key "list".');
+
+        $this->assertEquals(['baz', 'corge', 'quux'], \array_keys($return['list']), 'DisksController::browseAction() should return files references sorted by filesize in reverse order.');
     }
 
     /**
@@ -136,12 +183,14 @@ class DisksControllerTest extends BaseContainerTest
      * Check default path parameter.
      *
      * @test
-     * @version 0.0.1
+     * @version 0.0.3
      * @since 0.0.1
      */
     public function browseDefaultPath()
     {
-        $return = (new DisksController())->browseAction($this->manager['id']);
+        $controller = new DisksController();
+        $controller->setContainer($this->container);
+        $return = $controller->browseAction($this->manager['id']);
 
         $this->assertEquals('', $return['path'], 'DisksController::browseAction() should list root path of disk scope by default.');
     }

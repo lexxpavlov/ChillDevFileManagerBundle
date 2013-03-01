@@ -109,6 +109,29 @@ class DisksController extends Controller
             $list[$file] = $data;
         }
 
+        $request = $this->getRequest();
+        $by = $request->query->get('by', 'path');
+        $order = $request->query->get('order', 1);
+
+        // select only allowed sorting parameters
+        if (!\in_array($by, ['path', 'size'])) {
+            $by = 'path';
+        }
+
+        // perform sorting
+        $sorter = function ($a, $b) use ($by, $order) {
+            if (!isset($a[$by])) {
+                return -$order;
+            }
+
+            if (!isset($b[$by])) {
+                return $order;
+            }
+
+            return ($a[$by] > $b[$by] ? 1 : -1) * $order;
+        };
+        \uasort($list, $sorter);
+
         return ['disk' => $disk, 'path' => $path, 'list' => $list];
     }
 }

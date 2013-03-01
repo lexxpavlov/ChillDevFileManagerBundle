@@ -25,8 +25,16 @@ $view['title']->append($view['translator']->trans('Browsing path %disk%/%path%',
 <table>
     <thead>
         <tr>
-            <th><?php echo $view['translator']->trans('Filename'); ?></th>
-            <th><?php echo $view['translator']->trans('Size'); ?></th>
+            <th>
+                <?php echo $view['translator']->trans('Filename'); ?>
+                <a href="<?php echo $view['router']->generate('chilldev_filemanager_disks_browse', ['disk' => $disk->getId(), 'path' => $path, 'by' => 'path', 'order' => 1]); ?>">▲</a>
+                <a href="<?php echo $view['router']->generate('chilldev_filemanager_disks_browse', ['disk' => $disk->getId(), 'path' => $path, 'by' => 'path', 'order' => -1]); ?>">▼</a>
+            </th>
+            <th>
+                <?php echo $view['translator']->trans('Size'); ?>
+                <a href="<?php echo $view['router']->generate('chilldev_filemanager_disks_browse', ['disk' => $disk->getId(), 'path' => $path, 'by' => 'size', 'order' => 1]); ?>">▲</a>
+                <a href="<?php echo $view['router']->generate('chilldev_filemanager_disks_browse', ['disk' => $disk->getId(), 'path' => $path, 'by' => 'size', 'order' => -1]); ?>">▼</a>
+            </th>
             <th></th>
         </tr>
     </thead>
