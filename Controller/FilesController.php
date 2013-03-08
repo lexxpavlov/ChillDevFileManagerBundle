@@ -356,8 +356,7 @@ class FilesController extends Controller
      * @Route(
      *      "/rename/{disk}/{path}",
      *      name="chilldev_filemanager_files_rename",
-     *      requirements={"path"=".*"},
-     *      defaults={"path"=""}
+     *      requirements={"path"=".*"}
      *  )
      * @param Disk $disk Disk scope.
      * @param string $path File being renamed.
@@ -367,7 +366,7 @@ class FilesController extends Controller
      * @version 0.0.3
      * @since 0.0.3
      */
-    public function renameAction(Disk $disk, $path = '')
+    public function renameAction(Disk $disk, $path)
     {
         try {
             // resolve all symbolic references
@@ -412,7 +411,7 @@ class FilesController extends Controller
                     'done',
                     $this->get('translator')->trans(
                         '"%file%" has been renamed to "%name%".',
-                        ['%file%' => $disk . '/' . $path, '%name%' => $data['name']]
+                        ['%file%' => $diskpath, '%name%' => $data['name']]
                     )
                 );
 
@@ -430,6 +429,117 @@ class FilesController extends Controller
         return $this->render(
             'ChillDevFileManagerBundle:Files:rename.html.config',
             ['disk' => $disk, 'path' => $path, 'form' => $form->createView()]
+        );
+    }
+
+    /**
+     * File moving action.
+     *
+     * @Route(
+     *      "/move/{disk}/{path}:{destination}",
+     *      name="chilldev_filemanager_files_move",
+     *      requirements={"path"="[^:]*", "destination"=".*"},
+     *      defaults={"destination"=""}
+     *  )
+     * @param Disk $disk Disk scope.
+     * @param string $path File being moved.
+     * @param string $destination Destination location.
+     * @return Response Result response.
+     * @throws HttpException When requested path is invalid.
+     * @throws NotFoundHttpException When requested path does not exist.
+     * @version 0.0.3
+     * @since 0.0.3
+     */
+    public function moveAction(Disk $disk, $path, $destination = '')
+    {
+        try {
+            // resolve all symbolic references
+            $path = Path::resolve($path);
+            $destination = Path::resolve($destination);
+        } catch (UnexpectedValueException $error) {
+            // reference outside disk scope
+            throw new HttpException(400, 'File path contains invalid reference that exceeds disk scope.', $error);
+        }
+
+        // get filesystem from given disk
+        $filesystem = $disk->getFilesystem();
+        $diskpath = $disk . '/' . $path;
+        $diskdestination = $disk . '/' . $destination;
+
+        // non-existing path
+        if (!$filesystem->exists($path)) {
+            throw new NotFoundHttpException(\sprintf('File "%s" does not exist.', $diskpath));
+        }
+        if (!$filesystem->exists($destination)) {
+            throw new NotFoundHttpException(\sprintf('File "%s" does not exist.', $diskdestination));
+        }
+
+        // file information object
+        $info = $filesystem->getFileInfo($destination);
+
+        if (!$info->isDir()) {
+            throw new HttpException(400, \sprintf('"%s/%s" is not a directory.', $disk, $destination));
+        }
+
+        $request = $this->getRequest();
+
+        // only handle POST form submits
+        if ($request->isMethod('POST')) {
+            $name = \basename($path);
+            $filesystem->move($path, $destination . '/' . $name);
+
+            $this->get('logger')->info(
+                \sprintf('File "%s" moved to "%s" by user "%s".', $path, $destination, $this->getUser()),
+                ['scope' => $disk->getSource()]
+            );
+            $this->get('session')->getFlashBag()->add(
+                'done',
+                $this->get('translator')->trans(
+                    '"%file%" has been moved to "%destination%".',
+                    ['%file%' => $diskpath, '%destination%' => $diskdestination]
+                )
+            );
+
+            // move back to directory view
+            return $this->redirect(
+                $this->generateUrl(
+                    'chilldev_filemanager_disks_browse',
+                    ['disk' => $disk->getId(), 'path' => \dirname($path)]
+                )
+            );
+        }
+
+        $list = [];
+
+        foreach ($filesystem->createDirectoryIterator($destination) as $file => $info) {
+            // only choose from directories
+            if ($info->isDir()) {
+                $list[$file] = [
+                    'isDirectory' => true,
+                    'path' => $destination . '/' . $file,
+                ];
+            }
+        }
+
+        $order = $request->query->get('order', 1);
+
+        // perform sorting
+        $sorter = function ($a, $b) use ($order) {
+            return ($a['path'] > $b['path'] ? 1 : -1) * $order;
+        };
+        \uasort($list, $sorter);
+
+        // render destination choice view
+        return $this->render(
+            'ChillDevFileManagerBundle:Files:destination.html.config',
+            [
+                'disk' => $disk,
+                'path' => $path,
+                'destination' => $destination,
+                'route' => 'chilldev_filemanager_files_move',
+                'title' => 'Moving file %disk%/%path%',
+                'list' => $list
+            ]
         );
     }
 }

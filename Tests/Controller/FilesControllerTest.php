@@ -866,4 +866,182 @@ class FilesControllerTest extends BaseContainerTest
     {
         (new FilesController())->renameAction($this->manager['id'], 'test');
     }
+
+    /**
+     * Check GET method behavior.
+     *
+     * @test
+     * @version 0.0.3
+     * @since 0.0.3
+     */
+    public function moveAction()
+    {
+        vfsStream::create(['foo' => '', 'bar' => [], 'baz' => []]);
+
+        // needed for closure scope
+        $assert = $this;
+        $toReturn = new \stdClass();
+
+        // compose request
+        $this->setRequest();
+        $this->request->query->replace(['order' => -1]);
+
+        $disk = $this->manager['id'];
+
+        $this->templating->expects($this->once())
+            ->method('renderResponse')
+            ->with(
+                $this->equalTo('ChillDevFileManagerBundle:Files:destination.html.config'),
+                $this->anything(),
+                $this->isNull()
+            )
+            ->will($this->returnCallback(function($view, $parameters) use ($assert, $toReturn, $disk) {
+                        $assert->assertArrayHasKey('disk', $parameters, 'FilesController::moveAction() should return disk scope object under key "disk".');
+                        $assert->assertSame($disk, $parameters['disk'], 'FilesController::moveAction() should return disk scope object under key "disk".');
+                        $assert->assertArrayHasKey('path', $parameters, 'FilesController::moveAction() should return computed path under key "path".');
+                        $assert->assertSame('bar', $parameters['path'], 'FilesController::moveAction() should resolve all "./" and "../" references and replace multiple "/" with single one.');
+                        $assert->assertArrayHasKey('destination', $parameters, 'FilesController::moveAction() should return computed destination under key "path".');
+                        $assert->assertEquals('', $parameters['destination'], 'FilesController::moveAction() should resolve all "./" and "../" references and replace multiple "/" with single one.');
+                        $assert->assertArrayHasKey('route', $parameters, 'FilesController::moveAction() should return target route under key "route".');
+                        $assert->assertSame('chilldev_filemanager_files_move', $parameters['route'], 'FilesController::moveAction() should return target route under key "route".');
+                        $assert->assertArrayHasKey('title', $parameters, 'FilesController::moveAction() should return page title under key "title".');
+                        $assert->assertSame('Moving file %disk%/%path%', $parameters['title'], 'FilesController::moveAction() should return page title under key "title".');
+
+                        // directories list assertions
+                        $assert->assertArrayHasKey('list', $parameters, 'FilesController::moveAction() should return list of directories under key "list".');
+                        $assert->assertCount(2, $parameters['list'], 'FilesController::moveAction() should return list of all directories in given destination under key "list".');
+                        $assert->assertEquals(['baz', 'bar'], \array_keys($parameters['list']), 'FilesController::moveAction() should return directories references sorted by name in reverse order.');
+
+                        return $toReturn;
+            }));
+
+        $controller = new FilesController();
+        $controller->setContainer($this->container);
+        $response = $controller->moveAction($disk, '//./bar/.././//bar', '');
+
+        $this->assertSame($toReturn, $response, 'FilesController::moveAction() should return response generated with templating service.');
+    }
+
+    /**
+     * Check POST method behavior.
+     *
+     * @test
+     * @version 0.0.3
+     * @since 0.0.3
+     */
+    public function moveActionSubmit()
+    {
+        vfsStream::create(['foo' => '', 'bar' => []]);
+
+        $toReturn = 'testroute5';
+        $flashBag = new FlashBag();
+
+        // compose request
+        $this->setRequest([], 'POST');
+
+        $disk = $this->manager['id'];
+
+        $realpath1 = $disk->getSource() . 'foo';
+        $realpath2 = $disk->getSource() . 'bar/foo';
+
+        // mocks set-up
+        $this->router->expects($this->once())
+            ->method('generate')
+            ->with(
+                $this->equalTo('chilldev_filemanager_disks_browse'),
+                $this->equalTo(['disk' => $disk->getId(), 'path' => '.'])
+            )
+            ->will($this->returnValue($toReturn));
+        $this->logger->expects($this->once())
+            ->method('info')
+            ->with(
+                $this->equalTo('File "foo" moved to "bar" by user "' . $this->user->__toString() . '".'),
+                $this->equalTo(['scope' => $disk->getSource()])
+            );
+        $this->session->expects($this->once())
+            ->method('getFlashBag')
+            ->will($this->returnValue($flashBag));
+
+        $controller = new FilesController();
+        $controller->setContainer($this->container);
+        $response = $controller->moveAction($disk, '//./foo/.././//foo', 'bar');
+
+        // response properties
+        $this->assertInstanceOf('Symfony\\Component\\HttpFoundation\\RedirectResponse', $response, 'FilesController::moveAction() should return instance of type Symfony\\Component\\HttpFoundation\\RedirectResponse.');
+        $this->assertEquals($toReturn, $response->getTargetUrl(), 'FilesController::moveAction() should set redirect URL to result of route generator output.');
+
+        // flash message properties
+        $flashes = $flashBag->peekAll();
+        $this->assertArrayHasKey('done', $flashes, 'FilesController::moveAction() should set flash message of type "done".');
+        $this->assertCount(1, $flashes['done'], 'FilesController::moveAction() should set flash message of type "done".');
+        $this->assertEquals('"' . $disk . '/foo" has been moved to "' . $disk . '/bar".', $flashes['done'][0], 'FilesController::moveAction() should set flash message that notifies about file movement.');
+
+        // result assertions
+        $this->assertFileNotExists($realpath1, 'FilesController::moveAction() should move file from old location to new one.');
+        $this->assertFileExists($realpath2, 'FilesController::moveAction() should move file from old location to new one.');
+    }
+
+    /**
+     * @test
+     * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
+     * @expectedExceptionMessage "[Test]/foo" is not a directory.
+     * @version 0.0.3
+     * @since 0.0.3
+     */
+    public function moveActionToNonDirectoryDestination()
+    {
+        vfsStream::create(['foo' => '', 'bar' => []]);
+
+        (new FilesController())->moveAction($this->manager['id'], '//./bar/.././//bar', 'foo');
+    }
+
+    /**
+     * @test
+     * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
+     * @expectedExceptionMessage File path contains invalid reference that exceeds disk scope.
+     * @version 0.0.3
+     * @since 0.0.3
+     */
+    public function moveInvalidPath()
+    {
+        (new FilesController())->moveAction(new Disk('', '', ''), '/foo/../../', '');
+    }
+
+    /**
+     * @test
+     * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
+     * @expectedExceptionMessage File path contains invalid reference that exceeds disk scope.
+     * @version 0.0.3
+     * @since 0.0.3
+     */
+    public function moveInvalidDestination()
+    {
+        (new FilesController())->moveAction(new Disk('', '', ''), '', '/foo/../../');
+    }
+
+    /**
+     * @test
+     * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @expectedExceptionMessage File "[Test]/test" does not exist.
+     * @version 0.0.3
+     * @since 0.0.3
+     */
+    public function moveNonexistingPath()
+    {
+        (new FilesController())->moveAction($this->manager['id'], 'test', '');
+    }
+
+    /**
+     * @test
+     * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @expectedExceptionMessage File "[Test]/test" does not exist.
+     * @version 0.0.3
+     * @since 0.0.3
+     */
+    public function moveNonexistingDestination()
+    {
+        vfsStream::create(['bar' => []]);
+
+        (new FilesController())->moveAction($this->manager['id'], 'bar', 'test');
+    }
 }

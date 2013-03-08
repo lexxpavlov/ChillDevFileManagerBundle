@@ -5,7 +5,7 @@
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.2
+ * @version 0.0.3
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */

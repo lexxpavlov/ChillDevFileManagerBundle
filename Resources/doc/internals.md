@@ -2,8 +2,8 @@
 # This file is part of the ChillDev FileManager bundle.
 #
 # @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
-# @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
-# @version 0.0.1
+# @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
+# @version 0.0.3
 # @since 0.0.1
 # @package ChillDev\Bundle\FileManagerBundle
 -->
@@ -74,3 +74,7 @@ Because it would be hard to apply. Mounts within web manager would not be applie
 ## …use [Gaufrette](https://github.com/KnpLabs/Gaufrette)
 
 Because it works like a key-value store. It lacks tree traversing flow. It's nice if you need to support single directory abstraction, but not for file-managing purpose.
+
+## …provide filesystem abstraction interface
+
+There was a plan to do that, but eventually we considered it as a bloat-feature. All I/O and FS operations map to PHP high-level API that ifself provides abstraction through stream wrappers. There would be no point in handling all I/O on our own and write own adapters for something that is already abstracted in underlying API.
