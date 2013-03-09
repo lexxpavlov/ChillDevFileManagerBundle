@@ -106,6 +106,48 @@ class FilesystemTest extends PHPUnit_Framework_TestCase
      * @version 0.0.3
      * @since 0.0.3
      */
+    public function copyFile()
+    {
+        $filename1 = 'foo';
+        $filename2 = 'bar';
+        $directory = 'baz';
+
+        self::setupVfs([$filename1 => '', $directory => []]);
+
+        $realpath1 = $this->getRootPath() . $filename1;
+        $realpath2 = $this->getRootPath() . $directory . '/' . $filename2;
+
+        $this->getFilesystem()->copy($filename1, $directory . '/' . $filename2);
+        $this->assertFileExists($realpath1, 'Filesystem::copy() should leave old location untouched.');
+        $this->assertFileExists($realpath2, 'Filesystem::copy() should create a copy of a file in new location.');
+    }
+
+    /**
+     * @test
+     * @version 0.0.3
+     * @since 0.0.3
+     */
+    public function copyTree()
+    {
+        $filename = 'foo';
+        $directory1 = 'bar';
+        $directory2 = 'baz';
+
+        self::setupVfs([$directory1 => [$filename => '']]);
+
+        $realpath1 = $this->getRootPath() . $directory1 . '/' . $filename;
+        $realpath2 = $this->getRootPath() . $directory2 . '/' . $filename;
+
+        $this->getFilesystem()->copy($directory1, $directory2);
+        $this->assertFileExists($realpath1, 'Filesystem::copy() should leave old location untouched.');
+        $this->assertFileExists($realpath2, 'Filesystem::copy() should copy directory tree recursively.');
+    }
+
+    /**
+     * @test
+     * @version 0.0.3
+     * @since 0.0.3
+     */
     public function mkdir()
     {
         $filename = 'foo';

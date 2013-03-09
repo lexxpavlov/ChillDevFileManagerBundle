@@ -117,6 +117,26 @@ class Filesystem
     }
 
     /**
+     * Copies file.
+     *
+     * @param string $source Source.
+     * @param string $destination Destination.
+     * @version 0.0.3
+     * @since 0.0.3
+     */
+    public function copy($source, $destination)
+    {
+        if (\is_dir($this->root . $source)) {
+            // copy entire directory tree
+            $this->mkdir($destination);
+            $this->filesystem->mirror($this->root . $source, $this->root . $destination);
+        } else {
+            // copy regular file
+            \copy($this->root . $source, $this->root . $destination);
+        }
+    }
+
+    /**
      * Uploads file.
      *
      * @param string $path Destination directory.
