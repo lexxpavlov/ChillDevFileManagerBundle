@@ -486,8 +486,8 @@ class FilesControllerTest extends BaseContainerTest
      *
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
-     * @expectedExceptionMessage Directory path contains invalid reference that exceeds disk scope.
-     * @version 0.0.1
+     * @expectedExceptionMessage File path contains invalid reference that exceeds disk scope.
+     * @version 0.0.3
      * @since 0.0.1
      */
     public function mkdirInvalidPath()
@@ -500,8 +500,8 @@ class FilesControllerTest extends BaseContainerTest
      *
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @expectedExceptionMessage Directory "[Test]/test" does not exist.
-     * @version 0.0.2
+     * @expectedExceptionMessage File "[Test]/test" does not exist.
+     * @version 0.0.3
      * @since 0.0.1
      */
     public function mkdirNonexistingPath()
@@ -667,7 +667,7 @@ class FilesControllerTest extends BaseContainerTest
      *
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
-     * @expectedExceptionMessage Directory path contains invalid reference that exceeds disk scope.
+     * @expectedExceptionMessage File path contains invalid reference that exceeds disk scope.
      * @version 0.0.3
      * @since 0.0.3
      */
@@ -681,7 +681,7 @@ class FilesControllerTest extends BaseContainerTest
      *
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @expectedExceptionMessage Directory "[Test]/test" does not exist.
+     * @expectedExceptionMessage File "[Test]/test" does not exist.
      * @version 0.0.3
      * @since 0.0.3
      */

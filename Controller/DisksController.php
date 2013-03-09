@@ -12,15 +12,13 @@
 
 namespace ChillDev\Bundle\FileManagerBundle\Controller;
 
-use UnexpectedValueException;
-
 use ChillDev\Bundle\FileManagerBundle\Filesystem\Disk;
-use ChillDev\Bundle\FileManagerBundle\Utils\Path;
+use ChillDev\Bundle\FileManagerBundle\Utils\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -29,12 +27,12 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *
  * @Route("/disks")
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.1
+ * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.0.3
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
-class DisksController extends Controller
+class DisksController extends BaseController
 {
     /**
      * Disks listing page.
@@ -70,23 +68,14 @@ class DisksController extends Controller
      */
     public function browseAction(Disk $disk, $path = '')
     {
-        try {
-            // resolve all symbolic references
-            $path = Path::resolve($path);
-        } catch (UnexpectedValueException $error) {
-            // reference outside disk scope
-            throw new HttpException(400, 'Directory path contains invalid reference that exceeds disk scope.', $error);
-        }
+        $path = Controller::resolvePath($path);
 
         $list = [];
 
         // get filesystem from given disk
         $filesystem = $disk->getFilesystem();
 
-        // non-existing path
-        if (!$filesystem->exists($path)) {
-            throw new NotFoundHttpException(\sprintf('Directory "%s/%s" does not exist.', $disk, $path));
-        }
+        Controller::ensureExist($disk, $filesystem, $path);
 
         // file information object
         $info = $filesystem->getFileInfo($path);
@@ -111,7 +100,6 @@ class DisksController extends Controller
 
         $request = $this->getRequest();
         $by = $request->query->get('by', 'path');
-        $order = $request->query->get('order', 1);
 
         // select only allowed sorting parameters
         if (!\in_array($by, ['path', 'size'])) {
@@ -119,18 +107,7 @@ class DisksController extends Controller
         }
 
         // perform sorting
-        $sorter = function ($a, $b) use ($by, $order) {
-            if (!isset($a[$by])) {
-                return -$order;
-            }
-
-            if (!isset($b[$by])) {
-                return $order;
-            }
-
-            return ($a[$by] > $b[$by] ? 1 : -1) * $order;
-        };
-        \uasort($list, $sorter);
+        \uasort($list, Controller::getSorter($by, $request->query->get('order', 1)));
 
         return ['disk' => $disk, 'path' => $path, 'list' => $list];
     }

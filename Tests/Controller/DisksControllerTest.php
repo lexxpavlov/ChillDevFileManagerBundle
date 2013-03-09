@@ -23,7 +23,7 @@ use org\bovigo\vfs\vfsStream;
 /**
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.2
+ * @version 0.0.3
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -140,8 +140,8 @@ class DisksControllerTest extends BaseContainerTest
      *
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
-     * @expectedExceptionMessage Directory path contains invalid reference that exceeds disk scope.
-     * @version 0.0.1
+     * @expectedExceptionMessage File path contains invalid reference that exceeds disk scope.
+     * @version 0.0.3
      * @since 0.0.1
      */
     public function browseInvalidPath()
@@ -154,8 +154,8 @@ class DisksControllerTest extends BaseContainerTest
      *
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @expectedExceptionMessage Directory "[Test]/test" does not exist.
-     * @version 0.0.2
+     * @expectedExceptionMessage File "[Test]/test" does not exist.
+     * @version 0.0.3
      * @since 0.0.1
      */
     public function browseNonexistingPath()

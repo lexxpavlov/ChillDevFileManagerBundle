@@ -13,18 +13,17 @@
 namespace ChillDev\Bundle\FileManagerBundle\Controller;
 
 use DateTime;
-use UnexpectedValueException;
 
 use ChillDev\Bundle\FileManagerBundle\Filesystem\Disk;
 use ChillDev\Bundle\FileManagerBundle\Form\Type\MkdirType;
 use ChillDev\Bundle\FileManagerBundle\Form\Type\RenameType;
 use ChillDev\Bundle\FileManagerBundle\Form\Type\UploadType;
-use ChillDev\Bundle\FileManagerBundle\Utils\Path;
+use ChillDev\Bundle\FileManagerBundle\Utils\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -41,7 +40,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
-class FilesController extends Controller
+class FilesController extends BaseController
 {
     /**
      * File download action.
@@ -61,21 +60,12 @@ class FilesController extends Controller
      */
     public function downloadAction(Disk $disk, $path)
     {
-        try {
-            // resolve all symbolic references
-            $path = Path::resolve($path);
-        } catch (UnexpectedValueException $error) {
-            // reference outside disk scope
-            throw new HttpException(400, 'File path contains invalid reference that exceeds disk scope.', $error);
-        }
+        $path = Controller::resolvePath($path);
 
         // get filesystem from given disk
         $filesystem = $disk->getFilesystem();
 
-        // non-existing path
-        if (!$filesystem->exists($path)) {
-            throw new NotFoundHttpException(\sprintf('File "%s/%s" does not exist.', $disk, $path));
-        }
+        Controller::ensureExist($disk, $filesystem, $path);
 
         // file information object
         $info = $filesystem->getFileInfo($path);
@@ -134,22 +124,13 @@ class FilesController extends Controller
      */
     public function deleteAction(Disk $disk, $path)
     {
-        try {
-            // resolve all symbolic references
-            $path = Path::resolve($path);
-        } catch (UnexpectedValueException $error) {
-            // reference outside disk scope
-            throw new HttpException(400, 'File path contains invalid reference that exceeds disk scope.', $error);
-        }
+        $path = Controller::resolvePath($path);
 
         // get filesystem from given disk
         $filesystem = $disk->getFilesystem();
         $diskpath = $disk . '/' . $path;
 
-        // non-existing path
-        if (!$filesystem->exists($path)) {
-            throw new NotFoundHttpException(\sprintf('File "%s" does not exist.', $diskpath));
-        }
+        Controller::ensureExist($disk, $filesystem, $path);
 
         $filesystem->remove($path);
 
@@ -190,22 +171,13 @@ class FilesController extends Controller
      */
     public function mkdirAction(Disk $disk, $path = '')
     {
-        try {
-            // resolve all symbolic references
-            $path = Path::resolve($path);
-        } catch (UnexpectedValueException $error) {
-            // reference outside disk scope
-            throw new HttpException(400, 'Directory path contains invalid reference that exceeds disk scope.', $error);
-        }
+        $path = Controller::resolvePath($path);
 
         // get filesystem from given disk
         $filesystem = $disk->getFilesystem();
         $diskpath = $disk . '/' . $path;
 
-        // non-existing path
-        if (!$filesystem->exists($path)) {
-            throw new NotFoundHttpException(\sprintf('Directory "%s" does not exist.', $diskpath));
-        }
+        Controller::ensureExist($disk, $filesystem, $path);
 
         // file information object
         $info = $filesystem->getFileInfo($path);
@@ -278,22 +250,13 @@ class FilesController extends Controller
      */
     public function uploadAction(Disk $disk, $path = '')
     {
-        try {
-            // resolve all symbolic references
-            $path = Path::resolve($path);
-        } catch (UnexpectedValueException $error) {
-            // reference outside disk scope
-            throw new HttpException(400, 'Directory path contains invalid reference that exceeds disk scope.', $error);
-        }
+        $path = Controller::resolvePath($path);
 
         // get filesystem from given disk
         $filesystem = $disk->getFilesystem();
         $diskpath = $disk . '/' . $path;
 
-        // non-existing path
-        if (!$filesystem->exists($path)) {
-            throw new NotFoundHttpException(\sprintf('Directory "%s" does not exist.', $diskpath));
-        }
+        Controller::ensureExist($disk, $filesystem, $path);
 
         // file information object
         $info = $filesystem->getFileInfo($path);
@@ -368,22 +331,13 @@ class FilesController extends Controller
      */
     public function renameAction(Disk $disk, $path)
     {
-        try {
-            // resolve all symbolic references
-            $path = Path::resolve($path);
-        } catch (UnexpectedValueException $error) {
-            // reference outside disk scope
-            throw new HttpException(400, 'File path contains invalid reference that exceeds disk scope.', $error);
-        }
+        $path = Controller::resolvePath($path);
 
         // get filesystem from given disk
         $filesystem = $disk->getFilesystem();
         $diskpath = $disk . '/' . $path;
 
-        // non-existing path
-        if (!$filesystem->exists($path)) {
-            throw new NotFoundHttpException(\sprintf('File "%s" does not exist.', $diskpath));
-        }
+        Controller::ensureExist($disk, $filesystem, $path);
 
         $request = $this->getRequest();
 
@@ -452,27 +406,15 @@ class FilesController extends Controller
      */
     public function moveAction(Disk $disk, $path, $destination = '')
     {
-        try {
-            // resolve all symbolic references
-            $path = Path::resolve($path);
-            $destination = Path::resolve($destination);
-        } catch (UnexpectedValueException $error) {
-            // reference outside disk scope
-            throw new HttpException(400, 'File path contains invalid reference that exceeds disk scope.', $error);
-        }
+        $path = Controller::resolvePath($path);
+        $destination = Controller::resolvePath($destination);
 
         // get filesystem from given disk
         $filesystem = $disk->getFilesystem();
         $diskpath = $disk . '/' . $path;
         $diskdestination = $disk . '/' . $destination;
 
-        // non-existing path
-        if (!$filesystem->exists($path)) {
-            throw new NotFoundHttpException(\sprintf('File "%s" does not exist.', $diskpath));
-        }
-        if (!$filesystem->exists($destination)) {
-            throw new NotFoundHttpException(\sprintf('File "%s" does not exist.', $diskdestination));
-        }
+        Controller::ensureExist($disk, $filesystem, $path, $destination);
 
         // file information object
         $info = $filesystem->getFileInfo($destination);
@@ -521,13 +463,8 @@ class FilesController extends Controller
             }
         }
 
-        $order = $request->query->get('order', 1);
-
         // perform sorting
-        $sorter = function ($a, $b) use ($order) {
-            return ($a['path'] > $b['path'] ? 1 : -1) * $order;
-        };
-        \uasort($list, $sorter);
+        \uasort($list, Controller::getSorter('path', $request->query->get('order', 1)));
 
         // render destination choice view
         return $this->render(
@@ -563,27 +500,15 @@ class FilesController extends Controller
      */
     public function copyAction(Disk $disk, $path, $destination = '')
     {
-        try {
-            // resolve all symbolic references
-            $path = Path::resolve($path);
-            $destination = Path::resolve($destination);
-        } catch (UnexpectedValueException $error) {
-            // reference outside disk scope
-            throw new HttpException(400, 'File path contains invalid reference that exceeds disk scope.', $error);
-        }
+        $path = Controller::resolvePath($path);
+        $destination = Controller::resolvePath($destination);
 
         // get filesystem from given disk
         $filesystem = $disk->getFilesystem();
         $diskpath = $disk . '/' . $path;
         $diskdestination = $disk . '/' . $destination;
 
-        // non-existing path
-        if (!$filesystem->exists($path)) {
-            throw new NotFoundHttpException(\sprintf('File "%s" does not exist.', $diskpath));
-        }
-        if (!$filesystem->exists($destination)) {
-            throw new NotFoundHttpException(\sprintf('File "%s" does not exist.', $diskdestination));
-        }
+        Controller::ensureExist($disk, $filesystem, $path, $destination);
 
         // file information object
         $info = $filesystem->getFileInfo($destination);
@@ -632,13 +557,8 @@ class FilesController extends Controller
             }
         }
 
-        $order = $request->query->get('order', 1);
-
         // perform sorting
-        $sorter = function ($a, $b) use ($order) {
-            return ($a['path'] > $b['path'] ? 1 : -1) * $order;
-        };
-        \uasort($list, $sorter);
+        \uasort($list, Controller::getSorter('path', $request->query->get('order', 1)));
 
         // render destination choice view
         return $this->render(
