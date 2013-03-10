@@ -86,7 +86,10 @@ class FilesController extends BaseController
 
         $response->headers->set(
             'Content-Disposition',
-            $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, \basename($path))
+            $response->headers->makeDisposition(
+                ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+                \iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', \basename($path))
+            )
         );
         $response->headers->set('Content-Type', 'application/octet-stream');
         $response->headers->set('Content-Transfer-Encoding', 'binary');
