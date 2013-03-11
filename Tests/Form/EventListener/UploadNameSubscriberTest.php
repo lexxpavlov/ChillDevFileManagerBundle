@@ -5,7 +5,7 @@
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.3
+ * @version 0.1.0
  * @since 0.0.3
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Constraints\Collection;
 /**
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.3
+ * @version 0.1.0
  * @since 0.0.3
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -41,14 +41,15 @@ class UploadNameSubscriberTest extends PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @version 0.0.3
+     * @version 0.1.0
      * @since 0.0.3
      */
     public function preBindDefaultName()
     {
         $listener = new UploadNameSubscriber($this->getMock('Symfony\\Component\\Validator\\Constraints\\Collection', [], [], '', false), $this->getMock('ChillDev\\Bundle\\FileManagerBundle\\Validator\\Constraints\\FileNotExists', [], [], '', false));
 
-        $event = new FormEvent($this->getMock('Symfony\\Component\\Form\\Tests\\FormInterface'), null);
+        // in Symfony 2.2 interface namespace changed from Tests to Test (without "s")
+        $event = new FormEvent($this->getMock(\interface_exists('Symfony\\Component\\Form\\Test\\FormInterface') ? 'Symfony\\Component\\Form\\Test\\FormInterface' : 'Symfony\\Component\\Form\\Tests\\FormInterface'), null);
         $name = 'foo';
         $file = $this->getMock('Symfony\\Component\\HttpFoundation\\File\\UploadedFile', [], [], '', false);
         $file->expects($this->any())
@@ -74,7 +75,7 @@ class UploadNameSubscriberTest extends PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @version 0.0.3
+     * @version 0.1.0
      * @since 0.0.3
      */
     public function preBindExistsCheck()
@@ -83,7 +84,7 @@ class UploadNameSubscriberTest extends PHPUnit_Framework_TestCase
         $constraints = new Collection(['fields' => ['name' => []]]);
         $listener = new UploadNameSubscriber($constraints, $check);
 
-        $event = new FormEvent($this->getMock('Symfony\\Component\\Form\\Tests\\FormInterface'), null);
+        $event = new FormEvent($this->getMock(\interface_exists('Symfony\\Component\\Form\\Test\\FormInterface') ? 'Symfony\\Component\\Form\\Test\\FormInterface' : 'Symfony\\Component\\Form\\Tests\\FormInterface'), null);
 
         // don't add constraint
         $event->setData(['force' => true]);

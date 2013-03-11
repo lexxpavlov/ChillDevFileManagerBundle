@@ -2,8 +2,8 @@
 # This file is part of the ChillDev FileManager bundle.
 #
 # @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
-# @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
-# @version 0.0.1
+# @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
+# @version 0.1.0
 # @since 0.0.1
 # @package ChillDev\Bundle\FileManagerBundle
 ##
@@ -26,11 +26,11 @@ ci: check lint tests
 # project initialization
 init:
 	git submodule update --init --recursive
-	$(COMPOSER) install
+	$(COMPOSER) install --optimize-autoloader
 
 # update composer dependencies
 update:
-	$(COMPOSER) update
+	$(COMPOSER) update --optimize-autoloader --no-dev
 
 # syntax checking
 check:

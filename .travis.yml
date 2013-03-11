@@ -3,7 +3,7 @@
 #
 # @author Rafal Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
 # @copyright 2012 - 2013 © by Rafal Wrzeszcz - Wrzasq.pl.
-# @version 0.0.2
+# @version 0.1.0
 # @since 0.0.1
 # @package ChillDev\Bundle\FileManagerBundle
 ##
@@ -16,5 +16,12 @@ php:
     - "5.4"
     - "5.5"
 
-before_script: "composer --dev --no-progress -o install"
+env:
+    - "SYMFONY_VERSION=2.1.*"
+    - "SYMFONY_VERSION=2.2.*"
+
+before_script:
+    - "composer --dev --no-progress require symfony/symfony:${SYMFONY_VERSION}"
+    - "composer --dev --no-progress -o install"
+
 script: "make ci"

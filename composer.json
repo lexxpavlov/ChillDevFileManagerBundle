@@ -31,24 +31,24 @@
     ],
     "require": {
         "php": ">=5.4",
-        "symfony/config": "2.1.*",
-        "symfony/dependency-injection": "2.1.*",
-        "symfony/filesystem": "2.1.*",
-        "symfony/form": "2.1.*",
-        "symfony/framework-bundle": "2.1.*",
-        "symfony/http-foundation": "2.1.*",
-        "symfony/http-kernel": "2.1.*",
-        "symfony/monolog-bundle": "2.1.*",
-        "symfony/options-resolver": "2.1.*",
-        "symfony/security": "2.1.*",
-        "symfony/validator": "2.1.*",
-        "sensio/framework-extra-bundle": "2.1.*",
-        "chilldev/view-helpers-bundle": "0.1.2"
+        "symfony/config": ">=2.1,<2.3-dev",
+        "symfony/dependency-injection": ">=2.1,<2.3-dev",
+        "symfony/filesystem": ">=2.1,<2.3-dev",
+        "symfony/form": ">=2.1,<2.3-dev",
+        "symfony/framework-bundle": ">=2.1,<2.3-dev",
+        "symfony/http-foundation": ">=2.1,<2.3-dev",
+        "symfony/http-kernel": ">=2.1,<2.3-dev",
+        "symfony/monolog-bundle": ">=2.1,<2.3-dev",
+        "symfony/options-resolver": ">=2.1,<2.3-dev",
+        "symfony/security": ">=2.1,<2.3-dev",
+        "symfony/validator": ">=2.1,<2.3-dev",
+        "sensio/framework-extra-bundle": ">=2.1,<2.3-dev",
+        "chilldev/view-helpers-bundle": "dev-develop#389ad25c464b69d6599460ac4d36a00e3e5061dd"
     },
     "require-dev": {
         "ext-xsl": "*",
         "phpunit/phpunit": "3.7.*",
-        "squizlabs/php_codesniffer": "dev-master",
+        "squizlabs/php_codesniffer": "1.4.*",
         "mikey179/vfsStream": "1.1.*"
     },
     "autoload": {

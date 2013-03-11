@@ -3,7 +3,7 @@
 #
 # @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
 # @copyright 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
-# @version 0.0.3
+# @version 0.1.0
 # @since 0.0.3
 # @package ChillDev\Bundle\FileManagerBundle
 -->
@@ -28,7 +28,7 @@ Here is a list of all JavaScript-based UI improvements:
 
 ### Delete confirmation
 
-File for this feature: [https://github.com/chilloutdevelopment/ChillDevFileManagerBundle/blob/master/Resources/public/javascript/confirm.js](Resources/public/javascript/confirm.js).
+File for this feature: [Resources/public/javascript/confirm.js](https://github.com/chilloutdevelopment/ChillDevFileManagerBundle/blob/master/Resources/public/javascript/confirm.js).
 
 This file causes confirmation box to appear before any file deletion. Each form with class `confirm-required` will be handled by event listener that will use form's `data-confirm` attribute to display confirmation dialog box.
 

@@ -5,7 +5,7 @@
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.2
+ * @version 0.1.0
  * @since 0.0.2
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -20,7 +20,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
 /**
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.2
+ * @version 0.1.0
  * @since 0.0.2
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -36,7 +36,7 @@ abstract class BaseContainerTest extends BaseManagerTest
     protected $container;
 
     /**
-     * @version 0.0.2
+     * @version 0.1.0
      * @since 0.0.2
      */
     protected function setUp()
@@ -60,6 +60,7 @@ abstract class BaseContainerTest extends BaseManagerTest
                 'secret' => 'secret',
                 'validation' => true,
                 'form' => true,
+                'csrf_protection' => false,
         ]);
         $this->setUpContainer();
         $this->container->compile();
