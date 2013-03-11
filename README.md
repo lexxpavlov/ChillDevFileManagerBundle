@@ -2,8 +2,8 @@
 # This file is part of the ChillDev FileManager bundle.
 #
 # @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
-# @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
-# @version 0.0.2
+# @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
+# @version 0.0.3
 # @since 0.0.1
 # @package ChillDev\Bundle\FileManagerBundle
 -->
@@ -79,6 +79,10 @@ chilldev_filemanager:
 ```
 
 See [configuration options](https://github.com/chilloutdevelopment/ChillDevFileManagerBundle/tree/master/Resources/doc/configuration.md) for details.
+
+# Usage
+
+In general, **ChillDevFileManagerBundle** is end-user ready (or at least should be) component. However there can be some issues related to frontend presentation that you can be interested in (mainly JavaScript-related). For list of things you need to know to get best experience of this bundle UI see [usage documentation](https://github.com/chilloutdevelopment/ChillDevFileManagerBundle/tree/master/Resources/doc/usage.md).
 
 # Resources
 

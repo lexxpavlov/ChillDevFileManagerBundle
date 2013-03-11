@@ -26,8 +26,8 @@ $view['title']->append($view['translator']->trans($title, ['%disk%' => $disk, '%
         <tr>
             <th>
                 <?php echo $view['translator']->trans('Filename'); ?>
-                <a href="<?php echo $view['router']->generate($route, ['disk' => $disk->getId(), 'path' => $path, 'destination' => $destination, 'order' => 1]); ?>">▲</a>
-                <a href="<?php echo $view['router']->generate($route, ['disk' => $disk->getId(), 'path' => $path, 'destination' => $destination, 'order' => -1]); ?>">▼</a>
+                <a href="<?php echo $view->escape($view['router']->generate($route, ['disk' => $disk->getId(), 'path' => $path, 'destination' => $destination, 'order' => 1])); ?>">▲</a>
+                <a href="<?php echo $view->escape($view['router']->generate($route, ['disk' => $disk->getId(), 'path' => $path, 'destination' => $destination, 'order' => -1])); ?>">▼</a>
             </th>
         </tr>
     </thead>

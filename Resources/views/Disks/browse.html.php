@@ -27,13 +27,13 @@ $view['title']->append($view['translator']->trans('Browsing path %disk%/%path%',
         <tr>
             <th>
                 <?php echo $view['translator']->trans('Filename'); ?>
-                <a href="<?php echo $view['router']->generate('chilldev_filemanager_disks_browse', ['disk' => $disk->getId(), 'path' => $path, 'by' => 'path', 'order' => 1]); ?>">▲</a>
-                <a href="<?php echo $view['router']->generate('chilldev_filemanager_disks_browse', ['disk' => $disk->getId(), 'path' => $path, 'by' => 'path', 'order' => -1]); ?>">▼</a>
+                <a href="<?php echo $view->escape($view['router']->generate('chilldev_filemanager_disks_browse', ['disk' => $disk->getId(), 'path' => $path, 'by' => 'path', 'order' => 1])); ?>">▲</a>
+                <a href="<?php echo $view->escape($view['router']->generate('chilldev_filemanager_disks_browse', ['disk' => $disk->getId(), 'path' => $path, 'by' => 'path', 'order' => -1])); ?>">▼</a>
             </th>
             <th>
                 <?php echo $view['translator']->trans('Size'); ?>
-                <a href="<?php echo $view['router']->generate('chilldev_filemanager_disks_browse', ['disk' => $disk->getId(), 'path' => $path, 'by' => 'size', 'order' => 1]); ?>">▲</a>
-                <a href="<?php echo $view['router']->generate('chilldev_filemanager_disks_browse', ['disk' => $disk->getId(), 'path' => $path, 'by' => 'size', 'order' => -1]); ?>">▼</a>
+                <a href="<?php echo $view->escape($view['router']->generate('chilldev_filemanager_disks_browse', ['disk' => $disk->getId(), 'path' => $path, 'by' => 'size', 'order' => 1])); ?>">▲</a>
+                <a href="<?php echo $view->escape($view['router']->generate('chilldev_filemanager_disks_browse', ['disk' => $disk->getId(), 'path' => $path, 'by' => 'size', 'order' => -1])); ?>">▼</a>
             </th>
             <th></th>
         </tr>
@@ -61,7 +61,7 @@ $view['title']->append($view['translator']->trans('Browsing path %disk%/%path%',
                         <?php endif; ?>
                     </td>
                     <td>
-                        <form action="<?php echo $view['router']->generate('chilldev_filemanager_files_delete', ['disk' => $disk->getId(), 'path' => $info['path']]); ?>" method="post">
+                        <form action="<?php echo $view['router']->generate('chilldev_filemanager_files_delete', ['disk' => $disk->getId(), 'path' => $info['path']]); ?>" method="post" data-confirm="<?php echo $view['translator']->trans('Are you sure you want to delete this file?'); ?>" class="confirm-required">
                             <input type="submit" value="<?php echo $view['translator']->trans('Delete'); ?>"/>
                         </form>
                         <a href="<?php echo $view['router']->generate('chilldev_filemanager_files_rename', ['disk' => $disk->getId(), 'path' => $info['path']]); ?>"><?php echo $view['translator']->trans('Rename'); ?></a>
