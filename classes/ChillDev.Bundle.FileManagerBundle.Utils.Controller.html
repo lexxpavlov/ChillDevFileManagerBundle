@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 <meta charset="utf-8">
-<title>ChillDev FileManager Bundle - by Chillout Development » \ChillDev\Bundle\FileManagerBundle\Controller\DisksController</title>
+<title>ChillDev FileManager Bundle - by Chillout Development » \ChillDev\Bundle\FileManagerBundle\Utils\Controller</title>
 <meta name="author" content="Mike van Riel">
 <meta name="description" content="">
 <link href="../css/template.css" rel="stylesheet" media="all">
@@ -58,13 +58,14 @@
 <ul class="side-nav nav nav-list"><li class="nav-header">
 <i class="icon-custom icon-method"></i> Methods
                     <ul>
-<li class="method public "><a href="#method_browseAction" title="browseAction :: Directory listing action."><span class="description">Directory listing action.</span><pre>browseAction()</pre></a></li>
-<li class="method public "><a href="#method_listAction" title="listAction :: Disks listing page."><span class="description">Disks listing page.</span><pre>listAction()</pre></a></li>
+<li class="method public "><a href="#method_ensureExist" title="ensureExist :: Ensure all specified paths exist."><span class="description">Ensure all specified paths exist.</span><pre>ensureExist()</pre></a></li>
+<li class="method public "><a href="#method_getSorter" title="getSorter :: Return sorting callback for sorting list of associative arrays."><span class="description">Return sorting callback for sorting list of associative arrays.</span><pre>getSorter()</pre></a></li>
+<li class="method public "><a href="#method_resolvePath" title="resolvePath :: Resolve path and sanitizes it."><span class="description">Resolve path and sanitizes it.</span><pre>resolvePath()</pre></a></li>
 </ul>
 </li></ul>
 </div>
 <div class="span8">
-<a id="\ChillDev\Bundle\FileManagerBundle\Controller\DisksController"></a><ul class="breadcrumb">
+<a id="\ChillDev\Bundle\FileManagerBundle\Utils\Controller"></a><ul class="breadcrumb">
 <li>
 <a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
 </li>
@@ -76,28 +77,24 @@
 <span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.html">FileManagerBundle</a>
 </li>
 <li>
-<span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.Controller.html">Controller</a>
+<span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.Utils.html">Utils</a>
 </li>
 <li class="active">
-<span class="divider">\</span><a href="../classes/ChillDev.Bundle.FileManagerBundle.Controller.DisksController.html">DisksController</a>
+<span class="divider">\</span><a href="../classes/ChillDev.Bundle.FileManagerBundle.Utils.Controller.html">Controller</a>
 </li>
 </ul>
 <div class="element class">
-<p class="short_description">Disks controller.</p>
+<p class="short_description">Controller utilities.</p>
 <div class="details">
 <div class="long_description"></div>
 <table class="table table-bordered">
-<tr>
-<th>Route</th>
-<td>("/disks")</td>
-</tr>
 <tr>
 <th>author</th>
 <td><a href="mailto:rafal.wrzeszcz@wrzasq.pl">Rafał Wrzeszcz</a></td>
 </tr>
 <tr>
 <th>copyright</th>
-<td>2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.</td>
+<td>2013 © by Rafał Wrzeszcz - Wrzasq.pl.</td>
 </tr>
 <tr>
 <th>version</th>
@@ -105,7 +102,7 @@
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.1</td>
+<td>0.0.3</td>
 </tr>
 <tr>
 <th>package</th>
@@ -114,85 +111,95 @@
 </table>
 <h3>
 <i class="icon-custom icon-method"></i> Methods</h3>
-<a id="method_browseAction"></a><div class="element clickable method public method_browseAction" data-toggle="collapse" data-target=".method_browseAction .collapse">
-<h2>Directory listing action.</h2>
-<pre>browseAction(\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk $disk, string $path) : array</pre>
-<div class="labels"></div>
+<a id="method_ensureExist"></a><div class="element clickable method public method_ensureExist" data-toggle="collapse" data-target=".method_ensureExist .collapse">
+<h2>Ensure all specified paths exist.</h2>
+<pre>ensureExist(\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk $disk, \ChillDev\Bundle\FileManagerBundle\Filesystem\Filesystem $filesystem, $file) </pre>
+<div class="labels"><span class="label">Static</span></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <table class="table table-bordered">
-<tr>
-<th>Route</th>
-<td>(
-     "/{disk}/{path}",
-     name="chilldev_filemanager_disks_browse",
-     requirements={"path"=".*"},
-     defaults={"path"=""}
- )</td>
-</tr>
-<tr>
-<th>Template</th>
-<td>(engine="config")</td>
-</tr>
 <tr>
 <th>version</th>
 <td>0.0.3</td>
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.1</td>
+<td>0.0.3</td>
 </tr>
 </table>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$disk</h4>
-<code><a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.Disk.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk</a></code><p>Disk scope.</p></div>
+<code><a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.Disk.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk</a></code><p>Disk reference.</p></div>
 <div class="subelement argument">
-<h4>$path</h4>
-<code>string</code><p>Destination directory.</p></div>
+<h4>$filesystem</h4>
+<code><a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.Filesystem.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\Filesystem</a></code><p>Filesystem for I/O operations.</p>
+</div>
+<div class="subelement argument"><h4>$file</h4></div>
 <h3>Exceptions</h3>
-<table class="table table-bordered">
-<tr>
-<th><code>\Symfony\Component\HttpKernel\Exception\HttpException</code></th>
-<td>When requested path is invalid or is not a directory.</td>
-</tr>
-<tr>
+<table class="table table-bordered"><tr>
 <th><code>\Symfony\Component\HttpKernel\Exception\NotFoundHttpException</code></th>
-<td>When requested path does not exist.</td>
-</tr>
-</table>
-<h3>Returns</h3>
-<div class="subelement response">
-<code>array</code>Template data.</div>
+<td>When any of specified paths does not exist.</td>
+</tr></table>
 </div></div>
 </div>
-<a id="method_listAction"></a><div class="element clickable method public method_listAction" data-toggle="collapse" data-target=".method_listAction .collapse">
-<h2>Disks listing page.</h2>
-<pre>listAction() : array</pre>
-<div class="labels"></div>
+<a id="method_getSorter"></a><div class="element clickable method public method_getSorter" data-toggle="collapse" data-target=".method_getSorter .collapse">
+<h2>Return sorting callback for sorting list of associative arrays.</h2>
+<pre>getSorter(string $by, int $order) : <a href="http://php.net/manual/en/class.closure.php">\Closure</a></pre>
+<div class="labels"><span class="label">Static</span></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
-<th>Route</th>
-<td>("/", name="chilldev_filemanager_disks_list")</td>
-</tr>
-<tr>
-<th>Template</th>
-<td>(engine="config")</td>
-</tr>
-<tr>
 <th>version</th>
-<td>0.0.1</td>
+<td>0.0.3</td>
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.1</td>
+<td>0.0.3</td>
 </tr>
 </table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$by</h4>
+<code>string</code><p>Sorting field.</p></div>
+<div class="subelement argument">
+<h4>$order</h4>
+<code>int</code><p>Sorting order.</p></div>
 <h3>Returns</h3>
 <div class="subelement response">
-<code>array</code>Template data.</div>
+<code><a href="http://php.net/manual/en/class.closure.php">\Closure</a></code>Sorting callback.</div>
+</div></div>
+</div>
+<a id="method_resolvePath"></a><div class="element clickable method public method_resolvePath" data-toggle="collapse" data-target=".method_resolvePath .collapse">
+<h2>Resolve path and sanitizes it.</h2>
+<pre>resolvePath(string $path) : string</pre>
+<div class="labels"><span class="label">Static</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.3</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.3</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$path</h4>
+<code>string</code><p>User-specified path.</p>
+</div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code>\Symfony\Component\HttpKernel\Exception\HttpException</code></th>
+<td>When specified path is invalid.</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>Normalized path.</div>
 </div></div>
 </div>
 </div>

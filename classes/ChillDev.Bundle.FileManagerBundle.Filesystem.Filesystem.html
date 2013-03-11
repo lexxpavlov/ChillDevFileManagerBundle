@@ -34,7 +34,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">32</span></a></li>
+                <span class="label label-info">25</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
@@ -59,16 +59,15 @@
 <li class="nav-header">
 <i class="icon-custom icon-method"></i> Methods
                     <ul>
-<li class="method public "><a href="#method___construct" title="__construct :: Initializes filesystem."><span class="description">Initializes filesystem.</span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#method___construct" title="__construct :: Initializes filesystem wrapper."><span class="description">Initializes filesystem wrapper.</span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#method_copy" title="copy :: Copies file."><span class="description">Copies file.</span><pre>copy()</pre></a></li>
 <li class="method public "><a href="#method_createDirectoryIterator" title="createDirectoryIterator :: Initializes directory iterator."><span class="description">Initializes directory iterator.</span><pre>createDirectoryIterator()</pre></a></li>
 <li class="method public "><a href="#method_exists" title="exists :: Checks if file exists."><span class="description">Checks if file exists.</span><pre>exists()</pre></a></li>
-<li class="method public "><a href="#method_getFileMTime" title="getFileMTime :: Returns last modification file."><span class="description">Returns last modification file.</span><pre>getFileMTime()</pre></a></li>
-<li class="method public "><a href="#method_getFilesize" title="getFilesize :: Returns file size."><span class="description">Returns file size.</span><pre>getFilesize()</pre></a></li>
-<li class="method public "><a href="#method_isDirectory" title="isDirectory :: Checks if given path is a directory."><span class="description">Checks if given path is a directory.</span><pre>isDirectory()</pre></a></li>
-<li class="method public "><a href="#method_isFile" title="isFile :: Checks if given path is a regular file."><span class="description">Checks if given path is a regular file.</span><pre>isFile()</pre></a></li>
+<li class="method public "><a href="#method_getFileInfo" title="getFileInfo :: Creates fileinfo object."><span class="description">Creates fileinfo object.</span><pre>getFileInfo()</pre></a></li>
 <li class="method public "><a href="#method_mkdir" title="mkdir :: Creates new directory."><span class="description">Creates new directory.</span><pre>mkdir()</pre></a></li>
-<li class="method public "><a href="#method_readFile" title="readFile :: Prints file directly to output stream."><span class="description">Prints file directly to output stream.</span><pre>readFile()</pre></a></li>
-<li class="method public "><a href="#method_unlink" title="unlink :: Removes regular file."><span class="description">Removes regular file.</span><pre>unlink()</pre></a></li>
+<li class="method public "><a href="#method_move" title="move :: Moves/renames file."><span class="description">Moves/renames file.</span><pre>move()</pre></a></li>
+<li class="method public "><a href="#method_remove" title="remove :: Removes file or directory."><span class="description">Removes file or directory.</span><pre>remove()</pre></a></li>
+<li class="method public "><a href="#method_upload" title="upload :: Uploads file."><span class="description">Uploads file.</span><pre>upload()</pre></a></li>
 </ul>
 </li>
 <li class="nav-header">
@@ -76,7 +75,10 @@
                     <ul></ul>
 </li>
 <li class="nav-header protected">» Protected
-                    <ul><li class="property protected "><a href="#property_adapter" title="$adapter :: I/O adapter."><span class="description">I/O adapter.</span><pre>$adapter</pre></a></li></ul>
+                    <ul>
+<li class="property protected "><a href="#property_filesystem" title="$filesystem :: Symfony's filesystem helper utility."><span class="description">Symfony's filesystem helper utility.</span><pre>$filesystem</pre></a></li>
+<li class="property protected "><a href="#property_root" title="$root :: Root path for disk scope."><span class="description">Root path for disk scope.</span><pre>$root</pre></a></li>
+</ul>
 </li>
 </ul>
 </div>
@@ -114,7 +116,7 @@
 </tr>
 <tr>
 <th>version</th>
-<td>0.0.2</td>
+<td>0.0.3</td>
 </tr>
 <tr>
 <th>since</th>
@@ -128,38 +130,67 @@
 <h3>
 <i class="icon-custom icon-method"></i> Methods</h3>
 <a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
-<h2>Initializes filesystem.</h2>
-<pre>__construct(\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface $adapter) </pre>
+<h2>Initializes filesystem wrapper.</h2>
+<pre>__construct(string $root) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>version</th>
-<td>0.0.2</td>
+<td>0.0.3</td>
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.2</td>
+<td>0.0.3</td>
 </tr>
 </table>
 <h3>Parameters</h3>
 <div class="subelement argument">
-<h4>$adapter</h4>
-<code><a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.AdapterInterface.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface</a></code><p>I/O adapter.</p>
-</div>
+<h4>$root</h4>
+<code>string</code><p>Root path for this disk.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code>\Symfony\Component\Filesystem\Exception\IOException</code></th>
+<td>When given path does not exist.</td>
+</tr></table>
 </div></div>
 </div>
-<a id="method_createDirectoryIterator"></a><div class="element clickable method public method_createDirectoryIterator" data-toggle="collapse" data-target=".method_createDirectoryIterator .collapse">
-<h2>Initializes directory iterator.</h2>
-<pre>createDirectoryIterator(string $path) : <a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.DirectoryIterator.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\DirectoryIterator</a></pre>
+<a id="method_copy"></a><div class="element clickable method public method_copy" data-toggle="collapse" data-target=".method_copy .collapse">
+<h2>Copies file.</h2>
+<pre>copy(string $source, string $destination) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>version</th>
-<td>0.0.2</td>
+<td>0.0.3</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.3</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$source</h4>
+<code>string</code><p>Source.</p></div>
+<div class="subelement argument">
+<h4>$destination</h4>
+<code>string</code><p>Destination.</p></div>
+</div></div>
+</div>
+<a id="method_createDirectoryIterator"></a><div class="element clickable method public method_createDirectoryIterator" data-toggle="collapse" data-target=".method_createDirectoryIterator .collapse">
+<h2>Initializes directory iterator.</h2>
+<pre>createDirectoryIterator(string $path) : <a href="http://php.net/manual/en/class.filesystemiterator.php">\FilesystemIterator</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.3</td>
 </tr>
 <tr>
 <th>since</th>
@@ -172,7 +203,7 @@
 <code>string</code><p>Subject directory path.</p></div>
 <h3>Returns</h3>
 <div class="subelement response">
-<code><a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.DirectoryIterator.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\DirectoryIterator</a></code>Directory listing iterator.</div>
+<code><a href="http://php.net/manual/en/class.filesystemiterator.php">\FilesystemIterator</a></code>Directory listing iterator.</div>
 </div></div>
 </div>
 <a id="method_exists"></a><div class="element clickable method public method_exists" data-toggle="collapse" data-target=".method_exists .collapse">
@@ -184,7 +215,7 @@
 <table class="table table-bordered">
 <tr>
 <th>version</th>
-<td>0.0.2</td>
+<td>0.0.3</td>
 </tr>
 <tr>
 <th>since</th>
@@ -200,104 +231,29 @@
 <code>bool</code>File state.</div>
 </div></div>
 </div>
-<a id="method_getFileMTime"></a><div class="element clickable method public method_getFileMTime" data-toggle="collapse" data-target=".method_getFileMTime .collapse">
-<h2>Returns last modification file.</h2>
-<pre>getFileMTime(string $path) : int</pre>
+<a id="method_getFileInfo"></a><div class="element clickable method public method_getFileInfo" data-toggle="collapse" data-target=".method_getFileInfo .collapse">
+<h2>Creates fileinfo object.</h2>
+<pre>getFileInfo(string $path) : <a href="http://php.net/manual/en/class.splfileinfo.php">\SplFileInfo</a></pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>version</th>
-<td>0.0.2</td>
+<td>0.0.3</td>
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.2</td>
+<td>0.0.3</td>
 </tr>
 </table>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$path</h4>
-<code>string</code><p>File path.</p></div>
+<code>string</code><p>Subject path.</p></div>
 <h3>Returns</h3>
 <div class="subelement response">
-<code>int</code>Last modification time of file.</div>
-</div></div>
-</div>
-<a id="method_getFilesize"></a><div class="element clickable method public method_getFilesize" data-toggle="collapse" data-target=".method_getFilesize .collapse">
-<h2>Returns file size.</h2>
-<pre>getFilesize(string $path) : int</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>version</th>
-<td>0.0.2</td>
-</tr>
-<tr>
-<th>since</th>
-<td>0.0.2</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$path</h4>
-<code>string</code><p>File path.</p></div>
-<h3>Returns</h3>
-<div class="subelement response">
-<code>int</code>Filesize.</div>
-</div></div>
-</div>
-<a id="method_isDirectory"></a><div class="element clickable method public method_isDirectory" data-toggle="collapse" data-target=".method_isDirectory .collapse">
-<h2>Checks if given path is a directory.</h2>
-<pre>isDirectory(string $path) : bool</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>version</th>
-<td>0.0.2</td>
-</tr>
-<tr>
-<th>since</th>
-<td>0.0.2</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$path</h4>
-<code>string</code><p>File path.</p></div>
-<h3>Returns</h3>
-<div class="subelement response">
-<code>bool</code>If it's directory.</div>
-</div></div>
-</div>
-<a id="method_isFile"></a><div class="element clickable method public method_isFile" data-toggle="collapse" data-target=".method_isFile .collapse">
-<h2>Checks if given path is a regular file.</h2>
-<pre>isFile(string $path) : bool</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>version</th>
-<td>0.0.2</td>
-</tr>
-<tr>
-<th>since</th>
-<td>0.0.2</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$path</h4>
-<code>string</code><p>File path.</p></div>
-<h3>Returns</h3>
-<div class="subelement response">
-<code>bool</code>If it's file.</div>
+<code><a href="http://php.net/manual/en/class.splfileinfo.php">\SplFileInfo</a></code>File information object.</div>
 </div></div>
 </div>
 <a id="method_mkdir"></a><div class="element clickable method public method_mkdir" data-toggle="collapse" data-target=".method_mkdir .collapse">
@@ -309,7 +265,7 @@
 <table class="table table-bordered">
 <tr>
 <th>version</th>
-<td>0.0.2</td>
+<td>0.0.3</td>
 </tr>
 <tr>
 <th>since</th>
@@ -322,20 +278,45 @@
 <code>string</code><p>New directory path.</p></div>
 </div></div>
 </div>
-<a id="method_readFile"></a><div class="element clickable method public method_readFile" data-toggle="collapse" data-target=".method_readFile .collapse">
-<h2>Prints file directly to output stream.</h2>
-<pre>readFile(string $path) </pre>
+<a id="method_move"></a><div class="element clickable method public method_move" data-toggle="collapse" data-target=".method_move .collapse">
+<h2>Moves/renames file.</h2>
+<pre>move(string $source, string $destination) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>version</th>
-<td>0.0.2</td>
+<td>0.0.3</td>
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.2</td>
+<td>0.0.3</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$source</h4>
+<code>string</code><p>Old location.</p></div>
+<div class="subelement argument">
+<h4>$destination</h4>
+<code>string</code><p>New location.</p></div>
+</div></div>
+</div>
+<a id="method_remove"></a><div class="element clickable method public method_remove" data-toggle="collapse" data-target=".method_remove .collapse">
+<h2>Removes file or directory.</h2>
+<pre>remove(string $path) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.3</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.3</td>
 </tr>
 </table>
 <h3>Parameters</h3>
@@ -344,44 +325,68 @@
 <code>string</code><p>File path.</p></div>
 </div></div>
 </div>
-<a id="method_unlink"></a><div class="element clickable method public method_unlink" data-toggle="collapse" data-target=".method_unlink .collapse">
-<h2>Removes regular file.</h2>
-<pre>unlink(string $path) </pre>
+<a id="method_upload"></a><div class="element clickable method public method_upload" data-toggle="collapse" data-target=".method_upload .collapse">
+<h2>Uploads file.</h2>
+<pre>upload(string $path, \Symfony\Component\HttpFoundation\File\UploadedFile $file, string $name) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>version</th>
-<td>0.0.2</td>
+<td>0.0.3</td>
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.2</td>
+<td>0.0.3</td>
 </tr>
 </table>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$path</h4>
-<code>string</code><p>File path.</p></div>
+<code>string</code><p>Destination directory.</p></div>
+<div class="subelement argument">
+<h4>$file</h4>
+<code>\Symfony\Component\HttpFoundation\File\UploadedFile</code><p>Uploaded file.</p></div>
+<div class="subelement argument">
+<h4>$name</h4>
+<code>string</code><p>Destination filename.</p></div>
 </div></div>
 </div>
 <h3>
 <i class="icon-custom icon-property"></i> Properties</h3>
-<a id="property_adapter"> </a><div class="element clickable property protected property_adapter" data-toggle="collapse" data-target=".property_adapter .collapse">
-<h2>I/O adapter.</h2>
-<pre>$adapter : <a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.AdapterInterface.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface</a></pre>
+<a id="property_filesystem"> </a><div class="element clickable property protected property_filesystem" data-toggle="collapse" data-target=".property_filesystem .collapse">
+<h2>Symfony's filesystem helper utility.</h2>
+<pre>$filesystem : \Symfony\Component\Filesystem\Filesystem</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>version</th>
-<td>0.0.2</td>
+<td>0.0.3</td>
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.2</td>
+<td>0.0.3</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="property_root"> </a><div class="element clickable property protected property_root" data-toggle="collapse" data-target=".property_root .collapse">
+<h2>Root path for disk scope.</h2>
+<pre>$root : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.3</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.3</td>
 </tr>
 </table>
 </div></div>
@@ -393,7 +398,7 @@
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a10</a> and<br>
-            generated on 2013-02-01T02:11:08+01:00.<br></footer></div>
+            generated on 2013-03-11T01:09:05+01:00.<br></footer></div>
 </div>
 </body>
 </html>

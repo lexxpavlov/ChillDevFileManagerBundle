@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 <meta charset="utf-8">
-<title>ChillDev FileManager Bundle - by Chillout Development » \ChillDev\Bundle\FileManagerBundle\Filesystem\DirectoryIterator</title>
+<title>ChillDev FileManager Bundle - by Chillout Development » \ChillDev\Bundle\FileManagerBundle\Form\Type\UploadType</title>
 <meta name="author" content="Mike van Riel">
 <meta name="description" content="">
 <link href="../css/template.css" rel="stylesheet" media="all">
@@ -13,7 +13,6 @@
 <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
 </head>
 <body>
-<div id="ribbon"><a href="https://github.com/chilloutdevelopment/ChillDevFileManagerBundle" rel="me">Fork me on GitHub</a></div>
 <div id="ribbon"><a href="https://github.com/chilloutdevelopment/ChillDevFileManagerBundle" rel="me">Fork me on GitHub</a></div>
 <div class="navbar navbar-fixed-top">
 <div class="navbar-inner"><div class="container">
@@ -35,7 +34,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">32</span></a></li>
+                <span class="label label-info">25</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
@@ -60,13 +59,10 @@
 <li class="nav-header">
 <i class="icon-custom icon-method"></i> Methods
                     <ul>
-<li class="method public "><a href="#method___construct" title="__construct :: Initializes iterator."><span class="description">Initializes iterator.</span><pre>__construct()</pre></a></li>
-<li class="method public "><a href="#method___destruct" title="__destruct :: Closes iterator handle."><span class="description">Closes iterator handle.</span><pre>__destruct()</pre></a></li>
-<li class="method public "><a href="#method_current" title="current :: Returns current element."><span class="description">Returns current element.</span><pre>current()</pre></a></li>
-<li class="method public "><a href="#method_key" title="key :: Returns current iterator index."><span class="description">Returns current iterator index.</span><pre>key()</pre></a></li>
-<li class="method public "><a href="#method_next" title="next :: Advances iterator."><span class="description">Advances iterator.</span><pre>next()</pre></a></li>
-<li class="method public "><a href="#method_rewind" title="rewind :: Rewinds directory iterator."><span class="description">Rewinds directory iterator.</span><pre>rewind()</pre></a></li>
-<li class="method public "><a href="#method_valid" title="valid :: Checks if directory iterator has more items."><span class="description">Checks if directory iterator has more items.</span><pre>valid()</pre></a></li>
+<li class="method public "><a href="#method___construct" title="__construct :: Initializes form type."><span class="description">Initializes form type.</span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#method_buildForm" title="buildForm :: {@inheritDoc}"><span class="description">{@inheritDoc}</span><pre>buildForm()</pre></a></li>
+<li class="method public "><a href="#method_getName" title="getName :: {@inheritDoc}"><span class="description">{@inheritDoc}</span><pre>getName()</pre></a></li>
+<li class="method public "><a href="#method_setDefaultOptions" title="setDefaultOptions :: {@inheritDoc}"><span class="description">{@inheritDoc}</span><pre>setDefaultOptions()</pre></a></li>
 </ul>
 </li>
 <li class="nav-header">
@@ -75,14 +71,16 @@
 </li>
 <li class="nav-header protected">» Protected
                     <ul>
-<li class="property protected "><a href="#property_adapter" title="$adapter :: Filesystem adapter."><span class="description">Filesystem adapter.</span><pre>$adapter</pre></a></li>
-<li class="property protected "><a href="#property_handle" title="$handle :: I/O iterator handle."><span class="description">I/O iterator handle.</span><pre>$handle</pre></a></li>
+<li class="property protected "><a href="#property_check" title="$check :: File existance check."><span class="description">File existance check.</span><pre>$check</pre></a></li>
+<li class="property protected "><a href="#property_constraints" title="$constraints :: Constraints definitions."><span class="description">Constraints definitions.</span><pre>$constraints</pre></a></li>
+<li class="property protected "><a href="#property_filesystem" title="$filesystem :: Filesystem."><span class="description">Filesystem.</span><pre>$filesystem</pre></a></li>
+<li class="property protected "><a href="#property_path" title="$path :: Destination location path."><span class="description">Destination location path.</span><pre>$path</pre></a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="span8">
-<a id="\ChillDev\Bundle\FileManagerBundle\Filesystem\DirectoryIterator"></a><ul class="breadcrumb">
+<a id="\ChillDev\Bundle\FileManagerBundle\Form\Type\UploadType"></a><ul class="breadcrumb">
 <li>
 <a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
 </li>
@@ -94,14 +92,17 @@
 <span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.html">FileManagerBundle</a>
 </li>
 <li>
-<span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.Filesystem.html">Filesystem</a>
+<span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.Form.html">Form</a>
+</li>
+<li>
+<span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.Form.Type.html">Type</a>
 </li>
 <li class="active">
-<span class="divider">\</span><a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.DirectoryIterator.html">DirectoryIterator</a>
+<span class="divider">\</span><a href="../classes/ChillDev.Bundle.FileManagerBundle.Form.Type.UploadType.html">UploadType</a>
 </li>
 </ul>
 <div class="element class">
-<p class="short_description">Directory listing iterator.</p>
+<p class="short_description">File upload form.</p>
 <div class="details">
 <div class="long_description"></div>
 <table class="table table-bordered">
@@ -115,11 +116,11 @@
 </tr>
 <tr>
 <th>version</th>
-<td>0.0.2</td>
+<td>0.0.3</td>
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.2</td>
+<td>0.0.3</td>
 </tr>
 <tr>
 <th>package</th>
@@ -129,182 +130,159 @@
 <h3>
 <i class="icon-custom icon-method"></i> Methods</h3>
 <a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
-<h2>Initializes iterator.</h2>
-<pre>__construct(\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface $adapter, string $path) </pre>
+<h2>Initializes form type.</h2>
+<pre>__construct(\ChillDev\Bundle\FileManagerBundle\Filesystem\Filesystem $filesystem, string $path) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>version</th>
-<td>0.0.2</td>
+<td>0.0.3</td>
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.2</td>
+<td>0.0.3</td>
 </tr>
 </table>
 <h3>Parameters</h3>
 <div class="subelement argument">
-<h4>$adapter</h4>
-<code><a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.AdapterInterface.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface</a></code><p>Filesystem I/O.</p>
-</div>
+<h4>$filesystem</h4>
+<code><a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.Filesystem.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\Filesystem</a></code><p>Filesystem manager.</p></div>
 <div class="subelement argument">
 <h4>$path</h4>
-<code>string</code><p>Subject directory path.</p></div>
+<code>string</code><p>Destination location path.</p></div>
 </div></div>
 </div>
-<a id="method___destruct"></a><div class="element clickable method public method___destruct" data-toggle="collapse" data-target=".method___destruct .collapse">
-<h2>Closes iterator handle.</h2>
-<pre>__destruct() </pre>
+<a id="method_buildForm"></a><div class="element clickable method public method_buildForm" data-toggle="collapse" data-target=".method_buildForm .collapse">
+<h2>{@inheritDoc}</h2>
+<pre>buildForm(\Symfony\Component\Form\FormBuilderInterface $builder, array $options) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>version</th>
-<td>0.0.2</td>
+<td>0.0.3</td>
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.2</td>
+<td>0.0.3</td>
 </tr>
 </table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$builder</h4></div>
+<div class="subelement argument"><h4>$options</h4></div>
 </div></div>
 </div>
-<a id="method_current"></a><div class="element clickable method public method_current" data-toggle="collapse" data-target=".method_current .collapse">
-<h2>Returns current element.</h2>
-<pre>current() : <a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.FileInfo.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\FileInfo</a></pre>
+<a id="method_getName"></a><div class="element clickable method public method_getName" data-toggle="collapse" data-target=".method_getName .collapse">
+<h2>{@inheritDoc}</h2>
+<pre>getName() </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>version</th>
-<td>0.0.2</td>
+<td>0.0.3</td>
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.2</td>
+<td>0.0.3</td>
 </tr>
 </table>
-<h3>Returns</h3>
-<div class="subelement response">
-<code><a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.FileInfo.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\FileInfo</a></code>File information.</div>
 </div></div>
 </div>
-<a id="method_key"></a><div class="element clickable method public method_key" data-toggle="collapse" data-target=".method_key .collapse">
-<h2>Returns current iterator index.</h2>
-<pre>key() : string</pre>
+<a id="method_setDefaultOptions"></a><div class="element clickable method public method_setDefaultOptions" data-toggle="collapse" data-target=".method_setDefaultOptions .collapse">
+<h2>{@inheritDoc}</h2>
+<pre>setDefaultOptions(\Symfony\Component\OptionsResolver\OptionsResolverInterface $resolver) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>version</th>
-<td>0.0.2</td>
+<td>0.0.3</td>
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.2</td>
+<td>0.0.3</td>
 </tr>
 </table>
-<h3>Returns</h3>
-<div class="subelement response">
-<code>string</code>Filename.</div>
-</div></div>
-</div>
-<a id="method_next"></a><div class="element clickable method public method_next" data-toggle="collapse" data-target=".method_next .collapse">
-<h2>Advances iterator.</h2>
-<pre>next() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>version</th>
-<td>0.0.2</td>
-</tr>
-<tr>
-<th>since</th>
-<td>0.0.2</td>
-</tr>
-</table>
-</div></div>
-</div>
-<a id="method_rewind"></a><div class="element clickable method public method_rewind" data-toggle="collapse" data-target=".method_rewind .collapse">
-<h2>Rewinds directory iterator.</h2>
-<pre>rewind() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>version</th>
-<td>0.0.2</td>
-</tr>
-<tr>
-<th>since</th>
-<td>0.0.2</td>
-</tr>
-</table>
-</div></div>
-</div>
-<a id="method_valid"></a><div class="element clickable method public method_valid" data-toggle="collapse" data-target=".method_valid .collapse">
-<h2>Checks if directory iterator has more items.</h2>
-<pre>valid() : bool</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>version</th>
-<td>0.0.2</td>
-</tr>
-<tr>
-<th>since</th>
-<td>0.0.2</td>
-</tr>
-</table>
-<h3>Returns</h3>
-<div class="subelement response">
-<code>bool</code>Iterator status.</div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$resolver</h4></div>
 </div></div>
 </div>
 <h3>
 <i class="icon-custom icon-property"></i> Properties</h3>
-<a id="property_adapter"> </a><div class="element clickable property protected property_adapter" data-toggle="collapse" data-target=".property_adapter .collapse">
-<h2>Filesystem adapter.</h2>
-<pre>$adapter : <a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.AdapterInterface.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\AdapterInterface</a></pre>
+<a id="property_check"> </a><div class="element clickable property protected property_check" data-toggle="collapse" data-target=".property_check .collapse">
+<h2>File existance check.</h2>
+<pre>$check : <a href="../classes/ChillDev.Bundle.FileManagerBundle.Validator.Constraints.FileNotExists.html">\ChillDev\Bundle\FileManagerBundle\Validator\Constraints\FileNotExists</a></pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>version</th>
-<td>0.0.2</td>
+<td>0.0.3</td>
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.2</td>
+<td>0.0.3</td>
 </tr>
 </table>
 </div></div>
 </div>
-<a id="property_handle"> </a><div class="element clickable property protected property_handle" data-toggle="collapse" data-target=".property_handle .collapse">
-<h2>I/O iterator handle.</h2>
-<pre>$handle : mixed</pre>
+<a id="property_constraints"> </a><div class="element clickable property protected property_constraints" data-toggle="collapse" data-target=".property_constraints .collapse">
+<h2>Constraints definitions.</h2>
+<pre>$constraints : \Symfony\Component\Validator\Constraints\Collection</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>version</th>
-<td>0.0.2</td>
+<td>0.0.3</td>
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.2</td>
+<td>0.0.3</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="property_filesystem"> </a><div class="element clickable property protected property_filesystem" data-toggle="collapse" data-target=".property_filesystem .collapse">
+<h2>Filesystem.</h2>
+<pre>$filesystem : <a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.Filesystem.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\Filesystem</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.3</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.3</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="property_path"> </a><div class="element clickable property protected property_path" data-toggle="collapse" data-target=".property_path .collapse">
+<h2>Destination location path.</h2>
+<pre>$path : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.3</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.3</td>
 </tr>
 </table>
 </div></div>
@@ -316,7 +294,7 @@
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a10</a> and<br>
-            generated on 2013-02-01T02:11:08+01:00.<br></footer></div>
+            generated on 2013-03-11T01:09:05+01:00.<br></footer></div>
 </div>
 </body>
 </html>

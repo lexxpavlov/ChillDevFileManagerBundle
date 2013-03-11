@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 <meta charset="utf-8">
-<title>ChillDev FileManager Bundle - by Chillout Development » \ChillDev\Bundle\FileManagerBundle\Controller\DisksController</title>
+<title>ChillDev FileManager Bundle - by Chillout Development » \ChillDev\Bundle\FileManagerBundle\Form\Type\RenameType</title>
 <meta name="author" content="Mike van Riel">
 <meta name="description" content="">
 <link href="../css/template.css" rel="stylesheet" media="all">
@@ -55,16 +55,30 @@
 <span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
 <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
 </div>
-<ul class="side-nav nav nav-list"><li class="nav-header">
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
 <i class="icon-custom icon-method"></i> Methods
                     <ul>
-<li class="method public "><a href="#method_browseAction" title="browseAction :: Directory listing action."><span class="description">Directory listing action.</span><pre>browseAction()</pre></a></li>
-<li class="method public "><a href="#method_listAction" title="listAction :: Disks listing page."><span class="description">Disks listing page.</span><pre>listAction()</pre></a></li>
+<li class="method public "><a href="#method___construct" title="__construct :: Initializes form type."><span class="description">Initializes form type.</span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#method_buildForm" title="buildForm :: {@inheritDoc}"><span class="description">{@inheritDoc}</span><pre>buildForm()</pre></a></li>
+<li class="method public "><a href="#method_getName" title="getName :: {@inheritDoc}"><span class="description">{@inheritDoc}</span><pre>getName()</pre></a></li>
+<li class="method public "><a href="#method_setDefaultOptions" title="setDefaultOptions :: {@inheritDoc}"><span class="description">{@inheritDoc}</span><pre>setDefaultOptions()</pre></a></li>
 </ul>
-</li></ul>
+</li>
+<li class="nav-header">
+<i class="icon-custom icon-property"></i> Properties
+                    <ul></ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul>
+<li class="property protected "><a href="#property_filesystem" title="$filesystem :: Filesystem."><span class="description">Filesystem.</span><pre>$filesystem</pre></a></li>
+<li class="property protected "><a href="#property_path" title="$path :: Destination location path."><span class="description">Destination location path.</span><pre>$path</pre></a></li>
+</ul>
+</li>
+</ul>
 </div>
 <div class="span8">
-<a id="\ChillDev\Bundle\FileManagerBundle\Controller\DisksController"></a><ul class="breadcrumb">
+<a id="\ChillDev\Bundle\FileManagerBundle\Form\Type\RenameType"></a><ul class="breadcrumb">
 <li>
 <a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
 </li>
@@ -76,28 +90,27 @@
 <span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.html">FileManagerBundle</a>
 </li>
 <li>
-<span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.Controller.html">Controller</a>
+<span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.Form.html">Form</a>
+</li>
+<li>
+<span class="divider">\</span><a href="../namespaces/ChillDev.Bundle.FileManagerBundle.Form.Type.html">Type</a>
 </li>
 <li class="active">
-<span class="divider">\</span><a href="../classes/ChillDev.Bundle.FileManagerBundle.Controller.DisksController.html">DisksController</a>
+<span class="divider">\</span><a href="../classes/ChillDev.Bundle.FileManagerBundle.Form.Type.RenameType.html">RenameType</a>
 </li>
 </ul>
 <div class="element class">
-<p class="short_description">Disks controller.</p>
+<p class="short_description">Simply filename field form.</p>
 <div class="details">
 <div class="long_description"></div>
 <table class="table table-bordered">
-<tr>
-<th>Route</th>
-<td>("/disks")</td>
-</tr>
 <tr>
 <th>author</th>
 <td><a href="mailto:rafal.wrzeszcz@wrzasq.pl">Rafał Wrzeszcz</a></td>
 </tr>
 <tr>
 <th>copyright</th>
-<td>2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.</td>
+<td>2013 © by Rafał Wrzeszcz - Wrzasq.pl.</td>
 </tr>
 <tr>
 <th>version</th>
@@ -105,7 +118,7 @@
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.1</td>
+<td>0.0.3</td>
 </tr>
 <tr>
 <th>package</th>
@@ -114,85 +127,126 @@
 </table>
 <h3>
 <i class="icon-custom icon-method"></i> Methods</h3>
-<a id="method_browseAction"></a><div class="element clickable method public method_browseAction" data-toggle="collapse" data-target=".method_browseAction .collapse">
-<h2>Directory listing action.</h2>
-<pre>browseAction(\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk $disk, string $path) : array</pre>
+<a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+<h2>Initializes form type.</h2>
+<pre>__construct(\ChillDev\Bundle\FileManagerBundle\Filesystem\Filesystem $filesystem, string $path) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <table class="table table-bordered">
-<tr>
-<th>Route</th>
-<td>(
-     "/{disk}/{path}",
-     name="chilldev_filemanager_disks_browse",
-     requirements={"path"=".*"},
-     defaults={"path"=""}
- )</td>
-</tr>
-<tr>
-<th>Template</th>
-<td>(engine="config")</td>
-</tr>
 <tr>
 <th>version</th>
 <td>0.0.3</td>
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.1</td>
+<td>0.0.3</td>
 </tr>
 </table>
 <h3>Parameters</h3>
 <div class="subelement argument">
-<h4>$disk</h4>
-<code><a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.Disk.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk</a></code><p>Disk scope.</p></div>
+<h4>$filesystem</h4>
+<code><a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.Filesystem.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\Filesystem</a></code><p>Filesystem manager.</p></div>
 <div class="subelement argument">
 <h4>$path</h4>
-<code>string</code><p>Destination directory.</p></div>
-<h3>Exceptions</h3>
-<table class="table table-bordered">
-<tr>
-<th><code>\Symfony\Component\HttpKernel\Exception\HttpException</code></th>
-<td>When requested path is invalid or is not a directory.</td>
-</tr>
-<tr>
-<th><code>\Symfony\Component\HttpKernel\Exception\NotFoundHttpException</code></th>
-<td>When requested path does not exist.</td>
-</tr>
-</table>
-<h3>Returns</h3>
-<div class="subelement response">
-<code>array</code>Template data.</div>
+<code>string</code><p>Destination location path.</p></div>
 </div></div>
 </div>
-<a id="method_listAction"></a><div class="element clickable method public method_listAction" data-toggle="collapse" data-target=".method_listAction .collapse">
-<h2>Disks listing page.</h2>
-<pre>listAction() : array</pre>
+<a id="method_buildForm"></a><div class="element clickable method public method_buildForm" data-toggle="collapse" data-target=".method_buildForm .collapse">
+<h2>{@inheritDoc}</h2>
+<pre>buildForm(\Symfony\Component\Form\FormBuilderInterface $builder, array $options) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
-<th>Route</th>
-<td>("/", name="chilldev_filemanager_disks_list")</td>
-</tr>
-<tr>
-<th>Template</th>
-<td>(engine="config")</td>
-</tr>
-<tr>
 <th>version</th>
-<td>0.0.1</td>
+<td>0.0.3</td>
 </tr>
 <tr>
 <th>since</th>
-<td>0.0.1</td>
+<td>0.0.3</td>
 </tr>
 </table>
-<h3>Returns</h3>
-<div class="subelement response">
-<code>array</code>Template data.</div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$builder</h4></div>
+<div class="subelement argument"><h4>$options</h4></div>
+</div></div>
+</div>
+<a id="method_getName"></a><div class="element clickable method public method_getName" data-toggle="collapse" data-target=".method_getName .collapse">
+<h2>{@inheritDoc}</h2>
+<pre>getName() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.3</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.3</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="method_setDefaultOptions"></a><div class="element clickable method public method_setDefaultOptions" data-toggle="collapse" data-target=".method_setDefaultOptions .collapse">
+<h2>{@inheritDoc}</h2>
+<pre>setDefaultOptions(\Symfony\Component\OptionsResolver\OptionsResolverInterface $resolver) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.3</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.3</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$resolver</h4></div>
+</div></div>
+</div>
+<h3>
+<i class="icon-custom icon-property"></i> Properties</h3>
+<a id="property_filesystem"> </a><div class="element clickable property protected property_filesystem" data-toggle="collapse" data-target=".property_filesystem .collapse">
+<h2>Filesystem.</h2>
+<pre>$filesystem : <a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.Filesystem.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\Filesystem</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.3</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.3</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="property_path"> </a><div class="element clickable property protected property_path" data-toggle="collapse" data-target=".property_path .collapse">
+<h2>Destination location path.</h2>
+<pre>$path : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.0.3</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.0.3</td>
+</tr>
+</table>
 </div></div>
 </div>
 </div>
