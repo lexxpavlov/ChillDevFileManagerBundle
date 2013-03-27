@@ -43,7 +43,7 @@
         "symfony/security": ">=2.1,<2.3-dev",
         "symfony/validator": ">=2.1,<2.3-dev",
         "sensio/framework-extra-bundle": ">=2.1,<2.3-dev",
-        "chilldev/view-helpers-bundle": "dev-develop#389ad25c464b69d6599460ac4d36a00e3e5061dd"
+        "chilldev/view-helpers-bundle": ">=0.1.2"
     },
     "require-dev": {
         "ext-xsl": "*",
