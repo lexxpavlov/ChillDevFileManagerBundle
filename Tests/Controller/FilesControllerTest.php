@@ -5,7 +5,7 @@
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.3
+ * @version 0.1.1
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -27,7 +27,7 @@ use org\bovigo\vfs\vfsStream;
 /**
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.3
+ * @version 0.1.1
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -352,7 +352,7 @@ class FilesControllerTest extends BaseContainerTest
      * Check GET method behavior.
      *
      * @test
-     * @version 0.0.2
+     * @version 0.1.1
      * @since 0.0.1
      */
     public function mkdirActionForm()
@@ -371,7 +371,7 @@ class FilesControllerTest extends BaseContainerTest
         $this->templating->expects($this->once())
             ->method('renderResponse')
             ->with(
-                $this->equalTo('ChillDevFileManagerBundle:Files:mkdir.html.config'),
+                $this->equalTo('ChillDevFileManagerBundle:Files:mkdir.html.default'),
                 $this->anything(),
                 $this->isNull()
             )
@@ -529,7 +529,7 @@ class FilesControllerTest extends BaseContainerTest
      * Check GET method behavior.
      *
      * @test
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function uploadActionForm()
@@ -548,7 +548,7 @@ class FilesControllerTest extends BaseContainerTest
         $this->templating->expects($this->once())
             ->method('renderResponse')
             ->with(
-                $this->equalTo('ChillDevFileManagerBundle:Files:upload.html.config'),
+                $this->equalTo('ChillDevFileManagerBundle:Files:upload.html.default'),
                 $this->anything(),
                 $this->isNull()
             )
@@ -710,7 +710,7 @@ class FilesControllerTest extends BaseContainerTest
      * Check GET method behavior.
      *
      * @test
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function renameActionForm()
@@ -729,7 +729,7 @@ class FilesControllerTest extends BaseContainerTest
         $this->templating->expects($this->once())
             ->method('renderResponse')
             ->with(
-                $this->equalTo('ChillDevFileManagerBundle:Files:rename.html.config'),
+                $this->equalTo('ChillDevFileManagerBundle:Files:rename.html.default'),
                 $this->anything(),
                 $this->isNull()
             )
@@ -871,7 +871,7 @@ class FilesControllerTest extends BaseContainerTest
      * Check GET method behavior.
      *
      * @test
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function moveAction()
@@ -891,7 +891,7 @@ class FilesControllerTest extends BaseContainerTest
         $this->templating->expects($this->once())
             ->method('renderResponse')
             ->with(
-                $this->equalTo('ChillDevFileManagerBundle:Files:destination.html.config'),
+                $this->equalTo('ChillDevFileManagerBundle:Files:destination.html.default'),
                 $this->anything(),
                 $this->isNull()
             )
@@ -1049,7 +1049,7 @@ class FilesControllerTest extends BaseContainerTest
      * Check GET method behavior.
      *
      * @test
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function copyAction()
@@ -1069,7 +1069,7 @@ class FilesControllerTest extends BaseContainerTest
         $this->templating->expects($this->once())
             ->method('renderResponse')
             ->with(
-                $this->equalTo('ChillDevFileManagerBundle:Files:destination.html.config'),
+                $this->equalTo('ChillDevFileManagerBundle:Files:destination.html.default'),
                 $this->anything(),
                 $this->isNull()
             )

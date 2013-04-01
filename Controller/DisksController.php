@@ -5,7 +5,7 @@
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.3
+ * @version 0.1.1
  * @since 0.0.2
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -28,7 +28,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * @Route("/disks")
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.3
+ * @version 0.1.1
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -38,9 +38,9 @@ class DisksController extends BaseController
      * Disks listing page.
      *
      * @Route("/", name="chilldev_filemanager_disks_list")
-     * @Template(engine="config")
+     * @Template(engine="default")
      * @return array Template data.
-     * @version 0.0.1
+     * @version 0.1.1
      * @since 0.0.1
      */
     public function listAction()
@@ -57,13 +57,13 @@ class DisksController extends BaseController
      *      requirements={"path"=".*"},
      *      defaults={"path"=""}
      *  )
-     * @Template(engine="config")
+     * @Template(engine="default")
      * @param Disk $disk Disk scope.
      * @param string $path Destination directory.
      * @return array Template data.
      * @throws HttpException When requested path is invalid or is not a directory.
      * @throws NotFoundHttpException When requested path does not exist.
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.1
      */
     public function browseAction(Disk $disk, $path = '')

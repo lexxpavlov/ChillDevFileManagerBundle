@@ -3,7 +3,7 @@
 #
 # @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
 # @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
-# @version 0.0.3
+# @version 0.1.1
 # @since 0.0.1
 # @package ChillDev\Bundle\FileManagerBundle
 -->
@@ -25,6 +25,8 @@ This bundle is provided as [Composer package](https://packagist.org/packages/chi
 Replace `dev-master` with different constraint if you want to use specific version.
 
 **Note:** This bundle requires **PHP 5.4**.
+
+**Note:** You also need `default` templating engine installed. See [installation instructions](https://github.com/chilloutdevelopment/ChillDevFileManagerBundle/tree/master/Resources/doc/installation.md) for details about that.
 
 # Configuration
 
@@ -55,17 +57,6 @@ ChillDevFileManagerBundle:
     resource: "@ChillDevFileManagerBundle/Controller/"
     type: "annotation"
     prefix: "/filemanager"
-```
-
-Enabe templating switching:
-
-```yaml
-framework:
-    templating:
-        engines:
-            - "twig"
-            - "php"
-            - "config" # you need to add this engine to your configuration
 ```
 
 And then configure your disks:

@@ -5,7 +5,7 @@
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.3
+ * @version 0.1.1
  * @since 0.0.2
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -36,7 +36,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * @Route("/files")
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.3
+ * @version 0.1.1
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -169,7 +169,7 @@ class FilesController extends BaseController
      * @return Response Result response.
      * @throws HttpException When requested path is invalid or is not a directory.
      * @throws NotFoundHttpException When requested path does not exist.
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.1
      */
     public function mkdirAction(Disk $disk, $path = '')
@@ -229,7 +229,7 @@ class FilesController extends BaseController
 
         // render form view
         return $this->render(
-            'ChillDevFileManagerBundle:Files:mkdir.html.config',
+            'ChillDevFileManagerBundle:Files:mkdir.html.default',
             ['disk' => $disk, 'path' => $path, 'form' => $form->createView()]
         );
     }
@@ -248,7 +248,7 @@ class FilesController extends BaseController
      * @return Response Result response.
      * @throws HttpException When requested path is invalid or is not a directory.
      * @throws NotFoundHttpException When requested path does not exist.
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function uploadAction(Disk $disk, $path = '')
@@ -311,7 +311,7 @@ class FilesController extends BaseController
 
         // render form view
         return $this->render(
-            'ChillDevFileManagerBundle:Files:upload.html.config',
+            'ChillDevFileManagerBundle:Files:upload.html.default',
             ['disk' => $disk, 'path' => $path, 'form' => $form->createView()]
         );
     }
@@ -329,7 +329,7 @@ class FilesController extends BaseController
      * @return Response Result response.
      * @throws HttpException When requested path is invalid.
      * @throws NotFoundHttpException When requested path does not exist.
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function renameAction(Disk $disk, $path)
@@ -384,7 +384,7 @@ class FilesController extends BaseController
 
         // render form view
         return $this->render(
-            'ChillDevFileManagerBundle:Files:rename.html.config',
+            'ChillDevFileManagerBundle:Files:rename.html.default',
             ['disk' => $disk, 'path' => $path, 'form' => $form->createView()]
         );
     }
@@ -404,7 +404,7 @@ class FilesController extends BaseController
      * @return Response Result response.
      * @throws HttpException When requested path is invalid.
      * @throws NotFoundHttpException When requested path does not exist.
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function moveAction(Disk $disk, $path, $destination = '')
@@ -471,7 +471,7 @@ class FilesController extends BaseController
 
         // render destination choice view
         return $this->render(
-            'ChillDevFileManagerBundle:Files:destination.html.config',
+            'ChillDevFileManagerBundle:Files:destination.html.default',
             [
                 'disk' => $disk,
                 'path' => $path,
@@ -498,7 +498,7 @@ class FilesController extends BaseController
      * @return Response Result response.
      * @throws HttpException When requested path is invalid.
      * @throws NotFoundHttpException When requested path does not exist.
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function copyAction(Disk $disk, $path, $destination = '')
@@ -565,7 +565,7 @@ class FilesController extends BaseController
 
         // render destination choice view
         return $this->render(
-            'ChillDevFileManagerBundle:Files:destination.html.config',
+            'ChillDevFileManagerBundle:Files:destination.html.default',
             [
                 'disk' => $disk,
                 'path' => $path,

@@ -3,7 +3,7 @@
 #
 # @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
 # @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
-# @version 0.0.3
+# @version 0.1.1
 # @since 0.0.1
 # @package ChillDev\Bundle\FileManagerBundle
 -->
@@ -46,15 +46,11 @@ This project uses [Travis-CI](https://travis-ci.org/) as it's [continous interga
 
 ## Templating engine
 
-To simplify things we use `@Template` annotation from [SensioFrameworkExtraBundle](https://github.com/sensio/SensioFrameworkExtraBundle). It allows us to drop any direct template references from controller code. But there is one problem with this annotation - while it drops template reference from code it makes that implicit reference quite costant. Mainly it makes it impossible to switch between templating engines (if controller uses *Twig* and your application *PHP* templates you are doomed). *DelegatingEngine* from Symfony does not help here, since it just delegates templating to subsequent engine based on it's name, which is in our case already hardcoded.
-
-Since `@Template` annotation is very handy and we didn't want to stop using it, while still having possiblity to switch between templating engines we created different kind of delegating engine - one that doesn't rely on template name, but on configuration and we called it `ConfigEngine`.
-
-Because of that when creating actions for this bundle use:
+To simplify things we use `@Template` annotation from [SensioFrameworkExtraBundle](https://github.com/sensio/SensioFrameworkExtraBundle). But there is one problem with this annotation - while it drops template reference from code it makes that implicit reference quite costant. Mainly it makes it impossible to switch between templating engines (if controller uses *Twig* and your application *PHP* templates you are doomed). That's why we use [ChillDevProxyTemplatingBundle](https://github.com/chilloutdevelopment/ChillDevProxyTemplatingBundle) - it's `DefaultEngine` allows us to write simply:
 
 ```php
     /**
-     * @Template(engine="config")
+     * @Template(engine="default")
      */
     public function fooAction()
     {
@@ -62,8 +58,6 @@ Because of that when creating actions for this bundle use:
         return $viewData;
     }
 ```
-
-In this example annotation will still generate constant template reference to `Bundle:Controller:foo.html.config` and delegation will be done in rendering time. Depending on configuration it can for example forward rendering to `Bundle:Controller:foo.html.php` or `Bundle:Controller:foo.html.twig`.
 
 # Why not…
 

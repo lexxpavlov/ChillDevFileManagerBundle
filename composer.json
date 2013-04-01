@@ -49,7 +49,8 @@
         "ext-xsl": "*",
         "phpunit/phpunit": "3.7.*",
         "squizlabs/php_codesniffer": "1.4.*",
-        "mikey179/vfsStream": "1.1.*"
+        "mikey179/vfsStream": "1.1.*",
+        "chilldev/proxy-templating-bundle": "dev-develop"
     },
     "autoload": {
         "psr-0": {

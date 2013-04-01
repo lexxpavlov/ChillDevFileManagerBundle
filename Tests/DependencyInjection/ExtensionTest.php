@@ -4,8 +4,8 @@
  * This file is part of the ChillDev FileManager bundle.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.1
+ * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.1.1
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -20,8 +20,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.1
+ * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.1.1
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -78,26 +78,5 @@ class ExtensionTest extends PHPUnit_Framework_TestCase
         }
 
         $this->fail('ChillDevFileManagerExtension::load() should set defined disks in "chilldev.filemanager.disks.manager" service definition.');
-    }
-
-    /**
-     * Check if templating engine parameter is handled correctly.
-     *
-     * @test
-     * @version 0.0.1
-     * @since 0.0.1
-     */
-    public function definedTemplatingEngine()
-    {
-        $value = 'foo';
-
-        $config = [
-            'templating' => $value,
-        ];
-        $container = new ContainerBuilder();
-
-        $this->extension->load([$config], $container);
-
-        $this->assertEquals($value, $container->getParameter('chilldev.filemanager.templating.engine'), 'ChillDevFileManagerExtension::load() should set "chilldev.filemanager.templating.engine" parameter to given value.');
     }
 }

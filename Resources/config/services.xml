@@ -4,7 +4,7 @@
 #
 # @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
 # @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
-# @version 0.0.2
+# @version 0.1.1
 # @since 0.0.1
 # @package ChillDev\Bundle\FileManagerBundle
 -->
@@ -15,10 +15,7 @@
         <!-- classes definition -->
         <parameter key="chilldev.filemanager.disks.manager.class">ChillDev\Bundle\FileManagerBundle\Filesystem\Manager</parameter>
         <parameter key="chilldev.filemanager.param_converter.disk.class">ChillDev\Bundle\FileManagerBundle\Request\ParamConverter\DiskParamConverter</parameter>
-        <parameter key="chilldev.filemanager.templating.engine.config.class">ChillDev\Bundle\FileManagerBundle\Templating\ConfigEngine</parameter>
         <parameter key="chilldev.filemanager.helper.filesize.class">ChillDev\Bundle\FileManagerBundle\Templating\Helper\Filesize</parameter>
-
-        <parameter key="chilldev.filemanager.templating.engine">php</parameter>
     </parameters>
 
     <services>
@@ -29,14 +26,6 @@
         <service id="chilldev.filemanager.param_converter.disk" class="%chilldev.filemanager.param_converter.disk.class%">
             <argument type="service" id="chilldev.filemanager.disks.manager"/>
             <tag name="request.param_converter"/>
-        </service>
-
-        <!-- templating engine -->
-        <service id="templating.engine.config" class="%chilldev.filemanager.templating.engine.config.class%">
-            <!-- can't use templating service directly since it will cause circural dependency -->
-            <argument type="service" id="service_container"/>
-            <argument type="service" id="templating.name_parser"/>
-            <argument>%chilldev.filemanager.templating.engine%</argument>
         </service>
 
         <!-- PHP templating helper -->
