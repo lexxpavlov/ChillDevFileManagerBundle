@@ -78,7 +78,7 @@ In general, **ChillDevFileManagerBundle** is end-user ready (or at least should 
 # Resources
 
 -   [Source documentation](https://github.com/chilloutdevelopment/ChillDevFileManagerBundle/tree/master/Resources/doc/index.md)
--   [GitHub page with API documentation](http://chilloutdevelopment.github.com/ChillDevFileManagerBundle)
+-   [GitHub page with API documentation](http://chilloutdevelopment.github.io/ChillDevFileManagerBundle)
 -   [Travis CI](https://travis-ci.org/chilloutdevelopment/ChillDevFileManagerBundle)
 -   [Issues tracker](https://github.com/chilloutdevelopment/ChillDevFileManagerBundle/issues)
 -   [Packagist package](https://packagist.org/packages/chilldev/file-manager-bundle)

@@ -2,8 +2,8 @@
 # This file is part of the ChillDev FileManager bundle.
 #
 # @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
-# @copyright 2012 © by Rafał Wrzeszcz - Wrzasq.pl.
-# @version 0.0.2
+# @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
+# @version 0.1.1
 # @since 0.0.1
 # @package ChillDev\Bundle\FileManagerBundle
 -->
@@ -54,22 +54,7 @@ ChillDevFileManagerBundle:
 
 **Note:** currently file manager does not provide any access control features, so it's best to set up firewall for handling file manager access since it's a very sensitive tool that allows to do literaly anything with your physical files on server.
 
-## Step 4: enabling templating switch
-
-Another thing you need to do is enabling *config* templating engine. It is our proxy templating engine that allows switching templating engine from configuration level (it is not the same as *DelegatingEngine* from Symfony):
-
-```yaml
-framework:
-    templating:
-        engines:
-            - "twig"
-            - "php"
-            - "config"
-```
-
-Interested in what is this templating engine? [See internals section.](./internals.md)
-
-## Step 5: configuration
+## Step 4: configuration
 
 Finally, you need to define *disks* available in file manager - a *disk* is a path accessible by file manager (file manager can not operate outside wrapped scopes):
 
@@ -82,3 +67,7 @@ chilldev_filemanager:
 ```
 
 For details see [Configuration section](./configuration.md).
+
+## Extra: default templating engine
+
+Another thing you need to do is enabling *default* templating engine. This is how we achive templating engine switch to make this bundle interchangeable with systems that use different templating engines. We do not provide any automated way of installing any engine with name `default`, to make your system more flexible. If you don't have such engine, take a look at our [ChillDevProxyTemplatingBundle](https://chilloutdevelopment/ChillDevProxyTemplatingBundle).
