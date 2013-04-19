@@ -3,7 +3,7 @@
 #
 # @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
 # @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
-# @version 0.1.0
+# @version 0.1.1
 # @since 0.0.1
 # @package ChillDev\Bundle\FileManagerBundle
 ##
@@ -12,6 +12,7 @@
 PHP = $(shell which php)
 COMPOSER = $(shell which composer.phar)
 PHPDOC = $(shell which phpdoc)
+PHPCPD = $(shell which phpcpd)
 PHPCS = ./vendor/bin/phpcs
 PHPUNIT = ./vendor/bin/phpunit
 
@@ -39,6 +40,7 @@ check:
 # conde linting
 lint:
 	$(PHPCS) --standard=PSR2 --encoding=utf-8 --extensions=php --ignore=Tests --ignore=vendor --ignore=Resources .
+	$(PHPCPD) --exclude Tests --exclude vendor --exclude Resources .
 
 # tests running
 tests:

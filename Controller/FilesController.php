@@ -122,7 +122,7 @@ class FilesController extends BaseController
      * @return Symfony\Component\HttpFoundation\RedirectResponse Redirect to browse view.
      * @throws HttpException When requested path is invalid or is not a file.
      * @throws NotFoundHttpException When requested path does not exist.
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.1
      */
     public function deleteAction(Disk $disk, $path)
@@ -141,18 +141,10 @@ class FilesController extends BaseController
             \sprintf('File "%s" deleted by user "%s".', $path, $this->getUser()),
             ['scope' => $disk->getSource()]
         );
-        $this->get('session')->getFlashBag()->add(
-            'done',
-            $this->get('translator')->trans('"%file%" has been deleted.', ['%file%' => $diskpath])
-        );
+        $this->addFlashMessage('done', '"%file%" has been deleted.', ['%file%' => $diskpath]);
 
         // move back to directory view
-        return $this->redirect(
-            $this->generateUrl(
-                'chilldev_filemanager_disks_browse',
-                ['disk' => $disk->getId(), 'path' => \dirname($path)]
-            )
-        );
+        return $this->redirectToDirectory($disk, \dirname($path));
     }
 
     /**
@@ -212,18 +204,14 @@ class FilesController extends BaseController
                     \sprintf('Directory "%s" created by user "%s".', $fullpath, $this->getUser()),
                     ['scope' => $disk->getSource()]
                 );
-                $this->get('session')->getFlashBag()->add(
+                $this->addFlashMessage(
                     'done',
-                    $this->get('translator')->trans(
-                        '"%directory%" has been created.',
-                        ['%directory%' => $disk . '/' . $fullpath]
-                    )
+                    '"%directory%" has been created.',
+                    ['%directory%' => $disk . '/' . $fullpath]
                 );
 
                 // move back to directory view
-                return $this->redirect(
-                    $this->generateUrl('chilldev_filemanager_disks_browse', ['disk' => $disk->getId(), 'path' => $path])
-                );
+                return $this->redirectToDirectory($disk, $path);
             }
         }
 
@@ -294,18 +282,14 @@ class FilesController extends BaseController
                     \sprintf('File "%s" uploaded by user "%s".', $fullpath, $this->getUser()),
                     ['scope' => $disk->getSource()]
                 );
-                $this->get('session')->getFlashBag()->add(
+                $this->addFlashMessage(
                     'done',
-                    $this->get('translator')->trans(
-                        '"%file%" has been uploaded.',
-                        ['%file%' => $disk . '/' . $fullpath]
-                    )
+                    '"%file%" has been uploaded.',
+                    ['%file%' => $disk . '/' . $fullpath]
                 );
 
                 // move back to directory view
-                return $this->redirect(
-                    $this->generateUrl('chilldev_filemanager_disks_browse', ['disk' => $disk->getId(), 'path' => $path])
-                );
+                return $this->redirectToDirectory($disk, $path);
             }
         }
 
@@ -364,21 +348,14 @@ class FilesController extends BaseController
                     \sprintf('File "%s" renamed to "%s" by user "%s".', $path, $data['name'], $this->getUser()),
                     ['scope' => $disk->getSource()]
                 );
-                $this->get('session')->getFlashBag()->add(
+                $this->addFlashMessage(
                     'done',
-                    $this->get('translator')->trans(
-                        '"%file%" has been renamed to "%name%".',
-                        ['%file%' => $diskpath, '%name%' => $data['name']]
-                    )
+                    '"%file%" has been renamed to "%name%".',
+                    ['%file%' => $diskpath, '%name%' => $data['name']]
                 );
 
                 // move back to directory view
-                return $this->redirect(
-                    $this->generateUrl(
-                        'chilldev_filemanager_disks_browse',
-                        ['disk' => $disk->getId(), 'path' => $dirpath]
-                    )
-                );
+                return $this->redirectToDirectory($disk, $dirpath);
             }
         }
 
@@ -437,21 +414,14 @@ class FilesController extends BaseController
                 \sprintf('File "%s" moved to "%s" by user "%s".', $path, $destination, $this->getUser()),
                 ['scope' => $disk->getSource()]
             );
-            $this->get('session')->getFlashBag()->add(
+            $this->addFlashMessage(
                 'done',
-                $this->get('translator')->trans(
-                    '"%file%" has been moved to "%destination%".',
-                    ['%file%' => $diskpath, '%destination%' => $diskdestination]
-                )
+                '"%file%" has been moved to "%destination%".',
+                ['%file%' => $diskpath, '%destination%' => $diskdestination]
             );
 
             // move back to directory view
-            return $this->redirect(
-                $this->generateUrl(
-                    'chilldev_filemanager_disks_browse',
-                    ['disk' => $disk->getId(), 'path' => \dirname($path)]
-                )
-            );
+            return $this->redirectToDirectory($disk, \dirname($path));
         }
 
         $list = [];
@@ -531,21 +501,14 @@ class FilesController extends BaseController
                 \sprintf('File "%s" copied to "%s" by user "%s".', $path, $destination, $this->getUser()),
                 ['scope' => $disk->getSource()]
             );
-            $this->get('session')->getFlashBag()->add(
+            $this->addFlashMessage(
                 'done',
-                $this->get('translator')->trans(
-                    '"%file%" has been copied to "%destination%".',
-                    ['%file%' => $diskpath, '%destination%' => $diskdestination]
-                )
+                '"%file%" has been copied to "%destination%".',
+                ['%file%' => $diskpath, '%destination%' => $diskdestination]
             );
 
             // move back to directory view
-            return $this->redirect(
-                $this->generateUrl(
-                    'chilldev_filemanager_disks_browse',
-                    ['disk' => $disk->getId(), 'path' => \dirname($path)]
-                )
-            );
+            return $this->redirectToDirectory($disk, \dirname($path));
         }
 
         $list = [];
@@ -574,6 +537,42 @@ class FilesController extends BaseController
                 'title' => 'Copying file %disk%/%path%',
                 'list' => $list,
             ]
+        );
+    }
+
+    /**
+     * Adds session flash message.
+     *
+     * @param string $type Message type.
+     * @param string $message Message template.
+     * @param array $params Message parameters.
+     * @version 0.1.1
+     * @since 0.1.1
+     */
+    protected function addFlashMessage($type, $message, array $params = [])
+    {
+        $this->get('session')->getFlashBag()->add(
+            $type,
+            $this->get('translator')->trans($message, $params)
+        );
+    }
+
+    /**
+     * Redirects to given directory.
+     *
+     * @param Disk $disk Disk.
+     * @param string $path Directory path.
+     * @return Symfony\Component\HttpFoundation\RedirectResponse Redirect to browse view.
+     * @version 0.1.1
+     * @since 0.1.1
+     */
+    protected function redirectToDirectory(Disk $disk, $path)
+    {
+        return $this->redirect(
+            $this->generateUrl(
+                'chilldev_filemanager_disks_browse',
+                ['disk' => $disk->getId(), 'path' => $path]
+            )
         );
     }
 }

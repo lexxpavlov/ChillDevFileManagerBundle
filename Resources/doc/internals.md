@@ -16,9 +16,10 @@ In order to work on **ChillDevFileManagerBundle** you need to install a few more
 
 -   `phpunit/phpunit` - for running tests;
 -   `squizlabs/php_codesniffer` - for coding style rules compilance checking;
+-   *phpcpd* - copy-paste detector for duplicated code parts;
 -   *phpDocumentor* - for generating API documentation.
 
-Most of them are defined in `composer.json` file, so running `composer.phar --dev install` will do the job. The only thing you need to install manualy is [phpDocumentor](http://www.phpdoc.org/) which does not have a valid **Composer** package yet. But you probably won't need it, since it's only used for publishing documentation. If you want to use it anyway, you will also need `php-xsl` extension.
+Most of them are defined in `composer.json` file, so running `composer.phar --dev install` will do the job. The only things you need to install manualy are [phpDocumentor](http://www.phpdoc.org/) are [phpcpd](https://github.com/sebastianbergmann/phpcpd) which do not have a valid **Composer** package yet. But you probably won't need *phpDocumentor*, since it's only used for publishing documentation. If you want to use it anyway, you will also need `php-xsl` extension.
 
 ## Coding style
 
@@ -31,7 +32,7 @@ This project utilizes `make` as primary build automation tool. It's `Makefile` d
 -   `init` - initializes project by loading all **Git** submodules and installing dependencies with [Composer](http://getcomposer.org/);
 -   `update` - updates dependencies with **Composer**;
 -   `check` - performs syntax checking on all project files using `php -l`;
--   `lint` - checks coding standards compliance with [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer);
+-   `lint` - checks coding standards compliance with [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) and detects duplicated code parts with [phpcpd](https://github.com/sebastianbergmann/phpcpd);
 -   `tests` - runs all unit tests and generate coverage report with [phpUnit](http://www.phpunit.de/manual/current/en/index.html);
 -   `documentation` - generates project API documentation with [phpDocumentor](http://www.phpdoc.org/).
 

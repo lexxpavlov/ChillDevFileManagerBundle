@@ -3,12 +3,13 @@
 #
 # @author Rafal Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
 # @copyright 2012 - 2013 © by Rafal Wrzeszcz - Wrzasq.pl.
-# @version 0.1.0
+# @version 0.1.1
 # @since 0.0.1
 # @package ChillDev\Bundle\FileManagerBundle
 ##
 
 #FIXME: https://github.com/travis-ci/travis-ci/issues/753
+#FIXME: allow-fail for PHP 5.5 is temporary until it won't get stable PEAR, or PHPCPD won't be installable through stable Composer package
 
 language: "php"
 
@@ -20,8 +21,16 @@ env:
     - "SYMFONY_VERSION=2.1.*"
     - "SYMFONY_VERSION=2.2.*"
 
+matrix:
+    allow_failures:
+        -
+            php: "5.5"
+
 before_script:
     - "composer --dev --no-progress require symfony/symfony:${SYMFONY_VERSION}"
     - "composer --dev --no-progress -o install"
+    - "pear config-set auto_discover 1"
+    - "pear install pear.phpunit.de/phpcpd"
+    - "phpenv rehash"
 
 script: "make ci"

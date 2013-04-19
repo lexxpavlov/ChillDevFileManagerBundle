@@ -14,11 +14,13 @@ namespace ChillDev\Bundle\FileManagerBundle\Tests\Controller;
 
 use DateTime;
 use DateTimeZone;
+use ReflectionClass;
 
 use ChillDev\Bundle\FileManagerBundle\Controller\FilesController;
 use ChillDev\Bundle\FileManagerBundle\Filesystem\Disk;
 use ChillDev\Bundle\FileManagerBundle\Tests\BaseContainerTest;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 
@@ -33,6 +35,13 @@ use org\bovigo\vfs\vfsStream;
  */
 class FilesControllerTest extends BaseContainerTest
 {
+    /**
+     * @var string
+     * @version 0.1.1
+     * @since 0.1.1
+     */
+    protected static $className = 'ChillDev\\Bundle\\FileManagerBundle\\Controller\\FilesController';
+
     /**
      * @var Symfony\Component\Routing\RouterInterface
      * @version 0.0.2
@@ -268,7 +277,7 @@ class FilesControllerTest extends BaseContainerTest
      * Check default behavior.
      *
      * @test
-     * @version 0.0.2
+     * @version 0.1.1
      * @since 0.0.1
      */
     public function deleteAction()
@@ -276,7 +285,6 @@ class FilesControllerTest extends BaseContainerTest
         vfsStream::create(['bar' => ['test' => '']]);
 
         $toReturn = 'testroute';
-        $flashBag = new FlashBag();
 
         // compose request
         $this->setRequest();
@@ -285,36 +293,35 @@ class FilesControllerTest extends BaseContainerTest
         $realpath = $disk->getSource() . 'bar/test';
 
         // mocks set-up
-        $this->router->expects($this->once())
-            ->method('generate')
-            ->with(
-                $this->equalTo('chilldev_filemanager_disks_browse'),
-                $this->equalTo(['disk' => $disk->getId(), 'path' => 'bar'])
-            )
-            ->will($this->returnValue($toReturn));
         $this->logger->expects($this->once())
             ->method('info')
             ->with(
                 $this->equalTo('File "bar/test" deleted by user "' . $this->user->__toString() . '".'),
                 $this->equalTo(['scope' => $disk->getSource()])
             );
-        $this->session->expects($this->once())
-            ->method('getFlashBag')
-            ->will($this->returnValue($flashBag));
 
-        $controller = new FilesController();
+        $controller = $this->getMockController(['addFlashMessage', 'redirectToDirectory']);
+        $controller->expects($this->once())
+            ->method('addFlashMessage')
+            ->with(
+                $this->equalTo('done'),
+                $this->isType('string'),
+                $this->arrayHasKey('%file%')
+            );
+        $controller->expects($this->once())
+            ->method('redirectToDirectory')
+            ->with(
+                $this->identicalTo($disk),
+                $this->equalTo('bar')
+            )
+            ->will($this->returnValue(new RedirectResponse($toReturn)));
+
         $controller->setContainer($this->container);
         $response = $controller->deleteAction($disk, '//./bar/.././//bar/test');
 
         // response properties
         $this->assertInstanceOf('Symfony\\Component\\HttpFoundation\\RedirectResponse', $response, 'FilesController::deleteAction() should return instance of type Symfony\\Component\\HttpFoundation\\RedirectResponse.');
         $this->assertEquals($toReturn, $response->getTargetUrl(), 'FilesController::deleteAction() should set redirect URL to result of route generator output.');
-
-        // flash message properties
-        $flashes = $flashBag->peekAll();
-        $this->assertArrayHasKey('done', $flashes, 'FilesController::deleteAction() should set flash message of type "done".');
-        $this->assertCount(1, $flashes['done'], 'FilesController::deleteAction() should set flash message of type "done".');
-        $this->assertEquals('"' . $disk . '/bar/test" has been deleted.', $flashes['done'][0], 'FilesController::deleteAction() should set flash message that notifies about file deletion.');
 
         // result assertions
         $this->assertFileNotExists($realpath, 'FilesController::deleteAction() should delete the file.');
@@ -397,7 +404,7 @@ class FilesControllerTest extends BaseContainerTest
      * Check POST method behavior.
      *
      * @test
-     * @version 0.0.2
+     * @version 0.1.1
      * @since 0.0.1
      */
     public function mkdirActionSubmit()
@@ -405,7 +412,6 @@ class FilesControllerTest extends BaseContainerTest
         vfsStream::create(['bar' => []]);
 
         $toReturn = 'testroute2';
-        $flashBag = new FlashBag();
 
         // compose request
         $this->setRequest([], 'POST', ['mkdir' => ['name' => 'mkdir']]);
@@ -415,36 +421,35 @@ class FilesControllerTest extends BaseContainerTest
         $realpath = $disk->getSource() . 'bar';
 
         // mocks set-up
-        $this->router->expects($this->once())
-            ->method('generate')
-            ->with(
-                $this->equalTo('chilldev_filemanager_disks_browse'),
-                $this->equalTo(['disk' => $disk->getId(), 'path' => 'bar'])
-            )
-            ->will($this->returnValue($toReturn));
         $this->logger->expects($this->once())
             ->method('info')
             ->with(
                 $this->equalTo('Directory "bar/mkdir" created by user "' . $this->user->__toString() . '".'),
                 $this->equalTo(['scope' => $disk->getSource()])
             );
-        $this->session->expects($this->once())
-            ->method('getFlashBag')
-            ->will($this->returnValue($flashBag));
 
-        $controller = new FilesController();
+        $controller = $this->getMockController(['addFlashMessage', 'redirectToDirectory']);
+        $controller->expects($this->once())
+            ->method('addFlashMessage')
+            ->with(
+                $this->equalTo('done'),
+                $this->isType('string'),
+                $this->arrayHasKey('%directory%')
+            );
+        $controller->expects($this->once())
+            ->method('redirectToDirectory')
+            ->with(
+                $this->identicalTo($disk),
+                $this->equalTo('bar')
+            )
+            ->will($this->returnValue(new RedirectResponse($toReturn)));
+
         $controller->setContainer($this->container);
         $response = $controller->mkdirAction($disk, '//./bar/.././//bar');
 
         // response properties
         $this->assertInstanceOf('Symfony\\Component\\HttpFoundation\\RedirectResponse', $response, 'FilesController::mkdirAction() should return instance of type Symfony\\Component\\HttpFoundation\\RedirectResponse.');
         $this->assertEquals($toReturn, $response->getTargetUrl(), 'FilesController::mkdirAction() should set redirect URL to result of route generator output.');
-
-        // flash message properties
-        $flashes = $flashBag->peekAll();
-        $this->assertArrayHasKey('done', $flashes, 'FilesController::mkdirAction() should set flash message of type "done".');
-        $this->assertCount(1, $flashes['done'], 'FilesController::mkdirAction() should set flash message of type "done".');
-        $this->assertEquals('"' . $disk . '/bar/mkdir" has been created.', $flashes['done'][0], 'FilesController::mkdirAction() should set flash message that notifies about directory creation.');
 
         // result assertions
         $realpath .= '/mkdir';
@@ -574,7 +579,7 @@ class FilesControllerTest extends BaseContainerTest
      * Check POST method behavior.
      *
      * @test
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function uploadActionSubmit()
@@ -582,7 +587,6 @@ class FilesControllerTest extends BaseContainerTest
         vfsStream::create(['bar' => []]);
 
         $toReturn = 'testroute3';
-        $flashBag = new FlashBag();
 
         $file = $this->getMock('Symfony\\Component\\HttpFoundation\\File\\UploadedFile', [], [], '', false);
         $file->expects($this->once())
@@ -601,36 +605,35 @@ class FilesControllerTest extends BaseContainerTest
         $realpath = $disk->getSource() . 'bar';
 
         // mocks set-up
-        $this->router->expects($this->once())
-            ->method('generate')
-            ->with(
-                $this->equalTo('chilldev_filemanager_disks_browse'),
-                $this->equalTo(['disk' => $disk->getId(), 'path' => 'bar'])
-            )
-            ->will($this->returnValue($toReturn));
         $this->logger->expects($this->once())
             ->method('info')
             ->with(
                 $this->equalTo('File "bar/upload" uploaded by user "' . $this->user->__toString() . '".'),
                 $this->equalTo(['scope' => $disk->getSource()])
             );
-        $this->session->expects($this->once())
-            ->method('getFlashBag')
-            ->will($this->returnValue($flashBag));
 
-        $controller = new FilesController();
+        $controller = $this->getMockController(['addFlashMessage', 'redirectToDirectory']);
+        $controller->expects($this->once())
+            ->method('addFlashMessage')
+            ->with(
+                $this->equalTo('done'),
+                $this->isType('string'),
+                $this->arrayHasKey('%file%')
+            );
+        $controller->expects($this->once())
+            ->method('redirectToDirectory')
+            ->with(
+                $this->identicalTo($disk),
+                $this->equalTo('bar')
+            )
+            ->will($this->returnValue(new RedirectResponse($toReturn)));
+
         $controller->setContainer($this->container);
         $response = $controller->uploadAction($disk, '//./bar/.././//bar');
 
         // response properties
         $this->assertInstanceOf('Symfony\\Component\\HttpFoundation\\RedirectResponse', $response, 'FilesController::uploadAction() should return instance of type Symfony\\Component\\HttpFoundation\\RedirectResponse.');
         $this->assertEquals($toReturn, $response->getTargetUrl(), 'FilesController::uploadAction() should set redirect URL to result of route generator output.');
-
-        // flash message properties
-        $flashes = $flashBag->peekAll();
-        $this->assertArrayHasKey('done', $flashes, 'FilesController::uploadAction() should set flash message of type "done".');
-        $this->assertCount(1, $flashes['done'], 'FilesController::uploadAction() should set flash message of type "done".');
-        $this->assertEquals('"' . $disk . '/bar/upload" has been uploaded.', $flashes['done'][0], 'FilesController::uploadAction() should set flash message that notifies about file upload.');
     }
 
     /**
@@ -755,7 +758,7 @@ class FilesControllerTest extends BaseContainerTest
      * Check POST method behavior.
      *
      * @test
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function renameActionSubmit()
@@ -763,7 +766,6 @@ class FilesControllerTest extends BaseContainerTest
         vfsStream::create(['bar' => []]);
 
         $toReturn = 'testroute4';
-        $flashBag = new FlashBag();
 
         // compose request
         $this->setRequest([], 'POST', ['rename' => ['name' => 'foo']]);
@@ -774,36 +776,35 @@ class FilesControllerTest extends BaseContainerTest
         $realpath2 = $disk->getSource() . 'foo';
 
         // mocks set-up
-        $this->router->expects($this->once())
-            ->method('generate')
-            ->with(
-                $this->equalTo('chilldev_filemanager_disks_browse'),
-                $this->equalTo(['disk' => $disk->getId(), 'path' => '.'])
-            )
-            ->will($this->returnValue($toReturn));
         $this->logger->expects($this->once())
             ->method('info')
             ->with(
                 $this->equalTo('File "bar" renamed to "foo" by user "' . $this->user->__toString() . '".'),
                 $this->equalTo(['scope' => $disk->getSource()])
             );
-        $this->session->expects($this->once())
-            ->method('getFlashBag')
-            ->will($this->returnValue($flashBag));
 
-        $controller = new FilesController();
+        $controller = $this->getMockController(['addFlashMessage', 'redirectToDirectory']);
+        $controller->expects($this->once())
+            ->method('addFlashMessage')
+            ->with(
+                $this->equalTo('done'),
+                $this->isType('string'),
+                $this->logicalAnd($this->arrayHasKey('%file%'), $this->arrayHasKey('%name%'))
+            );
+        $controller->expects($this->once())
+            ->method('redirectToDirectory')
+            ->with(
+                $this->identicalTo($disk),
+                $this->equalTo('.')
+            )
+            ->will($this->returnValue(new RedirectResponse($toReturn)));
+
         $controller->setContainer($this->container);
         $response = $controller->renameAction($disk, '//./bar/.././//bar');
 
         // response properties
         $this->assertInstanceOf('Symfony\\Component\\HttpFoundation\\RedirectResponse', $response, 'FilesController::renameAction() should return instance of type Symfony\\Component\\HttpFoundation\\RedirectResponse.');
         $this->assertEquals($toReturn, $response->getTargetUrl(), 'FilesController::renameAction() should set redirect URL to result of route generator output.');
-
-        // flash message properties
-        $flashes = $flashBag->peekAll();
-        $this->assertArrayHasKey('done', $flashes, 'FilesController::renameAction() should set flash message of type "done".');
-        $this->assertCount(1, $flashes['done'], 'FilesController::renameAction() should set flash message of type "done".');
-        $this->assertEquals('"' . $disk . '/bar" has been renamed to "foo".', $flashes['done'][0], 'FilesController::renameAction() should set flash message that notifies about file rename.');
 
         // result assertions
         $this->assertFileNotExists($realpath1, 'FilesController::renameAction() should rename file from old name to new one.');
@@ -926,7 +927,7 @@ class FilesControllerTest extends BaseContainerTest
      * Check POST method behavior.
      *
      * @test
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function moveActionSubmit()
@@ -934,7 +935,6 @@ class FilesControllerTest extends BaseContainerTest
         vfsStream::create(['foo' => '', 'bar' => []]);
 
         $toReturn = 'testroute5';
-        $flashBag = new FlashBag();
 
         // compose request
         $this->setRequest([], 'POST');
@@ -945,36 +945,35 @@ class FilesControllerTest extends BaseContainerTest
         $realpath2 = $disk->getSource() . 'bar/foo';
 
         // mocks set-up
-        $this->router->expects($this->once())
-            ->method('generate')
-            ->with(
-                $this->equalTo('chilldev_filemanager_disks_browse'),
-                $this->equalTo(['disk' => $disk->getId(), 'path' => '.'])
-            )
-            ->will($this->returnValue($toReturn));
         $this->logger->expects($this->once())
             ->method('info')
             ->with(
                 $this->equalTo('File "foo" moved to "bar" by user "' . $this->user->__toString() . '".'),
                 $this->equalTo(['scope' => $disk->getSource()])
             );
-        $this->session->expects($this->once())
-            ->method('getFlashBag')
-            ->will($this->returnValue($flashBag));
 
-        $controller = new FilesController();
+        $controller = $this->getMockController(['addFlashMessage', 'redirectToDirectory']);
+        $controller->expects($this->once())
+            ->method('addFlashMessage')
+            ->with(
+                $this->equalTo('done'),
+                $this->isType('string'),
+                $this->logicalAnd($this->arrayHasKey('%file%'), $this->arrayHasKey('%destination%'))
+            );
+        $controller->expects($this->once())
+            ->method('redirectToDirectory')
+            ->with(
+                $this->identicalTo($disk),
+                $this->equalTo('.')
+            )
+            ->will($this->returnValue(new RedirectResponse($toReturn)));
+
         $controller->setContainer($this->container);
         $response = $controller->moveAction($disk, '//./foo/.././//foo', 'bar');
 
         // response properties
         $this->assertInstanceOf('Symfony\\Component\\HttpFoundation\\RedirectResponse', $response, 'FilesController::moveAction() should return instance of type Symfony\\Component\\HttpFoundation\\RedirectResponse.');
         $this->assertEquals($toReturn, $response->getTargetUrl(), 'FilesController::moveAction() should set redirect URL to result of route generator output.');
-
-        // flash message properties
-        $flashes = $flashBag->peekAll();
-        $this->assertArrayHasKey('done', $flashes, 'FilesController::moveAction() should set flash message of type "done".');
-        $this->assertCount(1, $flashes['done'], 'FilesController::moveAction() should set flash message of type "done".');
-        $this->assertEquals('"' . $disk . '/foo" has been moved to "' . $disk . '/bar".', $flashes['done'][0], 'FilesController::moveAction() should set flash message that notifies about file movement.');
 
         // result assertions
         $this->assertFileNotExists($realpath1, 'FilesController::moveAction() should move file from old location to new one.');
@@ -1104,7 +1103,7 @@ class FilesControllerTest extends BaseContainerTest
      * Check POST method behavior.
      *
      * @test
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function copyActionSubmit()
@@ -1112,7 +1111,6 @@ class FilesControllerTest extends BaseContainerTest
         vfsStream::create(['foo' => ['baz' => ''], 'bar' => []]);
 
         $toReturn = 'testroute6';
-        $flashBag = new FlashBag();
 
         // compose request
         $this->setRequest([], 'POST');
@@ -1125,36 +1123,35 @@ class FilesControllerTest extends BaseContainerTest
         $realpath4 = $disk->getSource() . 'bar/foo/baz';
 
         // mocks set-up
-        $this->router->expects($this->once())
-            ->method('generate')
-            ->with(
-                $this->equalTo('chilldev_filemanager_disks_browse'),
-                $this->equalTo(['disk' => $disk->getId(), 'path' => '.'])
-            )
-            ->will($this->returnValue($toReturn));
         $this->logger->expects($this->once())
             ->method('info')
             ->with(
                 $this->equalTo('File "foo" copied to "bar" by user "' . $this->user->__toString() . '".'),
                 $this->equalTo(['scope' => $disk->getSource()])
             );
-        $this->session->expects($this->once())
-            ->method('getFlashBag')
-            ->will($this->returnValue($flashBag));
 
-        $controller = new FilesController();
+        $controller = $this->getMockController(['addFlashMessage', 'redirectToDirectory']);
+        $controller->expects($this->once())
+            ->method('addFlashMessage')
+            ->with(
+                $this->equalTo('done'),
+                $this->isType('string'),
+                $this->logicalAnd($this->arrayHasKey('%file%'), $this->arrayHasKey('%destination%'))
+            );
+        $controller->expects($this->once())
+            ->method('redirectToDirectory')
+            ->with(
+                $this->identicalTo($disk),
+                $this->equalTo('.')
+            )
+            ->will($this->returnValue(new RedirectResponse($toReturn)));
+
         $controller->setContainer($this->container);
         $response = $controller->copyAction($disk, '//./foo/.././//foo', 'bar');
 
         // response properties
         $this->assertInstanceOf('Symfony\\Component\\HttpFoundation\\RedirectResponse', $response, 'FilesController::copyAction() should return instance of type Symfony\\Component\\HttpFoundation\\RedirectResponse.');
         $this->assertEquals($toReturn, $response->getTargetUrl(), 'FilesController::copyAction() should set redirect URL to result of route generator output.');
-
-        // flash message properties
-        $flashes = $flashBag->peekAll();
-        $this->assertArrayHasKey('done', $flashes, 'FilesController::copyAction() should set flash message of type "done".');
-        $this->assertCount(1, $flashes['done'], 'FilesController::copyAction() should set flash message of type "done".');
-        $this->assertEquals('"' . $disk . '/foo" has been copied to "' . $disk . '/bar".', $flashes['done'][0], 'FilesController::copyAction() should set flash message that notifies about file being copied.');
 
         // result assertions
         $this->assertFileExists($realpath1, 'FilesController::copyAction() should create a copy of a file from old location in new one.');
@@ -1225,5 +1222,101 @@ class FilesControllerTest extends BaseContainerTest
         vfsStream::create(['bar' => []]);
 
         (new FilesController())->copyAction($this->manager['id'], 'bar', 'test');
+    }
+
+    /**
+     * @test
+     * @version 0.1.1
+     * @since 0.1.1
+     */
+    public function addFlashMessage()
+    {
+        $type = 'foo';
+        $value = 'baz';
+        $flashBag = new FlashBag();
+
+        // mocks set-up
+        $this->session->expects($this->once())
+            ->method('getFlashBag')
+            ->will($this->returnValue($flashBag));
+
+        $controller = new FilesController();
+        $controller->setContainer($this->container);
+
+        // get protected method
+        $method = self::getMethod('addFlashMessage');
+        $method->invoke(
+            $controller,
+            $type,
+            '%foo% bar',
+            ['%foo%' => $value]
+        );
+
+        // flash message properties
+        $flashes = $flashBag->peekAll();
+        $this->assertArrayHasKey($type, $flashes, 'FilesController::addFlashMessage() should set flash message of given type.');
+        $this->assertCount(1, $flashes[$type], 'FilesController::addFlashMessage() should set flash message of given type.');
+        $this->assertEquals($value . ' bar', $flashes[$type][0], 'FilesController::addFlashMessage() should set flash message.');        
+    }
+
+    /**
+     * @test
+     * @version 0.1.1
+     * @since 0.1.1
+     */
+    public function redirectToDirectory()
+    {
+        // pre-defined values
+        $disk = $this->manager['id'];
+        $toReturn = 'value';
+        $path = 'bar';
+
+        $controller = $this->getMockController(['generateUrl']);
+        $controller->expects($this->once())
+            ->method('generateUrl')
+            ->with(
+                $this->equalTo('chilldev_filemanager_disks_browse'),
+                $this->equalTo(['disk' => $disk->getId(), 'path' => $path])
+            )
+            ->will($this->returnValue($toReturn));
+
+        $controller->setContainer($this->container);
+
+        // get protected method
+        $method = self::getMethod('redirectToDirectory');
+        $response = $method->invoke(
+            $controller,
+            $disk,
+            $path
+        );
+
+        // response properties
+        $this->assertInstanceOf('Symfony\\Component\\HttpFoundation\\RedirectResponse', $response, 'FilesController::redirectToDirectory() should return instance of type Symfony\\Component\\HttpFoundation\\RedirectResponse.');
+        $this->assertEquals($toReturn, $response->getTargetUrl(), 'FilesController::redirectToDirectory() should set redirect URL to result of route generator output.');
+    }
+
+    /**
+     * @param string $method
+     * @return \ReflectionMethod
+     * @version 0.1.1
+     * @since 0.1.1
+     */
+    protected static function getMethod($method)
+    {
+        $class = new ReflectionClass(self::$className);
+        $method = $class->getMethod($method);
+        $method->setAccessible(true);
+        return $method;
+    }
+
+    /**
+     * @param string[] $methods
+     * @return FilesController
+     * @version 0.1.1
+     * @since 0.1.1
+     */
+    protected function getMockController(array $methods = [])
+    {
+        return $this->getMock(self::$className, $methods);
     }
 }

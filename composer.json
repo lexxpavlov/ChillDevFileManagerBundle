@@ -47,8 +47,8 @@
     },
     "require-dev": {
         "ext-xsl": "*",
-        "phpunit/phpunit": "3.7.*",
-        "squizlabs/php_codesniffer": "1.4.*",
+        "phpunit/phpunit": "3.7.19",
+        "squizlabs/php_codesniffer": "1.4.5",
         "mikey179/vfsStream": "1.1.*",
         "chilldev/proxy-templating-bundle": "dev-develop"
     },
