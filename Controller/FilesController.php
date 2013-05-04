@@ -24,6 +24,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -50,6 +51,7 @@ class FilesController extends BaseController
      *      name="chilldev_filemanager_files_download",
      *      requirements={"path"=".*"}
      *  )
+     * @param Request $request Current request.
      * @param Disk $disk Disk scope.
      * @param string $path Destination directory.
      * @return StreamedResponse File download disposition.
@@ -58,7 +60,7 @@ class FilesController extends BaseController
      * @version 0.0.3
      * @since 0.0.1
      */
-    public function downloadAction(Disk $disk, $path)
+    public function downloadAction(Request $request, Disk $disk, $path)
     {
         $path = Controller::resolvePath($path);
 
@@ -79,7 +81,6 @@ class FilesController extends BaseController
 
         // set up cache information
         $time = $info->getMTime();
-        $request = $this->getRequest();
         $response = new StreamedResponse();
         $response->setLastModified(DateTime::createFromFormat('U', $time))
             ->setETag(\sha1($disk . $path . '/' . $time));
@@ -156,6 +157,7 @@ class FilesController extends BaseController
      *      requirements={"path"=".*"},
      *      defaults={"path"=""}
      *  )
+     * @param Request $request Current request.
      * @param Disk $disk Disk scope.
      * @param string $path Destination location.
      * @return Response Result response.
@@ -164,7 +166,7 @@ class FilesController extends BaseController
      * @version 0.1.1
      * @since 0.0.1
      */
-    public function mkdirAction(Disk $disk, $path = '')
+    public function mkdirAction(Request $request, Disk $disk, $path = '')
     {
         $path = Controller::resolvePath($path);
 
@@ -183,8 +185,6 @@ class FilesController extends BaseController
                 \sprintf('"%s" is not a directory, so a sub-directory can\'t be created within it.', $diskpath)
             );
         }
-
-        $request = $this->getRequest();
 
         // initialize form
         $form = $this->createForm(new MkdirType($filesystem, $path), ['name' => null]);
@@ -231,6 +231,7 @@ class FilesController extends BaseController
      *      requirements={"path"=".*"},
      *      defaults={"path"=""}
      *  )
+     * @param Request $request Current request.
      * @param Disk $disk Disk scope.
      * @param string $path Destination location.
      * @return Response Result response.
@@ -239,7 +240,7 @@ class FilesController extends BaseController
      * @version 0.1.1
      * @since 0.0.3
      */
-    public function uploadAction(Disk $disk, $path = '')
+    public function uploadAction(Request $request, Disk $disk, $path = '')
     {
         $path = Controller::resolvePath($path);
 
@@ -258,8 +259,6 @@ class FilesController extends BaseController
                 \sprintf('"%s" is not a directory, so a file can\'t be uploaded into it.', $diskpath)
             );
         }
-
-        $request = $this->getRequest();
 
         // initialize form
         $form = $this->createForm(
@@ -308,6 +307,7 @@ class FilesController extends BaseController
      *      name="chilldev_filemanager_files_rename",
      *      requirements={"path"=".*"}
      *  )
+     * @param Request $request Current request.
      * @param Disk $disk Disk scope.
      * @param string $path File being renamed.
      * @return Response Result response.
@@ -316,7 +316,7 @@ class FilesController extends BaseController
      * @version 0.1.1
      * @since 0.0.3
      */
-    public function renameAction(Disk $disk, $path)
+    public function renameAction(Request $request, Disk $disk, $path)
     {
         $path = Controller::resolvePath($path);
 
@@ -325,8 +325,6 @@ class FilesController extends BaseController
         $diskpath = $disk . '/' . $path;
 
         Controller::ensureExist($disk, $filesystem, $path);
-
-        $request = $this->getRequest();
 
         // initialize form
         $form = $this->createForm(new RenameType($filesystem, $path), ['name' => null]);
@@ -375,6 +373,7 @@ class FilesController extends BaseController
      *      requirements={"path"="[^:]*", "destination"=".*"},
      *      defaults={"destination"=""}
      *  )
+     * @param Request $request Current request.
      * @param Disk $disk Disk scope.
      * @param string $path File being moved.
      * @param string $destination Destination location.
@@ -384,7 +383,7 @@ class FilesController extends BaseController
      * @version 0.1.1
      * @since 0.0.3
      */
-    public function moveAction(Disk $disk, $path, $destination = '')
+    public function moveAction(Request $request, Disk $disk, $path, $destination = '')
     {
         $path = Controller::resolvePath($path);
         $destination = Controller::resolvePath($destination);
@@ -402,8 +401,6 @@ class FilesController extends BaseController
         if (!$info->isDir()) {
             throw new HttpException(400, \sprintf('"%s/%s" is not a directory.', $disk, $destination));
         }
-
-        $request = $this->getRequest();
 
         // only handle POST form submits
         if ($request->isMethod('POST')) {
@@ -462,6 +459,7 @@ class FilesController extends BaseController
      *      requirements={"path"="[^:]*", "destination"=".*"},
      *      defaults={"destination"=""}
      *  )
+     * @param Request $request Current request.
      * @param Disk $disk Disk scope.
      * @param string $path File being copied.
      * @param string $destination Destination location.
@@ -471,7 +469,7 @@ class FilesController extends BaseController
      * @version 0.1.1
      * @since 0.0.3
      */
-    public function copyAction(Disk $disk, $path, $destination = '')
+    public function copyAction(Request $request, Disk $disk, $path, $destination = '')
     {
         $path = Controller::resolvePath($path);
         $destination = Controller::resolvePath($destination);
@@ -489,8 +487,6 @@ class FilesController extends BaseController
         if (!$info->isDir()) {
             throw new HttpException(400, \sprintf('"%s/%s" is not a directory.', $disk, $destination));
         }
-
-        $request = $this->getRequest();
 
         // only handle POST form submits
         if ($request->isMethod('POST')) {

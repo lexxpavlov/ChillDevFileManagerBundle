@@ -5,7 +5,7 @@
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.3
+ * @version 0.1.1
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -23,29 +23,19 @@ use org\bovigo\vfs\vfsStream;
 /**
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.3
+ * @version 0.1.1
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
 class DisksControllerTest extends BaseContainerTest
 {
     /**
-     * @var Request
-     * @version 0.0.3
-     * @since 0.0.3
-     */
-    protected $request;
-
-    /**
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.2
      */
     protected function setUpContainer()
     {
         $this->container->set('chilldev.filemanager.disks.manager', $this->manager);
-
-        $this->request = new Request();
-        $this->container->set('request', $this->request);
     }
 
     /**
@@ -67,7 +57,7 @@ class DisksControllerTest extends BaseContainerTest
      * Check directory listing.
      *
      * @test
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.1
      */
     public function browseAction()
@@ -85,8 +75,7 @@ class DisksControllerTest extends BaseContainerTest
 
         $controller = new DisksController();
         $controller->setContainer($this->container);
-        $this->request->query->replace(['by' => 'foo']);
-        $return = $controller->browseAction($disk, '//./bar/../bar/.///');
+        $return = $controller->browseAction(new Request(['by' => 'foo']), $disk, '//./bar/../bar/.///');
 
         $this->assertSame($disk, $return['disk'], 'DisksController::browseAction() should return disk scope object under key "disk".');
         $this->assertEquals('bar', $return['path'], 'DisksController::browseAction() should resolve all "./" and "../" references, replace multiple "/" with single one and return computed path under key "path".');
@@ -105,7 +94,7 @@ class DisksControllerTest extends BaseContainerTest
 
     /**
      * @test
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function browseActionBySizeDesc()
@@ -124,8 +113,7 @@ class DisksControllerTest extends BaseContainerTest
 
         $controller = new DisksController();
         $controller->setContainer($this->container);
-        $this->request->query->replace(['by' => 'size', 'order' => -1]);
-        $return = $controller->browseAction($disk, '//./bar/../bar/.///');
+        $return = $controller->browseAction(new Request(['by' => 'size', 'order' => -1]), $disk, '//./bar/../bar/.///');
 
         $this->assertSame($disk, $return['disk'], 'DisksController::browseAction() should return disk scope object under key "disk".');
         $this->assertEquals('bar', $return['path'], 'DisksController::browseAction() should resolve all "./" and "../" references, replace multiple "/" with single one and return computed path under key "path".');
@@ -141,12 +129,12 @@ class DisksControllerTest extends BaseContainerTest
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
      * @expectedExceptionMessage File path contains invalid reference that exceeds disk scope.
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.1
      */
     public function browseInvalidPath()
     {
-        (new DisksController())->browseAction(new Disk('', '', ''), '/foo/../../');
+        (new DisksController())->browseAction(new Request(), new Disk('', '', ''), '/foo/../../');
     }
 
     /**
@@ -155,12 +143,12 @@ class DisksControllerTest extends BaseContainerTest
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @expectedExceptionMessage File "[Test]/test" does not exist.
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.1
      */
     public function browseNonexistingPath()
     {
-        (new DisksController())->browseAction($this->manager['id'], 'test');
+        (new DisksController())->browseAction(new Request(), $this->manager['id'], 'test');
     }
 
     /**
@@ -169,28 +157,28 @@ class DisksControllerTest extends BaseContainerTest
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
      * @expectedExceptionMessage "[Test]/foo" is not a directory.
-     * @version 0.0.2
+     * @version 0.1.1
      * @since 0.0.1
      */
     public function browseNondirectoryPath()
     {
         vfsStream::create(['foo' => '']);
 
-        (new DisksController())->browseAction($this->manager['id'], 'foo');
+        (new DisksController())->browseAction(new Request(), $this->manager['id'], 'foo');
     }
 
     /**
      * Check default path parameter.
      *
      * @test
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.1
      */
     public function browseDefaultPath()
     {
         $controller = new DisksController();
         $controller->setContainer($this->container);
-        $return = $controller->browseAction($this->manager['id']);
+        $return = $controller->browseAction(new Request(), $this->manager['id']);
 
         $this->assertEquals('', $return['path'], 'DisksController::browseAction() should list root path of disk scope by default.');
     }

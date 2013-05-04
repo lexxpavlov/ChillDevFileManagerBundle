@@ -19,6 +19,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -58,6 +59,7 @@ class DisksController extends BaseController
      *      defaults={"path"=""}
      *  )
      * @Template(engine="default")
+     * @param Request $request Current request.
      * @param Disk $disk Disk scope.
      * @param string $path Destination directory.
      * @return array Template data.
@@ -66,7 +68,7 @@ class DisksController extends BaseController
      * @version 0.1.1
      * @since 0.0.1
      */
-    public function browseAction(Disk $disk, $path = '')
+    public function browseAction(Request $request, Disk $disk, $path = '')
     {
         $path = Controller::resolvePath($path);
 
@@ -98,7 +100,6 @@ class DisksController extends BaseController
             $list[$file] = $data;
         }
 
-        $request = $this->getRequest();
         $by = $request->query->get('by', 'path');
 
         // select only allowed sorting parameters

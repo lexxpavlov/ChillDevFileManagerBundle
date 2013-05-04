@@ -64,13 +64,6 @@ class FilesControllerTest extends BaseContainerTest
     protected $templating;
 
     /**
-     * @var Request
-     * @version 0.0.2
-     * @since 0.0.2
-     */
-    protected $request;
-
-    /**
      * @var Disk
      * @version 0.0.2
      * @since 0.0.2
@@ -85,7 +78,7 @@ class FilesControllerTest extends BaseContainerTest
     protected $session;
 
     /**
-     * @version 0.0.2
+     * @version 0.1.1
      * @since 0.0.2
      */
     protected function setUpContainer()
@@ -115,31 +108,13 @@ class FilesControllerTest extends BaseContainerTest
 
         $this->session = $this->getMock('Symfony\\Component\\HttpFoundation\\Session\\Session');
         $this->container->set('session', $this->session);
-
-        $this->request = new Request();
-        $this->container->set('request', $this->request);
-    }
-
-    /**
-     * @param array $headers
-     * @param string $method
-     * @param array $request
-     * @version 0.0.3
-     * @since 0.0.2
-     */
-    protected function setRequest(array $headers = [], $method = 'GET', array $request = [])
-    {
-        $this->request->headers->replace($headers);
-        $this->request->setMethod($method);
-        $this->request->request->replace($request);
-        $this->request->files->replace();
     }
 
     /**
      * Check default behavior.
      *
      * @test
-     * @version 0.0.2
+     * @version 0.1.1
      * @since 0.0.1
      */
     public function downloadAction()
@@ -148,13 +123,10 @@ class FilesControllerTest extends BaseContainerTest
 
         vfsStream::create(['foo' => $content]);
 
-        // compose request
-        $this->setRequest();
-
         $disk = $this->manager['id'];
         $controller = new FilesController();
         $controller->setContainer($this->container);
-        $response = $controller->downloadAction($disk, '//./bar/.././//foo');
+        $response = $controller->downloadAction(new Request(), $disk, '//./bar/.././//foo');
 
         $this->assertInstanceOf('Symfony\\Component\\HttpFoundation\\StreamedResponse', $response, 'FilesController::downloadAction() should return instance of type Symfony\\Component\\HttpFoundation\\StreamedResponse.');
 
@@ -183,12 +155,12 @@ class FilesControllerTest extends BaseContainerTest
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
      * @expectedExceptionMessage File path contains invalid reference that exceeds disk scope.
-     * @version 0.0.1
+     * @version 0.1.1
      * @since 0.0.1
      */
     public function downloadInvalidPath()
     {
-        (new FilesController())->downloadAction(new Disk('', '', ''), '/foo/../../');
+        (new FilesController())->downloadAction(new Request(), new Disk('', '', ''), '/foo/../../');
     }
 
     /**
@@ -197,12 +169,12 @@ class FilesControllerTest extends BaseContainerTest
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @expectedExceptionMessage File "[Test]/test" does not exist.
-     * @version 0.0.2
+     * @version 0.1.1
      * @since 0.0.1
      */
     public function downloadNonexistingPath()
     {
-        (new FilesController())->downloadAction($this->manager['id'], 'test');
+        (new FilesController())->downloadAction(new Request(), $this->manager['id'], 'test');
     }
 
     /**
@@ -211,21 +183,21 @@ class FilesControllerTest extends BaseContainerTest
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
      * @expectedExceptionMessage "[Test]/bar" is not a regular file that can be downloaded.
-     * @version 0.0.2
+     * @version 0.1.1
      * @since 0.0.1
      */
     public function downloadNonfilePath()
     {
         vfsStream::create(['bar' => []]);
 
-        (new FilesController())->downloadAction($this->manager['id'], 'bar');
+        (new FilesController())->downloadAction(new Request(), $this->manager['id'], 'bar');
     }
 
     /**
      * Check cache handling by last modification time.
      *
      * @test
-     * @version 0.0.2
+     * @version 0.1.1
      * @since 0.0.1
      */
     public function downloadCachedByIfModifiedSince()
@@ -239,11 +211,12 @@ class FilesControllerTest extends BaseContainerTest
         $date->setTimezone(new DateTimeZone('UTC'));
 
         // compose request
-        $this->setRequest(['If-Modified-Since' => $date->format('D, d M Y H:i:s') . ' GMT']);
+        $request = new Request();
+        $request->headers->replace(['If-Modified-Since' => $date->format('D, d M Y H:i:s') . ' GMT']);
 
         $controller = new FilesController();
         $controller->setContainer($this->container);
-        $response = $controller->downloadAction($disk, 'foo');
+        $response = $controller->downloadAction($request, $disk, 'foo');
 
         $this->assertEquals(304, $response->getStatusCode(), 'FilesController::downloadAction() should detect request for same file to be cached by last modification date.');
     }
@@ -252,7 +225,7 @@ class FilesControllerTest extends BaseContainerTest
      * Check cache handling by ETag.
      *
      * @test
-     * @version 0.0.2
+     * @version 0.1.1
      * @since 0.0.1
      */
     public function downloadCachedByETag()
@@ -264,11 +237,12 @@ class FilesControllerTest extends BaseContainerTest
         $time = \filemtime($disk->getSource() . 'foo');
 
         // compose request
-        $this->setRequest(['If-None-Match' => '"' . \sha1($disk . 'foo/' . $time) . '"']);
+        $request = new Request();
+        $request->headers->replace(['If-None-Match' => '"' . \sha1($disk . 'foo/' . $time) . '"']);
 
         $controller = new FilesController();
         $controller->setContainer($this->container);
-        $response = $controller->downloadAction($disk, 'foo');
+        $response = $controller->downloadAction($request, $disk, 'foo');
 
         $this->assertEquals(304, $response->getStatusCode(), 'FilesController::downloadAction() should detect request for same file to be cached by ETag.');
     }
@@ -285,9 +259,6 @@ class FilesControllerTest extends BaseContainerTest
         vfsStream::create(['bar' => ['test' => '']]);
 
         $toReturn = 'testroute';
-
-        // compose request
-        $this->setRequest();
 
         $disk = $this->manager['id'];
         $realpath = $disk->getSource() . 'bar/test';
@@ -347,7 +318,7 @@ class FilesControllerTest extends BaseContainerTest
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @expectedExceptionMessage File "[Test]/test" does not exist.
-     * @version 0.0.2
+     * @version 0.0.1
      * @since 0.0.1
      */
     public function deleteNonexistingPath()
@@ -369,9 +340,6 @@ class FilesControllerTest extends BaseContainerTest
         // needed for closure scope
         $assert = $this;
         $toReturn = new \stdClass();
-
-        // compose request
-        $this->setRequest();
 
         $disk = $this->manager['id'];
 
@@ -395,7 +363,7 @@ class FilesControllerTest extends BaseContainerTest
 
         $controller = new FilesController();
         $controller->setContainer($this->container);
-        $response = $controller->mkdirAction($disk, '//./bar/.././//bar');
+        $response = $controller->mkdirAction(new Request(), $disk, '//./bar/.././//bar');
 
         $this->assertSame($toReturn, $response, 'FilesController::mkdirAction() should return response generated with templating service.');
     }
@@ -414,7 +382,8 @@ class FilesControllerTest extends BaseContainerTest
         $toReturn = 'testroute2';
 
         // compose request
-        $this->setRequest([], 'POST', ['mkdir' => ['name' => 'mkdir']]);
+        $request = new Request([], ['mkdir' => ['name' => 'mkdir']]);
+        $request->setMethod('POST');
 
         $disk = $this->manager['id'];
 
@@ -445,7 +414,7 @@ class FilesControllerTest extends BaseContainerTest
             ->will($this->returnValue(new RedirectResponse($toReturn)));
 
         $controller->setContainer($this->container);
-        $response = $controller->mkdirAction($disk, '//./bar/.././//bar');
+        $response = $controller->mkdirAction($request, $disk, '//./bar/.././//bar');
 
         // response properties
         $this->assertInstanceOf('Symfony\\Component\\HttpFoundation\\RedirectResponse', $response, 'FilesController::mkdirAction() should return instance of type Symfony\\Component\\HttpFoundation\\RedirectResponse.');
@@ -461,7 +430,7 @@ class FilesControllerTest extends BaseContainerTest
      * Check POST method behavior on invalid data.
      *
      * @test
-     * @version 0.0.2
+     * @version 0.1.1
      * @since 0.0.1
      */
     public function mkdirActionInvalidSubmit()
@@ -471,7 +440,8 @@ class FilesControllerTest extends BaseContainerTest
         $toReturn = new \stdClass();
 
         // compose request
-        $this->setRequest([], 'POST', ['mkdir' => ['name' => '']]);
+        $request = new Request([], ['mkdir' => ['name' => '']]);
+        $request->setMethod('POST');
 
         $disk = $this->manager['id'];
 
@@ -481,7 +451,7 @@ class FilesControllerTest extends BaseContainerTest
 
         $controller = new FilesController();
         $controller->setContainer($this->container);
-        $response = $controller->mkdirAction($disk, '//./bar/.././//bar');
+        $response = $controller->mkdirAction($request, $disk, '//./bar/.././//bar');
 
         $this->assertSame($toReturn, $response, 'FilesController::mkdirAction() should render form view when invalid data is submitted.');
     }
@@ -492,12 +462,12 @@ class FilesControllerTest extends BaseContainerTest
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
      * @expectedExceptionMessage File path contains invalid reference that exceeds disk scope.
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.1
      */
     public function mkdirInvalidPath()
     {
-        (new FilesController())->mkdirAction(new Disk('', '', ''), '/foo/../../');
+        (new FilesController())->mkdirAction(new Request(), new Disk('', '', ''), '/foo/../../');
     }
 
     /**
@@ -506,12 +476,12 @@ class FilesControllerTest extends BaseContainerTest
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @expectedExceptionMessage File "[Test]/test" does not exist.
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.1
      */
     public function mkdirNonexistingPath()
     {
-        (new FilesController())->mkdirAction($this->manager['id'], 'test');
+        (new FilesController())->mkdirAction(new Request(), $this->manager['id'], 'test');
     }
 
     /**
@@ -520,14 +490,14 @@ class FilesControllerTest extends BaseContainerTest
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
      * @expectedExceptionMessage "[Test]/foo" is not a directory, so a sub-directory can't be created within it.
-     * @version 0.0.2
+     * @version 0.1.1
      * @since 0.0.1
      */
     public function mkdirNondirectoryPath()
     {
         vfsStream::create(['foo' => '']);
 
-        (new FilesController())->mkdirAction($this->manager['id'], 'foo');
+        (new FilesController())->mkdirAction(new Request(), $this->manager['id'], 'foo');
     }
 
     /**
@@ -544,9 +514,6 @@ class FilesControllerTest extends BaseContainerTest
         // needed for closure scope
         $assert = $this;
         $toReturn = new \stdClass();
-
-        // compose request
-        $this->setRequest();
 
         $disk = $this->manager['id'];
 
@@ -570,7 +537,7 @@ class FilesControllerTest extends BaseContainerTest
 
         $controller = new FilesController();
         $controller->setContainer($this->container);
-        $response = $controller->uploadAction($disk, '//./bar/.././//bar');
+        $response = $controller->uploadAction(new Request(), $disk, '//./bar/.././//bar');
 
         $this->assertSame($toReturn, $response, 'FilesController::uploadAction() should return response generated with templating service.');
     }
@@ -593,12 +560,12 @@ class FilesControllerTest extends BaseContainerTest
             ->method('move');
 
         // compose request
-        $this->setRequest([], 'POST', ['upload' => ['name' => 'upload']]);
-        $this->request->files->replace([
+        $request = new Request([], ['upload' => ['name' => 'upload']], [], [], [
             'upload' => [
                 'file' => $file,
             ],
         ]);
+        $request->setMethod('POST');
 
         $disk = $this->manager['id'];
 
@@ -629,7 +596,7 @@ class FilesControllerTest extends BaseContainerTest
             ->will($this->returnValue(new RedirectResponse($toReturn)));
 
         $controller->setContainer($this->container);
-        $response = $controller->uploadAction($disk, '//./bar/.././//bar');
+        $response = $controller->uploadAction($request, $disk, '//./bar/.././//bar');
 
         // response properties
         $this->assertInstanceOf('Symfony\\Component\\HttpFoundation\\RedirectResponse', $response, 'FilesController::uploadAction() should return instance of type Symfony\\Component\\HttpFoundation\\RedirectResponse.');
@@ -640,7 +607,7 @@ class FilesControllerTest extends BaseContainerTest
      * Check POST method behavior on invalid data.
      *
      * @test
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function uploadActionInvalidSubmit()
@@ -650,7 +617,8 @@ class FilesControllerTest extends BaseContainerTest
         $toReturn = new \stdClass();
 
         // compose request
-        $this->setRequest([], 'POST', ['upload' => ['name' => '']]);
+        $request = new Request([], ['upload' => ['name' => '']]);
+        $request->setMethod('POST');
 
         $disk = $this->manager['id'];
 
@@ -660,7 +628,7 @@ class FilesControllerTest extends BaseContainerTest
 
         $controller = new FilesController();
         $controller->setContainer($this->container);
-        $response = $controller->uploadAction($disk, '//./bar/.././//bar');
+        $response = $controller->uploadAction($request, $disk, '//./bar/.././//bar');
 
         $this->assertSame($toReturn, $response, 'FilesController::uploadAction() should render form view when invalid data is submitted.');
     }
@@ -671,12 +639,12 @@ class FilesControllerTest extends BaseContainerTest
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
      * @expectedExceptionMessage File path contains invalid reference that exceeds disk scope.
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function uploadInvalidPath()
     {
-        (new FilesController())->uploadAction(new Disk('', '', ''), '/foo/../../');
+        (new FilesController())->uploadAction(new Request(), new Disk('', '', ''), '/foo/../../');
     }
 
     /**
@@ -685,12 +653,12 @@ class FilesControllerTest extends BaseContainerTest
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @expectedExceptionMessage File "[Test]/test" does not exist.
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function uploadNonexistingPath()
     {
-        (new FilesController())->uploadAction($this->manager['id'], 'test');
+        (new FilesController())->uploadAction(new Request(), $this->manager['id'], 'test');
     }
 
     /**
@@ -699,14 +667,14 @@ class FilesControllerTest extends BaseContainerTest
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
      * @expectedExceptionMessage "[Test]/foo" is not a directory, so a file can't be uploaded into it.
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function uploadNondirectoryPath()
     {
         vfsStream::create(['foo' => '']);
 
-        (new FilesController())->uploadAction($this->manager['id'], 'foo');
+        (new FilesController())->uploadAction(new Request(), $this->manager['id'], 'foo');
     }
 
     /**
@@ -723,9 +691,6 @@ class FilesControllerTest extends BaseContainerTest
         // needed for closure scope
         $assert = $this;
         $toReturn = new \stdClass();
-
-        // compose request
-        $this->setRequest();
 
         $disk = $this->manager['id'];
 
@@ -749,7 +714,7 @@ class FilesControllerTest extends BaseContainerTest
 
         $controller = new FilesController();
         $controller->setContainer($this->container);
-        $response = $controller->renameAction($disk, '//./bar/.././//bar');
+        $response = $controller->renameAction(new Request(), $disk, '//./bar/.././//bar');
 
         $this->assertSame($toReturn, $response, 'FilesController::renameAction() should return response generated with templating service.');
     }
@@ -768,7 +733,8 @@ class FilesControllerTest extends BaseContainerTest
         $toReturn = 'testroute4';
 
         // compose request
-        $this->setRequest([], 'POST', ['rename' => ['name' => 'foo']]);
+        $request = new Request([], ['rename' => ['name' => 'foo']]);
+        $request->setMethod('POST');
 
         $disk = $this->manager['id'];
 
@@ -800,7 +766,7 @@ class FilesControllerTest extends BaseContainerTest
             ->will($this->returnValue(new RedirectResponse($toReturn)));
 
         $controller->setContainer($this->container);
-        $response = $controller->renameAction($disk, '//./bar/.././//bar');
+        $response = $controller->renameAction($request, $disk, '//./bar/.././//bar');
 
         // response properties
         $this->assertInstanceOf('Symfony\\Component\\HttpFoundation\\RedirectResponse', $response, 'FilesController::renameAction() should return instance of type Symfony\\Component\\HttpFoundation\\RedirectResponse.');
@@ -815,7 +781,7 @@ class FilesControllerTest extends BaseContainerTest
      * Check POST method behavior on invalid data.
      *
      * @test
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function renameActionInvalidSubmit()
@@ -825,7 +791,8 @@ class FilesControllerTest extends BaseContainerTest
         $toReturn = new \stdClass();
 
         // compose request
-        $this->setRequest([], 'POST', ['rename' => ['name' => '']]);
+        $request = new Request([], ['rename' => ['name' => '']]);
+        $request->setMethod('POST');
 
         $disk = $this->manager['id'];
 
@@ -835,7 +802,7 @@ class FilesControllerTest extends BaseContainerTest
 
         $controller = new FilesController();
         $controller->setContainer($this->container);
-        $response = $controller->renameAction($disk, '//./bar/.././//bar');
+        $response = $controller->renameAction($request, $disk, '//./bar/.././//bar');
 
         $this->assertSame($toReturn, $response, 'FilesController::renameAction() should render form view when invalid data is submitted.');
     }
@@ -846,12 +813,12 @@ class FilesControllerTest extends BaseContainerTest
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
      * @expectedExceptionMessage File path contains invalid reference that exceeds disk scope.
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function renameInvalidPath()
     {
-        (new FilesController())->renameAction(new Disk('', '', ''), '/foo/../../');
+        (new FilesController())->renameAction(new Request(), new Disk('', '', ''), '/foo/../../');
     }
 
     /**
@@ -860,12 +827,12 @@ class FilesControllerTest extends BaseContainerTest
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @expectedExceptionMessage File "[Test]/test" does not exist.
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function renameNonexistingPath()
     {
-        (new FilesController())->renameAction($this->manager['id'], 'test');
+        (new FilesController())->renameAction(new Request(), $this->manager['id'], 'test');
     }
 
     /**
@@ -882,10 +849,6 @@ class FilesControllerTest extends BaseContainerTest
         // needed for closure scope
         $assert = $this;
         $toReturn = new \stdClass();
-
-        // compose request
-        $this->setRequest();
-        $this->request->query->replace(['order' => -1]);
 
         $disk = $this->manager['id'];
 
@@ -918,7 +881,7 @@ class FilesControllerTest extends BaseContainerTest
 
         $controller = new FilesController();
         $controller->setContainer($this->container);
-        $response = $controller->moveAction($disk, '//./bar/.././//bar', '');
+        $response = $controller->moveAction(new Request(['order' => -1]), $disk, '//./bar/.././//bar', '');
 
         $this->assertSame($toReturn, $response, 'FilesController::moveAction() should return response generated with templating service.');
     }
@@ -937,7 +900,8 @@ class FilesControllerTest extends BaseContainerTest
         $toReturn = 'testroute5';
 
         // compose request
-        $this->setRequest([], 'POST');
+        $request = new Request();
+        $request->setMethod('POST');
 
         $disk = $this->manager['id'];
 
@@ -969,7 +933,7 @@ class FilesControllerTest extends BaseContainerTest
             ->will($this->returnValue(new RedirectResponse($toReturn)));
 
         $controller->setContainer($this->container);
-        $response = $controller->moveAction($disk, '//./foo/.././//foo', 'bar');
+        $response = $controller->moveAction($request, $disk, '//./foo/.././//foo', 'bar');
 
         // response properties
         $this->assertInstanceOf('Symfony\\Component\\HttpFoundation\\RedirectResponse', $response, 'FilesController::moveAction() should return instance of type Symfony\\Component\\HttpFoundation\\RedirectResponse.');
@@ -984,64 +948,64 @@ class FilesControllerTest extends BaseContainerTest
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
      * @expectedExceptionMessage "[Test]/foo" is not a directory.
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function moveActionToNonDirectoryDestination()
     {
         vfsStream::create(['foo' => '', 'bar' => []]);
 
-        (new FilesController())->moveAction($this->manager['id'], '//./bar/.././//bar', 'foo');
+        (new FilesController())->moveAction(new Request(), $this->manager['id'], '//./bar/.././//bar', 'foo');
     }
 
     /**
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
      * @expectedExceptionMessage File path contains invalid reference that exceeds disk scope.
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function moveInvalidPath()
     {
-        (new FilesController())->moveAction(new Disk('', '', ''), '/foo/../../', '');
+        (new FilesController())->moveAction(new Request(), new Disk('', '', ''), '/foo/../../', '');
     }
 
     /**
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
      * @expectedExceptionMessage File path contains invalid reference that exceeds disk scope.
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function moveInvalidDestination()
     {
-        (new FilesController())->moveAction(new Disk('', '', ''), '', '/foo/../../');
+        (new FilesController())->moveAction(new Request(), new Disk('', '', ''), '', '/foo/../../');
     }
 
     /**
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @expectedExceptionMessage File "[Test]/test" does not exist.
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function moveNonexistingPath()
     {
-        (new FilesController())->moveAction($this->manager['id'], 'test', '');
+        (new FilesController())->moveAction(new Request(), $this->manager['id'], 'test', '');
     }
 
     /**
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @expectedExceptionMessage File "[Test]/test" does not exist.
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function moveNonexistingDestination()
     {
         vfsStream::create(['bar' => []]);
 
-        (new FilesController())->moveAction($this->manager['id'], 'bar', 'test');
+        (new FilesController())->moveAction(new Request(), $this->manager['id'], 'bar', 'test');
     }
 
     /**
@@ -1058,10 +1022,6 @@ class FilesControllerTest extends BaseContainerTest
         // needed for closure scope
         $assert = $this;
         $toReturn = new \stdClass();
-
-        // compose request
-        $this->setRequest();
-        $this->request->query->replace(['order' => -1]);
 
         $disk = $this->manager['id'];
 
@@ -1094,7 +1054,7 @@ class FilesControllerTest extends BaseContainerTest
 
         $controller = new FilesController();
         $controller->setContainer($this->container);
-        $response = $controller->copyAction($disk, '//./bar/.././//bar', '');
+        $response = $controller->copyAction(new Request(['order' => -1]), $disk, '//./bar/.././//bar', '');
 
         $this->assertSame($toReturn, $response, 'FilesController::copyAction() should return response generated with templating service.');
     }
@@ -1113,7 +1073,8 @@ class FilesControllerTest extends BaseContainerTest
         $toReturn = 'testroute6';
 
         // compose request
-        $this->setRequest([], 'POST');
+        $request = new Request();
+        $request->setMethod('POST');
 
         $disk = $this->manager['id'];
 
@@ -1147,7 +1108,7 @@ class FilesControllerTest extends BaseContainerTest
             ->will($this->returnValue(new RedirectResponse($toReturn)));
 
         $controller->setContainer($this->container);
-        $response = $controller->copyAction($disk, '//./foo/.././//foo', 'bar');
+        $response = $controller->copyAction($request, $disk, '//./foo/.././//foo', 'bar');
 
         // response properties
         $this->assertInstanceOf('Symfony\\Component\\HttpFoundation\\RedirectResponse', $response, 'FilesController::copyAction() should return instance of type Symfony\\Component\\HttpFoundation\\RedirectResponse.');
@@ -1164,64 +1125,64 @@ class FilesControllerTest extends BaseContainerTest
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
      * @expectedExceptionMessage "[Test]/foo" is not a directory.
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function copyActionToNonDirectoryDestination()
     {
         vfsStream::create(['foo' => '', 'bar' => []]);
 
-        (new FilesController())->copyAction($this->manager['id'], '//./bar/.././//bar', 'foo');
+        (new FilesController())->copyAction(new Request(), $this->manager['id'], '//./bar/.././//bar', 'foo');
     }
 
     /**
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
      * @expectedExceptionMessage File path contains invalid reference that exceeds disk scope.
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function copyInvalidPath()
     {
-        (new FilesController())->copyAction(new Disk('', '', ''), '/foo/../../', '');
+        (new FilesController())->copyAction(new Request(), new Disk('', '', ''), '/foo/../../', '');
     }
 
     /**
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
      * @expectedExceptionMessage File path contains invalid reference that exceeds disk scope.
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function copyInvalidDestination()
     {
-        (new FilesController())->copyAction(new Disk('', '', ''), '', '/foo/../../');
+        (new FilesController())->copyAction(new Request(), new Disk('', '', ''), '', '/foo/../../');
     }
 
     /**
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @expectedExceptionMessage File "[Test]/test" does not exist.
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function copyNonexistingPath()
     {
-        (new FilesController())->copyAction($this->manager['id'], 'test', '');
+        (new FilesController())->copyAction(new Request(), $this->manager['id'], 'test', '');
     }
 
     /**
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @expectedExceptionMessage File "[Test]/test" does not exist.
-     * @version 0.0.3
+     * @version 0.1.1
      * @since 0.0.3
      */
     public function copyNonexistingDestination()
     {
         vfsStream::create(['bar' => []]);
 
-        (new FilesController())->copyAction($this->manager['id'], 'bar', 'test');
+        (new FilesController())->copyAction(new Request(), $this->manager['id'], 'bar', 'test');
     }
 
     /**
