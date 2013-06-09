@@ -28,10 +28,10 @@ matrix:
             php: "5.5"
 
 before_script:
-    - "composer --dev --no-progress require symfony/symfony:${SYMFONY_VERSION}"
-    - "composer --dev --no-progress -o install"
     - "pear config-set auto_discover 1"
     - "pear install pear.phpunit.de/phpcpd"
     - "phpenv rehash"
+    - "composer --dev --no-progress --prefer-source --no-interaction require symfony/symfony:${SYMFONY_VERSION}"
+    - "composer --dev --no-progress --prefer-source --no-interaction --optimize-autoloader install"
 
 script: "make ci"
