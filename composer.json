@@ -49,6 +49,7 @@
         "ext-xsl": "*",
         "phpunit/phpunit": "3.7.21",
         "squizlabs/php_codesniffer": "1.4.5",
+        "satooshi/php-coveralls": "0.6.1",
         "mikey179/vfsStream": "1.2.*",
         "chilldev/proxy-templating-bundle": "dev-develop"
     },

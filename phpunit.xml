@@ -4,7 +4,7 @@
 #
 # @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
 # @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
-# @version 0.0.2
+# @version 0.1.1
 # @since 0.0.1
 # @package ChillDev\Bundle\FileManagerBundle
 -->
@@ -45,6 +45,10 @@
             type="coverage-text"
             target="php://stdout"
             charset="utf-8"
+        />
+        <log
+            type="coverage-clover"
+            target="Resources/doc/coverage/clover.xml"
         />
     </logging>
 </phpunit>

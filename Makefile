@@ -15,6 +15,7 @@ PHPDOC = $(shell which phpdoc)
 PHPCPD = $(shell which phpcpd)
 PHPCS = ./vendor/bin/phpcs
 PHPUNIT = ./vendor/bin/phpunit
+COVERALLS = ./vendor/bin/coveralls
 
 # meta-targets
 
@@ -45,6 +46,10 @@ lint:
 # tests running
 tests:
 	$(PHPUNIT)
+
+# publishing coverage statistics
+coveralls:
+	$(COVERALLS) -v
 
 # documentation generation
 documentation:

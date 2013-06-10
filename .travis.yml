@@ -35,3 +35,5 @@ before_script:
     - "composer --dev --no-progress --prefer-source --no-interaction --optimize-autoloader install"
 
 script: "make ci"
+
+after_script: "make coveralls"
