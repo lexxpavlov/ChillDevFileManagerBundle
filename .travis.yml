@@ -9,7 +9,6 @@
 ##
 
 #FIXME: https://github.com/travis-ci/travis-ci/issues/753
-#FIXME: allow-fail for PHP 5.5 is temporary until it won't get stable PEAR, or PHPCPD won't be installable through stable Composer package
 
 language: "php"
 
@@ -22,17 +21,12 @@ env:
     - "SYMFONY_VERSION=2.2.*"
     - "SYMFONY_VERSION=2.3.*"
 
-matrix:
-    allow_failures:
-        -
-            php: "5.5"
-
 before_script:
     - "pear config-set auto_discover 1"
     - "pear install pear.phpunit.de/phpcpd"
     - "phpenv rehash"
-    - "composer --dev --no-progress --prefer-source --no-interaction require symfony/symfony:${SYMFONY_VERSION}"
-    - "composer --dev --no-progress --prefer-source --no-interaction --optimize-autoloader install"
+    - "composer --dev --no-progress require symfony/symfony:${SYMFONY_VERSION}"
+    - "composer --dev --no-progress --optimize-autoloader install"
 
 script: "make ci"
 
