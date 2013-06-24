@@ -3,7 +3,7 @@
 #
 # @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
 # @copyright 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
-# @version 0.1.0
+# @version 0.1.1
 # @since 0.0.3
 # @package ChillDev\Bundle\FileManagerBundle
 -->
@@ -35,4 +35,9 @@ This file causes confirmation box to appear before any file deletion. Each form 
 To add load this file directly, using **ChillDevViewHelpersBundle** use:
 ```php
 $view['script']->add($view['assets']->getUrl('bundles/chilldevfilemanager/javascript/confirm.js'));
+```
+
+Since **ChillDevViewHelpersBundle** version **0.1.5** you can also use shortcut:
+```php
+$view['script']->add('@assets:bundles/chilldevfilemanager/javascript/confirm.js');
 ```

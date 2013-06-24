@@ -12,10 +12,11 @@
 
 ## Development dependencies
 
-In order to work on **ChillDevFileManagerBundle** you need to install a few more things then basic dependencies:
+In order to work on **ChillDevFileManagerBundle** you need to install a few more things than basic dependencies:
 
 -   `phpunit/phpunit` - for running tests;
 -   `squizlabs/php_codesniffer` - for coding style rules compilance checking;
+-   `satooshi/php-coveralls` - for integration with [Coveralls](http://coveralls.io/);
 -   *phpcpd* - copy-paste detector for duplicated code parts;
 -   *phpDocumentor* - for generating API documentation.
 
@@ -40,6 +41,8 @@ There are also meta-targets:
 
 -   `all` which executes `check`, `lint`, `tests` and `documentation` subsequently (it is run by default);
 -   `ci` which executes `check`, `lint` and `tests` (set of QA targets).
+
+Additionally, there is available `coveralls` step which uploads tests coverage statistics to **Coveralls**, but it shouldn't be used outside of **Travis-CI**.
 
 ## Continous integration
 
