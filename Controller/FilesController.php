@@ -138,11 +138,7 @@ class FilesController extends BaseController
 
         $filesystem->remove($path);
 
-        $this->get('logger')->info(
-            \sprintf('File "%s" deleted by user "%s".', $path, $this->getUser()),
-            ['scope' => $disk->getSource()]
-        );
-        $this->addFlashMessage('done', '"%file%" has been deleted.', ['%file%' => $diskpath]);
+        $this->generateSuccessMessage($disk, '"%s" has been deleted', ['%file%' => $diskpath]);
 
         // move back to directory view
         return $this->redirectToDirectory($disk, \dirname($path));
@@ -200,15 +196,7 @@ class FilesController extends BaseController
 
                 $filesystem->mkdir($fullpath);
 
-                $this->get('logger')->info(
-                    \sprintf('Directory "%s" created by user "%s".', $fullpath, $this->getUser()),
-                    ['scope' => $disk->getSource()]
-                );
-                $this->addFlashMessage(
-                    'done',
-                    '"%directory%" has been created.',
-                    ['%directory%' => $disk . '/' . $fullpath]
-                );
+                $this->generateSuccessMessage($disk, '"%s" has been created', ['%file%' => $disk . '/' . $fullpath]);
 
                 // move back to directory view
                 return $this->redirectToDirectory($disk, $path);
@@ -277,15 +265,7 @@ class FilesController extends BaseController
 
                 $filesystem->upload($path, $data['file'], $data['name']);
 
-                $this->get('logger')->info(
-                    \sprintf('File "%s" uploaded by user "%s".', $fullpath, $this->getUser()),
-                    ['scope' => $disk->getSource()]
-                );
-                $this->addFlashMessage(
-                    'done',
-                    '"%file%" has been uploaded.',
-                    ['%file%' => $disk . '/' . $fullpath]
-                );
+                $this->generateSuccessMessage($disk, '"%s" has been uploaded', ['%file%' => $disk . '/' . $fullpath]);
 
                 // move back to directory view
                 return $this->redirectToDirectory($disk, $path);
@@ -336,19 +316,14 @@ class FilesController extends BaseController
             // validate form
             if ($form->isValid()) {
                 $data = $form->getData();
-                $basename = \basename($path);
                 $dirpath = \dirname($path);
                 $fullpath = $dirpath . '/' . $data['name'];
 
                 $filesystem->move($path, $fullpath);
 
-                $this->get('logger')->info(
-                    \sprintf('File "%s" renamed to "%s" by user "%s".', $path, $data['name'], $this->getUser()),
-                    ['scope' => $disk->getSource()]
-                );
-                $this->addFlashMessage(
-                    'done',
-                    '"%file%" has been renamed to "%name%".',
+                $this->generateSuccessMessage(
+                    $disk,
+                    '"%s" has been renamed to "%s"',
                     ['%file%' => $diskpath, '%name%' => $data['name']]
                 );
 
@@ -407,13 +382,9 @@ class FilesController extends BaseController
             $name = \basename($path);
             $filesystem->move($path, $destination . '/' . $name);
 
-            $this->get('logger')->info(
-                \sprintf('File "%s" moved to "%s" by user "%s".', $path, $destination, $this->getUser()),
-                ['scope' => $disk->getSource()]
-            );
-            $this->addFlashMessage(
-                'done',
-                '"%file%" has been moved to "%destination%".',
+            $this->generateSuccessMessage(
+                $disk,
+                '"%s" has been moved to "%s"',
                 ['%file%' => $diskpath, '%destination%' => $diskdestination]
             );
 
@@ -493,13 +464,9 @@ class FilesController extends BaseController
             $name = \basename($path);
             $filesystem->copy($path, $destination . '/' . $name);
 
-            $this->get('logger')->info(
-                \sprintf('File "%s" copied to "%s" by user "%s".', $path, $destination, $this->getUser()),
-                ['scope' => $disk->getSource()]
-            );
-            $this->addFlashMessage(
-                'done',
-                '"%file%" has been copied to "%destination%".',
+            $this->generateSuccessMessage(
+                $disk,
+                '"%s" has been copied to "%s"',
                 ['%file%' => $diskpath, '%destination%' => $diskdestination]
             );
 
@@ -570,5 +537,27 @@ class FilesController extends BaseController
                 ['disk' => $disk->getId(), 'path' => $path]
             )
         );
+    }
+
+    /**
+     * Generates success message for logger and flash messager.
+     *
+     * @param Disk $disk Current disk scope.
+     * @param string $message Message pattern.
+     * @param array $params Message parameters.
+     * @version 0.1.1
+     * @since 0.1.1
+     */
+    protected function generateSuccessMessage(Disk $disk, $message, array $params = [])
+    {
+        $this->get('logger')->info(
+            \vsprintf($message . ' by user "%s".', \array_merge(\array_values($params), [$this->getUser()])),
+            ['scope' => $disk->getSource()]
+        );
+
+        // re-format pattern for named placeholders
+        $message = \vsprintf($message . '.', \array_keys($params));
+
+        $this->addFlashMessage('done', $message, $params);
     }
 }

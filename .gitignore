@@ -3,7 +3,7 @@
 #
 # @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
 # @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
-# @version 0.1.0
+# @version 0.1.1
 # @since 0.0.1
 # @package ChillDev\Bundle\FileManagerBundle
 ##
@@ -13,6 +13,6 @@
 /.settings
 /composer.lock
 /Resources/doc/coverage
-/output/*
-/vendor/*
-/Tests/translations/*
+/output
+/vendor
+/Tests/translations

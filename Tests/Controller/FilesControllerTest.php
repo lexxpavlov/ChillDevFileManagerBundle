@@ -264,18 +264,11 @@ class FilesControllerTest extends BaseContainerTest
         $realpath = $disk->getSource() . 'bar/test';
 
         // mocks set-up
-        $this->logger->expects($this->once())
-            ->method('info')
-            ->with(
-                $this->equalTo('File "bar/test" deleted by user "' . $this->user->__toString() . '".'),
-                $this->equalTo(['scope' => $disk->getSource()])
-            );
-
-        $controller = $this->getMockController(['addFlashMessage', 'redirectToDirectory']);
+        $controller = $this->getMockController(['generateSuccessMessage', 'redirectToDirectory']);
         $controller->expects($this->once())
-            ->method('addFlashMessage')
+            ->method('generateSuccessMessage')
             ->with(
-                $this->equalTo('done'),
+                $this->identicalTo($disk),
                 $this->isType('string'),
                 $this->arrayHasKey('%file%')
             );
@@ -390,20 +383,13 @@ class FilesControllerTest extends BaseContainerTest
         $realpath = $disk->getSource() . 'bar';
 
         // mocks set-up
-        $this->logger->expects($this->once())
-            ->method('info')
-            ->with(
-                $this->equalTo('Directory "bar/mkdir" created by user "' . $this->user->__toString() . '".'),
-                $this->equalTo(['scope' => $disk->getSource()])
-            );
-
-        $controller = $this->getMockController(['addFlashMessage', 'redirectToDirectory']);
+        $controller = $this->getMockController(['generateSuccessMessage', 'redirectToDirectory']);
         $controller->expects($this->once())
-            ->method('addFlashMessage')
+            ->method('generateSuccessMessage')
             ->with(
-                $this->equalTo('done'),
+                $this->identicalTo($disk),
                 $this->isType('string'),
-                $this->arrayHasKey('%directory%')
+                $this->arrayHasKey('%file%')
             );
         $controller->expects($this->once())
             ->method('redirectToDirectory')
@@ -572,18 +558,11 @@ class FilesControllerTest extends BaseContainerTest
         $realpath = $disk->getSource() . 'bar';
 
         // mocks set-up
-        $this->logger->expects($this->once())
-            ->method('info')
-            ->with(
-                $this->equalTo('File "bar/upload" uploaded by user "' . $this->user->__toString() . '".'),
-                $this->equalTo(['scope' => $disk->getSource()])
-            );
-
-        $controller = $this->getMockController(['addFlashMessage', 'redirectToDirectory']);
+        $controller = $this->getMockController(['generateSuccessMessage', 'redirectToDirectory']);
         $controller->expects($this->once())
-            ->method('addFlashMessage')
+            ->method('generateSuccessMessage')
             ->with(
-                $this->equalTo('done'),
+                $this->identicalTo($disk),
                 $this->isType('string'),
                 $this->arrayHasKey('%file%')
             );
@@ -742,18 +721,11 @@ class FilesControllerTest extends BaseContainerTest
         $realpath2 = $disk->getSource() . 'foo';
 
         // mocks set-up
-        $this->logger->expects($this->once())
-            ->method('info')
-            ->with(
-                $this->equalTo('File "bar" renamed to "foo" by user "' . $this->user->__toString() . '".'),
-                $this->equalTo(['scope' => $disk->getSource()])
-            );
-
-        $controller = $this->getMockController(['addFlashMessage', 'redirectToDirectory']);
+        $controller = $this->getMockController(['generateSuccessMessage', 'redirectToDirectory']);
         $controller->expects($this->once())
-            ->method('addFlashMessage')
+            ->method('generateSuccessMessage')
             ->with(
-                $this->equalTo('done'),
+                $this->identicalTo($disk),
                 $this->isType('string'),
                 $this->logicalAnd($this->arrayHasKey('%file%'), $this->arrayHasKey('%name%'))
             );
@@ -909,18 +881,11 @@ class FilesControllerTest extends BaseContainerTest
         $realpath2 = $disk->getSource() . 'bar/foo';
 
         // mocks set-up
-        $this->logger->expects($this->once())
-            ->method('info')
-            ->with(
-                $this->equalTo('File "foo" moved to "bar" by user "' . $this->user->__toString() . '".'),
-                $this->equalTo(['scope' => $disk->getSource()])
-            );
-
-        $controller = $this->getMockController(['addFlashMessage', 'redirectToDirectory']);
+        $controller = $this->getMockController(['generateSuccessMessage', 'redirectToDirectory']);
         $controller->expects($this->once())
-            ->method('addFlashMessage')
+            ->method('generateSuccessMessage')
             ->with(
-                $this->equalTo('done'),
+                $this->identicalTo($disk),
                 $this->isType('string'),
                 $this->logicalAnd($this->arrayHasKey('%file%'), $this->arrayHasKey('%destination%'))
             );
@@ -1084,18 +1049,11 @@ class FilesControllerTest extends BaseContainerTest
         $realpath4 = $disk->getSource() . 'bar/foo/baz';
 
         // mocks set-up
-        $this->logger->expects($this->once())
-            ->method('info')
-            ->with(
-                $this->equalTo('File "foo" copied to "bar" by user "' . $this->user->__toString() . '".'),
-                $this->equalTo(['scope' => $disk->getSource()])
-            );
-
-        $controller = $this->getMockController(['addFlashMessage', 'redirectToDirectory']);
+        $controller = $this->getMockController(['generateSuccessMessage', 'redirectToDirectory']);
         $controller->expects($this->once())
-            ->method('addFlashMessage')
+            ->method('generateSuccessMessage')
             ->with(
-                $this->equalTo('done'),
+                $this->identicalTo($disk),
                 $this->isType('string'),
                 $this->logicalAnd($this->arrayHasKey('%file%'), $this->arrayHasKey('%destination%'))
             );
@@ -1255,6 +1213,49 @@ class FilesControllerTest extends BaseContainerTest
         $this->assertInstanceOf('Symfony\\Component\\HttpFoundation\\RedirectResponse', $response, 'FilesController::redirectToDirectory() should return instance of type Symfony\\Component\\HttpFoundation\\RedirectResponse.');
         $this->assertEquals($toReturn, $response->getTargetUrl(), 'FilesController::redirectToDirectory() should set redirect URL to result of route generator output.');
     }
+
+    /**
+     * @test
+     * @version 0.1.1
+     * @since 0.1.1
+     */
+    public function generateSuccessMessage()
+    {
+        // pre-defined values
+        $disk = $this->manager['id'];
+        $message = 'test "%s" message';
+        $params = ['%file%' => 'test'];
+
+        // mocks set-up
+        $this->logger->expects($this->once())
+            ->method('info')
+            ->with(
+                $this->equalTo('test "test" message by user "' . $this->user->__toString() . '".'),
+                $this->equalTo(['scope' => $disk->getSource()])
+            );
+
+        $controller = $this->getMockController(['addFlashMessage']);
+        $controller->expects($this->once())
+            ->method('addFlashMessage')
+            ->with(
+                $this->equalTo('done'),
+                $this->equalTo(\str_replace('%s', '%file%', $message) . '.'),
+                $this->equalTo($params)
+            );
+
+        $controller->setContainer($this->container);
+
+        // get protected method
+        $method = self::getMethod('generateSuccessMessage');
+        $method->invoke(
+            $controller,
+            $disk,
+            $message,
+            $params
+        );
+    }
+
+    //TODO: test messages generator and drop so many complex checks in action tests
 
     /**
      * @param string $method
