@@ -3,12 +3,20 @@
 #
 # @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
 # @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
-# @version 0.1.0
+# @version 0.1.1
 # @since 0.0.1
 # @package ChillDev\Bundle\FileManagerBundle
 -->
 
 # ChangeLog
+
+## **0.1.1** (27.06.2013)
+
+-   Fixed XHTML &lt;Rafał Wrzeszcz&gt;.
+-   Updated dependencies definitions to allow Symfony 2.3 (and any further version until Symfony 3.0) &lt;Rafał Wrzeszcz&gt;.
+-   Taking request object through parameter instead of DI &lt;Rafał Wrzeszcz&gt;.
+-   Updated GitHub pages references &lt;Rafał Wrzeszcz&gt;.
+-   [fixes #26] Dropped ConfigEngine and rely on ChillDevProxyTemplatingBundle-compatible default engine &lt;Rafał Wrzeszcz&gt;.
 
 ## **0.1.0** (27.03.2013)
 
