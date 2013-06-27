@@ -34,7 +34,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">25</span></a></li>
+                <span class="label label-info">16</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
@@ -55,7 +55,8 @@
 <span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
 <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
 </div>
-<ul class="side-nav nav nav-list"><li class="nav-header">
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
 <i class="icon-custom icon-method"></i> Methods
                     <ul>
 <li class="method public "><a href="#method_copyAction" title="copyAction :: File copying action."><span class="description">File copying action.</span><pre>copyAction()</pre></a></li>
@@ -66,7 +67,15 @@
 <li class="method public "><a href="#method_renameAction" title="renameAction :: File renaming action."><span class="description">File renaming action.</span><pre>renameAction()</pre></a></li>
 <li class="method public "><a href="#method_uploadAction" title="uploadAction :: Handles file upload."><span class="description">Handles file upload.</span><pre>uploadAction()</pre></a></li>
 </ul>
-</li></ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul>
+<li class="method protected "><a href="#method_addFlashMessage" title="addFlashMessage :: Adds session flash message."><span class="description">Adds session flash message.</span><pre>addFlashMessage()</pre></a></li>
+<li class="method protected "><a href="#method_generateSuccessMessage" title="generateSuccessMessage :: Generates success message for logger and flash messager."><span class="description">Generates success message for logger and flash messager.</span><pre>generateSuccessMessage()</pre></a></li>
+<li class="method protected "><a href="#method_redirectToDirectory" title="redirectToDirectory :: Redirects to given directory."><span class="description">Redirects to given directory.</span><pre>redirectToDirectory()</pre></a></li>
+</ul>
+</li>
+</ul>
 </div>
 <div class="span8">
 <a id="\ChillDev\Bundle\FileManagerBundle\Controller\FilesController"></a><ul class="breadcrumb">
@@ -106,7 +115,7 @@
 </tr>
 <tr>
 <th>version</th>
-<td>0.0.3</td>
+<td>0.1.1</td>
 </tr>
 <tr>
 <th>since</th>
@@ -121,7 +130,7 @@
 <i class="icon-custom icon-method"></i> Methods</h3>
 <a id="method_copyAction"></a><div class="element clickable method public method_copyAction" data-toggle="collapse" data-target=".method_copyAction .collapse">
 <h2>File copying action.</h2>
-<pre>copyAction(\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk $disk, string $path, string $destination) : \Symfony\Component\HttpFoundation\Response</pre>
+<pre>copyAction(\Symfony\Component\HttpFoundation\Request $request, \ChillDev\Bundle\FileManagerBundle\Filesystem\Disk $disk, string $path, string $destination) : \Symfony\Component\HttpFoundation\Response</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -137,7 +146,7 @@
 </tr>
 <tr>
 <th>version</th>
-<td>0.0.3</td>
+<td>0.1.1</td>
 </tr>
 <tr>
 <th>since</th>
@@ -145,6 +154,9 @@
 </tr>
 </table>
 <h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$request</h4>
+<code>\Symfony\Component\HttpFoundation\Request</code><p>Current request.</p></div>
 <div class="subelement argument">
 <h4>$disk</h4>
 <code><a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.Disk.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk</a></code><p>Disk scope.</p></div>
@@ -187,11 +199,11 @@
 </tr>
 <tr>
 <th>Method</th>
-<td></td>
+<td>("POST")</td>
 </tr>
 <tr>
 <th>version</th>
-<td>0.0.3</td>
+<td>0.1.1</td>
 </tr>
 <tr>
 <th>since</th>
@@ -223,7 +235,7 @@
 </div>
 <a id="method_downloadAction"></a><div class="element clickable method public method_downloadAction" data-toggle="collapse" data-target=".method_downloadAction .collapse">
 <h2>File download action.</h2>
-<pre>downloadAction(\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk $disk, string $path) : \Symfony\Component\HttpFoundation\StreamedResponse</pre>
+<pre>downloadAction(\Symfony\Component\HttpFoundation\Request $request, \ChillDev\Bundle\FileManagerBundle\Filesystem\Disk $disk, string $path) : \Symfony\Component\HttpFoundation\StreamedResponse</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -246,6 +258,9 @@
 </tr>
 </table>
 <h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$request</h4>
+<code>\Symfony\Component\HttpFoundation\Request</code><p>Current request.</p></div>
 <div class="subelement argument">
 <h4>$disk</h4>
 <code><a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.Disk.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk</a></code><p>Disk scope.</p></div>
@@ -270,7 +285,7 @@
 </div>
 <a id="method_mkdirAction"></a><div class="element clickable method public method_mkdirAction" data-toggle="collapse" data-target=".method_mkdirAction .collapse">
 <h2>Directory creation action.</h2>
-<pre>mkdirAction(\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk $disk, string $path) : \Symfony\Component\HttpFoundation\Response</pre>
+<pre>mkdirAction(\Symfony\Component\HttpFoundation\Request $request, \ChillDev\Bundle\FileManagerBundle\Filesystem\Disk $disk, string $path) : \Symfony\Component\HttpFoundation\Response</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -286,7 +301,7 @@
 </tr>
 <tr>
 <th>version</th>
-<td>0.0.3</td>
+<td>0.1.1</td>
 </tr>
 <tr>
 <th>since</th>
@@ -294,6 +309,9 @@
 </tr>
 </table>
 <h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$request</h4>
+<code>\Symfony\Component\HttpFoundation\Request</code><p>Current request.</p></div>
 <div class="subelement argument">
 <h4>$disk</h4>
 <code><a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.Disk.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk</a></code><p>Disk scope.</p></div>
@@ -318,7 +336,7 @@
 </div>
 <a id="method_moveAction"></a><div class="element clickable method public method_moveAction" data-toggle="collapse" data-target=".method_moveAction .collapse">
 <h2>File moving action.</h2>
-<pre>moveAction(\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk $disk, string $path, string $destination) : \Symfony\Component\HttpFoundation\Response</pre>
+<pre>moveAction(\Symfony\Component\HttpFoundation\Request $request, \ChillDev\Bundle\FileManagerBundle\Filesystem\Disk $disk, string $path, string $destination) : \Symfony\Component\HttpFoundation\Response</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -334,7 +352,7 @@
 </tr>
 <tr>
 <th>version</th>
-<td>0.0.3</td>
+<td>0.1.1</td>
 </tr>
 <tr>
 <th>since</th>
@@ -342,6 +360,9 @@
 </tr>
 </table>
 <h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$request</h4>
+<code>\Symfony\Component\HttpFoundation\Request</code><p>Current request.</p></div>
 <div class="subelement argument">
 <h4>$disk</h4>
 <code><a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.Disk.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk</a></code><p>Disk scope.</p></div>
@@ -369,7 +390,7 @@
 </div>
 <a id="method_renameAction"></a><div class="element clickable method public method_renameAction" data-toggle="collapse" data-target=".method_renameAction .collapse">
 <h2>File renaming action.</h2>
-<pre>renameAction(\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk $disk, string $path) : \Symfony\Component\HttpFoundation\Response</pre>
+<pre>renameAction(\Symfony\Component\HttpFoundation\Request $request, \ChillDev\Bundle\FileManagerBundle\Filesystem\Disk $disk, string $path) : \Symfony\Component\HttpFoundation\Response</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -384,7 +405,7 @@
 </tr>
 <tr>
 <th>version</th>
-<td>0.0.3</td>
+<td>0.1.1</td>
 </tr>
 <tr>
 <th>since</th>
@@ -392,6 +413,9 @@
 </tr>
 </table>
 <h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$request</h4>
+<code>\Symfony\Component\HttpFoundation\Request</code><p>Current request.</p></div>
 <div class="subelement argument">
 <h4>$disk</h4>
 <code><a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.Disk.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk</a></code><p>Disk scope.</p></div>
@@ -416,7 +440,7 @@
 </div>
 <a id="method_uploadAction"></a><div class="element clickable method public method_uploadAction" data-toggle="collapse" data-target=".method_uploadAction .collapse">
 <h2>Handles file upload.</h2>
-<pre>uploadAction(\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk $disk, string $path) : \Symfony\Component\HttpFoundation\Response</pre>
+<pre>uploadAction(\Symfony\Component\HttpFoundation\Request $request, \ChillDev\Bundle\FileManagerBundle\Filesystem\Disk $disk, string $path) : \Symfony\Component\HttpFoundation\Response</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -432,7 +456,7 @@
 </tr>
 <tr>
 <th>version</th>
-<td>0.0.3</td>
+<td>0.1.1</td>
 </tr>
 <tr>
 <th>since</th>
@@ -440,6 +464,9 @@
 </tr>
 </table>
 <h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$request</h4>
+<code>\Symfony\Component\HttpFoundation\Request</code><p>Current request.</p></div>
 <div class="subelement argument">
 <h4>$disk</h4>
 <code><a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.Disk.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk</a></code><p>Disk scope.</p></div>
@@ -462,14 +489,98 @@
 <code>\Symfony\Component\HttpFoundation\Response</code>Result response.</div>
 </div></div>
 </div>
+<a id="method_addFlashMessage"></a><div class="element clickable method protected method_addFlashMessage" data-toggle="collapse" data-target=".method_addFlashMessage .collapse">
+<h2>Adds session flash message.</h2>
+<pre>addFlashMessage(string $type, string $message, array $params) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.1.1</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.1.1</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$type</h4>
+<code>string</code><p>Message type.</p></div>
+<div class="subelement argument">
+<h4>$message</h4>
+<code>string</code><p>Message template.</p></div>
+<div class="subelement argument">
+<h4>$params</h4>
+<code>array</code><p>Message parameters.</p></div>
+</div></div>
+</div>
+<a id="method_generateSuccessMessage"></a><div class="element clickable method protected method_generateSuccessMessage" data-toggle="collapse" data-target=".method_generateSuccessMessage .collapse">
+<h2>Generates success message for logger and flash messager.</h2>
+<pre>generateSuccessMessage(\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk $disk, string $message, array $params) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.1.1</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.1.1</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$disk</h4>
+<code><a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.Disk.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk</a></code><p>Current disk scope.</p></div>
+<div class="subelement argument">
+<h4>$message</h4>
+<code>string</code><p>Message pattern.</p></div>
+<div class="subelement argument">
+<h4>$params</h4>
+<code>array</code><p>Message parameters.</p></div>
+</div></div>
+</div>
+<a id="method_redirectToDirectory"></a><div class="element clickable method protected method_redirectToDirectory" data-toggle="collapse" data-target=".method_redirectToDirectory .collapse">
+<h2>Redirects to given directory.</h2>
+<pre>redirectToDirectory(\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk $disk, string $path) : \ChillDev\Bundle\FileManagerBundle\Controller\Symfony\Component\HttpFoundation\RedirectResponse</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.1.1</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.1.1</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$disk</h4>
+<code><a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.Disk.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk</a></code><p>Disk.</p></div>
+<div class="subelement argument">
+<h4>$path</h4>
+<code>string</code><p>Directory path.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>\ChillDev\Bundle\FileManagerBundle\Controller\Symfony\Component\HttpFoundation\RedirectResponse</code>Redirect to browse view.</div>
+</div></div>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
-            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a10</a> and<br>
-            generated on 2013-03-27T15:54:16+01:00.<br></footer></div>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
+            generated on 2013-06-27T22:44:52+02:00.<br></footer></div>
 </div>
 </body>
 </html>
