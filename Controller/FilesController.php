@@ -13,6 +13,7 @@
 namespace ChillDev\Bundle\FileManagerBundle\Controller;
 
 use DateTime;
+use LogicException;
 
 use ChillDev\Bundle\FileManagerBundle\Filesystem\Disk;
 use ChillDev\Bundle\FileManagerBundle\Form\Type\MkdirType;
@@ -550,8 +551,15 @@ class FilesController extends BaseController
      */
     protected function generateSuccessMessage(Disk $disk, $message, array $params = [])
     {
+        // log username if security is enabled
+        try {
+            $user = '"' . $this->getUser() . '"';
+        } catch (LogicException $error) {
+            $user = '~anonymous';
+        }
+
         $this->get('logger')->info(
-            \vsprintf($message . ' by user "%s".', \array_merge(\array_values($params), [$this->getUser()])),
+            \vsprintf($message . ' by user %s.', \array_merge(\array_values($params), [$user])),
             ['scope' => $disk->getSource()]
         );
 

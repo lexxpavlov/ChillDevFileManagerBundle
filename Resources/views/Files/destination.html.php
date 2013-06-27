@@ -5,7 +5,7 @@
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.3
+ * @version 0.1.1
  * @since 0.0.3
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -53,7 +53,7 @@ $view['title']->append($view['translator']->trans($title, ['%disk%' => $disk, '%
         <?php else: ?>
             <tr>
                 <td><?php echo $view['translator']->trans('This directory is empty.'); ?></td>
-            <tr>
+            </tr>
         <?php endif; ?>
     </tbody>
 </table>

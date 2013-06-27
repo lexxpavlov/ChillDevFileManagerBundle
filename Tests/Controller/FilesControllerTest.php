@@ -1255,7 +1255,7 @@ class FilesControllerTest extends BaseContainerTest
         );
     }
 
-    //TODO: test messages generator and drop so many complex checks in action tests
+    //TODO: test messages when no security is enabled
 
     /**
      * @param string $method

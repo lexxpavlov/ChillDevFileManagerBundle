@@ -5,7 +5,7 @@
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.3
+ * @version 0.1.1
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -73,7 +73,7 @@ $view['title']->append($view['translator']->trans('Browsing path %disk%/%path%',
         <?php else: ?>
             <tr>
                 <td colspan="3"><?php echo $view['translator']->trans('This directory is empty.'); ?></td>
-            <tr>
+            </tr>
         <?php endif; ?>
     </tbody>
 </table>
