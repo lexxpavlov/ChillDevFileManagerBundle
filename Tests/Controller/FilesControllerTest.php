@@ -20,6 +20,7 @@ use ChillDev\Bundle\FileManagerBundle\Controller\FilesController;
 use ChillDev\Bundle\FileManagerBundle\Filesystem\Disk;
 use ChillDev\Bundle\FileManagerBundle\Tests\BaseContainerTest;
 
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
@@ -64,13 +65,6 @@ class FilesControllerTest extends BaseContainerTest
     protected $templating;
 
     /**
-     * @var Disk
-     * @version 0.0.2
-     * @since 0.0.2
-     */
-    protected $user;
-
-    /**
      * @var Symfony\Component\HttpFoundation\Session\Session
      * @version 0.0.2
      * @since 0.0.2
@@ -93,18 +87,6 @@ class FilesControllerTest extends BaseContainerTest
 
         $this->templating = $this->getMock('Symfony\\Bundle\\FrameworkBundle\\Templating\\EngineInterface');
         $this->container->set('templating', $this->templating);
-
-        $this->user = $user = new Disk('user', '', '');
-        $token = $this->getMock('Symfony\\Component\\Security\\Core\\Authentication\\Token\\TokenInterface');
-        $token->expects($this->any())
-            ->method('getUser')
-            ->will($this->returnCallback(function() use ($user) {
-                        return $user;
-            }));
-
-        $security = $this->getMock('Symfony\\Component\\Security\\Core\\SecurityContext', null, [], '', false);
-        $security->setToken($token);
-        $this->container->set('security.context', $security);
 
         $this->session = $this->getMock('Symfony\\Component\\HttpFoundation\\Session\\Session');
         $this->container->set('session', $this->session);
@@ -1230,7 +1212,7 @@ class FilesControllerTest extends BaseContainerTest
         $this->logger->expects($this->once())
             ->method('info')
             ->with(
-                $this->equalTo('test "test" message by user "' . $this->user->__toString() . '".'),
+                $this->equalTo('test "test" message by user ~anonymous.'),
                 $this->equalTo(['scope' => $disk->getSource()])
             );
 
@@ -1255,7 +1237,65 @@ class FilesControllerTest extends BaseContainerTest
         );
     }
 
-    //TODO: test messages when no security is enabled
+    /**
+     * @test
+     * @version 0.1.1
+     * @since 0.1.1
+     */
+    public function generateSuccessMessageWithUser()
+    {
+        // pre-defined values
+        $disk = $this->manager['id'];
+        $message = 'test "%s" message';
+        $params = ['%file%' => 'test'];
+
+        // create new container to allow modification for this test
+        $container = new ContainerBuilder();
+        $container->merge($this->container);
+        $this->container = $container;
+
+        // mocks set-up
+        $user = new Disk('user', '', '');
+        $token = $this->getMock('Symfony\\Component\\Security\\Core\\Authentication\\Token\\TokenInterface');
+        $token->expects($this->any())
+            ->method('getUser')
+            ->will($this->returnCallback(function() use ($user) {
+                        return $user;
+            }));
+
+        $security = $this->getMock('Symfony\\Component\\Security\\Core\\SecurityContext', null, [], '', false);
+        $security->setToken($token);
+        $container->set('security.context', $security);
+
+        $this->setUpContainer();
+
+        $this->logger->expects($this->once())
+            ->method('info')
+            ->with(
+                $this->equalTo('test "test" message by user "' . $user->__toString() . '".'),
+                $this->equalTo(['scope' => $disk->getSource()])
+            );
+
+        $controller = $this->getMockController(['addFlashMessage']);
+        $controller->expects($this->once())
+            ->method('addFlashMessage')
+            ->with(
+                $this->equalTo('done'),
+                $this->equalTo(\str_replace('%s', '%file%', $message) . '.'),
+                $this->equalTo($params)
+            );
+
+        $controller->setContainer($container);
+
+        // get protected method
+        $method = self::getMethod('generateSuccessMessage');
+        $method->invoke(
+            $controller,
+            $disk,
+            $message,
+            $params
+        );
+    }
 
     /**
      * @param string $method
