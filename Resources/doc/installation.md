@@ -3,7 +3,7 @@
 #
 # @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
 # @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
-# @version 0.1.1
+# @version 0.1.2
 # @since 0.0.1
 # @package ChillDev\Bundle\FileManagerBundle
 -->
@@ -68,6 +68,16 @@ chilldev_filemanager:
 
 For details see [Configuration section](./configuration.md).
 
+## Step 5: dependencies
+
+Since this bundle depends also on another bundles, make sure, that you have all of them loaded in your application:
+
+-   [SensioFrameworkExtraBundle](http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html#installation);
+-   [ChillDevViewHelpersBundle](https://github.com/chilloutdevelopment/ChillDevViewHelpersBundle/blob/develop/Resources/doc/installation.md);
+-   [ChillDevProxyTemplatingBundle](https://github.com/chilloutdevelopment/ChillDevProxyTemplatingBundle/blob/develop/Resources/doc/installation.md) - not always needed, see below.
+
 ## Extra: default templating engine
 
-Another thing you need to do is enabling *default* templating engine. This is how we achive templating engine switch to make this bundle interchangeable with systems that use different templating engines. We do not provide any automated way of installing any engine with name `default`, to make your system more flexible. If you don't have such engine, take a look at our [ChillDevProxyTemplatingBundle](https://chilloutdevelopment/ChillDevProxyTemplatingBundle).
+Another thing you need to do is enabling *default* templating engine. This is how we achive templating engine switch to make this bundle interchangeable with systems that use different templating engines. We do not provide any automated way of installing any engine with name `default`, to make your system more flexible. If you don't have such engine, take a look at our [ChillDevProxyTemplatingBundle](https://github.com/chilloutdevelopment/ChillDevProxyTemplatingBundle).
+
+Because of this "flexibility", **ChillDevProxyTemplatingBundle** is not registered as dependency in `composer.json` file, you need to add it into your application on your own if you want to use it.

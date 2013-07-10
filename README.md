@@ -3,7 +3,7 @@
 #
 # @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
 # @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
-# @version 0.1.1
+# @version 0.1.2
 # @since 0.0.1
 # @package ChillDev\Bundle\FileManagerBundle
 -->
@@ -26,7 +26,7 @@ Replace `dev-master` with different constraint if you want to use specific versi
 
 **Note:** This bundle requires **PHP 5.4**.
 
-**Note:** You also need `default` templating engine installed. See [installation instructions](https://github.com/chilloutdevelopment/ChillDevFileManagerBundle/tree/master/Resources/doc/installation.md) for details about that.
+**Note:** You also need `default` templating engine installed and make sure all required bundles are also loaded in your application. See [installation instructions](https://github.com/chilloutdevelopment/ChillDevFileManagerBundle/tree/master/Resources/doc/installation.md) for details about that.
 
 # Configuration
 
