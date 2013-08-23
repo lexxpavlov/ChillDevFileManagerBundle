@@ -5,7 +5,7 @@
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.1.1
+ * @version 0.1.2
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -30,7 +30,7 @@ use org\bovigo\vfs\vfsStream;
 /**
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.1.1
+ * @version 0.1.2
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -793,7 +793,7 @@ class FilesControllerTest extends BaseContainerTest
      * Check GET method behavior.
      *
      * @test
-     * @version 0.1.1
+     * @version 0.1.2
      * @since 0.0.3
      */
     public function moveAction()
@@ -806,38 +806,23 @@ class FilesControllerTest extends BaseContainerTest
 
         $disk = $this->manager['id'];
 
-        $this->templating->expects($this->once())
-            ->method('renderResponse')
+        $controller = $this->getMockController(['renderDestinationDirectoryPicker']);
+        $controller->expects($this->once())
+            ->method('renderDestinationDirectoryPicker')
             ->with(
-                $this->equalTo('ChillDevFileManagerBundle:Files:destination.html.default'),
+                $this->equalTo(''),
+                $this->identicalTo($disk),
+                $this->isInstanceOf('ChillDev\\Bundle\\FileManagerBundle\\Filesystem\\Filesystem'),
+                $this->equalTo('bar'),
                 $this->anything(),
-                $this->isNull()
+                $this->equalTo('chilldev_filemanager_files_move'),
+                $this->isType('string')
             )
-            ->will($this->returnCallback(function($view, $parameters) use ($assert, $toReturn, $disk) {
-                        $assert->assertArrayHasKey('disk', $parameters, 'FilesController::moveAction() should return disk scope object under key "disk".');
-                        $assert->assertSame($disk, $parameters['disk'], 'FilesController::moveAction() should return disk scope object under key "disk".');
-                        $assert->assertArrayHasKey('path', $parameters, 'FilesController::moveAction() should return computed path under key "path".');
-                        $assert->assertSame('bar', $parameters['path'], 'FilesController::moveAction() should resolve all "./" and "../" references and replace multiple "/" with single one.');
-                        $assert->assertArrayHasKey('destination', $parameters, 'FilesController::moveAction() should return computed destination under key "path".');
-                        $assert->assertEquals('', $parameters['destination'], 'FilesController::moveAction() should resolve all "./" and "../" references and replace multiple "/" with single one.');
-                        $assert->assertArrayHasKey('route', $parameters, 'FilesController::moveAction() should return target route under key "route".');
-                        $assert->assertSame('chilldev_filemanager_files_move', $parameters['route'], 'FilesController::moveAction() should return target route under key "route".');
-                        $assert->assertArrayHasKey('title', $parameters, 'FilesController::moveAction() should return page title under key "title".');
-                        $assert->assertSame('Moving file %disk%/%path%', $parameters['title'], 'FilesController::moveAction() should return page title under key "title".');
-
-                        // directories list assertions
-                        $assert->assertArrayHasKey('list', $parameters, 'FilesController::moveAction() should return list of directories under key "list".');
-                        $assert->assertCount(2, $parameters['list'], 'FilesController::moveAction() should return list of all directories in given destination under key "list".');
-                        $assert->assertEquals(['baz', 'bar'], \array_keys($parameters['list']), 'FilesController::moveAction() should return directories references sorted by name in reverse order.');
-
-                        return $toReturn;
-            }));
-
-        $controller = new FilesController();
+            ->will($this->returnValue($toReturn));
         $controller->setContainer($this->container);
         $response = $controller->moveAction(new Request(['order' => -1]), $disk, '//./bar/.././//bar', '');
 
-        $this->assertSame($toReturn, $response, 'FilesController::moveAction() should return response generated with templating service.');
+        $this->assertSame($toReturn, $response, 'FilesController::moveAction() should return destination selection view.');
     }
 
     /**
@@ -959,7 +944,7 @@ class FilesControllerTest extends BaseContainerTest
      * Check GET method behavior.
      *
      * @test
-     * @version 0.1.1
+     * @version 0.1.2
      * @since 0.0.3
      */
     public function copyAction()
@@ -972,38 +957,23 @@ class FilesControllerTest extends BaseContainerTest
 
         $disk = $this->manager['id'];
 
-        $this->templating->expects($this->once())
-            ->method('renderResponse')
+        $controller = $this->getMockController(['renderDestinationDirectoryPicker']);
+        $controller->expects($this->once())
+            ->method('renderDestinationDirectoryPicker')
             ->with(
-                $this->equalTo('ChillDevFileManagerBundle:Files:destination.html.default'),
+                $this->equalTo(''),
+                $this->identicalTo($disk),
+                $this->isInstanceOf('ChillDev\\Bundle\\FileManagerBundle\\Filesystem\\Filesystem'),
+                $this->equalTo('bar'),
                 $this->anything(),
-                $this->isNull()
+                $this->equalTo('chilldev_filemanager_files_copy'),
+                $this->isType('string')
             )
-            ->will($this->returnCallback(function($view, $parameters) use ($assert, $toReturn, $disk) {
-                        $assert->assertArrayHasKey('disk', $parameters, 'FilesController::copyAction() should return disk scope object under key "disk".');
-                        $assert->assertSame($disk, $parameters['disk'], 'FilesController::copyAction() should return disk scope object under key "disk".');
-                        $assert->assertArrayHasKey('path', $parameters, 'FilesController::copyAction() should return computed path under key "path".');
-                        $assert->assertSame('bar', $parameters['path'], 'FilesController::copyAction() should resolve all "./" and "../" references and replace multiple "/" with single one.');
-                        $assert->assertArrayHasKey('destination', $parameters, 'FilesController::copyAction() should return computed destination under key "path".');
-                        $assert->assertEquals('', $parameters['destination'], 'FilesController::copyAction() should resolve all "./" and "../" references and replace multiple "/" with single one.');
-                        $assert->assertArrayHasKey('route', $parameters, 'FilesController::copyActioncopyAction() should return target route under key "route".');
-                        $assert->assertSame('chilldev_filemanager_files_copy', $parameters['route'], 'FilesController::copyAction() should return target route under key "route".');
-                        $assert->assertArrayHasKey('title', $parameters, 'FilesController::copyAction() should return page title under key "title".');
-                        $assert->assertSame('Copying file %disk%/%path%', $parameters['title'], 'FilesController::copyAction() should return page title under key "title".');
-
-                        // directories list assertions
-                        $assert->assertArrayHasKey('list', $parameters, 'FilesController::copyAction() should return list of directories under key "list".');
-                        $assert->assertCount(2, $parameters['list'], 'FilesController::copyAction() should return list of all directories in given destination under key "list".');
-                        $assert->assertEquals(['baz', 'bar'], \array_keys($parameters['list']), 'FilesController::copyAction() should return directories references sorted by name in reverse order.');
-
-                        return $toReturn;
-            }));
-
-        $controller = new FilesController();
+            ->will($this->returnValue($toReturn));
         $controller->setContainer($this->container);
         $response = $controller->copyAction(new Request(['order' => -1]), $disk, '//./bar/.././//bar', '');
 
-        $this->assertSame($toReturn, $response, 'FilesController::copyAction() should return response generated with templating service.');
+        $this->assertSame($toReturn, $response, 'FilesController::copyAction() should return destination selection view.');
     }
 
     /**
@@ -1295,6 +1265,70 @@ class FilesControllerTest extends BaseContainerTest
             $message,
             $params
         );
+    }
+
+    /**
+     * @test
+     * @version 0.1.2
+     * @since 0.1.2
+     */
+    public function renderDestinationDirectoryPicker()
+    {
+        vfsStream::create(['foo' => '', 'bar' => [], 'baz' => []]);
+
+        // needed for closure scope
+        $assert = $this;
+        $toReturn = new \stdClass();
+        $destination = '';
+        $path = 'bar';
+        $route = 'test_route1';
+        $title = 'Title';
+
+        $disk = $this->manager['id'];
+
+        $this->templating->expects($this->once())
+            ->method('renderResponse')
+            ->with(
+                $this->equalTo('ChillDevFileManagerBundle:Files:destination.html.default'),
+                $this->anything(),
+                $this->isNull()
+            )
+            ->will($this->returnCallback(function($view, $parameters) use ($assert, $toReturn, $disk, $destination, $path, $route, $title) {
+                        $assert->assertArrayHasKey('disk', $parameters, 'FilesController::renderDestinationDirectoryPicker() should pass disk scope object under key "disk".');
+                        $assert->assertSame($disk, $parameters['disk'], 'FilesController::renderDestinationDirectoryPicker() should pass disk scope object under key "disk".');
+                        $assert->assertArrayHasKey('path', $parameters, 'FilesController::renderDestinationDirectoryPicker() should pass computed path under key "path".');
+                        $assert->assertSame($path, $parameters['path'], 'FilesController::renderDestinationDirectoryPicker() should pass computed path under key "path".');
+                        $assert->assertArrayHasKey('destination', $parameters, 'FilesController::renderDestinationDirectoryPicker() should pass computed destination under key "path".');
+                        $assert->assertEquals($destination, $parameters['destination'], 'FilesController::renderDestinationDirectoryPicker() should pass computed destination under key "path".');
+                        $assert->assertArrayHasKey('route', $parameters, 'FilesController::renderDestinationDirectoryPicker() should pass target route under key "route".');
+                        $assert->assertSame($route, $parameters['route'], 'FilesController::renderDestinationDirectoryPicker() should pass target route under key "route".');
+                        $assert->assertArrayHasKey('title', $parameters, 'FilesController::renderDestinationDirectoryPicker() should pass page title under key "title".');
+                        $assert->assertSame($title, $parameters['title'], 'FilesController::renderDestinationDirectoryPicker() should pass page title under key "title".');
+
+                        // directories list assertions
+                        $assert->assertArrayHasKey('list', $parameters, 'FilesController::renderDestinationDirectoryPicker() should pass list of directories under key "list".');
+                        $assert->assertCount(2, $parameters['list'], 'FilesController::renderDestinationDirectoryPicker() should pass list of all directories in given destination under key "list".');
+                        $assert->assertEquals(['baz', 'bar'], \array_keys($parameters['list']), 'FilesController::renderDestinationDirectoryPicker() should pass directories references sorted by name specified order.');
+
+                        return $toReturn;
+            }));
+
+        $controller = new FilesController();
+        $controller->setContainer($this->container);
+        
+        $method = self::getMethod('renderDestinationDirectoryPicker');
+        $response = $method->invoke(
+            $controller,
+            $destination,
+            $disk,
+            $disk->getFilesystem(),
+            $path,
+            -1,
+            $route,
+            $title
+        );
+
+        $this->assertSame($toReturn, $response, 'FilesController::renderDestinationDirectoryPicker() should return response generated with templating service.');
     }
 
     /**

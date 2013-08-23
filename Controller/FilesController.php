@@ -5,7 +5,7 @@
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.1.1
+ * @version 0.1.2
  * @since 0.0.2
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -16,6 +16,7 @@ use DateTime;
 use LogicException;
 
 use ChillDev\Bundle\FileManagerBundle\Filesystem\Disk;
+use ChillDev\Bundle\FileManagerBundle\Filesystem\Filesystem;
 use ChillDev\Bundle\FileManagerBundle\Form\Type\MkdirType;
 use ChillDev\Bundle\FileManagerBundle\Form\Type\RenameType;
 use ChillDev\Bundle\FileManagerBundle\Form\Type\UploadType;
@@ -38,7 +39,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * @Route("/files")
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.1.1
+ * @version 0.1.2
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -356,7 +357,7 @@ class FilesController extends BaseController
      * @return Response Result response.
      * @throws HttpException When requested path is invalid.
      * @throws NotFoundHttpException When requested path does not exist.
-     * @version 0.1.1
+     * @version 0.1.2
      * @since 0.0.3
      */
     public function moveAction(Request $request, Disk $disk, $path, $destination = '')
@@ -393,32 +394,14 @@ class FilesController extends BaseController
             return $this->redirectToDirectory($disk, \dirname($path));
         }
 
-        $list = [];
-
-        foreach ($filesystem->createDirectoryIterator($destination) as $file => $info) {
-            // only choose from directories
-            if ($info->isDir()) {
-                $list[$file] = [
-                    'isDirectory' => true,
-                    'path' => $destination . '/' . $file,
-                ];
-            }
-        }
-
-        // perform sorting
-        \uasort($list, Controller::getSorter('path', $request->query->get('order', 1)));
-
-        // render destination choice view
-        return $this->render(
-            'ChillDevFileManagerBundle:Files:destination.html.default',
-            [
-                'disk' => $disk,
-                'path' => $path,
-                'destination' => $destination,
-                'route' => 'chilldev_filemanager_files_move',
-                'title' => 'Moving file %disk%/%path%',
-                'list' => $list,
-            ]
+        return $this->renderDestinationDirectoryPicker(
+            $destination,
+            $disk,
+            $filesystem,
+            $path,
+            $request->query->get('order', 1),
+            'chilldev_filemanager_files_move',
+            'Moving file %disk%/%path%'
         );
     }
 
@@ -438,7 +421,7 @@ class FilesController extends BaseController
      * @return Response Result response.
      * @throws HttpException When requested path is invalid.
      * @throws NotFoundHttpException When requested path does not exist.
-     * @version 0.1.1
+     * @version 0.1.2
      * @since 0.0.3
      */
     public function copyAction(Request $request, Disk $disk, $path, $destination = '')
@@ -475,32 +458,14 @@ class FilesController extends BaseController
             return $this->redirectToDirectory($disk, \dirname($path));
         }
 
-        $list = [];
-
-        foreach ($filesystem->createDirectoryIterator($destination) as $file => $info) {
-            // only choose from directories
-            if ($info->isDir()) {
-                $list[$file] = [
-                    'isDirectory' => true,
-                    'path' => $destination . '/' . $file,
-                ];
-            }
-        }
-
-        // perform sorting
-        \uasort($list, Controller::getSorter('path', $request->query->get('order', 1)));
-
-        // render destination choice view
-        return $this->render(
-            'ChillDevFileManagerBundle:Files:destination.html.default',
-            [
-                'disk' => $disk,
-                'path' => $path,
-                'destination' => $destination,
-                'route' => 'chilldev_filemanager_files_copy',
-                'title' => 'Copying file %disk%/%path%',
-                'list' => $list,
-            ]
+        return $this->renderDestinationDirectoryPicker(
+            $destination,
+            $disk,
+            $filesystem,
+            $path,
+            $request->query->get('order', 1),
+            'chilldev_filemanager_files_copy',
+            'Copying file %disk%/%path%'
         );
     }
 
@@ -567,5 +532,57 @@ class FilesController extends BaseController
         $message = \vsprintf($message . '.', \array_keys($params));
 
         $this->addFlashMessage('done', $message, $params);
+    }
+
+    /**
+     * Generates page with destination location chooser for file operation.
+     *
+     * @param string $destination Current destination location.
+     * @param Disk $disk Disk scope.
+     * @param Filesystem $filesystem Filesystem handler.
+     * @param string $path Source path.
+     * @param int $order Order direction.
+     * @param string $route Target route to use.
+     * @param string $title List header.
+     * @return Response Rendered destination chooser.
+     * @version 0.1.2
+     * @since 0.1.2
+     */
+    protected function renderDestinationDirectoryPicker(
+        $destination,
+        Disk $disk,
+        Filesystem $filesystem,
+        $path,
+        $order,
+        $route,
+        $title
+    ) {
+        $list = [];
+
+        foreach ($filesystem->createDirectoryIterator($destination) as $file => $info) {
+            // only choose from directories
+            if ($info->isDir()) {
+                $list[$file] = [
+                    'isDirectory' => true,
+                    'path' => $destination . '/' . $file,
+                ];
+            }
+        }
+
+        // perform sorting
+        \uasort($list, Controller::getSorter('path', $order));
+
+        // render destination choice view
+        return $this->render(
+            'ChillDevFileManagerBundle:Files:destination.html.default',
+            [
+                'disk' => $disk,
+                'path' => $path,
+                'destination' => $destination,
+                'route' => $route,
+                'title' => $title,
+                'list' => $list,
+            ]
+        );
     }
 }
