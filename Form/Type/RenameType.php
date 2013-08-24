@@ -5,7 +5,7 @@
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.3
+ * @version 0.1.2
  * @since 0.0.3
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -67,6 +67,7 @@ class RenameType extends AbstractType
 
     /**
      * {@inheritDoc}
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      * @version 0.0.3
      * @since 0.0.3
      */

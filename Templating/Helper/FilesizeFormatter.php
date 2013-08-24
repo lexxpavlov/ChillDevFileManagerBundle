@@ -5,7 +5,7 @@
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.2
+ * @version 0.1.2
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -19,11 +19,11 @@ use Symfony\Component\Templating\Helper\Helper;
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.2
+ * @version 0.1.2
  * @since 0.0.2
  * @package ChillDev\Bundle\FileManagerBundle
  */
-class Filesize extends Helper
+class FilesizeFormatter extends Helper
 {
     /**
      * Size prefixes.

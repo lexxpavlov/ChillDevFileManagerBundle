@@ -4,7 +4,7 @@
 #
 # @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
 # @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
-# @version 0.1.1
+# @version 0.1.2
 # @since 0.0.1
 # @package ChillDev\Bundle\FileManagerBundle
 -->
@@ -15,7 +15,7 @@
         <!-- classes definition -->
         <parameter key="chilldev.filemanager.disks.manager.class">ChillDev\Bundle\FileManagerBundle\Filesystem\Manager</parameter>
         <parameter key="chilldev.filemanager.param_converter.disk.class">ChillDev\Bundle\FileManagerBundle\Request\ParamConverter\DiskParamConverter</parameter>
-        <parameter key="chilldev.filemanager.helper.filesize.class">ChillDev\Bundle\FileManagerBundle\Templating\Helper\Filesize</parameter>
+        <parameter key="chilldev.filemanager.helper.filesize_formatter.class">ChillDev\Bundle\FileManagerBundle\Templating\Helper\FilesizeFormatter</parameter>
     </parameters>
 
     <services>
@@ -29,7 +29,7 @@
         </service>
 
         <!-- PHP templating helper -->
-        <service id="chilldev.filemanager.helper.filesize" class="%chilldev.filemanager.helper.filesize.class%">
+        <service id="chilldev.filemanager.helper.filesize_formatter" class="%chilldev.filemanager.helper.filesize_formatter.class%">
             <tag name="templating.helper" alias="filesize"/>
         </service>
     </services>

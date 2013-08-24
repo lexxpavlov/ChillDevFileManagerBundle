@@ -3,7 +3,7 @@
 #
 # @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
 # @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
-# @version 0.1.1
+# @version 0.1.2
 # @since 0.0.1
 # @package ChillDev\Bundle\FileManagerBundle
 ##
@@ -15,6 +15,7 @@ PHPDOC = $(shell which phpdoc)
 PHPCPD = $(shell which phpcpd)
 PHPCS = ./vendor/bin/phpcs
 PHPUNIT = ./vendor/bin/phpunit
+PHPMD = ./vendor/bin/phpmd
 COVERALLS = ./vendor/bin/coveralls
 
 # meta-targets
@@ -23,7 +24,7 @@ default: all
 
 all: ci documentation
 
-ci: check lint tests
+ci: check lint analyze tests
 
 # project initialization
 init:
@@ -42,6 +43,10 @@ check:
 lint:
 	$(PHPCS) --standard=PSR2 --encoding=utf-8 --extensions=php --ignore=Tests --ignore=vendor --ignore=Resources .
 	$(PHPCPD) --exclude Tests --exclude vendor --exclude Resources .
+
+# static code analyze
+analyze:
+	$(PHPMD) . text rules.xml --exclude Tests,vendor,Resources
 
 # tests running
 tests:
