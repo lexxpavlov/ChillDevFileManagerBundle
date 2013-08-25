@@ -34,7 +34,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">16</span></a></li>
+                <span class="label label-info">23</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
@@ -55,13 +55,18 @@
 <span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
 <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
 </div>
-<ul class="side-nav nav nav-list"><li class="nav-header">
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
 <i class="icon-custom icon-method"></i> Methods
                     <ul>
 <li class="method public "><a href="#method_getAlias" title="getAlias :: {@inheritdoc}"><span class="description">{@inheritdoc}</span><pre>getAlias()</pre></a></li>
 <li class="method public "><a href="#method_load" title="load :: {@inheritDoc}"><span class="description">{@inheritDoc}</span><pre>load()</pre></a></li>
 </ul>
-</li></ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul><li class="method protected "><a href="#method_setInitialDisks" title="setInitialDisks :: Handles disks configuration."><span class="description">Handles disks configuration.</span><pre>setInitialDisks()</pre></a></li></ul>
+</li>
+</ul>
 </div>
 <div class="span8">
 <a id="\ChillDev\Bundle\FileManagerBundle\DependencyInjection\ChillDevFileManagerExtension"></a><ul class="breadcrumb">
@@ -97,7 +102,7 @@
 </tr>
 <tr>
 <th>version</th>
-<td>0.1.1</td>
+<td>0.1.2</td>
 </tr>
 <tr>
 <th>since</th>
@@ -137,7 +142,7 @@
 <table class="table table-bordered">
 <tr>
 <th>version</th>
-<td>0.1.1</td>
+<td>0.1.2</td>
 </tr>
 <tr>
 <th>since</th>
@@ -149,6 +154,38 @@
 <div class="subelement argument"><h4>$container</h4></div>
 </div></div>
 </div>
+<a id="method_setInitialDisks"></a><div class="element clickable method protected method_setInitialDisks" data-toggle="collapse" data-target=".method_setInitialDisks .collapse">
+<h2>Handles disks configuration.</h2>
+<pre>setInitialDisks(\Symfony\Component\DependencyInjection\ContainerBuilder $container, array $config) : <a href="../classes/ChillDev.Bundle.FileManagerBundle.DependencyInjection.ChillDevFileManagerExtension.html">\ChillDev\Bundle\FileManagerBundle\DependencyInjection\ChillDevFileManagerExtension</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.1.1</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.1.1</td>
+</tr>
+<tr>
+<th>fluent</th>
+<td>This method is part of a fluent interface and will return the same instance</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$container</h4>
+<code>\Symfony\Component\DependencyInjection\ContainerBuilder</code><p>DI container builder.</p></div>
+<div class="subelement argument">
+<h4>$config</h4>
+<code>array</code><p>Extension configuration.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code><a href="../classes/ChillDev.Bundle.FileManagerBundle.DependencyInjection.ChillDevFileManagerExtension.html">\ChillDev\Bundle\FileManagerBundle\DependencyInjection\ChillDevFileManagerExtension</a></code>Self instance.</div>
+</div></div>
+</div>
 </div>
 </div>
 </div>
@@ -156,7 +193,7 @@
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
-            generated on 2013-06-27T22:44:52+02:00.<br></footer></div>
+            generated on 2013-08-26T01:33:12+02:00.<br></footer></div>
 </div>
 </body>
 </html>
