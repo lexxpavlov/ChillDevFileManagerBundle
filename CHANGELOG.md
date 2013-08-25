@@ -3,12 +3,18 @@
 #
 # @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
 # @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
-# @version 0.1.1
+# @version 0.1.2
 # @since 0.0.1
 # @package ChillDev\Bundle\FileManagerBundle
 -->
 
 # ChangeLog
+
+## **0.1.2** (25.08.2013)
+
+-   [fixes #27] Included instructions for dependencies in installation notes &lt;Rafał Wrzeszcz&gt;.
+-   SonataAdminBundle integration block &lt;Rafał Wrzeszcz&gt;.
+-   Removed support for Symfony 2.1 &lt;Rafał Wrzeszcz&gt;.
 
 ## **0.1.1** (27.06.2013)
 
