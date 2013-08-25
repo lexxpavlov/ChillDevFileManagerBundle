@@ -12,7 +12,7 @@
 PHP = $(shell which php)
 COMPOSER = $(shell which composer.phar)
 PHPDOC = $(shell which phpdoc)
-PHPCPD = $(shell which phpcpd)
+PHPCPD = ./vendor/bin/phpcpd
 PHPCS = ./vendor/bin/phpcs
 PHPUNIT = ./vendor/bin/phpunit
 PHPMD = ./vendor/bin/phpmd

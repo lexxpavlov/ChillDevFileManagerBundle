@@ -21,9 +21,6 @@ env:
     - "SYMFONY_VERSION=2.3.*"
 
 before_script:
-    - "pear config-set auto_discover 1"
-    - "pear install pear.phpunit.de/phpcpd"
-    - "phpenv rehash"
     - "composer --dev --no-progress require symfony/symfony:${SYMFONY_VERSION}"
     - "composer --dev --no-progress --optimize-autoloader install"
 
