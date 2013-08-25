@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# This file is part of the ChillDev FileManager bundle.
+#
+# @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
+# @copyright 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
+# @version 0.1.2
+# @since 0.1.2
+# @package ChillDev\Bundle\FileManagerBundle
+-->
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <!-- classes definition -->
+        <parameter key="chilldev.filemanager.block.disks_list.class">ChillDev\Bundle\FileManagerBundle\Block\DisksList</parameter>
+    </parameters>
+
+    <services>
+        <!-- Sonata Admin integration block -->
+        <service id="chilldev.filemanager.block.disks_list" class="%chilldev.filemanager.block.disks_list.class%">
+            <argument>chilldev.filemanager.block.disks_list</argument>
+            <argument type="service" id="templating"/>
+            <argument type="service" id="chilldev.filemanager.disks.manager"/>
+            <tag name="sonata.block"/>
+        </service>
+    </services>
+</container>

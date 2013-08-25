@@ -5,13 +5,14 @@
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.1.1
+ * @version 0.1.2
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
 
 namespace ChillDev\Bundle\FileManagerBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -20,7 +21,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.1.1
+ * @version 0.1.2
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -28,7 +29,7 @@ class Configuration implements ConfigurationInterface
 {
     /**
      * {@inheritDoc}
-     * @version 0.1.1
+     * @version 0.1.2
      * @since 0.0.1
      */
     public function getConfigTreeBuilder()
@@ -37,6 +38,28 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('chilldev_filemanager');
 
         // define parameters
+        $rootNode
+            ->children()
+                ->booleanNode('sonata_block')
+                    ->defaultFalse()
+                    ->info('Sonata Admin block flag')
+                ->end()
+            ->end();
+        $this->addDisksSection($rootNode);
+
+        return $treeBuilder;
+    }
+
+    /**
+     * Adds disks configuration section.
+     *
+     * @param ArrayNodeDefinition $rootNode Root configuration node.
+     * @return self Self instance.
+     * @version 0.1.2
+     * @since 0.1.2
+     */
+    protected function addDisksSection(ArrayNodeDefinition $rootNode)
+    {
         $rootNode
             ->fixXmlConfig('disk')
             ->children()
@@ -55,6 +78,6 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end();
 
-        return $treeBuilder;
+        return $this;
     }
 }

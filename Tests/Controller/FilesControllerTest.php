@@ -1127,7 +1127,7 @@ class FilesControllerTest extends BaseContainerTest
         $flashes = $flashBag->peekAll();
         $this->assertArrayHasKey($type, $flashes, 'FilesController::addFlashMessage() should set flash message of given type.');
         $this->assertCount(1, $flashes[$type], 'FilesController::addFlashMessage() should set flash message of given type.');
-        $this->assertEquals($value . ' bar', $flashes[$type][0], 'FilesController::addFlashMessage() should set flash message.');        
+        $this->assertEquals($value . ' bar', $flashes[$type][0], 'FilesController::addFlashMessage() should set flash message.');
     }
 
     /**
@@ -1315,7 +1315,7 @@ class FilesControllerTest extends BaseContainerTest
 
         $controller = new FilesController();
         $controller->setContainer($this->container);
-        
+
         $method = self::getMethod('renderDestinationDirectoryPicker');
         $response = $method->invoke(
             $controller,

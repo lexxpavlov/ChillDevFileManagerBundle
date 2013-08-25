@@ -5,7 +5,7 @@
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.1.1
+ * @version 0.1.2
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -22,7 +22,7 @@ use Symfony\Component\Config\Definition\NodeInterface;
 /**
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.1.1
+ * @version 0.1.2
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -130,4 +130,31 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase
                     ],
         ]));
     }
+
+    /**
+     * @test
+     * @version 0.1.2
+     * @since 0.1.2
+     */
+    public function defaultSonataBlockConfiguration()
+    {
+        $config = $this->tree->finalize($this->tree->normalize([]));
+
+        $this->assertFalse($config['sonata_block'], 'Default value for Sonata Block should be FALSE.');
+    }
+
+    /**
+     * @test
+     * @version 0.1.2
+     * @since 0.1.2
+     */
+    public function sonataBlockConfiguration()
+    {
+        $config = $this->tree->finalize($this->tree->normalize([
+                    'sonata_block' => true,
+        ]));
+
+        $this->assertTrue($config['sonata_block'], 'Configuration should handle Sonta Block configuration flag.');
+    }
+
 }

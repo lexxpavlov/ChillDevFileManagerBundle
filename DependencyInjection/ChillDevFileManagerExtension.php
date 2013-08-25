@@ -5,7 +5,7 @@
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.1.1
+ * @version 0.1.2
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -22,7 +22,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.1.1
+ * @version 0.1.2
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -30,7 +30,7 @@ class ChillDevFileManagerExtension extends Extension
 {
     /**
      * {@inheritDoc}
-     * @version 0.1.1
+     * @version 0.1.2
      * @since 0.0.1
      */
     public function load(array $configs, ContainerBuilder $container)
@@ -43,11 +43,12 @@ class ChillDevFileManagerExtension extends Extension
         // disks services
         $loader->load('services.xml');
 
-        // disks definitions
-        $manager = $container->getDefinition('chilldev.filemanager.disks.manager');
-        foreach ($config['disks'] as $id => $disk) {
-            $manager->addMethodCall('createDisk', [$id, $disk['label'], $disk['source']]);
+        if ($config['sonata_block']) {
+            $loader->load('block.xml');
         }
+
+        // disks definitions
+        $this->setInitialDisks($container, $config);
     }
 
     /**
@@ -58,5 +59,24 @@ class ChillDevFileManagerExtension extends Extension
     public function getAlias()
     {
         return 'chilldev_filemanager';
+    }
+
+    /**
+     * Handles disks configuration.
+     *
+     * @param ContainerBuilder $container DI container builder.
+     * @param array $config Extension configuration.
+     * @return self Self instance.
+     * @version 0.1.1
+     * @since 0.1.1
+     */
+    protected function setInitialDisks(ContainerBuilder $container, array $config)
+    {
+        $manager = $container->getDefinition('chilldev.filemanager.disks.manager');
+        foreach ($config['disks'] as $id => $disk) {
+            $manager->addMethodCall('createDisk', [$id, $disk['label'], $disk['source']]);
+        }
+
+        return $this;
     }
 }

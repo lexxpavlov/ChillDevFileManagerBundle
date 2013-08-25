@@ -45,6 +45,11 @@
         "sensio/framework-extra-bundle": "~2.1",
         "chilldev/view-helpers-bundle": ">=0.1.2"
     },
+    "suggest": {
+        "sonata-project/block-bundle": ">=2.2.1",
+        "sonata-project/admin-bundle": "~2.2",
+        "chilldev/proxy-templating-bundle": "0.0.2"
+    },
     "require-dev": {
         "ext-xsl": "*",
         "phpunit/phpunit": "3.7.24",

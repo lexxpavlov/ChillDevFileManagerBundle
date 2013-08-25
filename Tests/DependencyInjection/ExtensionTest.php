@@ -5,7 +5,7 @@
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.1.1
+ * @version 0.1.2
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -21,7 +21,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.1.1
+ * @version 0.1.2
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -41,6 +41,40 @@ class ExtensionTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->extension = new ChillDevFileManagerExtension();
+    }
+
+    /**
+     * @test
+     * @version 0.1.2
+     * @since 0.1.2
+     */
+    public function enabledSonataBlock()
+    {
+        $config = [
+            'sonata_block' => true,
+        ];
+        $container = new ContainerBuilder();
+
+        $this->extension->load([$config], $container);
+
+        $this->assertTrue($container->hasDefinition('chilldev.filemanager.block.disks_list'), 'ChillDevFileManagerExtension::load() should load block service if it is enabled in configuration.');
+    }
+
+    /**
+     * @test
+     * @version 0.1.2
+     * @since 0.1.2
+     */
+    public function disabledSonataBlock()
+    {
+        $config = [
+            'sonata_block' => false,
+        ];
+        $container = new ContainerBuilder();
+
+        $this->extension->load([$config], $container);
+
+        $this->assertFalse($container->hasDefinition('chilldev.filemanager.block.disks_list'), 'ChillDevFileManagerExtension::load() should not load block service if it is disabled in configuration.');
     }
 
     /**

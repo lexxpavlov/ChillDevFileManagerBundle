@@ -75,11 +75,16 @@ See [configuration options](https://github.com/chilloutdevelopment/ChillDevFileM
 
 In general, **ChillDevFileManagerBundle** is end-user ready (or at least should be) component. However there can be some issues related to frontend presentation that you can be interested in (mainly JavaScript-related). For list of things you need to know to get best experience of this bundle UI see [usage documentation](https://github.com/chilloutdevelopment/ChillDevFileManagerBundle/tree/master/Resources/doc/usage.md).
 
+# Extras
+
+As a bonus, you can integrate **ChillDevFileManagerBundle** with [**SonataAdminBundle**](https://github.com/sonata-project/SonataAdminBundle) (only possible with **Symfony 2.2+**). You can read about how to do that in [this section](https://github.com/chilloutdevelopment/ChillDevFileManagerBundle/tree/master/Resources/doc/extras.md).
+
 # Resources
 
 -   [Source documentation](https://github.com/chilloutdevelopment/ChillDevFileManagerBundle/tree/master/Resources/doc/index.md)
 -   [GitHub page with API documentation](http://chilloutdevelopment.github.io/ChillDevFileManagerBundle)
 -   [Travis CI](https://travis-ci.org/chilloutdevelopment/ChillDevFileManagerBundle)
+-   [Scrutinizer CI](https://scrutinizer-ci.com/g/chilloutdevelopment/ChillDevFileManagerBundle/)
 -   [Issues tracker](https://github.com/chilloutdevelopment/ChillDevFileManagerBundle/issues)
 -   [Packagist package](https://packagist.org/packages/chilldev/file-manager-bundle)
 -   [Chillout Development @ GitHub](https://github.com/chilloutdevelopment)
