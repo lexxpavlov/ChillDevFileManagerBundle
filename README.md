@@ -13,6 +13,9 @@
 **ChillDevFileManagerBundle** is a **Symfony2 bundle** that provides file management features from your web application.
 
 [![Build Status](https://travis-ci.org/chilloutdevelopment/ChillDevFileManagerBundle.png)](https://travis-ci.org/chilloutdevelopment/ChillDevFileManagerBundle)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/chilloutdevelopment/ChillDevFileManagerBundle/badges/quality-score.png?s=87dd1a10b9e28fe445d9695ef8c9ca6444fe3458)](https://scrutinizer-ci.com/g/chilloutdevelopment/ChillDevFileManagerBundle/)
+[![Coverage Status](https://coveralls.io/repos/chilloutdevelopment/ChillDevFileManagerBundle/badge.png?branch=develop)](https://coveralls.io/r/chilloutdevelopment/ChillDevFileManagerBundle?branch=develop)
+[![Dependency Status](http://www.versioneye.com/user/projects/51d4906b0bad120002005386/badge.png)](http://www.versioneye.com/user/projects/51d4906b0bad120002005386)
 
 # Installation
 
@@ -83,8 +86,6 @@ As a bonus, you can integrate **ChillDevFileManagerBundle** with [**SonataAdminB
 
 -   [Source documentation](https://github.com/chilloutdevelopment/ChillDevFileManagerBundle/tree/master/Resources/doc/index.md)
 -   [GitHub page with API documentation](http://chilloutdevelopment.github.io/ChillDevFileManagerBundle)
--   [Travis CI](https://travis-ci.org/chilloutdevelopment/ChillDevFileManagerBundle)
--   [Scrutinizer CI](https://scrutinizer-ci.com/g/chilloutdevelopment/ChillDevFileManagerBundle/)
 -   [Issues tracker](https://github.com/chilloutdevelopment/ChillDevFileManagerBundle/issues)
 -   [Packagist package](https://packagist.org/packages/chilldev/file-manager-bundle)
 -   [Chillout Development @ GitHub](https://github.com/chilloutdevelopment)

@@ -12,10 +12,15 @@
 
 -   [GitHub project](https://github.com/chilloutdevelopment/ChillDevFileManagerBundle)
 -   [GitHub page with API documentation](https://chilloutdevelopment.github.io/ChillDevFileManagerBundle)
--   [Travis CI](https://travis-ci.org/chilloutdevelopment/ChillDevFileManagerBundle)
--   [Scrutinizer CI](https://scrutinizer-ci.com/g/chilloutdevelopment/ChillDevFileManagerBundle/)
 -   [Issues tracker](https://github.com/chilloutdevelopment/ChillDevFileManagerBundle/issues)
 -   [Packagist package](https://packagist.org/packages/chilldev/file-manager-bundle)
 -   [Chillout Development @ GitHub](https://github.com/chilloutdevelopment)
 -   [Chillout Development @ Facebook](http://www.facebook.com/chilldev)
 -   [Chillout Development website](http://chilldev.pl/)
+
+## QA tools
+
+-   [Travis CI](https://travis-ci.org/chilloutdevelopment/ChillDevFileManagerBundle)
+-   [Scrutinizer CI](https://scrutinizer-ci.com/g/chilloutdevelopment/ChillDevFileManagerBundle/)
+-   [Coverage tracking](https://coveralls.io/r/chilloutdevelopment/ChillDevFileManagerBundle)
+-   [Dependencies tracking](http://www.versioneye.com/user/projects/51d4906b0bad120002005386)
