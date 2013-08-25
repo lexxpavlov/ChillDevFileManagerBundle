@@ -80,7 +80,7 @@ In general, **ChillDevFileManagerBundle** is end-user ready (or at least should 
 
 # Extras
 
-As a bonus, you can integrate **ChillDevFileManagerBundle** with [**SonataAdminBundle**](https://github.com/sonata-project/SonataAdminBundle) (only possible with **Symfony 2.2+**). You can read about how to do that in [this section](https://github.com/chilloutdevelopment/ChillDevFileManagerBundle/tree/master/Resources/doc/extras.md).
+As a bonus, you can integrate **ChillDevFileManagerBundle** with [**SonataAdminBundle**](https://github.com/sonata-project/SonataAdminBundle). You can read about how to do that in [this section](https://github.com/chilloutdevelopment/ChillDevFileManagerBundle/tree/master/Resources/doc/extras.md).
 
 # Resources
 

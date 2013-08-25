@@ -14,8 +14,6 @@
 
 You can integrate **ChillDevFileManagerBundle** with [**SonataAdminBundle**](https://github.com/sonata-project/SonataAdminBundle) by adding file manager block to administration dashboard panel. For now integration just adds block with disks list to administration dashboard. More features are planned.
 
-**Note:** Integration is only possible if you use **Symfony 2.2** or newer.
-
 Here is complete configuration snippet:
 
 ```yaml

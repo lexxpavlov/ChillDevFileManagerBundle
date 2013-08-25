@@ -30,19 +30,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class DisksListTest extends BaseManagerTest
 {
     /**
-     * @version 0.1.2
-     * @since 0.1.2
-     */
-    public function setUp()
-    {
-        if (!\class_exists('Sonata\\BlockBundle\\Block\\BaseBlockService')) {
-            $this->markTestSkipped('Block service is only available with SonataBlockBundle.');
-        }
-
-        parent::setUp();
-    }
-
-    /**
      * @test
      * @version 0.1.2
      * @since 0.1.2
