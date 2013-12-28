@@ -3,7 +3,7 @@
 #
 # @author Rafal Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
 # @copyright 2012 - 2013 © by Rafal Wrzeszcz - Wrzasq.pl.
-# @version 0.1.2
+# @version 0.1.3
 # @since 0.0.1
 # @package ChillDev\Bundle\FileManagerBundle
 ##
@@ -19,6 +19,7 @@ php:
 env:
     - "SYMFONY_VERSION=2.2.*"
     - "SYMFONY_VERSION=2.3.*"
+    - "SYMFONY_VERSION=2.4.*"
 
 before_script:
     - "composer --dev --no-progress require symfony/symfony:${SYMFONY_VERSION}"
