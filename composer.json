@@ -51,7 +51,6 @@
         "chilldev/proxy-templating-bundle": "0.0.3"
     },
     "require-dev": {
-        "ext-xsl": "*",
         "phpunit/phpunit": "3.7.28",
         "phpmd/phpmd" : "1.5.0",
         "sebastian/phpcpd": "2.0.0",
@@ -63,9 +62,8 @@
         "chilldev/proxy-templating-bundle": "0.0.3"
     },
     "autoload": {
-        "psr-0": {
-            "ChillDev\\Bundle\\FileManagerBundle": ""
+        "psr-4": {
+            "ChillDev\\Bundle\\FileManagerBundle\\": ""
         }
-    },
-    "target-dir": "ChillDev/Bundle/FileManagerBundle"
+    }
 }
