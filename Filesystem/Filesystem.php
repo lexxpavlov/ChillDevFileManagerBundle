@@ -4,8 +4,8 @@
  * This file is part of the ChillDev FileManager bundle.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.3
+ * @copyright 2013 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.1.3
  * @since 0.0.2
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -23,8 +23,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * Abstract filesystem management.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.3
+ * @copyright 2013 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.1.3
  * @since 0.0.2
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -155,30 +155,32 @@ class Filesystem
      *
      * @param string $path Subject directory path.
      * @return FilesystemIterator Directory listing iterator.
-     * @version 0.0.3
+     * @version 0.1.3
      * @since 0.0.2
      */
     public function createDirectoryIterator($path)
     {
-        return new FilesystemIterator(
+        $iterator = new FilesystemIterator(
             $this->root . $path,
             FilesystemIterator::KEY_AS_FILENAME
             | FilesystemIterator::CURRENT_AS_FILEINFO
             | FilesystemIterator::SKIP_DOTS
             | FilesystemIterator::UNIX_PATHS
         );
+        $iterator->setInfoClass('ChillDev\\Bundle\\FileManagerBundle\\Filesystem\\FileInfo');
+        return $iterator;
     }
 
     /**
      * Creates fileinfo object.
      *
      * @param string $path Subject path.
-     * @return SplFileInfo File information object.
-     * @version 0.0.3
+     * @return FileInfo File information object.
+     * @version 0.1.3
      * @since 0.0.3
      */
     public function getFileInfo($path)
     {
-        return new SplFileInfo($this->root . $path);
+        return new FileInfo($this->root . $path);
     }
 }

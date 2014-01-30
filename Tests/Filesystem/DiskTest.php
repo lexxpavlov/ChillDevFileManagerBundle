@@ -12,8 +12,6 @@
 
 namespace ChillDev\Bundle\FileManagerBundle\Tests\Filesystem;
 
-use PHPUnit_Framework_TestCase;
-
 use ChillDev\Bundle\FileManagerBundle\Filesystem\Disk;
 use ChillDev\Bundle\FileManagerBundle\Tests\BaseManagerTest;
 

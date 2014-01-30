@@ -4,8 +4,8 @@
  * This file is part of the ChillDev FileManager bundle.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.3
+ * @copyright 2013 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.1.3
  * @since 0.0.2
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -22,8 +22,8 @@ use org\bovigo\vfs\vfsStream;
 
 /**
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.3
+ * @copyright 2013 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.1.3
  * @since 0.0.2
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -219,7 +219,7 @@ class FilesystemTest extends PHPUnit_Framework_TestCase
 
         $info = $this->getFilesystem()->getFileInfo($filename);
 
-        $this->assertInstanceOf('SplFileInfo', $info, 'Filesystem::getFileInfo() should return instance of SplFileInfo class.');
+        $this->assertInstanceOf('ChillDev\\Bundle\\FileManagerBundle\\Filesystem\\FileInfo', $info, 'Filesystem::getFileInfo() should return instance of FileInfo class.');
         $this->assertEquals($this->getRootPath() . $filename, $info->getPathname(), 'Filesystem::getFileInfo() should create SplFileInfo for specified path');
     }
 

@@ -4,8 +4,8 @@
  * This file is part of the ChillDev FileManager bundle.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.1.1
+ * @copyright 2012 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.1.3
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -35,6 +35,11 @@ $view['title']->append($view['translator']->trans('Browsing path %disk%/%path%',
                 <a href="<?php echo $view->escape($view['router']->generate('chilldev_filemanager_disks_browse', ['disk' => $disk->getId(), 'path' => $path, 'by' => 'size', 'order' => 1])); ?>">▲</a>
                 <a href="<?php echo $view->escape($view['router']->generate('chilldev_filemanager_disks_browse', ['disk' => $disk->getId(), 'path' => $path, 'by' => 'size', 'order' => -1])); ?>">▼</a>
             </th>
+            <th>
+                <?php echo $view['translator']->trans('Type'); ?>
+                <a href="<?php echo $view->escape($view['router']->generate('chilldev_filemanager_disks_browse', ['disk' => $disk->getId(), 'path' => $path, 'by' => 'mimeType', 'order' => 1])); ?>">▲</a>
+                <a href="<?php echo $view->escape($view['router']->generate('chilldev_filemanager_disks_browse', ['disk' => $disk->getId(), 'path' => $path, 'by' => 'mimeType', 'order' => -1])); ?>">▼</a>
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -42,7 +47,7 @@ $view['title']->append($view['translator']->trans('Browsing path %disk%/%path%',
     <tbody>
         <?php if (!empty($path)): ?>
             <tr>
-                <td colspan="3"><a href="<?php echo $view['router']->generate('chilldev_filemanager_disks_browse', ['disk' => $disk->getId(), 'path' => \dirname($path)]); ?>">..</a></td>
+                <td colspan="4"><a href="<?php echo $view['router']->generate('chilldev_filemanager_disks_browse', ['disk' => $disk->getId(), 'path' => \dirname($path)]); ?>">..</a></td>
             </tr>
         <?php endif; ?>
         <?php if (\count($list) > 0): ?>
@@ -61,6 +66,9 @@ $view['title']->append($view['translator']->trans('Browsing path %disk%/%path%',
                         <?php endif; ?>
                     </td>
                     <td>
+                        <?php echo $view->escape($info['mimeType']); ?>
+                    </td>
+                    <td>
                         <form action="<?php echo $view['router']->generate('chilldev_filemanager_files_delete', ['disk' => $disk->getId(), 'path' => $info['path']]); ?>" method="post" data-confirm="<?php echo $view['translator']->trans('Are you sure you want to delete this file?'); ?>" class="confirm-required">
                             <input type="submit" value="<?php echo $view['translator']->trans('Delete'); ?>"/>
                         </form>
@@ -72,7 +80,7 @@ $view['title']->append($view['translator']->trans('Browsing path %disk%/%path%',
             <?php endforeach; ?>
         <?php else: ?>
             <tr>
-                <td colspan="3"><?php echo $view['translator']->trans('This directory is empty.'); ?></td>
+                <td colspan="4"><?php echo $view['translator']->trans('This directory is empty.'); ?></td>
             </tr>
         <?php endif; ?>
     </tbody>

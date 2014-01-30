@@ -4,8 +4,8 @@
  * This file is part of the ChillDev FileManager bundle.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.1.1
+ * @copyright 2012 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.1.3
  * @since 0.0.2
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -28,8 +28,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *
  * @Route("/disks")
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.1.1
+ * @copyright 2012 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.1.3
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -65,7 +65,7 @@ class DisksController extends BaseController
      * @return array Template data.
      * @throws HttpException When requested path is invalid or is not a directory.
      * @throws NotFoundHttpException When requested path does not exist.
-     * @version 0.1.1
+     * @version 0.1.3
      * @since 0.0.1
      */
     public function browseAction(Request $request, Disk $disk, $path = '')
@@ -90,6 +90,7 @@ class DisksController extends BaseController
             $data = [
                 'isDirectory' => $info->isDir(),
                 'path' => $path . '/' . $file,
+                'mimeType' => $info->getMimeType(),
             ];
 
             // directories doesn't have size
@@ -103,13 +104,17 @@ class DisksController extends BaseController
         $by = $request->query->get('by', 'path');
 
         // select only allowed sorting parameters
-        if (!\in_array($by, ['path', 'size'])) {
+        if (!\in_array($by, ['path', 'size', 'mimeType'])) {
             $by = 'path';
         }
 
         // perform sorting
         \uasort($list, Controller::getSorter($by, $request->query->get('order', 1)));
 
-        return ['disk' => $disk, 'path' => $path, 'list' => $list];
+        return [
+            'disk' => $disk,
+            'path' => $path,
+            'list' => $list,
+        ];
     }
 }

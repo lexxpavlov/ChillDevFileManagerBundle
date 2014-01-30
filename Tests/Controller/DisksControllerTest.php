@@ -86,10 +86,12 @@ class DisksControllerTest extends BaseContainerTest
         $this->assertFalse($file['isDirectory'], 'DisksController::browseAction() should set "isDirectory" flag to false for file entries.');
         $this->assertEquals(4, $file['size'], 'DisksController::browseAction() should set "size" field for file entries to value of the size of given file.');
         $this->assertEquals('bar/baz', $file['path'], 'DisksController::browseAction() should set "path" field as the relative path to given file from disk.');
+        $this->assertEquals('text/plain', $file['mimeType'], 'DisksController::browseAction() should set "mimeType" field for file entries to value of the MIME type of given file.');
 
         $file = $return['list']['quux'];
         $this->assertTrue($file['isDirectory'], 'DisksController::browseAction() should set "isDirectory" flag to true for directory entries.');
         $this->assertArrayNotHasKey('size', $file, 'DisksController::browseAction() should not set "size" field for directory entries.');
+        $this->assertEquals('directory', $file['mimeType'], 'DisksController::browseAction() should set "mimeType" field for directories entries to value "directory".');
     }
 
     /**
