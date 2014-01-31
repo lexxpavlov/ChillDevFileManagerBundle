@@ -4,14 +4,15 @@
  * This file is part of the ChillDev FileManager bundle.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.1.1
+ * @copyright 2012 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.1.3
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
 
 namespace ChillDev\Bundle\FileManagerBundle\Tests\Controller;
 
+use ChillDev\Bundle\FileManagerBundle\Action\ActionsManager;
 use ChillDev\Bundle\FileManagerBundle\Controller\DisksController;
 use ChillDev\Bundle\FileManagerBundle\Filesystem\Disk;
 use ChillDev\Bundle\FileManagerBundle\Tests\BaseContainerTest;
@@ -22,20 +23,30 @@ use org\bovigo\vfs\vfsStream;
 
 /**
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.1.1
+ * @copyright 2012 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.1.3
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
 class DisksControllerTest extends BaseContainerTest
 {
     /**
+     * @var ActionsManager
+     * @version 0.1.3
+     * @since 0.1.3
+     */
+    protected $actionsManager;
+
+    /**
      * @version 0.1.1
      * @since 0.0.2
      */
     protected function setUpContainer()
     {
+        $this->actionsManager = new ActionsManager();
+
         $this->container->set('chilldev.filemanager.disks.manager', $this->manager);
+        $this->container->set('chilldev.filemanager.actions.actions_manager', $this->actionsManager);
     }
 
     /**
@@ -79,6 +90,7 @@ class DisksControllerTest extends BaseContainerTest
 
         $this->assertSame($disk, $return['disk'], 'DisksController::browseAction() should return disk scope object under key "disk".');
         $this->assertEquals('bar', $return['path'], 'DisksController::browseAction() should resolve all "./" and "../" references, replace multiple "/" with single one and return computed path under key "path".');
+        $this->assertSame($this->actionsManager, $return['actions'], 'DisksController::browseAction() should return actions manager under key "actions".');
 
         $this->assertCount(2, $return['list'], 'DisksController::browseAction() should return list of all files in given directory under key "list".');
 

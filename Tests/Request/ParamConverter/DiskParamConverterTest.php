@@ -4,8 +4,8 @@
  * This file is part of the ChillDev FileManager bundle.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.2
+ * @copyright 2012 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.1.3
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -22,8 +22,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.2
+ * @copyright 2012 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.1.3
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -49,7 +49,7 @@ class DiskParamConverterTest extends BaseManagerTest
 
     /**
      * @test
-     * @version 0.0.1
+     * @version 0.1.3
      * @since 0.0.1
      */
     public function supportedClass()
@@ -60,7 +60,7 @@ class DiskParamConverterTest extends BaseManagerTest
         $this->assertTrue($this->converter->supports($configuration), 'DiskParamConverter::supports() should return true for handling class "ChillDev\\Bundle\\FileManagerBundle\\Filesystem\\Disk".');
 
         $configuration->setClass('ChillDev\\Bundle\\FileManagerBundle\\Filesystem\\Manager');
-        $this->assertFalse($this->converter->supports($configuration), 'DiskParamConverter::supports() should return false for handling class different then "ChillDev\\Bundle\\FileManagerBundle\\Filesystem\\Disk".');
+        $this->assertFalse($this->converter->supports($configuration), 'DiskParamConverter::supports() should return false for handling class different than "ChillDev\\Bundle\\FileManagerBundle\\Filesystem\\Disk".');
     }
 
     /**

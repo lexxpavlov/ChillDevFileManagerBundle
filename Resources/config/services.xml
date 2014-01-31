@@ -3,8 +3,8 @@
 # This file is part of the ChillDev FileManager bundle.
 #
 # @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
-# @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
-# @version 0.1.2
+# @copyright 2012 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+# @version 0.1.3
 # @since 0.0.1
 # @package ChillDev\Bundle\FileManagerBundle
 -->
@@ -15,7 +15,9 @@
         <!-- classes definition -->
         <parameter key="chilldev.filemanager.disks.manager.class">ChillDev\Bundle\FileManagerBundle\Filesystem\Manager</parameter>
         <parameter key="chilldev.filemanager.param_converter.disk.class">ChillDev\Bundle\FileManagerBundle\Request\ParamConverter\DiskParamConverter</parameter>
+        <parameter key="chilldev.filemanager.param_converter.action_handler.class">ChillDev\Bundle\FileManagerBundle\Request\ParamConverter\ActionHandlerParamConverter</parameter>
         <parameter key="chilldev.filemanager.helper.filesize_formatter.class">ChillDev\Bundle\FileManagerBundle\Templating\Helper\FilesizeFormatter</parameter>
+        <parameter key="chilldev.filemanager.actions.actions_manager.class">ChillDev\Bundle\FileManagerBundle\Action\ActionsManager</parameter>
     </parameters>
 
     <services>
@@ -28,9 +30,18 @@
             <tag name="request.param_converter"/>
         </service>
 
+        <!-- custom action param converter -->
+        <service id="chilldev.filemanager.param_converter.action_handler" class="%chilldev.filemanager.param_converter.action_handler.class%">
+            <argument type="service" id="chilldev.filemanager.actions.actions_manager"/>
+            <tag name="request.param_converter"/>
+        </service>
+
         <!-- PHP templating helper -->
         <service id="chilldev.filemanager.helper.filesize_formatter" class="%chilldev.filemanager.helper.filesize_formatter.class%">
             <tag name="templating.helper" alias="filesize"/>
         </service>
+
+        <!-- file actions manager -->
+        <service id="chilldev.filemanager.actions.actions_manager" class="%chilldev.filemanager.actions.actions_manager.class%"/>
     </services>
 </container>

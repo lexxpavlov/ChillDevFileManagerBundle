@@ -75,6 +75,9 @@ $view['title']->append($view['translator']->trans('Browsing path %disk%/%path%',
                         <a href="<?php echo $view['router']->generate('chilldev_filemanager_files_rename', ['disk' => $disk->getId(), 'path' => $info['path']]); ?>"><?php echo $view['translator']->trans('Rename'); ?></a>
                         <a href="<?php echo $view['router']->generate('chilldev_filemanager_files_move', ['disk' => $disk->getId(), 'path' => $info['path']]); ?>"><?php echo $view['translator']->trans('Move'); ?></a>
                         <a href="<?php echo $view['router']->generate('chilldev_filemanager_files_copy', ['disk' => $disk->getId(), 'path' => $info['path']]); ?>"><?php echo $view['translator']->trans('Copy'); ?></a>
+                        <?php foreach ($actions->getActionsForType($info['mimeType']) as $action => $handler): ?>
+                            <a href="<?php echo $view['router']->generate('chilldev_filemanager_actions_handle', ['action' => $action, 'disk' => $disk->getId(), 'path' => $info['path']]); ?>"><?php echo $view['translator']->trans($handler->getLabel()); ?></a>
+                        <?php endforeach; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

@@ -2,8 +2,8 @@
 # This file is part of the ChillDev FileManager bundle.
 #
 # @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
-# @copyright 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
-# @version 0.1.1
+# @copyright 2013 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+# @version 0.1.3
 # @since 0.0.3
 # @package ChillDev\Bundle\FileManagerBundle
 -->
@@ -18,7 +18,7 @@ First of all, any JavaScript code attached to this bundle uses [http://prototype
 
 Second thing is, that bundle itself doesn't load any JavaScript files on it's own. You have to include it's `.js` files yourself because:
 
-1.  we know you may use different library then **Prototype** (possibly **jQuery**), then you can implement your own rich-UI,
+1.  we know you may use different library than **Prototype** (possibly **jQuery**), then you can implement your own rich-UI,
 1.  you most probably use **Composer** to manage dependencies and have your own deployment cycle for assets, so we leave it up to you how to deal with bundle static files,
 1.  it's hard to attach JavaScript dependencies in Composer-based projects.
 

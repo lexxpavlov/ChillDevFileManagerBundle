@@ -115,6 +115,7 @@ class DisksController extends BaseController
             'disk' => $disk,
             'path' => $path,
             'list' => $list,
+            'actions' => $this->get('chilldev.filemanager.actions.actions_manager'),
         ];
     }
 }
