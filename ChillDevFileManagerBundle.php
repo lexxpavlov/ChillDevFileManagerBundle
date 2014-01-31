@@ -38,7 +38,7 @@ class ChillDevFileManagerBundle extends Bundle
      * @version 0.1.3
      * @since 0.1.3
      */
-    const ACTION_INTERFACE_NAME = 'ChillDev\\Bundle\\FileManagerBundle\\Action\\Handler\\ActionHandlerInterface';
+    const ACTION_INTERFACE_NAME = 'ChillDev\\Bundle\\FileManagerBundle\\Action\\Handler\\HandlerInterface';
 
     /**
      * {@inheritDoc}

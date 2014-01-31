@@ -2,8 +2,8 @@
 # This file is part of the ChillDev FileManager bundle.
 #
 # @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
-# @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
-# @version 0.1.2
+# @copyright 2012 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+# @version 0.1.3
 # @since 0.0.1
 # @package ChillDev\Bundle\FileManagerBundle
 -->
@@ -76,7 +76,35 @@ See [configuration options](https://github.com/chilloutdevelopment/ChillDevFileM
 
 # Usage
 
+## Frontend
+
 In general, **ChillDevFileManagerBundle** is end-user ready (or at least should be) component. However there can be some issues related to frontend presentation that you can be interested in (mainly JavaScript-related). For list of things you need to know to get best experience of this bundle UI see [usage documentation](https://github.com/chilloutdevelopment/ChillDevFileManagerBundle/tree/master/Resources/doc/usage.md).
+
+## Actions handlers
+
+Another aspect which you may be interested in is implementing own file actions. You can easily extend **ChillDevFileManagerBundle** to allow additional file actions (even filetype-specific). You can bind your own action handler to specific MIME type by registring your instances of `HandlerInterface` interface:
+
+```php
+class MyHandler implements HandlerInterface
+{
+    public function getLabel()
+    {
+        return 'My action';
+    }
+
+    public function supports($mimeType)
+    {
+        return preg_match('#^image/#', $mimeType) > 0;
+    }
+
+    public function handle(Request $request, Disk $disk, $path)
+    {
+        // handle action request
+    }
+}
+```
+
+You can read [more detailed info here](https://github.com/chilloutdevelopment/ChillDevFileManagerBundle/tree/master/Resources/doc/usage/actions-handlers.md).
 
 # Extras
 
