@@ -19,6 +19,7 @@
         <parameter key="chilldev.filemanager.helper.filesize_formatter.class">ChillDev\Bundle\FileManagerBundle\Templating\Helper\FilesizeFormatter</parameter>
         <parameter key="chilldev.filemanager.actions.actions_manager.class">ChillDev\Bundle\FileManagerBundle\Action\ActionsManager</parameter>
         <parameter key="chilldev.filemanager.actions.handler.edit.class">ChillDev\Bundle\FileManagerBundle\Action\Handler\TextEditor</parameter>
+        <parameter key="chilldev.filemanager.actions.handler.view.class">ChillDev\Bundle\FileManagerBundle\Action\Handler\ImageViewer</parameter>
         <parameter key="chilldev.filemanager.translation.flash_bag.class">ChillDev\Bundle\FileManagerBundle\Translation\FlashBag</parameter>
     </parameters>
 
@@ -53,6 +54,12 @@
             <argument type="service" id="chilldev.filemanager.translation.flash_bag"/>
             <argument type="service" id="form.factory"/>
             <tag name="chilldev.filemanager.action_handler" action="edit"/>
+        </service>
+
+        <!-- simple image viewer -->
+        <service id="chilldev.filemanager.actions.handler.view" class="%chilldev.filemanager.actions.handler.view.class%">
+            <argument type="service" id="templating"/>
+            <tag name="chilldev.filemanager.action_handler" action="view"/>
         </service>
 
         <!-- flash bag with translations support -->
