@@ -4,8 +4,8 @@
  * This file is part of the ChillDev FileManager bundle.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.1.2
+ * @copyright 2012 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.1.3
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -23,14 +23,13 @@ use ChillDev\Bundle\FileManagerBundle\Tests\BaseContainerTest;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 
 use org\bovigo\vfs\vfsStream;
 
 /**
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.1.2
+ * @copyright 2012 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.1.3
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -65,14 +64,14 @@ class FilesControllerTest extends BaseContainerTest
     protected $templating;
 
     /**
-     * @var Symfony\Component\HttpFoundation\Session\Session
-     * @version 0.0.2
-     * @since 0.0.2
+     * @var ChillDev\Bundle\FileManagerBundle\Translation\FlashBag
+     * @version 0.1.3
+     * @since 0.1.3
      */
-    protected $session;
+    protected $flashBag;
 
     /**
-     * @version 0.1.1
+     * @version 0.1.3
      * @since 0.0.2
      */
     protected function setUpContainer()
@@ -88,8 +87,8 @@ class FilesControllerTest extends BaseContainerTest
         $this->templating = $this->getMock('Symfony\\Bundle\\FrameworkBundle\\Templating\\EngineInterface');
         $this->container->set('templating', $this->templating);
 
-        $this->session = $this->getMock('Symfony\\Component\\HttpFoundation\\Session\\Session');
-        $this->container->set('session', $this->session);
+        $this->flashBag = $this->getMock('ChillDev\\Bundle\\FileManagerBundle\\Translation\\FlashBag', [], [], '', false);
+        $this->container->set('chilldev.filemanager.translation.flash_bag', $this->flashBag);
     }
 
     /**
@@ -164,8 +163,8 @@ class FilesControllerTest extends BaseContainerTest
      *
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
-     * @expectedExceptionMessage "[Test]/bar" is not a regular file that can be downloaded.
-     * @version 0.1.1
+     * @expectedExceptionMessage "[Test]/bar" is a directory.
+     * @version 0.1.3
      * @since 0.0.1
      */
     public function downloadNonfilePath()
@@ -457,8 +456,8 @@ class FilesControllerTest extends BaseContainerTest
      *
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
-     * @expectedExceptionMessage "[Test]/foo" is not a directory, so a sub-directory can't be created within it.
-     * @version 0.1.1
+     * @expectedExceptionMessage "[Test]/foo" is not a directory.
+     * @version 0.1.3
      * @since 0.0.1
      */
     public function mkdirNondirectoryPath()
@@ -627,8 +626,8 @@ class FilesControllerTest extends BaseContainerTest
      *
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
-     * @expectedExceptionMessage "[Test]/foo" is not a directory, so a file can't be uploaded into it.
-     * @version 0.1.1
+     * @expectedExceptionMessage "[Test]/foo" is not a directory.
+     * @version 0.1.3
      * @since 0.0.3
      */
     public function uploadNondirectoryPath()
@@ -1100,41 +1099,6 @@ class FilesControllerTest extends BaseContainerTest
      * @version 0.1.1
      * @since 0.1.1
      */
-    public function addFlashMessage()
-    {
-        $type = 'foo';
-        $value = 'baz';
-        $flashBag = new FlashBag();
-
-        // mocks set-up
-        $this->session->expects($this->once())
-            ->method('getFlashBag')
-            ->will($this->returnValue($flashBag));
-
-        $controller = new FilesController();
-        $controller->setContainer($this->container);
-
-        // get protected method
-        $method = self::getMethod('addFlashMessage');
-        $method->invoke(
-            $controller,
-            $type,
-            '%foo% bar',
-            ['%foo%' => $value]
-        );
-
-        // flash message properties
-        $flashes = $flashBag->peekAll();
-        $this->assertArrayHasKey($type, $flashes, 'FilesController::addFlashMessage() should set flash message of given type.');
-        $this->assertCount(1, $flashes[$type], 'FilesController::addFlashMessage() should set flash message of given type.');
-        $this->assertEquals($value . ' bar', $flashes[$type][0], 'FilesController::addFlashMessage() should set flash message.');
-    }
-
-    /**
-     * @test
-     * @version 0.1.1
-     * @since 0.1.1
-     */
     public function redirectToDirectory()
     {
         // pre-defined values
@@ -1178,7 +1142,17 @@ class FilesControllerTest extends BaseContainerTest
         $message = 'test "%s" message';
         $params = ['%file%' => 'test'];
 
+        $type = 'done';
+
         // mocks set-up
+        $this->flashBag->expects($this->once())
+            ->method('add')
+            ->with(
+                $this->equalTo($type),
+                $this->equalTo(str_replace('%s', '%file%', $message) . '.'),
+                $this->equalTo($params)
+            );
+
         $this->logger->expects($this->once())
             ->method('info')
             ->with(
@@ -1186,15 +1160,7 @@ class FilesControllerTest extends BaseContainerTest
                 $this->equalTo(['scope' => $disk->getSource()])
             );
 
-        $controller = $this->getMockController(['addFlashMessage']);
-        $controller->expects($this->once())
-            ->method('addFlashMessage')
-            ->with(
-                $this->equalTo('done'),
-                $this->equalTo(\str_replace('%s', '%file%', $message) . '.'),
-                $this->equalTo($params)
-            );
-
+        $controller = new FilesController();
         $controller->setContainer($this->container);
 
         // get protected method

@@ -19,9 +19,9 @@ use PHPUnit_Framework_TestCase;
 use ChillDev\Bundle\FileManagerBundle\Action\Handler\TextEditor;
 use ChillDev\Bundle\FileManagerBundle\Filesystem\Disk;
 use ChillDev\Bundle\FileManagerBundle\Tests\BaseContainerTest;
+use ChillDev\Bundle\FileManagerBundle\Translation\FlashBag;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 
 use org\bovigo\vfs\vfsStream;
 
@@ -49,18 +49,11 @@ class TextEditorTest extends BaseContainerTest
     protected $templating;
 
     /**
-     * @var Symfony\Component\HttpFoundation\Session\Session
+     * @var ChillDev\Bundle\FileManagerBundle\Translation\FlashBag
      * @version 0.1.3
      * @since 0.1.3
      */
-    protected $session;
-
-    /**
-     * @var Symfony\Component\Translation\TranslatorInterface
-     * @version 0.1.3
-     * @since 0.1.3
-     */
-    protected $translator;
+    protected $flashBag;
 
     /**
      * @version 0.1.3
@@ -72,8 +65,7 @@ class TextEditorTest extends BaseContainerTest
 
         $this->router = $this->getMock('Symfony\\Component\\Routing\\RouterInterface');
         $this->templating = $this->getMock('Symfony\\Bundle\\FrameworkBundle\\Templating\\EngineInterface');
-        $this->session = $this->getMock('Symfony\\Component\\HttpFoundation\\Session\\Session');
-        $this->translator = $this->getMock('Symfony\\Component\\Translation\\TranslatorInterface');
+        $this->flashBag = $this->getMock('ChillDev\\Bundle\\FileManagerBundle\\Translation\\FlashBag', [], [], '', false);
     }
 
     /**
@@ -124,7 +116,7 @@ class TextEditorTest extends BaseContainerTest
                 $this->anything(),
                 $this->isNull()
             )
-            ->will($this->returnCallback(function($view, $parameters) use ($assert, $toReturn, $disk, $path) {
+            ->will($this->returnCallback(function($view, $parameters) use ($assert, $toReturn, $disk, $path, $content) {
                         $assert->assertArrayHasKey('disk', $parameters, 'TextEditor::handle() should return disk scope object under key "disk".');
                         $assert->assertSame($disk, $parameters['disk'], 'TextEditor::handle() should return disk scope object under key "disk".');
                         $assert->assertArrayHasKey('path', $parameters, 'TextEditor::handle() should return path under key "path".');
@@ -132,10 +124,9 @@ class TextEditorTest extends BaseContainerTest
                         $assert->assertArrayHasKey('form', $parameters, 'TextEditor::handle() should return form data under key "form".');
                         $assert->assertInstanceOf('Symfony\\Component\\Form\\FormView', $parameters['form'], 'TextEditor::handle() should return form data under key "form".');
                         $assert->assertEquals('action_edit', $parameters['form']->vars['name'], 'TextEditor::handle() should return form data of EditorType form.');
+                        $assert->assertEquals($content, $parameters['form']->vars['value']['content'], 'TextEditor::handle() should assign existing file contents as initial form field value.');
                         return $toReturn;
             }));
-
-        //TODO: assert for form factory call with initial file content
 
         $handler = $this->createHandler();
         $response = $handler->handle(new Request(), $disk, $path);
@@ -173,10 +164,13 @@ class TextEditorTest extends BaseContainerTest
             ->will($this->returnValue($toReturn));
 
         // mocks set-up
-        $flashBag = new FlashBag();
-        $this->session->expects($this->once())
-            ->method('getFlashBag')
-            ->will($this->returnValue($flashBag));
+        $this->flashBag->expects($this->once())
+            ->method('add')
+            ->with(
+                $this->equalTo('done'),
+                $this->isType('string'),
+                $this->isType('array')
+            );
 
         $response = $this->createHandler()->handle($request, $disk, $path);
 
@@ -191,7 +185,7 @@ class TextEditorTest extends BaseContainerTest
     /**
      * @test
      * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
-     * @expectedExceptionMessage "[Test]/bar" is not a regular file that can be edited.
+     * @expectedExceptionMessage "[Test]/bar" is a directory.
      * @version 0.1.3
      * @since 0.1.3
      */
@@ -212,8 +206,7 @@ class TextEditorTest extends BaseContainerTest
         return new TextEditor(
             $this->templating,
             $this->router,
-            $this->session,
-            $this->translator,
+            $this->flashBag,
             $this->container->get('form.factory')
         );
     }

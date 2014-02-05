@@ -4,8 +4,8 @@
  * This file is part of the ChillDev FileManager bundle.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.3
+ * @copyright 2013 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.1.3
  * @since 0.0.3
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -24,8 +24,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * Controller utilities.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.3
+ * @copyright 2013 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.1.3
  * @since 0.0.3
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -68,6 +68,28 @@ class Controller
                 // non-existing path
                 throw new NotFoundHttpException(\sprintf('File "%s/%s" does not exist.', $disk, $file));
             }
+        }
+    }
+
+    /**
+     * Ensures that given path is (or is not) a directory.
+     *
+     * @param Disk $disk Disk reference.
+     * @param Filesystem $filesystem Filesystem for I/O operations.
+     * @param string $path User-specified path.
+     * @param bool $flag Required directory flag.
+     * @throws HttpException When specified path does not meet expected flag status.
+     * @version 0.1.3
+     * @since 0.1.3
+     */
+    public static function ensureDirectoryFlag(Disk $disk, Filesystem $filesystem, $path, $flag = true)
+    {
+        $info = $filesystem->getFileInfo($path);
+        if ($flag xor $info->isDir()) {
+            throw new HttpException(
+                400,
+                sprintf('"%s/%s" is' . ($flag ? ' not' : '') . ' a directory.', $disk, $path)
+            );
         }
     }
 

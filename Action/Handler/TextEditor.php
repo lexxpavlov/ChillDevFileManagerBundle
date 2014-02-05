@@ -14,15 +14,15 @@ namespace ChillDev\Bundle\FileManagerBundle\Action\Handler;
 
 use ChillDev\Bundle\FileManagerBundle\Filesystem\Disk;
 use ChillDev\Bundle\FileManagerBundle\Form\Type\EditorType;
+use ChillDev\Bundle\FileManagerBundle\Translation\FlashBag;
+use ChillDev\Bundle\FileManagerBundle\Utils\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Simple text editor.
@@ -54,22 +54,13 @@ class TextEditor implements HandlerInterface
     protected $router;
 
     /**
-     * Session.
+     * Flash messages container.
      *
-     * @var Session
+     * @var FlashBag
      * @version 0.1.3
      * @since 0.1.3
      */
-    protected $session;
-
-    /**
-     * Translator.
-     *
-     * @var TranslatorInterface
-     * @version 0.1.3
-     * @since 0.1.3
-     */
-    protected $translator;
+    protected $flashBag;
 
     /**
      * Form factory.
@@ -85,8 +76,7 @@ class TextEditor implements HandlerInterface
      *
      * @param EngineInterface $templating Templating engine.
      * @param UrlGeneratorInterface $router URLs generator.
-     * @param Session $session Current session.
-     * @param TranslatorInterface $translator Messages translator.
+     * @param FlashBag $flashBag Flash messages container.
      * @param FormFactory $formFactory Form factory.
      * @version 0.1.3
      * @since 0.1.3
@@ -94,14 +84,12 @@ class TextEditor implements HandlerInterface
     public function __construct(
         EngineInterface $templating,
         UrlGeneratorInterface $router,
-        Session $session,
-        TranslatorInterface $translator,
+        FlashBag $flashBag,
         FormFactory $formFactory
     ) {
         $this->templating = $templating;
         $this->router = $router;
-        $this->session = $session;
-        $this->translator = $translator;
+        $this->flashBag = $flashBag;
         $this->formFactory = $formFactory;
     }
 
@@ -142,14 +130,10 @@ class TextEditor implements HandlerInterface
     {
         // get file handle
         $filesystem = $disk->getFilesystem();
-        $info = $filesystem->getFileInfo($path);
 
-        if (!$info->isFile()) {
-            throw new HttpException(
-                400,
-                sprintf('"%s/%s" is not a regular file that can be edited.', $disk, $path)
-            );
-        }
+        Controller::ensureDirectoryFlag($disk, $filesystem, $path, false);
+
+        $info = $filesystem->getFileInfo($path);
 
         // initialize form with file content
         $file = $info->openFile();
@@ -172,9 +156,10 @@ class TextEditor implements HandlerInterface
             // write content
             $file->fwrite($data['content']);
 
-            $this->session->getFlashBag()->add(
+            $this->flashBag->add(
                 'done',
-                $this->translator->trans('File "%file%" saved.', ['%file%' => $disk . '/' . $path])
+                'File "%file%" saved.',
+                ['%file%' => $disk . '/' . $path]
             );
 
             // go back to directory

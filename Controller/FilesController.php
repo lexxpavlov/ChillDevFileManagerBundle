@@ -4,8 +4,8 @@
  * This file is part of the ChillDev FileManager bundle.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.1.2
+ * @copyright 2012 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.1.3
  * @since 0.0.2
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -25,7 +25,6 @@ use ChillDev\Bundle\FileManagerBundle\Utils\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -38,8 +37,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *
  * @Route("/files")
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.1.2
+ * @copyright 2012 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.1.3
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -59,7 +58,7 @@ class FilesController extends BaseController
      * @return StreamedResponse File download disposition.
      * @throws HttpException When requested path is invalid or is not a file.
      * @throws NotFoundHttpException When requested path does not exist.
-     * @version 0.0.3
+     * @version 0.1.3
      * @since 0.0.1
      */
     public function downloadAction(Request $request, Disk $disk, $path)
@@ -70,16 +69,10 @@ class FilesController extends BaseController
         $filesystem = $disk->getFilesystem();
 
         Controller::ensureExist($disk, $filesystem, $path);
+        Controller::ensureDirectoryFlag($disk, $filesystem, $path, false);
 
         // file information object
         $info = $filesystem->getFileInfo($path);
-
-        if (!$info->isFile()) {
-            throw new HttpException(
-                400,
-                \sprintf('"%s/%s" is not a regular file that can be downloaded.', $disk, $path)
-            );
-        }
 
         // set up cache information
         $time = $info->getMTime();
@@ -161,7 +154,7 @@ class FilesController extends BaseController
      * @return Response Result response.
      * @throws HttpException When requested path is invalid or is not a directory.
      * @throws NotFoundHttpException When requested path does not exist.
-     * @version 0.1.1
+     * @version 0.1.3
      * @since 0.0.1
      */
     public function mkdirAction(Request $request, Disk $disk, $path = '')
@@ -170,19 +163,9 @@ class FilesController extends BaseController
 
         // get filesystem from given disk
         $filesystem = $disk->getFilesystem();
-        $diskpath = $disk . '/' . $path;
 
         Controller::ensureExist($disk, $filesystem, $path);
-
-        // file information object
-        $info = $filesystem->getFileInfo($path);
-
-        if (!$info->isDir()) {
-            throw new HttpException(
-                400,
-                \sprintf('"%s" is not a directory, so a sub-directory can\'t be created within it.', $diskpath)
-            );
-        }
+        Controller::ensureDirectoryFlag($disk, $filesystem, $path);
 
         // initialize form
         $form = $this->createForm(new MkdirType($filesystem, $path), ['name' => null]);
@@ -227,7 +210,7 @@ class FilesController extends BaseController
      * @return Response Result response.
      * @throws HttpException When requested path is invalid or is not a directory.
      * @throws NotFoundHttpException When requested path does not exist.
-     * @version 0.1.1
+     * @version 0.1.3
      * @since 0.0.3
      */
     public function uploadAction(Request $request, Disk $disk, $path = '')
@@ -236,19 +219,9 @@ class FilesController extends BaseController
 
         // get filesystem from given disk
         $filesystem = $disk->getFilesystem();
-        $diskpath = $disk . '/' . $path;
 
         Controller::ensureExist($disk, $filesystem, $path);
-
-        // file information object
-        $info = $filesystem->getFileInfo($path);
-
-        if (!$info->isDir()) {
-            throw new HttpException(
-                400,
-                \sprintf('"%s" is not a directory, so a file can\'t be uploaded into it.', $diskpath)
-            );
-        }
+        Controller::ensureDirectoryFlag($disk, $filesystem, $path);
 
         // initialize form
         $form = $this->createForm(
@@ -357,7 +330,7 @@ class FilesController extends BaseController
      * @return Response Result response.
      * @throws HttpException When requested path is invalid.
      * @throws NotFoundHttpException When requested path does not exist.
-     * @version 0.1.2
+     * @version 0.1.3
      * @since 0.0.3
      */
     public function moveAction(Request $request, Disk $disk, $path, $destination = '')
@@ -371,13 +344,7 @@ class FilesController extends BaseController
         $diskdestination = $disk . '/' . $destination;
 
         Controller::ensureExist($disk, $filesystem, $path, $destination);
-
-        // file information object
-        $info = $filesystem->getFileInfo($destination);
-
-        if (!$info->isDir()) {
-            throw new HttpException(400, \sprintf('"%s/%s" is not a directory.', $disk, $destination));
-        }
+        Controller::ensureDirectoryFlag($disk, $filesystem, $destination);
 
         // only handle POST form submits
         if ($request->isMethod('POST')) {
@@ -421,7 +388,7 @@ class FilesController extends BaseController
      * @return Response Result response.
      * @throws HttpException When requested path is invalid.
      * @throws NotFoundHttpException When requested path does not exist.
-     * @version 0.1.2
+     * @version 0.1.3
      * @since 0.0.3
      */
     public function copyAction(Request $request, Disk $disk, $path, $destination = '')
@@ -435,13 +402,7 @@ class FilesController extends BaseController
         $diskdestination = $disk . '/' . $destination;
 
         Controller::ensureExist($disk, $filesystem, $path, $destination);
-
-        // file information object
-        $info = $filesystem->getFileInfo($destination);
-
-        if (!$info->isDir()) {
-            throw new HttpException(400, \sprintf('"%s/%s" is not a directory.', $disk, $destination));
-        }
+        Controller::ensureDirectoryFlag($disk, $filesystem, $destination);
 
         // only handle POST form submits
         if ($request->isMethod('POST')) {
@@ -466,23 +427,6 @@ class FilesController extends BaseController
             $request->query->get('order', 1),
             'chilldev_filemanager_files_copy',
             'Copying file %disk%/%path%'
-        );
-    }
-
-    /**
-     * Adds session flash message.
-     *
-     * @param string $type Message type.
-     * @param string $message Message template.
-     * @param array $params Message parameters.
-     * @version 0.1.1
-     * @since 0.1.1
-     */
-    protected function addFlashMessage($type, $message, array $params = [])
-    {
-        $this->get('session')->getFlashBag()->add(
-            $type,
-            $this->get('translator')->trans($message, $params)
         );
     }
 
@@ -516,17 +460,7 @@ class FilesController extends BaseController
      */
     protected function generateSuccessMessage(Disk $disk, $message, array $params = [])
     {
-        // log username if security is enabled
-        try {
-            $user = '"' . $this->getUser() . '"';
-        } catch (LogicException $error) {
-            $user = '~anonymous';
-        }
-
-        $this->get('logger')->info(
-            \vsprintf($message . ' by user %s.', \array_merge(\array_values($params), [$user])),
-            ['scope' => $disk->getSource()]
-        );
+        $this->logUserAction($disk, vsprintf($message, array_values($params)));
 
         // re-format pattern for named placeholders
         $message = \vsprintf($message . '.', \array_keys($params));

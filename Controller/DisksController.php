@@ -18,7 +18,7 @@ use ChillDev\Bundle\FileManagerBundle\Utils\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller as SymfonyBaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -33,7 +33,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
-class DisksController extends BaseController
+class DisksController extends SymfonyBaseController
 {
     /**
      * Disks listing page.
@@ -78,13 +78,10 @@ class DisksController extends BaseController
         $filesystem = $disk->getFilesystem();
 
         Controller::ensureExist($disk, $filesystem, $path);
+        Controller::ensureDirectoryFlag($disk, $filesystem, $path);
 
         // file information object
         $info = $filesystem->getFileInfo($path);
-
-        if (!$info->isDir()) {
-            throw new HttpException(400, \sprintf('"%s/%s" is not a directory.', $disk, $path));
-        }
 
         foreach ($filesystem->createDirectoryIterator($path) as $file => $info) {
             $data = [

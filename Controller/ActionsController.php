@@ -21,7 +21,6 @@ use ChillDev\Bundle\FileManagerBundle\Utils\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -63,17 +62,7 @@ class ActionsController extends BaseController
 
         Controller::ensureExist($disk, $filesystem, $path);
 
-        // log username if security is enabled
-        try {
-            $user = '"' . $this->getUser() . '"';
-        } catch (LogicException $error) {
-            $user = '~anonymous';
-        }
-
-        $this->get('logger')->info(
-            sprintf('Action "%s" is executed on file "%s" by user %s.', $action->getLabel(), $path, $user),
-            ['scope' => $disk->getSource()]
-        );
+        $this->logUserAction($disk, sprintf('Action "%s" is executed on file "%s"', $action->getLabel(), $path));
 
         return $action->handle($request, $disk, $path);
     }

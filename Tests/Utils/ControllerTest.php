@@ -4,22 +4,26 @@
  * This file is part of the ChillDev FileManager bundle.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.3
+ * @copyright 2013 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.1.3
  * @since 0.0.3
  * @package ChillDev\Bundle\FileManagerBundle
  */
 
 namespace ChillDev\Bundle\FileManagerBundle\Tests\Utils;
 
+use Exception;
+
 use ChillDev\Bundle\FileManagerBundle\Filesystem\Disk;
 use ChillDev\Bundle\FileManagerBundle\Tests\BaseManagerTest;
 use ChillDev\Bundle\FileManagerBundle\Utils\Controller;
 
+use org\bovigo\vfs\vfsStream;
+
 /**
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.0.3
+ * @copyright 2013 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.1.3
  * @since 0.0.3
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -57,6 +61,58 @@ class ControllerTest extends BaseManagerTest
     public function existChecking()
     {
         Controller::ensureExist($this->manager['id'], $this->manager['id']->getFilesystem(), 'foo');
+    }
+
+    /**
+     * @test
+     * @version 0.1.3
+     * @since 0.1.3
+     */
+    public function ensureDirectoryFlag()
+    {
+        vfsStream::create(['foo' => '', 'bar' => []]);
+
+        $disk = $this->manager['id'];
+        $filesystem = $disk->getFilesystem();
+
+        Controller::ensureDirectoryFlag($disk, $filesystem, 'bar');
+        Controller::ensureDirectoryFlag($disk, $filesystem, 'foo', false);
+
+        $this->assertTrue(true, 'Controller::ensureDirectoryFlag() should succeed for all correct states.');
+    }
+
+    /**
+     * @test
+     * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
+     * @expectedExceptionMessage "[Test]/bar" is a directory.
+     * @version 0.1.3
+     * @since 0.1.3
+     */
+    public function ensureDirectoryFlagFalseForDirectory()
+    {
+        vfsStream::create(['bar' => []]);
+
+        $disk = $this->manager['id'];
+        $filesystem = $disk->getFilesystem();
+
+        Controller::ensureDirectoryFlag($disk, $filesystem, 'bar', false);
+    }
+
+    /**
+     * @test
+     * @expectedException Symfony\Component\HttpKernel\Exception\HttpException
+     * @expectedExceptionMessage "[Test]/foo" is not a directory.
+     * @version 0.1.3
+     * @since 0.1.3
+     */
+    public function ensureDirectoryFlagTrueForNonDirectory()
+    {
+        vfsStream::create(['foo' => '']);
+
+        $disk = $this->manager['id'];
+        $filesystem = $disk->getFilesystem();
+
+        Controller::ensureDirectoryFlag($disk, $filesystem, 'foo');
     }
 
     /**
