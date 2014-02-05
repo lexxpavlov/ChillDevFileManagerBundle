@@ -35,6 +35,17 @@ use org\bovigo\vfs\vfsStream;
 class ActionsControllerTest extends BaseContainerTest
 {
     /**
+     * @version 0.1.3
+     * @since 0.1.3
+     */
+    protected function setUpContainer()
+    {
+        parent::setUpContainer();
+
+        $this->container->set('logger', $this->getMock('Symfony\\Bridge\\Monolog\\Logger', [], [], '', false));
+    }
+
+    /**
      * @test
      * @version 0.1.3
      * @since 0.1.3
@@ -60,7 +71,9 @@ class ActionsControllerTest extends BaseContainerTest
             )
             ->will($this->returnValue($toReturn));
 
-        $response = (new ActionsController())->handleAction(
+        $controller = new ActionsController();
+        $controller->setContainer($this->container);
+        $response = $controller->handleAction(
             $request,
             $action,
             $this->manager['id'],

@@ -12,6 +12,8 @@
 
 namespace ChillDev\Bundle\FileManagerBundle\Controller;
 
+use LogicException;
+
 use ChillDev\Bundle\FileManagerBundle\Action\Handler\HandlerInterface;
 use ChillDev\Bundle\FileManagerBundle\Filesystem\Disk;
 use ChillDev\Bundle\FileManagerBundle\Utils\Controller;
@@ -60,6 +62,18 @@ class ActionsController extends BaseController
         $filesystem = $disk->getFilesystem();
 
         Controller::ensureExist($disk, $filesystem, $path);
+
+        // log username if security is enabled
+        try {
+            $user = '"' . $this->getUser() . '"';
+        } catch (LogicException $error) {
+            $user = '~anonymous';
+        }
+
+        $this->get('logger')->info(
+            sprintf('Action "%s" is executed on file "%s" by user %s.', $action->getLabel(), $path, $user),
+            ['scope' => $disk->getSource()]
+        );
 
         return $action->handle($request, $disk, $path);
     }
