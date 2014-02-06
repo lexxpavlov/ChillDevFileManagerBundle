@@ -2,13 +2,24 @@
 # This file is part of the ChillDev FileManager bundle.
 #
 # @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
-# @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
-# @version 0.1.2
+# @copyright 2012 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+# @version 0.1.3
 # @since 0.0.1
 # @package ChillDev\Bundle\FileManagerBundle
 -->
 
 # ChangeLog
+
+## **0.1.3** (06.02.2014)
+
+-   Added Symfony 2.4 Travis build, updated dependencies &lt;Rafał Wrzeszcz&gt;.
+-   Migrated project to PSR4 autoloader &lt;Rafał Wrzeszcz&gt;.
+-   File MIME type detection and listing &lt;Rafał Wrzeszcz&gt;.
+-   [#20] Custom action handlers &lt;Rafał Wrzeszcz&gt;.
+-   [fixes #20] Documentation for pluggable file actions handlers &lt;Rafał Wrzeszcz&gt;.
+-   [fixes #22] Simple text editor action handler &lt;Rafał Wrzeszcz&gt;.
+-   Code refactoring to avoid some code duplication &lt;Rafał Wrzeszcz&gt;.
+-   Simple image viewer &lt;Rafał Wrzeszcz&gt;.
 
 ## **0.1.2** (25.08.2013)
 
