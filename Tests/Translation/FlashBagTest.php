@@ -46,7 +46,6 @@ class FlashBagTest extends PHPUnit_Framework_TestCase
         // test mocks
         $flashBag = new FlashContainer();
         $translator = new Translator('pl_PL', new MessageSelector());
-        $translator->setFallbackLocales(['pl']);
         $translator->addLoader('array', new ArrayLoader());
         $translator->addResource('array', [$source => $translation], 'pl');
 
