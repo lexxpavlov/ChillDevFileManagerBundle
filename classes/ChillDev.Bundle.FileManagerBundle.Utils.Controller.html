@@ -34,7 +34,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">23</span></a></li>
+                <span class="label label-info">26</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
@@ -58,6 +58,7 @@
 <ul class="side-nav nav nav-list"><li class="nav-header">
 <i class="icon-custom icon-method"></i> Methods
                     <ul>
+<li class="method public "><a href="#method_ensureDirectoryFlag" title="ensureDirectoryFlag :: Ensures that given path is (or is not) a directory."><span class="description">Ensures that given path is (or is not) a directory.</span><pre>ensureDirectoryFlag()</pre></a></li>
 <li class="method public "><a href="#method_ensureExist" title="ensureExist :: Ensure all specified paths exist."><span class="description">Ensure all specified paths exist.</span><pre>ensureExist()</pre></a></li>
 <li class="method public "><a href="#method_getSorter" title="getSorter :: Return sorting callback for sorting list of associative arrays."><span class="description">Return sorting callback for sorting list of associative arrays.</span><pre>getSorter()</pre></a></li>
 <li class="method public "><a href="#method_resolvePath" title="resolvePath :: Resolve path and sanitizes it."><span class="description">Resolve path and sanitizes it.</span><pre>resolvePath()</pre></a></li>
@@ -94,11 +95,11 @@
 </tr>
 <tr>
 <th>copyright</th>
-<td>2013 © by Rafał Wrzeszcz - Wrzasq.pl.</td>
+<td>2013 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.</td>
 </tr>
 <tr>
 <th>version</th>
-<td>0.0.3</td>
+<td>0.1.3</td>
 </tr>
 <tr>
 <th>since</th>
@@ -111,6 +112,44 @@
 </table>
 <h3>
 <i class="icon-custom icon-method"></i> Methods</h3>
+<a id="method_ensureDirectoryFlag"></a><div class="element clickable method public method_ensureDirectoryFlag" data-toggle="collapse" data-target=".method_ensureDirectoryFlag .collapse">
+<h2>Ensures that given path is (or is not) a directory.</h2>
+<pre>ensureDirectoryFlag(\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk $disk, \ChillDev\Bundle\FileManagerBundle\Filesystem\Filesystem $filesystem, string $path, bool $flag) </pre>
+<div class="labels"><span class="label">Static</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>version</th>
+<td>0.1.3</td>
+</tr>
+<tr>
+<th>since</th>
+<td>0.1.3</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$disk</h4>
+<code><a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.Disk.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk</a></code><p>Disk reference.</p></div>
+<div class="subelement argument">
+<h4>$filesystem</h4>
+<code><a href="../classes/ChillDev.Bundle.FileManagerBundle.Filesystem.Filesystem.html">\ChillDev\Bundle\FileManagerBundle\Filesystem\Filesystem</a></code><p>Filesystem for I/O operations.</p>
+</div>
+<div class="subelement argument">
+<h4>$path</h4>
+<code>string</code><p>User-specified path.</p>
+</div>
+<div class="subelement argument">
+<h4>$flag</h4>
+<code>bool</code><p>Required directory flag.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code>\Symfony\Component\HttpKernel\Exception\HttpException</code></th>
+<td>When specified path does not meet expected flag status.</td>
+</tr></table>
+</div></div>
+</div>
 <a id="method_ensureExist"></a><div class="element clickable method public method_ensureExist" data-toggle="collapse" data-target=".method_ensureExist .collapse">
 <h2>Ensure all specified paths exist.</h2>
 <pre>ensureExist(\ChillDev\Bundle\FileManagerBundle\Filesystem\Disk $disk, \ChillDev\Bundle\FileManagerBundle\Filesystem\Filesystem $filesystem, $file) </pre>
@@ -209,7 +248,7 @@
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
-            generated on 2013-08-26T01:33:12+02:00.<br></footer></div>
+            generated on 2014-02-06T12:13:00+01:00.<br></footer></div>
 </div>
 </body>
 </html>
