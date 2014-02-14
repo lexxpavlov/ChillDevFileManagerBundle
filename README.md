@@ -3,7 +3,7 @@
 #
 # @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
 # @copyright 2012 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
-# @version 0.1.3
+# @version 0.1.4
 # @since 0.0.1
 # @package ChillDev\Bundle\FileManagerBundle
 -->
@@ -14,8 +14,8 @@
 
 [![Build Status](https://travis-ci.org/chilloutdevelopment/ChillDevFileManagerBundle.png)](https://travis-ci.org/chilloutdevelopment/ChillDevFileManagerBundle)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/chilloutdevelopment/ChillDevFileManagerBundle/badges/quality-score.png?s=87dd1a10b9e28fe445d9695ef8c9ca6444fe3458)](https://scrutinizer-ci.com/g/chilloutdevelopment/ChillDevFileManagerBundle/)
-[![Coverage Status](https://coveralls.io/repos/chilloutdevelopment/ChillDevFileManagerBundle/badge.png?branch=develop)](https://coveralls.io/r/chilloutdevelopment/ChillDevFileManagerBundle?branch=develop)
-[![Dependency Status](http://www.versioneye.com/user/projects/51d4906b0bad120002005386/badge.png)](http://www.versioneye.com/user/projects/51d4906b0bad120002005386)
+[![Coverage Status](https://coveralls.io/repos/chilloutdevelopment/ChillDevFileManagerBundle/badge.png?branch=develop)](https://coveralls.io/r/chilloutdevelopment/ChillDevFileManagerBundle)
+[![Dependency Status](https://www.versioneye.com/php/chilldev:file-manager-bundle/badge.png)](https://www.versioneye.com/php/chilldev:file-manager-bundle)
 
 # Installation
 
@@ -124,7 +124,7 @@ As a bonus, you can integrate **ChillDevFileManagerBundle** with [**SonataAdminB
 
 Do you want to help improving this project? Simply *fork* it and post a pull request. You can do everything on your own, you don't need to ask if you can, just do all the awesome things you want!
 
-This project is published under [MIT license](https://github.com/chilloutdevelopment/ChillDevFileManagerBundle/LICENSE).
+This project is published under [MIT license](https://github.com/chilloutdevelopment/ChillDevFileManagerBundle/tree/master/LICENSE).
 
 # Authors
 

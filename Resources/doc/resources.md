@@ -2,8 +2,8 @@
 # This file is part of the ChillDev FileManager bundle.
 #
 # @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
-# @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
-# @version 0.1.2
+# @copyright 2012 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+# @version 0.1.4
 # @since 0.0.1
 # @package ChillDev\Bundle\FileManagerBundle
 -->
@@ -23,4 +23,4 @@
 -   [Travis CI](https://travis-ci.org/chilloutdevelopment/ChillDevFileManagerBundle)
 -   [Scrutinizer CI](https://scrutinizer-ci.com/g/chilloutdevelopment/ChillDevFileManagerBundle/)
 -   [Coverage tracking](https://coveralls.io/r/chilloutdevelopment/ChillDevFileManagerBundle)
--   [Dependencies tracking](http://www.versioneye.com/user/projects/51d4906b0bad120002005386)
+-   [Dependencies tracking](https://www.versioneye.com/php/chilldev:file-manager-bundle)

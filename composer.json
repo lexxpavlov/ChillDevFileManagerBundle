@@ -52,10 +52,10 @@
         "chilldev/proxy-templating-bundle": "0.0.3"
     },
     "require-dev": {
-        "phpunit/phpunit": "3.7.28",
+        "phpunit/phpunit": "3.7.31",
         "phpmd/phpmd" : "1.5.0",
         "sebastian/phpcpd": "2.0.0",
-        "squizlabs/php_codesniffer": "1.4.7",
+        "squizlabs/php_codesniffer": "1.5.2",
         "satooshi/php-coveralls": "0.6.1",
         "mikey179/vfsStream": "1.2.0",
         "sonata-project/block-bundle": ">=2.2.1",
