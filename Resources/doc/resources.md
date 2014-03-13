@@ -24,3 +24,4 @@
 -   [Scrutinizer CI](https://scrutinizer-ci.com/g/chilloutdevelopment/ChillDevFileManagerBundle/)
 -   [Coverage tracking](https://coveralls.io/r/chilloutdevelopment/ChillDevFileManagerBundle)
 -   [Dependencies tracking](https://www.versioneye.com/php/chilldev:file-manager-bundle)
+-   [SensioLabs Insight](https://insight.sensiolabs.com/projects/25d48a5e-3640-44ba-b1ff-ee46c25d3b0e)

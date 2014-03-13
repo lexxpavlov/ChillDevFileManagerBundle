@@ -5,20 +5,17 @@
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.1.3
+ * @version 0.1.4
  * @since 0.1.3
  * @package ChillDev\Bundle\FileManagerBundle
  */
 
 namespace ChillDev\Bundle\FileManagerBundle\Controller;
 
-use LogicException;
-
 use ChillDev\Bundle\FileManagerBundle\Action\Handler\HandlerInterface;
 use ChillDev\Bundle\FileManagerBundle\Filesystem\Disk;
 use ChillDev\Bundle\FileManagerBundle\Utils\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 use Symfony\Component\HttpFoundation\Request;

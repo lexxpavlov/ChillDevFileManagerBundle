@@ -2,8 +2,8 @@
 # This file is part of the ChillDev FileManager bundle.
 #
 # @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
-# @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
-# @version 0.1.2
+# @copyright 2012 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+# @version 0.1.4
 # @since 0.0.1
 # @package ChillDev\Bundle\FileManagerBundle
 ##
@@ -59,7 +59,7 @@ coveralls:
 # documentation generation
 documentation:
 	$(PHPDOC) -t Resources/doc/gh-pages -d . -i "Tests/*" -i "vendor/*" -i "Resources/*" --title "ChillDev FileManager Bundle - by Chillout Development" --sourcecode --parseprivate
-	#FIXME: this is temporary, until phpDocumentor2 will provide some convenient way for generating text pages and templates customization
+	# this is temporary, until phpDocumentor2 will provide some convenient way for generating text pages and templates customization
 	find Resources/doc/gh-pages -name "*.html" -exec sed "s|<body>|<body>\\n<div id=\"ribbon\"><a href=\"https://github.com/chilloutdevelopment/ChillDevFileManagerBundle\" rel=\"me\">Fork me on GitHub</a></div>|g" {} -i \;
 	echo "\
 /* after http://unindented.org/articles/2009/10/github-ribbon-using-css-transforms/ */\

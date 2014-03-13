@@ -16,6 +16,7 @@
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/chilloutdevelopment/ChillDevFileManagerBundle/badges/quality-score.png?s=87dd1a10b9e28fe445d9695ef8c9ca6444fe3458)](https://scrutinizer-ci.com/g/chilloutdevelopment/ChillDevFileManagerBundle/)
 [![Coverage Status](https://coveralls.io/repos/chilloutdevelopment/ChillDevFileManagerBundle/badge.png?branch=develop)](https://coveralls.io/r/chilloutdevelopment/ChillDevFileManagerBundle)
 [![Dependency Status](https://www.versioneye.com/php/chilldev:file-manager-bundle/badge.png)](https://www.versioneye.com/php/chilldev:file-manager-bundle)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/25d48a5e-3640-44ba-b1ff-ee46c25d3b0e/mini.png)](https://insight.sensiolabs.com/projects/25d48a5e-3640-44ba-b1ff-ee46c25d3b0e)
 
 # Installation
 

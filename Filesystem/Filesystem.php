@@ -5,7 +5,7 @@
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2013 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.1.3
+ * @version 0.1.4
  * @since 0.0.2
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -13,7 +13,6 @@
 namespace ChillDev\Bundle\FileManagerBundle\Filesystem;
 
 use FilesystemIterator;
-use SplFileInfo;
 
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem as FsUtils;
