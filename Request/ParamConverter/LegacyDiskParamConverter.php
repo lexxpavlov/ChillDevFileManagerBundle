@@ -4,9 +4,9 @@
  * This file is part of the ChillDev FileManager bundle.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @copyright 2012, 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
  * @version 0.1.4
- * @since 0.1.4
+ * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
 
@@ -14,29 +14,29 @@ namespace ChillDev\Bundle\FileManagerBundle\Request\ParamConverter;
 
 use ChillDev\Bundle\FileManagerBundle\Filesystem\Manager;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Disk parameter converter.
+ * Disk parameter converter for old, 2.x SensioFrameworkExtraBundle.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @copyright 2012, 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
  * @version 0.1.4
- * @since 0.1.4
+ * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
-class DiskParamConverter implements ParamConverterInterface
+class LegacyDiskParamConverter implements ParamConverterInterface
 {
     /**
      * Disks manager.
      *
      * @var Manager
-     * @version 0.1.4
-     * @since 0.1.4
+     * @version 0.0.1
+     * @since 0.0.1
      */
     protected $manager;
 
@@ -44,8 +44,8 @@ class DiskParamConverter implements ParamConverterInterface
      * Initializes param converter.
      *
      * @param Manager $manager Disks manager.
-     * @version 0.1.4
-     * @since 0.1.4
+     * @version 0.0.1
+     * @since 0.0.1
      */
     public function __construct(Manager $manager)
     {
@@ -56,12 +56,12 @@ class DiskParamConverter implements ParamConverterInterface
      * Performs disk lookup.
      *
      * @param Request $request Current request.
-     * @param ParamConverter $configuration Conversion configuration.
+     * @param ConfigurationInterface $configuration Conversion configuration.
      * @return bool Whether conversion took place.
-     * @version 0.1.4
-     * @since 0.1.4
+     * @version 0.0.1
+     * @since 0.0.1
      */
-    public function apply(Request $request, ParamConverter $configuration)
+    public function apply(Request $request, ConfigurationInterface $configuration)
     {
         $name = $configuration->getName();
         $options = $configuration->getOptions();
@@ -82,12 +82,12 @@ class DiskParamConverter implements ParamConverterInterface
     /**
      * Checks if this converter can handle given conversion.
      *
-     * @param ParamConverter $configuration Conversion configuration.
+     * @param ConfigurationInterface $configuration Conversion configuration.
      * @return bool Whether given conversion can be handled or not.
-     * @version 0.1.4
-     * @since 0.1.4
+     * @version 0.0.1
+     * @since 0.0.1
      */
-    public function supports(ParamConverter $configuration)
+    public function supports(ConfigurationInterface $configuration)
     {
         return 'ChillDev\\Bundle\\FileManagerBundle\\Filesystem\\Disk' === $configuration->getClass();
     }

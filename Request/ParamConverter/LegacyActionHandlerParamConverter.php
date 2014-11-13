@@ -6,7 +6,7 @@
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
  * @version 0.1.4
- * @since 0.1.4
+ * @since 0.1.3
  * @package ChillDev\Bundle\FileManagerBundle
  */
 
@@ -14,29 +14,29 @@ namespace ChillDev\Bundle\FileManagerBundle\Request\ParamConverter;
 
 use ChillDev\Bundle\FileManagerBundle\Action\ActionsManager;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Action handler parameter converter.
+ * Action handler parameter converter for old, 2.x SensioFrameworkExtraBundle.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  * @copyright 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
  * @version 0.1.4
- * @since 0.1.4
+ * @since 0.1.3
  * @package ChillDev\Bundle\FileManagerBundle
  */
-class ActionHandlerParamConverter implements ParamConverterInterface
+class LegacyActionHandlerParamConverter implements ParamConverterInterface
 {
     /**
      * Actions handlers manager.
      *
      * @var ActionsManager
-     * @version 0.1.4
-     * @since 0.1.4
+     * @version 0.1.3
+     * @since 0.1.3
      */
     protected $manager;
 
@@ -44,8 +44,8 @@ class ActionHandlerParamConverter implements ParamConverterInterface
      * Initializes param converter.
      *
      * @param ActionsManager $manager Actions manager.
-     * @version 0.1.4
-     * @since 0.1.4
+     * @version 0.1.3
+     * @since 0.1.3
      */
     public function __construct(ActionsManager $manager)
     {
@@ -56,12 +56,12 @@ class ActionHandlerParamConverter implements ParamConverterInterface
      * Performs action lookup.
      *
      * @param Request $request Current request.
-     * @param ParamConverter $configuration Conversion configuration.
+     * @param ConfigurationInterface $configuration Conversion configuration.
      * @return bool Whether conversion took place.
-     * @version 0.1.4
-     * @since 0.1.4
+     * @version 0.1.3
+     * @since 0.1.3
      */
-    public function apply(Request $request, ParamConverter $configuration)
+    public function apply(Request $request, ConfigurationInterface $configuration)
     {
         $name = $configuration->getName();
         $options = $configuration->getOptions();
@@ -84,12 +84,12 @@ class ActionHandlerParamConverter implements ParamConverterInterface
     /**
      * Checks if this converter can handle given conversion.
      *
-     * @param ParamConverter $configuration Conversion configuration.
+     * @param ConfigurationInterface $configuration Conversion configuration.
      * @return bool Whether given conversion can be handled or not.
-     * @version 0.1.4
-     * @since 0.1.4
+     * @version 0.1.3
+     * @since 0.1.3
      */
-    public function supports(ParamConverter $configuration)
+    public function supports(ConfigurationInterface $configuration)
     {
         return 'ChillDev\\Bundle\\FileManagerBundle\\Action\\Handler\\HandlerInterface' === $configuration->getClass();
     }

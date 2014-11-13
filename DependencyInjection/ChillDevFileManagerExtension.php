@@ -4,8 +4,8 @@
  * This file is part of the ChillDev FileManager bundle.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.1.2
+ * @copyright 2012 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.1.4
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -21,8 +21,8 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  * ChillDev FileManager extensions.
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright 2012 - 2013 © by Rafał Wrzeszcz - Wrzasq.pl.
- * @version 0.1.2
+ * @copyright 2012 - 2014 © by Rafał Wrzeszcz - Wrzasq.pl.
+ * @version 0.1.4
  * @since 0.0.1
  * @package ChillDev\Bundle\FileManagerBundle
  */
@@ -30,7 +30,7 @@ class ChillDevFileManagerExtension extends Extension
 {
     /**
      * {@inheritDoc}
-     * @version 0.1.2
+     * @version 0.1.4
      * @since 0.0.1
      */
     public function load(array $configs, ContainerBuilder $container)
@@ -45,6 +45,21 @@ class ChillDevFileManagerExtension extends Extension
 
         if ($config['sonata_block']) {
             $loader->load('block.xml');
+        }
+
+        // SensioFrameworkExtraBundle pre-3.0
+        if (
+            !class_exists('Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter')
+            && class_exists('Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ConfigurationInterface')
+        ) {
+            $container->setParameter(
+                'chilldev.filemanager.param_converter.disk.class',
+                'ChillDev\\Bundle\\FileManagerBundle\\Request\\ParamConverter\\LegacyDiskParamConverter'
+            );
+            $container->setParameter(
+                'chilldev.filemanager.param_converter.action_handler.class',
+                'ChillDev\\Bundle\\FileManagerBundle\\Request\\ParamConverter\\LegacyActionHandlerParamConverter'
+            );
         }
 
         // disks definitions
