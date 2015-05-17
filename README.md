@@ -28,7 +28,7 @@ This bundle is provided as [Composer package](https://packagist.org/packages/chi
 
 Replace `dev-master` with different constraint if you want to use specific version.
 
-If you are using modern version of Symfony2, use `dev-develop` version instead of `dev-master`. (But this version don't tested properly yet)
+If you are using modern version of Symfony2, use `dev-develop` version instead of `dev-master`. (But this version isn't tested properly yet)
 
 **Note:** This bundle requires **PHP 5.4**.
 
